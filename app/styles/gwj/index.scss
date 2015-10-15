@@ -1,0 +1,28 @@
+ @charset "UTF-8";
+/**
+ * 购物节 首页
+ * @Author river
+ * @email lijiang@ymatou.com
+ * @Date 2015/10/12
+ */
+
+ @import "../_components/variables.scss";
+ @import "../_components/_mixin.scss";
+ @import "../_components/reset.scss";
+
+$rem:1rem/32;
+
+//转盘
+.turntable{
+  &-wrapper{
+    background:#fffce0;
+    padding:$rem*15 $rem*30;
+  }
+  &-body{
+    background:#fff;
+    padding:$rem*20;
+    overflow:hidden;
+    margin-right:$rem*-8;
+  }
+}
+

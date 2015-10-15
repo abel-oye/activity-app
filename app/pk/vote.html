@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <title>pk</title>
+    <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticontent.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
+    <script data-js-path="redraw.js">
+     !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(320,16);
+    </script>
+    <link rel="stylesheet" type="text/css" href="/styles/pk/vote.css">
+  </head>
+  <body>
+    <script id="summary" type="text/template">
+      <div class="vote-briefing">
+          <div class="briefing-item">
+              胜
+              <div class="num">{{= WinTotal }}</div>
+          </div>
+          <div  class="briefing-item">
+              负
+              <div class="num">{{= FailTotal }}</div>
+          </div>
+          <div  class="briefing-item J-open" data-url="/pk/vote_list.html" onclick=";">
+            积分 ( 已连胜<strong>{{= StraightTotal }}</strong>次 )
+            <div class="num">
+              {{= PointTotal }}
+            </div>
+            <i>></i>
+          </div>
+      </div>
+    </script>
+    <script id="spoils" type="text/template">
+      <ul class="pk-spoils-list">
+         {{ for(var i=0,data = PointExchangeList,len=data.length;i<len;i++){ }}
+            <li class="spoils-item J-open-exchange" onclick=";" data-index="{{= i }}">
+             <div class="pk-spoils-flag  {{= data[i].AwardStatus==1?'end':data[i].AwardStatus==2?'can':''}} ">
+                {{ if(!data[i].IsRealProduct){  }}
+               <strong>{{= data[i].CouponValue}}</strong>元
+                {{ }else{ }}
+                  <img src="{{= data[i].AwardSmallImage }}" alt="">
+                {{ } }}
+             </div>
+             <div class="text">
+               {{= data[i].StatusDes }}
+             </div>
+           </li>
+           {{ if((i+1)%4 == 0 ){ }}
+               </ul><ul class="pk-spoils-list">
+           {{ } }}
+         {{ } }}
+      </ul>
+    </script>
+    <script id="gains" type="text/template">
+       <ul class="pk-gains-list">
+          {{ for(var i =0,data = PastPKGameRecordList,len=data.length;i<len;i++){ }}
+            <li class="pk-gains-item J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}" onclick=";">
+              <div class="pk-spoils-flag {{= data[i].HasWin==null?'census':data[i].HasWin?'nice':'fial'}}">{{= data[i].HasWin==null?'统计中':data[i].HasWin?'猜中':'猜错'}}</div>
+              <div class="group">
+                 <img class="pro-pic" src="{{= data[i].RedProductImage }}" alt="商品图片">
+                 <img class="pro-pic"  src="{{= data[i].BlueProductImage }}" alt="商品图片">
+                 <img class="pk-flag" src="/images/pk.png" alt="pk">
+              </div>
+              <div class="text-area">
+                <span class="text">{{= data[i].RedProductName+' vs '+data[i].BlueProductSubTitle }}</span>
+              </div>
+              <i class="back">></i>
+            </li>
+          {{ } }}
+        </ul>
+    </script>
+    <script id="vote-exchange-tpl" type="text/template">
+      {{ if(!IsRealProduct){ }}
+        <div class="content">
+            <span class="num"><strong class="">{{=CouponValue}}</strong>元</span>
+            <span class="txt">优惠券</span>
+        </div>
+        <div class="text">
+          <div>
+            获得时间 2015.09.09
+          </div>
+          <div>
+            获得时间 <strong>2015.09.09 - 2015.09.09</strong>
+          </div>
+          <p>兑换后优惠券可在个人中心-我的钱包中查看哦~</p>
+        </div>
+        <div class="dialog-btn" data-CouponNumber="{{=CouponNumber}}">
+            使用200积分,立即兑换
+        </div>
+      {{ }else{ }}
+        <div class="content">
+            <img src="{{=AwardImage}}" alt="">
+        </div>
+        <div class="text">
+          <div>
+            获得时间 2015.09.09
+          </div>
+          <div>
+            获得时间 <strong>2015.09.09 - 2015.09.09</strong>
+          </div>
+        </div>
+        <div class="dialog-btn">
+            使用200积分,立即兑换
+        </div>
+      {{ } }}
+    </script>
+    <section class="pk-vote">
+        <summary></summary>
+        <div class="pk-tab">
+        <!-- is-switch-state -->
+          <div class="pk-tab-header">
+            <div class="tab-header-line"></div>
+            <div class="tab-header-item open">
+              战利品(积分兑换)
+            </div>
+            <div class="tab-header-item">
+                历史战绩
+            </div>
+          </div>
+          <div class="pk-tab-body">
+            <div class="tab-body-item pk-vote-spoils open">
+              <h4>获得的奖励已放入您的钱包 ( 个人中心 - 我的钱包 )</h4>
+              <spoils></spoils>
+              <div class="more-spolis">
+                更多奖品不断更新中哦~
+              </div>
+            </div>
+            <div class="tab-body-item ">
+              <gains></gains>
+            </div>
+          </div>
+        </div>
+        <!--open-->
+       <div class="vote-mask" id="vote-exchange">
+          <div class="vote-dialog">
+            <div class="vote-dialog-header close-btn J-close-exchange" onclick=";"></div>
+            <div class="vote-dialog-body">
+              <div class="vote-coupon-dialog">
+
+              </div>
+            </div>
+            <div class="vote-dialog-footer"></div>
+          </div>
+        </div>
+    </section>
+    <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+    <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015092301.js?wxAutoInit=1"></script>
+    <script src="/scripts/pk/vote.js"></script>
+  </body>
+</html>

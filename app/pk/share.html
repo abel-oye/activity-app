@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <title>pk</title>
+    <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticontent.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
+    <script data-js-path="redraw.js">
+      !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(320,16);
+    </script>
+    <link rel="stylesheet" type="text/css" href="/styles/pk/index.css">
+  </head>
+  <body>
+    <script id="pkInfo" type="text/template">
+      <div class="pk-vie-info">
+          <div class="pk-vie-pic">
+            <img src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
+          </div>
+          <div class="pk-vie-text">
+            <h3>我<strong>2</strong>连胜，获得了1232积分</h3>
+            <p>我支持 韩国韩国韩国韩国韩国</p>
+            <p>帮我一起来投票吧</p>
+          </div>
+        </div>
+      <div class="pk-info-wrapper">
+        <img class="pk-flag"  src="/images/pk.png" alt="">
+        <div class="pk-left-wrapper">
+          <div class="pk-pro-wrapper">
+            <div class="pk-pro-title">
+              <h3>{{= RedProductName }}</h3>
+              <span class="sub-title">{{= RedProductSubTitle }}</span>
+            </div>
+            <div class="pk-pro-sling">
+              <span class="pk-sling"></span>
+              <span class="pk-sling"></span>
+            </div>
+            <div class="pk-pro-body win">
+              <img src="{{=RedProductImage}}" alt="">
+              <div class="pk-pro-info">
+                <span class="country"><img src="{{= RedCountryIcon }}" alt="">{{= RedCountry }}</span>
+                <span class="price">&yen;{{=RedProductPrice}}</span>
+              </div>
+
+            </div>
+          </div>
+          <div class="pk-recommend-reason">
+            <div class="pk-vote-show">
+             <div class="pk-sling-wrapper">
+               <span class="pk-sling"></span>
+             </div><div class="pk-sling-wrapper">
+               <span class="pk-sling"></span>
+             </div>
+            </div>
+            <div class="pk-recommend-info">
+              <div class="title">
+                <img src="{{= RedHeadImage }}" alt="">
+              </div>
+              <div class="pk-recommend-desc">{{=RedProductRecommend}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="pk-right-wrapper">
+          <div class="pk-pro-wrapper">
+            <div class="pk-pro-title">
+              <h3>{{=BlueProductName}}</h3>
+              <span class="sub-title">{{=BlueProductSubTitle}}</span>
+            </div>
+            <div class="pk-pro-sling">
+              <span class="pk-sling"></span>
+              <span class="pk-sling"></span>
+            </div>
+            <div class="pk-pro-body">
+              <img src="{{=BlueProductImage}}" alt="">
+              <div class="pk-pro-info">
+                <span class="country"><img src="{{=BlueCountryIcon}}" alt="">{{=BlueCountry}}</span>
+                <span class="price">&yen;{{=BlueProductPrice}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="pk-recommend-reason">
+            <div class="pk-vote-show">
+              <div class="pk-sling-wrapper">
+                <span class="pk-sling"></span>
+              </div><div class="pk-sling-wrapper">
+                <span class="pk-sling"></span>
+              </div>
+            </div>
+            <div class="pk-recommend-info">
+              <div class="title">
+                <img src="{{= BlueHeadImage }}" alt="">
+              </div>
+              <div class="pk-recommend-desc">{{=BlueProductRecommend}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <section class="pk-container">
+      <div class="pk-wrapper">
+        <!--pk信息-->
+        <pkInfo></pkInfo>
+      </div>
+      <div class="pk-flow">
+          <div class="pk-flow-text">
+            <h3>投票胜利就有奖，连赢可得XXX</h3>
+            <p>如何参加PK?</p>
+          </div>
+          <div class="pk-flow-pics">
+            <div class="pk-flow-item">
+              <div>
+                <img src="" alt="">
+                首页点击活动<br/>进入擂台活动
+              </div>
+            </div>
+            <div class="pk-flow-item">
+              <div>
+                <img src="" alt="">
+                选择喜欢的<br>投出宝贵一票
+              </div>
+            </div>
+             <div class="pk-flow-item">
+              <div>
+                <img src="" alt="">
+                点击我的战绩<br>查看我的奖励
+              </div>
+            </div>
+          </div>
+      </div>
+      <a class="pk-download" href="">
+        <img src="/images/download.png" alt="">
+      </a>
+    </section>
+
+    <div class="pk-back-top" onclick=";"></div>
+    <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+    <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015092301.js?wxAutoInit=1"></script>
+    <script src="/scripts/pk/share.js"></script>
+  </body>
+</html>
+

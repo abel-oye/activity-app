@@ -1,0 +1,357 @@
+ @charset "UTF-8";
+/**
+ * pk 投票记录
+ * @Author river
+ * @email lijiang@ymatou.com
+ * @Date 2015/10/13
+ */
+
+ @import "../_components/variables.scss";
+ @import "../_components/_mixin.scss";
+ @import "../_components/reset.scss";
+
+$rem:1rem/32;
+
+.pk-vote{
+
+}
+//简报
+.vote-briefing{
+  padding:$rem*40;
+  overflow:hidden;
+  .briefing-item{
+    color:#434343;
+    float:left;
+    font-size:$rem*30;
+    text-align:center;
+    width:25%;
+    position:relative;
+    strong{
+      color:#fe0000;
+    }
+    .num{
+      font-size:$rem*48;
+    }
+    i{
+      position:absolute;
+      transform: translate(0,-50%);
+      right:0;
+      top:50%;
+    }
+    &:last-child{
+      width:50%;
+    }
+  }
+}
+//tab
+.pk-tab{
+  background:#fff;
+  &-header{
+    border:$rem*2 solid #cecece;
+    height: $rem*93;
+    position:relative;
+    &.is-switch-state{
+      .tab-header-line{
+        left:50%;
+        background:#2e95ff;
+      }
+    }
+    .tab-header-item{
+      width:50%;
+      font-size:$rem*22;
+      float:left;
+      color:#434343;
+      text-align:center;
+      padding:$rem*30 0;
+      transition: color 0.25s ease-in-out;
+      &.open{
+        color:#ff4b7a;
+        &:last-child{
+          color:#2e95ff;
+        }
+      }
+    }
+    .tab-header-line{
+      background:#ff4b7a;
+      width:50%;
+      height:$rem*2;
+      position: absolute;
+      bottom: $rem*-2;
+      left:0;
+      transition: left 0.25s ease-in-out;
+
+    }
+  }
+}
+//奖品
+.pk-vote-spoils{
+  padding:$rem*40;
+  font-size:$rem*22;
+  color:#434343;
+  .more-spolis{
+    margin:$rem*90 0;
+    color:#b5b5b5;
+    text-align:center;
+  }
+}
+//奖品列表
+.pk-spoils-list{
+  overflow:hidden;
+  border-bottom:$rem solid #e1e1e1;
+  text-align:center;
+  .spoils-item{
+    float:left;
+    padding:$rem*40 0;
+    width:25%;
+    &>.text{
+      font-size:$rem*18;
+      margin-top:$rem*23;
+    }
+  }
+}
+.pk-spoils-flag{
+  &.can{
+    background-color:#ff4b7a;
+  }
+  &.end{
+    background-color:#fff;
+  }
+  text-align: center;
+  color:#000;
+  margin: 0 auto;
+  width:$rem*105;
+  height:$rem*103;
+  line-height:$rem*103;
+  font-size:$rem*22;
+  background:#afafaf url(/images/spoils.png);
+  border-radius: 50%;
+  background-size: contain;
+  &>strong{
+    font-size:$rem*44;
+  }
+  img{
+    width:$rem*94;
+    height:$rem*92;
+    border-radius:50%;
+    margin-top: $rem*4;
+    margin-left: $rem*-4;
+  }
+}
+
+.tab-body-item{
+  display:none;
+  &.open{
+    display:block;
+  }
+}
+//战绩
+.pk-gains-list{
+  padding:0 $rem*20;
+}
+.pk-gains-item{
+//  overflow:hidden;
+  position:relative;
+  //height:$rem*170;
+  padding:$rem*40 0;
+  border-bottom:$rem solid #e1e1e1;
+  .pics{
+    display:inline-block;
+  }
+  .text-area{
+    padding-right:$rem*40;
+    padding-left:$rem*140;
+    word-break: break-all;
+    color:#666;
+    font-size:$rem*28;
+    height:$rem*90;
+    .text{
+      display: block;
+        overflow: hidden;
+        height: 100%;
+    }
+  }
+  .group{
+    float:left;
+    position:relative;
+    margin-right:$rem*10;
+    .pro-pic{
+      width:$rem*89;
+      height:$rem*89;
+      //border:$rem solid #000;
+      border-radius:$rem*8;
+    }
+    .pk-flag{
+      position:absolute;
+      width:$rem*61;
+      height:$rem*61;
+      left:50%;
+      top:50%;
+      transform: translate(-50%,-50%);
+    }
+  }
+  .pics{
+    display: block;
+    white-space: nowrap;
+
+  }
+  .back{
+    position: absolute;
+    right:0;
+    top: 50%;
+    transform: translate(0,-50%);
+  }
+  .pk-spoils-flag{
+    float:left;
+    width:$rem*64;
+    height:$rem*62;
+    line-height:$rem*62;
+    display:inline-block;
+    margin-right:$rem*20;
+    font-size:$rem*22;
+    margin-top:$rem*15;
+    //猜对
+    &.nice{
+      background-color:#ff4b7a;
+      color:#fff;
+    }
+    //猜错
+    &.fail{
+
+    }
+    //统计中
+    &.census{
+      background-color:#fff;
+      color:#000;
+      font-size:$rem*18;
+    }
+  }
+
+}
+//积分清单列表
+.pk-vote-list{
+  padding:0 $rem*23;
+}
+.pk-vote-item{
+  border-bottom:$rem solid #e1e1e1;
+  padding:$rem*28 0;
+  p{
+    color:#666;
+    font-size:$rem*20;
+  }
+  h3{
+    color:#434343;
+    font-size:$rem*28;
+    strong{
+      color:#ff4b7a;
+    }
+  }
+}
+
+.vote-mask{
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  &.open{
+    display:block;
+  }
+}
+
+.vote-dialog{
+  position:fixed;
+  z-index:9;
+  width:$rem*530;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  &-header,
+  &-footer{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  &-header{
+    position:relative;
+    background:url(/images/exchange_header_bg.png);
+    height:$rem*40;
+    &.close-btn:after{
+      content:'X';
+      position:absolute;
+      height:$rem*80;
+      width:$rem*80;
+      text-align:center;
+      line-height:$rem*80;
+      background:#d6d6d6;
+      color:#fff;
+      border-radius:50%;
+      font-size:$rem*55;
+      top:$rem*-30;
+      right:$rem*-30;
+    }
+  }
+  &-body{
+    background:url(/images/exchange_body_bg.png);
+    background-repeat-x: no-repeat;
+    background-size: 100%;
+    padding:0 $rem*28;
+  }
+  &-footer{
+    background:url(/images/exchange_footer_bg.png);
+    height:$rem*41;
+  }
+}
+
+.vote-coupon-dialog{
+  .content{
+    background:#ffadc3;
+    color:#fff;
+    border:$rem*2 solid #000;
+    border-radius:$rem*16;
+    text-align:center;
+    img{
+      max-width: 80%;
+      max-height: 80%;
+    }
+    &>.num{
+      display:inline-block;
+      font-size:$rem*73;
+      margin-right:$rem*30;
+    }
+    &>.txt{
+      font-size:$rem*40;
+      width:$rem*40;
+      padding:0 $rem*22;
+      line-height: 1;
+      border-left: $rem solid #FFF;
+      vertical-align: $rem*-25;
+      display:inline-block;
+    }
+    strong{
+      font-size:$rem*120;
+      vertical-align:$rem*-8;
+    }
+  }
+  .text{
+    padding:$rem*10 0;
+    &>div{
+      font-size:$rem*20;
+      strong{
+        color:#ff4b7a;
+      }
+    }
+    &>p{
+      font-size:$rem*16;
+      color:#666;
+    }
+  }
+  .dialog-btn{
+      background:url(/images/btn_bg.png) no-repeat;
+      background-size: 100% 100%;
+      font-size:$rem*32;
+      text-align:center;
+      color:#fff;
+      padding:$rem*14 0;
+  }
+}

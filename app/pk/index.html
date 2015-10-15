@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <title>pk</title>
+    <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticontent.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
+    <script data-js-path="redraw.js">
+     !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(320,16);
+    </script>
+    <link rel="stylesheet" type="text/css" href="/styles/pk/index.css">
+  </head>
+  <body>
+    <script id="pkInfo" type="text/template">
+      <div class="pk-info-wrapper">
+        <img class="pk-flag"  src="/images/pk.png" alt="">
+        <div class="pk-left-wrapper">
+          <div class="pk-pro-wrapper">
+            <div class="pk-pro-title">
+              <h3>{{= RedProductName }}</h3>
+              <span class="sub-title">{{= RedProductSubTitle }}</span>
+            </div>
+            <div class="pk-pro-sling">
+              <span class="pk-sling"></span>
+              <span class="pk-sling"></span>
+            </div>
+            <div class="pk-pro-body J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=RedProductId}}">
+              <img src="{{=RedProductImage}}" alt="">
+              <div class="pk-pro-info">
+                <span class="country"><img src="{{= RedCountryIcon }}" alt="">{{= RedCountry }}</span>
+                <span class="price">&yen;{{=RedProductPrice}}</span>
+              </div>
+
+            </div>
+          </div>
+          <div class="pk-recommend-reason">
+            <div class="pk-vote-show">
+             <div class="pk-sling-wrapper">
+               <span class="pk-sling"></span>
+             </div>
+
+             <div class="pk-sling-wrapper">
+               <span class="pk-sling"></span>
+             </div>
+            </div>
+            <div class="pk-recommend-info">
+              <div class="title">
+                <img src="{{= RedHeadImage }}" alt="">
+              </div>
+              <div class="pk-recommend-desc">{{=RedProductRecommend}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="pk-right-wrapper">
+          <div class="pk-pro-wrapper">
+            <div class="pk-pro-title">
+              <h3>{{=BlueProductName}}</h3>
+              <span class="sub-title">{{=BlueProductSubTitle}}</span>
+            </div>
+            <div class="pk-pro-sling">
+              <span class="pk-sling"></span>
+              <span class="pk-sling"></span>
+            </div>
+            <div class="pk-pro-body J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=BlueProductId}}">
+              <img src="{{=BlueProductImage}}" alt="">
+              <div class="pk-pro-info">
+                <span class="country"><img src="{{=BlueCountryIcon}}" alt="">{{=BlueCountry}}</span>
+                <span class="price">&yen;{{=BlueProductPrice}}</span>
+              </div>
+
+            </div>
+          </div>
+          <div class="pk-recommend-reason">
+            <div class="pk-vote-show">
+              <div class="pk-sling-wrapper">
+                <span class="pk-sling"></span>
+              </div>
+              <div class="pk-sling-wrapper">
+                <span class="pk-sling"></span>
+              </div>
+            </div>
+            <div class="pk-recommend-info">
+              <div class="title">
+                <img src="{{= BlueHeadImage }}" alt="">
+              </div>
+              <div class="pk-recommend-desc">{{=BlueProductRecommend}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script id="past" type="text/template">
+      <ul class="pk-past-list">
+        {{ for(var i=0,data=PastPKGameDataList,len=data.length;i<len;i++){ }}
+          <li>
+            <div class="pk-past-pro J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}">
+              <div class="pro-pic-wrapper">
+                <img class="pro-pic" src="{{=data[i].RedProductImage}}" alt="">
+                <img class="pro-pic" src="{{=data[i].BlueProductImage}}" alt="">
+                <img class="pk-flag"  src="/images/pk.png" alt="">
+                </div>
+              <div class="title">{{=data[i].RedProductName + '' + data[i].BlueProductName}}
+              </div>
+              <img src="/images/arrow.png" class="pk-past-more">
+            </div>
+          </li>
+        {{ } }}
+      </ul>
+    </script>
+
+    <script id="summary" type="text/template">
+          <div class="pk-record {{= WinTotal ? 'open' : ''}}">
+            <div class="pk-record-header">
+              <span class="close-btn J-close-record" onclick=";">x</span>
+            </div>
+            <div class="pk-record-body J-open" data-url="/pk/vote.html" onclick=";">
+              <strong>{{= WinTotal }}</strong>次猜中(<strong>{{= StraightTotal }}</strong>连中)
+              <hr/>
+              查看我的投票>
+            </div>
+            <div class="pk-record-footer"></div>
+          </div>
+          <div class="pk-record-close {{= !WinTotal ? 'open' : ''}} J-open-record" onclick=";"></div>
+    </script>
+
+    <!-- 投票 column-vote-group right-vote-group left-vote-group -->
+    <script id="vote-status" type="text/template">
+       <div class="pk-vote-wrapper {{= className }}">
+        {{ if(VoteProductId == RedProductId){ }}
+         <div class="pk-vote-col">
+              {{ if(className == 'column-vote-group'){ }}
+              <img class="pk-vote J-open-vote" onclick=";" src="/images/vote_left.png" alt="" data-product-id="{{= RedProductId }}"
+                data-product-name="{{= RedProductName }}">
+              {{ }else{ }}
+              <img  class="pk-succ-vote left-vote J-share" src="/images/vote_succ_left.png" alt="" onclick=";">
+              {{ } }}
+         </div>
+         {{ }else{ }}
+         <div class="pk-vote-col">
+               {{ if(className == 'column-vote-group'){ }}
+              <img class="pk-vote J-open-vote" onclick=";" src="/images/vote_right.png" alt="" data-product-id="{{= BlueProductId }}"
+                data-product-name="{{= BlueProductName }}">
+               {{ }else{ }}
+              <img  class="pk-succ-vote right-vote J-share" src="/images/vote_succ_right.png" alt="" onclick=";">
+              {{ } }}
+         </div>
+         {{ } }}
+       </div>
+    </script>
+
+    <section class="pk-container">
+      <div class="pk-wrapper">
+        <div class="pk-header">
+            <img src="/images/header_bg.png" alt=""/>
+        </div>
+        <div class="pk-start-wrapper">
+          <img src="/images/start.png" alt=""/>
+        </div>
+        <!--pk信息-->
+        <pkInfo></pkInfo>
+        <!--投票状态-->
+        <vote-status> </vote-status>
+        <div class="pk-outer-wrapper">
+            <div class="pk-rule">
+              <div class="pk-rule-header"></div>
+              <div class="pk-rule-body">
+                <div class="rule-content">
+                    <p>1. 用户每天参加投票可以得到100分。赢得一场投票可额外再得100分，连续胜得比赛的次数越多，得到的额外奖励分数越高。</p>
+                    <p>
+                      如下:
+                    </p>
+                    <ul>
+                      <li>PK站队  奖励（分）</li>
+                      <li>胜一场 100</li>
+                      <li>胜二场 200</li>
+                      <li>胜三场 300</li>
+                      <li>胜四场 400</li>
+                      <li>胜五场 500</li>
+                    </ul>
+                    <p>
+                      注：连胜五场之后，奖励分数将从第一场开始重新计算。比如，连胜第6场，将得到100分。
+                        没有胜或没有参加，则重新计算连胜次数，奖励也将从头开始！！
+                    </p>
+                    <p>*连胜20天或以上的用户将赢得最高奖励iphone6s Plus一台,颜色随机</p>
+                    <p>2．活动期间用户所得分数可以随时兑换优惠券或实物奖品，同一优惠券或奖品仅限兑换一次。（数量有限兑完即止）</p>
+                    <p>3．如在活动期间发现违规行为，洋码头有权取消违规账号所得奖品，封闭帐号。</p>
+                    <p>4．本活动与苹果公司无关。在法律允许范围内，洋码头保留最终解释权。</p>
+                  </div>
+                <small class="J-seeMore" onclick=";">查看更多细则</small>
+              </div>
+              <div class="pk-rule-footer"></div>
+            </div>
+        </div>
+          <div class="pk-past">
+              <div class="pk-past-header"></div>
+              <div class="pk-past-body">
+              <!--往期数据-->
+                <past></past>
+              </div>
+              <div class="pk-past-footer">
+              </div>
+          </div>
+
+        </div>
+        <div class="pk-load-over">
+          <img src="/images/load_over.png" alt="刷完了">
+        </div>
+
+      <!--投票记录-->
+      <summary></summary>
+    </section>
+    <div class="pk-mask" id="pk-vote">
+      <div class="pk-dialog">
+          <div class="pk-dialog-header"></div>
+          <div class="pk-dialog-body">
+            哈尼,确定为
+            <strong></strong>
+            投出您宝贵的一票吗？
+          </div>
+          <div class="pk-dialog-footer">
+            <span class="left-btn J-close-vote"></span>
+            <span class="right-btn J-confirm-vote"></span>
+          </div>
+      </div>
+    </div>
+    <div class="pk-back-top" onclick=";"></div>
+    <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+    <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015092301.js?wxAutoInit=1"></script>
+    <script src="/scripts/pk/index.js"></script>
+  </body>
+</html>
