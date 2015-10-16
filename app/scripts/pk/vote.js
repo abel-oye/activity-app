@@ -92,7 +92,7 @@ $(function () {
     }
     //获得战绩统计
     var getSummary = function () {
-        jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001/api/PKGame/GetSummary', {
+        jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetSummary', {
             accessToken: authInfo.AccessToken
         }), function (data) {
             var html = ejs.render($('#summary').html(), data);
@@ -103,7 +103,7 @@ $(function () {
         currExchange; //当前选中的奖品
     //获得奖品信息
     var getSpoils = function () {
-        jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001/api/PKGame/GetPointExchange', {
+        jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetPointExchange', {
             accessToken: authInfo.AccessToken
         }), function (data) {
             exchangeList = data.PointExchangeList;
@@ -114,7 +114,7 @@ $(function () {
 
     //获得历史战绩
     var getGains = function () {
-        jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001/api/PKGame/GetPastPKGameRecord', {
+        jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetPastPKGameRecord', {
             accessToken: authInfo.AccessToken
         }), function (data) {
             if (data) {
@@ -160,7 +160,7 @@ $(function () {
     }).on('click', '.J-close-exchange', function () {
         $('#vote-exchange').hide();
     }).on('click', '.J-receive-coupon', function () {
-        jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001/api/PKGame/ReceiveCouponInfo', {
+        jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/ReceiveCouponInfo', {
             accessToken: authInfo.AccessToken,
             awardId: currExchange.AwardId,
             couponNumber: currExchange.CouponDetailInfo.BatchCode
@@ -169,7 +169,7 @@ $(function () {
             $('#vote-exchange').hide();
         });
     }).on('click', '.J-add-privilege', function () {
-        jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001/api/PKGame/ExchangeProductAward', {
+        jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/ExchangeProductAward', {
             accessToken: authInfo.AccessToken,
             awardId: currExchange.AwardId
         }), function (data,res) {

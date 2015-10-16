@@ -80,7 +80,7 @@ $(function () {
     //获得pk信息
     var PKId,
         getPkInfo = function () {
-            jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001/api/PKGame/GetTodayPKProductData', {
+            jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetTodayPKProductData', {
                 accessToken: authInfo.AccessToken
             }), function (data) {
                 if (data) {
@@ -112,7 +112,7 @@ $(function () {
 
     //获得战绩统计
     var getSummary = function () {
-        jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001/api/PKGame/GetSummary', {
+        jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetSummary', {
             accessToken: authInfo.AccessToken
         }), function (data) {
             var html = ejs.render($('#summary').html(), data);
@@ -122,7 +122,7 @@ $(function () {
 
     //获得往期
     var pastCompetition = function () {
-        jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001/api/PKGame/GetPastPKGameDataList', {
+        jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetPastPKGameDataList', {
             accessToken: authInfo.AccessToken
         }), function (data) {
             if (data) {
@@ -169,7 +169,7 @@ $(function () {
 
     var voteProductId = '',
         confirmVote = function () { //确认投票
-            jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001/api/PKGame/VotePKProduct', {
+            jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/VotePKProduct', {
                 accessToken: authInfo.AccessToken,
                 PKId: PKId,
                 ProductId: voteProductId

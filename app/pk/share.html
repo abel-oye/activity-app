@@ -20,16 +20,15 @@
     <script id="pkInfo" type="text/template">
       <div class="pk-vie-info">
           <div class="pk-vie-pic">
-            <img src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
+            <img src="{{=YmatouHeadImage}}" alt="">
           </div>
           <div class="pk-vie-text">
-            <h3>我<strong>2</strong>连胜，获得了1232积分</h3>
-            <p>我支持 韩国韩国韩国韩国韩国</p>
+            <h3>我<strong>{{=StraightTotal}}</strong>连胜，获得了{{=PointTotal}}积分</h3>
+            <p>我支持 {{=VoteProductId==RedProductId?RedProductName:BlueProductName}}</p>
             <p>帮我一起来投票吧</p>
           </div>
         </div>
-      <div class="pk-info-wrapper">
-        <img class="pk-flag"  src="/images/pk.png" alt="">
+      <div class="pk-info-wrapper pk-flag">
         <div class="pk-left-wrapper">
           <div class="pk-pro-wrapper">
             <div class="pk-pro-title">
@@ -133,9 +132,7 @@
             </div>
           </div>
       </div>
-      <a class="pk-download" href="">
-        <img src="/images/download.png" alt="">
-      </a>
+      <a class="pk-download" href=""></a>
     </section>
 
     <div class="pk-back-top" onclick=";"></div>
@@ -146,6 +143,28 @@
     <!-- build:js scripts/pk/share.js -->
     <script src="/scripts/pk/share.js"></script>
     <!-- endbuild -->
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i, o) {
+        w['YmatouAnalyticsobject'] = o;
+        w[o] = w[o] || function () {
+        (w[o].q = w[o].q || []).push(arguments)
+        }
+
+        w[l] = w[l] || [];
+        w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5TQSQ4', '_dc_');
+    </script>
+    <!-- End Google Tag Manager -->
   </body>
 </html>
 

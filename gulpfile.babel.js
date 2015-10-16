@@ -97,8 +97,10 @@ gulp.task('images', () => {
                 console.log(err);
                 this.end();
             })))
-        //.pipe($.rev())
-        .pipe(gulp.dest('dist/images'));
+        .pipe($.rev())
+        .pipe(gulp.dest('dist/images'))
+        .pipe($.rev.manifest())
+        .pipe(gulp.dest('dist/rev/images'))
 });
 
 gulp.task('fonts', () => {
@@ -106,8 +108,10 @@ gulp.task('fonts', () => {
             filter: '**/*.{eot,svg,ttf,woff,woff2}'
         }).concat('app/fonts/**/*'))
         .pipe(gulp.dest('.tmp/fonts'))
-        //.pipe($.rev())
-        .pipe(gulp.dest('dist/fonts'));
+        .pipe($.rev())
+        .pipe(gulp.dest('dist/fonts'))
+        .pipe($.rev.manifest())
+        .pipe(gulp.dest('dist/rev/fonts'))
 });
 
 gulp.task('extras', () => {
@@ -189,30 +193,20 @@ gulp.task('wiredep', () => {
 });
 
 gulp.task('rev', () => {
+    return gulp.src(['dist/rev/**/*.json', 'dist/styles/{,*/}*'])
+       .pipe($.revCollector())
+       .pipe(gulp.dest('dist/styles'));
+});
 
-    return gulp.src(['/dist/fonts/*', 'dist/images/{,*}.*'])
-        .pipe($.rev.manifest())
-        .pipe(gulp.dest('dist'))
-        .on('end', () => {
-            var manifest = gulp.src("./dist/rev-manifest.json");
-
-            return gulp.src('/dist/styles/{**,*}.css')
-                .pipe($.revReplace({
-                    manifest: manifest,
-                    modifyReved:function(filename){
-                        console.log(filename);
-                        return filename
-                    }
-                }))
-                .pipe(gulp.dest('dist'));
-        });
-})
-
-gulp.task('build', ['lint', 'images', 'fonts', 'extras', 'html', 'rev'], () => {
+gulp.task('build', ['lint', 'images', 'fonts', 'extras', 'html'], () => {
     return gulp.src('dist/**/*').pipe($.size({
         title: 'build',
         gzip: true
-    }));
+    })).on('end',() => {
+        gulp.start('rev');
+    });
+
+
 });
 
 gulp.task('default', ['clean'], () => {

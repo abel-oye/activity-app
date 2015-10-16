@@ -66,10 +66,9 @@
           {{ for(var i =0,data = PastPKGameRecordList,len=data.length;i<len;i++){ }}
             <li class="pk-gains-item J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}" onclick=";">
               <div class="pk-spoils-flag {{= data[i].HasWin==null?'census':data[i].HasWin?'nice':'fial'}}">{{= data[i].HasWin==null?'统计中':data[i].HasWin?'猜中':'猜错'}}</div>
-              <div class="group">
+              <div class="group pk-flag">
                  <img class="pro-pic" src="{{= data[i].RedProductImage }}" alt="商品图片">
                  <img class="pro-pic"  src="{{= data[i].BlueProductImage }}" alt="商品图片">
-                 <img class="pk-flag" src="/images/pk.png" alt="pk">
               </div>
               <div class="text-area">
                 <span class="text">{{= data[i].RedProductName+' vs '+data[i].BlueProductSubTitle }}</span>
@@ -186,5 +185,27 @@
     <!-- build:js /scripts/pk/vote.js -->
     <script src="/scripts/pk/vote.js"></script>
     <!-- endbuild -->
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i, o) {
+        w['YmatouAnalyticsobject'] = o;
+        w[o] = w[o] || function () {
+        (w[o].q = w[o].q || []).push(arguments)
+        }
+
+        w[l] = w[l] || [];
+        w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5TQSQ4', '_dc_');
+    </script>
+    <!-- End Google Tag Manager -->
   </body>
 </html>

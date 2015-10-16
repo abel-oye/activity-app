@@ -80,7 +80,7 @@ $(function () {
 
     //获得pk信息
     var getPkInfo = function () {
-        jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001/api/PKGame/GetWXSharePKData', {
+        jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetWXSharePKData', {
             PKId: search.id,
             UserId: search.UserId || ''
         }), function (data) {

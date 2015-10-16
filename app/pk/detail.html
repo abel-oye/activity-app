@@ -23,8 +23,7 @@
           {{= !VoteProductId ? '很遗憾您未参加本场比赛投票' : !WinProductId ? '投票统计中,每天上午10点公布结果' : VoteProductId == WinProductId ? '恭喜您猜中了本场比赛的结果':'很遗憾您未猜中本场比赛结果'}}
         </div>
       </div>
-      <div class="pk-info-wrapper">
-        <img class="pk-flag"  src="/images/pk.png" alt="">
+      <div class="pk-info-wrapper pk-flag">
         <div class="pk-left-wrapper">
           <div class="pk-pro-wrapper">
             <div class="pk-pro-title">
@@ -98,11 +97,11 @@
       <div class="pk-vote-wrapper column-vote-group">
          <div class="pk-vote-col">
               <span class="pk-vote-num">{{=!WinProductId?'?':RedNumberOfVotes}}票</span>
-              <img class="pk-vote J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=RedProductId}}" onclick=";" src="/images/vote_detail_left.png" >
+              <span class="pk-vote J-open pk-see-pro-left" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=RedProductId}}" onclick=";" ></span>
           </div>
          <div class="pk-vote-col">
               <span class="pk-vote-num">{{=!WinProductId?'?':BlueNumberOfVotes}}票</span>
-              <img class="pk-vote J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=BlueProductId}}" onclick=";" src="/images/vote_detail_right.png">
+              <span class="pk-vote J-open pk-see-pro-right" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=BlueProductId}}" onclick=";"></span>
          </div>
        </div>
     </script>
@@ -113,9 +112,7 @@
         <pkInfo></pkInfo>
 
         </div>
-        <div class="pk-load-over">
-          <img src="/images/load_over.png" alt="刷完了">
-        </div>
+        <div class="pk-load-over"></div>
 
       <!--投票记录-->
       <summary></summary>
@@ -129,6 +126,28 @@
     <!-- build:js /scripts/pk/detail.js -->
     <script src="/scripts/pk/detail.js"></script>
     <!-- endbuild -->
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i, o) {
+        w['YmatouAnalyticsobject'] = o;
+        w[o] = w[o] || function () {
+        (w[o].q = w[o].q || []).push(arguments)
+        }
+
+        w[l] = w[l] || [];
+        w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5TQSQ4', '_dc_');
+    </script>
+    <!-- End Google Tag Manager -->
   </body>
 </html>
 

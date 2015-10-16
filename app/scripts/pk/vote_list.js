@@ -78,7 +78,7 @@ $(function () {
     };
     //获得积分清单
     var getVoteList = function () {
-        jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001/api/PKGame/GetPointDetail', {
+        jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetPointDetail', {
             accessToken: authInfo.AccessToken
         }), function (data) {
             var html = ejs.render($('#voteList').html(), data);

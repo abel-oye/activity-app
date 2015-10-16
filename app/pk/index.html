@@ -18,8 +18,7 @@
   </head>
   <body>
     <script id="pkInfo" type="text/template">
-      <div class="pk-info-wrapper">
-        <img class="pk-flag"  src="/images/pk.png" alt="">
+      <div class="pk-info-wrapper pk-flag">
         <div class="pk-left-wrapper">
           <div class="pk-pro-wrapper">
             <div class="pk-pro-title">
@@ -101,14 +100,13 @@
         {{ for(var i=0,data=PastPKGameDataList,len=data.length;i<len;i++){ }}
           <li>
             <div class="pk-past-pro J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}">
-              <div class="pro-pic-wrapper">
+              <div class="pro-pic-wrapper pk-flag">
                 <img class="pro-pic" src="{{=data[i].RedProductImage}}" alt="">
                 <img class="pro-pic" src="{{=data[i].BlueProductImage}}" alt="">
-                <img class="pk-flag"  src="/images/pk.png" alt="">
                 </div>
               <div class="title">{{=data[i].RedProductName + ' VS ' + data[i].BlueProductName}}
               </div>
-              <img src="/images/arrow.png" class="pk-past-more">
+              <span class="pk-past-more"></span>
             </div>
           </li>
         {{ } }}
@@ -136,20 +134,18 @@
         {{ if(!VoteProductId || VoteProductId == RedProductId){ }}
          <div class="pk-vote-col">
               {{ if(className == 'column-vote-group'){ }}
-              <img class="pk-vote J-open-vote" onclick=";" src="/images/vote_left.png" alt="" data-product-id="{{= RedProductId }}"
-                data-product-name="{{= RedProductName }}">
+              <span class="pk-vote J-open-vote pk-vote-left" onclick=";" data-product-id="{{= RedProductId }}" data-product-name="{{= RedProductName }}"></span>
               {{ }else{ }}
-              <img  class="pk-succ-vote left-vote J-share" src="/images/vote_succ_left.png" alt="" onclick=";">
+              <span  class="pk-succ-vote left-vote J-share" onclick=";"></span>
               {{ } }}
          </div>
          {{ } }}
          {{ if(!VoteProductId || VoteProductId == BlueProductId){ }}
          <div class="pk-vote-col">
                {{ if(className == 'column-vote-group'){ }}
-              <img class="pk-vote J-open-vote" onclick=";" src="/images/vote_right.png" alt="" data-product-id="{{= BlueProductId }}"
-                data-product-name="{{= BlueProductName }}">
+               <span class="pk-vote J-open-vote pk-vote-right" onclick=";" data-product-id="{{= BlueProductId }}" data-product-name="{{= BlueProductName }}"></span>
                {{ }else{ }}
-              <img  class="pk-succ-vote right-vote J-share" src="/images/vote_succ_right.png" alt="" onclick=";">
+               <span  class="pk-succ-vote right-vote J-share" onclick=";"></span>
               {{ } }}
          </div>
          {{ } }}
@@ -159,11 +155,9 @@
     <section class="pk-container">
       <div class="pk-wrapper">
         <div class="pk-header">
-            <img src="/images/header_bg.png" alt=""/>
+            <div class="pk-banner-img"></div>
         </div>
-        <div class="pk-start-wrapper">
-          <img src="/images/start.png" alt=""/>
-        </div>
+        <div class="pk-start-wrapper"></div>
         <!--pk信息-->
         <pkInfo></pkInfo>
         <!--投票状态-->
@@ -210,9 +204,7 @@
           </div>
 
         </div>
-        <div class="pk-load-over">
-          <img src="/images/load_over.png" alt="刷完了">
-        </div>
+        <div class="pk-load-over"></div>
 
       <!--投票记录-->
       <summary></summary>
@@ -239,5 +231,27 @@
     <!-- build:js /scripts/pk/index.js-->
     <script src="/scripts/pk/index.js"></script>
     <!-- endbuild -->
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i, o) {
+        w['YmatouAnalyticsobject'] = o;
+        w[o] = w[o] || function () {
+        (w[o].q = w[o].q || []).push(arguments)
+        }
+
+        w[l] = w[l] || [];
+        w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5TQSQ4', '_dc_');
+    </script>
+    <!-- End Google Tag Manager -->
   </body>
 </html>
