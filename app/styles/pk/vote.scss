@@ -12,6 +12,10 @@
 
 $rem:1rem/32;
 
+ @import '../assets/_pk.scss';
+
+
+
 .pk-vote{
 
 }
@@ -283,7 +287,7 @@ $rem:1rem/32;
   }
   &-header{
     position:relative;
-    background:url(/images/exchange_header_bg.png);
+    background-image:url(/images/exchange_header_bg.png);
     height:$rem*40;
     &.close-btn:after{
       content:'X';
@@ -307,7 +311,7 @@ $rem:1rem/32;
     padding:0 $rem*28;
   }
   &-footer{
-    background:url(/images/exchange_footer_bg.png);
+    background-image:url(/images/exchange_footer_bg.png);
     height:$rem*41;
   }
 }
@@ -363,35 +367,4 @@ $rem:1rem/32;
       color:#fff;
       padding:$rem*14 0;
   }
-}
-
-//错误
-.pk-error{
-  padding:$rem*5 $rem*10;
-  background:rgba(0,0,0,.6);
-  color:#fff;
-  position:fixed;
-  z-index:999;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  text-align:center;
-  border-radius:$rem*5;
-  display:inline;
-  font-size:$rem*24;
-  -webkit-transition: opacity .6s ease-in-out;
-  opacity:0;
-}
-
-//pk 加载
-.pk-loading{
-    &:before{
-        content:"";
-        background:url(/images/pk_loading_100x100.gif) no-repeat;
-        background-size:contain;
-        width:$rem*100;
-        height:$rem*100;
-        display:block;
-        margin:0 auto;
-    }
 }

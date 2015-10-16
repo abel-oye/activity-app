@@ -85,8 +85,12 @@ $(function () {
             accessToken: authInfo.AccessToken,
             PKId: search.id || ''
         }), function (data) {
+            data.hasLogin = YmtApi.utils.hasLogin();
             var html = ejs.render($('#pkInfo').html(), data);
             $('pkInfo').html(html);
+
+            $('.pk-container').removeClass('pk-hide');
+            $('#loading-fixed').remove();
         });
     };
 

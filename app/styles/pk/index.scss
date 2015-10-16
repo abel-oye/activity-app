@@ -9,6 +9,9 @@
 @import '../_components/variables.scss';
 @import '../_components/_mixin.scss';
 @import '../_components/reset.scss';
+
+@import '../assets/_pk.scss';
+
 $rem: 1rem/32;
 $left_color: #ff4b7a;
 $right_color: #2e95ff;
@@ -247,7 +250,7 @@ $right_color: #2e95ff;
 
     position: relative;
 
-    overflow: hidden;
+    //overflow: hidden;
 
     height: $rem*75;
 
@@ -1004,3 +1007,4 @@ $right_color: #2e95ff;
         background-size: contain;
     }
 }
+

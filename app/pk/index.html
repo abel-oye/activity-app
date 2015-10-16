@@ -29,7 +29,7 @@
               <span class="pk-sling"></span>
               <span class="pk-sling"></span>
             </div>
-            <div class="pk-pro-body J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=RedProductId}}">
+            <div class="pk-pro-body J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=RedProductId}}">
               <img src="{{=RedProductImage}}" alt="">
               <div class="pk-pro-info">
                 <span class="country"><img src="{{= RedCountryIcon }}" alt="">{{= RedCountry }}</span>
@@ -43,7 +43,9 @@
              <div class="pk-sling-wrapper">
                <span class="pk-sling"></span>
              </div>
+             <div class="">
 
+             </div>
              <div class="pk-sling-wrapper">
                <span class="pk-sling"></span>
              </div>
@@ -66,7 +68,7 @@
               <span class="pk-sling"></span>
               <span class="pk-sling"></span>
             </div>
-            <div class="pk-pro-body J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=BlueProductId}}">
+            <div class="pk-pro-body J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=BlueProductId}}">
               <img src="{{=BlueProductImage}}" alt="">
               <div class="pk-pro-info">
                 <span class="country"><img src="{{=BlueCountryIcon}}" alt="">{{=BlueCountry}}</span>
@@ -96,21 +98,28 @@
     </script>
 
     <script id="past" type="text/template">
-      <ul class="pk-past-list">
-        {{ for(var i=0,data=PastPKGameDataList,len=data.length;i<len;i++){ }}
-          <li>
-            <div class="pk-past-pro J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}">
-              <div class="pro-pic-wrapper pk-flag">
-                <img class="pro-pic" src="{{=data[i].RedProductImage}}" alt="">
-                <img class="pro-pic" src="{{=data[i].BlueProductImage}}" alt="">
-                </div>
-              <div class="title">{{=data[i].RedProductName + ' VS ' + data[i].BlueProductName}}
-              </div>
-              <span class="pk-past-more"></span>
+        <div class="pk-past">
+            <div class="pk-past-header"></div>
+            <div class="pk-past-body">
+                <ul class="pk-past-list">
+                  {{ for(var i=0,data=PastPKGameDataList,len=data.length;i<len;i++){ }}
+                    <li>
+                      <div class="pk-past-pro J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}" onclick=";">
+                        <div class="pro-pic-wrapper pk-flag">
+                          <img class="pro-pic" src="{{=data[i].RedProductImage}}" alt="">
+                          <img class="pro-pic" src="{{=data[i].BlueProductImage}}" alt="">
+                          </div>
+                        <div class="title">{{=data[i].RedProductName + ' VS ' + data[i].BlueProductName}}
+                        </div>
+                        <span class="pk-past-more"></span>
+                      </div>
+                    </li>
+                  {{ } }}
+                </ul>
             </div>
-          </li>
-        {{ } }}
-      </ul>
+            <div class="pk-past-footer">
+            </div>
+        </div>
     </script>
 
     <script id="summary" type="text/template">
@@ -119,7 +128,7 @@
               <span class="close-btn J-close-record" onclick=";">x</span>
             </div>
             <div class="pk-record-body J-open" data-url="/pk/vote.html" onclick=";">
-              <strong>{{= WinTotal }}</strong>次猜中(<strong>{{= StraightTotal }}</strong>连中)
+              <strong>{{= WinTotal }}</strong>次猜中 {{ if( StraightTotal > 1 ){ }}(<strong>{{= StraightTotal }}</strong>连中){{ } }}
               <hr/>
               查看我的投票>
             </div>
@@ -152,7 +161,7 @@
        </div>
     </script>
 
-    <section class="pk-container">
+    <section class="pk-container pk-hide">
       <div class="pk-wrapper">
         <div class="pk-header">
             <div class="pk-banner-img"></div>
@@ -193,16 +202,8 @@
               <div class="pk-rule-footer"></div>
             </div>
         </div>
-          <div class="pk-past">
-              <div class="pk-past-header"></div>
-              <div class="pk-past-body">
-              <!--往期数据-->
-                <past></past>
-              </div>
-              <div class="pk-past-footer">
-              </div>
-          </div>
-
+        <!--往期数据-->
+         <past></past>
         </div>
         <div class="pk-load-over"></div>
 
@@ -224,6 +225,7 @@
       </div>
     </div>
     <div class="pk-back-top" onclick=";"></div>
+    <div class="pk-loading loading-fixed" id="loading-fixed"></div>
     <!-- build:js /scripts/zepto,ejs.js -->
     <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
     <!-- endbuild -->

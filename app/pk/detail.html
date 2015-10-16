@@ -18,11 +18,13 @@
   </head>
   <body>
     <script id="pkInfo" type="text/template">
+      {{ if(hasLogin){ }}
       <div class="pk-status-header {{= VoteProductId == WinProductId ? 'succ':''}}">
         <div class="text">
           {{= !VoteProductId ? '很遗憾您未参加本场比赛投票' : !WinProductId ? '投票统计中,每天上午10点公布结果' : VoteProductId == WinProductId ? '恭喜您猜中了本场比赛的结果':'很遗憾您未猜中本场比赛结果'}}
         </div>
       </div>
+       {{ } }}
       <div class="pk-info-wrapper pk-flag">
         <div class="pk-left-wrapper">
           <div class="pk-pro-wrapper">
@@ -34,7 +36,7 @@
               <span class="pk-sling"></span>
               <span class="pk-sling"></span>
             </div>
-            <div class="pk-pro-body {{= WinProductId==RedProductId?'win':''}}">
+            <div class="pk-pro-body {{= WinProductId==RedProductId?'win':''}} J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=RedProductId}}">
               <img src="{{=RedProductImage}}" alt="">
               <div class="pk-pro-info">
                 <span class="country"><img src="{{= RedCountryIcon }}" alt="">{{= RedCountry }}</span>
@@ -69,7 +71,7 @@
               <span class="pk-sling"></span>
               <span class="pk-sling"></span>
             </div>
-            <div class="pk-pro-body {{= WinProductId==BlueProductId?'win':''}}">
+            <div class="pk-pro-body {{= WinProductId==BlueProductId?'win':''}} J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=BlueProductId}}">
               <img src="{{=BlueProductImage}}" alt="">
               <div class="pk-pro-info">
                 <span class="country"><img src="{{=BlueCountryIcon}}" alt="">{{=BlueCountry}}</span>
@@ -106,7 +108,7 @@
        </div>
     </script>
 
-    <section class="pk-container">
+    <section class="pk-container  pk-hide">
       <div class="pk-wrapper">
         <!--pk信息-->
         <pkInfo></pkInfo>
@@ -117,7 +119,7 @@
       <!--投票记录-->
       <summary></summary>
     </section>
-
+    <div class="pk-loading loading-fixed" id="loading-fixed"></div>
     <div class="pk-back-top" onclick=";"></div>
     <!-- build:js /scripts/zepto,ejs.js -->
     <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>

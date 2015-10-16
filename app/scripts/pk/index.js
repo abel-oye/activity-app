@@ -106,6 +106,9 @@ $(function () {
                         className: voteClassName
                     });
                     $('vote-status').html(html);
+
+                    $('.pk-container').removeClass('pk-hide');
+                    $('#loading-fixed').remove();
                 }
             });
         };

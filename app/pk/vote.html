@@ -28,7 +28,7 @@
               <div class="num">{{= FailTotal }}</div>
           </div>
           <div  class="briefing-item J-open" data-url="/pk/vote_list.html" onclick=";">
-            积分 ( 已连胜<strong>{{= StraightTotal }}</strong>次 )
+            积分 {{if(StraightTotal > 1){ }} ( 已连胜<strong>{{= StraightTotal }}</strong>次 ) {{ } }}
             <div class="num">
               {{= PointTotal }}
             </div>
