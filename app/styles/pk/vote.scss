@@ -52,7 +52,7 @@ $rem:1rem/32;
     position:relative;
     &.is-switch-state{
       .tab-header-line{
-        left:50%;
+        transform: translate(100%,0);
         background:#2e95ff;
       }
     }
@@ -78,16 +78,18 @@ $rem:1rem/32;
       position: absolute;
       bottom: $rem*-2;
       left:0;
-      transition: left 0.25s ease-in-out;
-
+      transition: transform 0.25s ease-in-out;
     }
   }
 }
 //奖品
 .pk-vote-spoils{
-  padding:$rem*40;
+  padding:0 $rem*40;
   font-size:$rem*22;
   color:#434343;
+  h4{
+    margin-top:$rem*40;
+  }
   .more-spolis{
     margin:$rem*90 0;
     color:#b5b5b5;
@@ -354,4 +356,34 @@ $rem:1rem/32;
       color:#fff;
       padding:$rem*14 0;
   }
+}
+
+//错误
+.pk-error{
+  padding:$rem*5 $rem*10;
+  background:rgba(0,0,0,.6);
+  color:#fff;
+  position:fixed;
+  z-index:999;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  border-radius:$rem*5;
+  display:inline;
+  font-size:$rem*24;
+  -webkit-transition: opacity .6s ease-in-out;
+  opacity:0;
+}
+
+//pk 加载
+.pk-loading{
+    &:before{
+        content:"";
+        background:url(/images/pk_loading_100x100.gif) no-repeat;
+        width:$rem*100;
+        height:$rem*100;
+        display:block;
+        margin:0 auto;
+    }
 }

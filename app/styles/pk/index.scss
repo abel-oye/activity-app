@@ -287,7 +287,7 @@ $right_color:#2e95ff;
 
 //规则
 .pk-rule{
-  font-size:$rem*18;
+  font-size:$rem*20;
   text-align:center;
   &-header,
   &-footer{
@@ -305,7 +305,8 @@ $right_color:#2e95ff;
     background-size: 100%;
     &.open{
       .rule-content{
-        height:auto;
+        //height:$rem*630;
+        height:100%
       }
     }
   }
@@ -316,11 +317,11 @@ $right_color:#2e95ff;
   .rule-content{
     text-align:left;
     overflow:hidden;
-    height:$rem*54;
-    transition: height 0.25s ease-in-out;
+    height:$rem*60;
+    transition: height 0.25s cubic-bezier(0.4, 0, 1, 1);
   }
   small{
-    font-size:85%;
+    font-size:$rem*16;
   }
 }
 //往期
@@ -466,6 +467,7 @@ $right_color:#2e95ff;
 .pk-record{
   position:fixed;
   top:25%;
+  display:none;
   &-close{
     display:none;
     position:fixed;
@@ -480,6 +482,7 @@ $right_color:#2e95ff;
   }
   &.open{
     right:$rem*30;
+    display:block;
   }
 
   &-header,

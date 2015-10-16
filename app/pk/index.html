@@ -12,7 +12,9 @@
     <script data-js-path="redraw.js">
      !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(320,16);
     </script>
+    <!-- build:css /styles/pk/index.css-->
     <link rel="stylesheet" type="text/css" href="/styles/pk/index.css">
+    <!-- endbuild-->
   </head>
   <body>
     <script id="pkInfo" type="text/template">
@@ -104,7 +106,7 @@
                 <img class="pro-pic" src="{{=data[i].BlueProductImage}}" alt="">
                 <img class="pk-flag"  src="/images/pk.png" alt="">
                 </div>
-              <div class="title">{{=data[i].RedProductName + '' + data[i].BlueProductName}}
+              <div class="title">{{=data[i].RedProductName + ' VS ' + data[i].BlueProductName}}
               </div>
               <img src="/images/arrow.png" class="pk-past-more">
             </div>
@@ -131,7 +133,7 @@
     <!-- 投票 column-vote-group right-vote-group left-vote-group -->
     <script id="vote-status" type="text/template">
        <div class="pk-vote-wrapper {{= className }}">
-        {{ if(VoteProductId == RedProductId){ }}
+        {{ if(!VoteProductId || VoteProductId == RedProductId){ }}
          <div class="pk-vote-col">
               {{ if(className == 'column-vote-group'){ }}
               <img class="pk-vote J-open-vote" onclick=";" src="/images/vote_left.png" alt="" data-product-id="{{= RedProductId }}"
@@ -140,7 +142,8 @@
               <img  class="pk-succ-vote left-vote J-share" src="/images/vote_succ_left.png" alt="" onclick=";">
               {{ } }}
          </div>
-         {{ }else{ }}
+         {{ } }}
+         {{ if(!VoteProductId || VoteProductId == BlueProductId){ }}
          <div class="pk-vote-col">
                {{ if(className == 'column-vote-group'){ }}
               <img class="pk-vote J-open-vote" onclick=";" src="/images/vote_right.png" alt="" data-product-id="{{= BlueProductId }}"
@@ -170,23 +173,23 @@
               <div class="pk-rule-header"></div>
               <div class="pk-rule-body">
                 <div class="rule-content">
-                    <p>1. 用户每天参加投票可以得到100分。赢得一场投票可额外再得100分，连续胜得比赛的次数越多，得到的额外奖励分数越高。</p>
-                    <p>
-                      如下:
-                    </p>
-                    <ul>
-                      <li>PK站队  奖励（分）</li>
-                      <li>胜一场 100</li>
-                      <li>胜二场 200</li>
-                      <li>胜三场 300</li>
-                      <li>胜四场 400</li>
-                      <li>胜五场 500</li>
-                    </ul>
-                    <p>
-                      注：连胜五场之后，奖励分数将从第一场开始重新计算。比如，连胜第6场，将得到100分。
-                        没有胜或没有参加，则重新计算连胜次数，奖励也将从头开始！！
-                    </p>
-                    <p>*连胜20天或以上的用户将赢得最高奖励iphone6s Plus一台,颜色随机</p>
+                    <div>1. 用户每天参加投票可以得到100分。赢得一场投票可额外再得100分，连续胜得比赛的次数越多，得到的额外奖励分数越高。</div>
+                        <p>
+                          如下:
+                        </p>
+                        <ul>
+                          <li>PK站队  奖励（分）</li>
+                          <li>胜一场 100</li>
+                          <li>胜二场 200</li>
+                          <li>胜三场 300</li>
+                          <li>胜四场 400</li>
+                          <li>胜五场 500</li>
+                        </ul>
+                        <p>
+                          注：连胜五场之后，奖励分数将从第一场开始重新计算。比如，连胜第6场，将得到100分。
+                            没有胜或没有参加，则重新计算连胜次数，奖励也将从头开始！！
+                        </p>
+                        <p>*连胜20天或以上的用户将赢得最高奖励iphone6s Plus一台,颜色随机</p>
                     <p>2．活动期间用户所得分数可以随时兑换优惠券或实物奖品，同一优惠券或奖品仅限兑换一次。（数量有限兑完即止）</p>
                     <p>3．如在活动期间发现违规行为，洋码头有权取消违规账号所得奖品，封闭帐号。</p>
                     <p>4．本活动与苹果公司无关。在法律允许范围内，洋码头保留最终解释权。</p>
@@ -229,8 +232,12 @@
       </div>
     </div>
     <div class="pk-back-top" onclick=";"></div>
+    <!-- build:js /scripts/zepto,ejs.js -->
     <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+    <!-- endbuild -->
     <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015092301.js?wxAutoInit=1"></script>
+    <!-- build:js /scripts/pk/index.js-->
     <script src="/scripts/pk/index.js"></script>
+    <!-- endbuild -->
   </body>
 </html>

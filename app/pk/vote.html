@@ -12,7 +12,9 @@
     <script data-js-path="redraw.js">
      !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(320,16);
     </script>
+    <!-- build:css /styles/pk/vote.css-->
     <link rel="stylesheet" type="text/css" href="/styles/pk/vote.css">
+    <!-- endbuild -->
   </head>
   <body>
     <script id="summary" type="text/template">
@@ -35,12 +37,13 @@
       </div>
     </script>
     <script id="spoils" type="text/template">
+      <h4>获得的奖励已放入您的钱包 ( 个人中心 - 我的钱包 )</h4>
       <ul class="pk-spoils-list">
          {{ for(var i=0,data = PointExchangeList,len=data.length;i<len;i++){ }}
-            <li class="spoils-item J-open-exchange" onclick=";" data-index="{{= i }}">
+            <li class="spoils-item {{= data[i].AwardStatus != 3 ? 'J-open-exchange':''}}" onclick=";" data-index="{{= i }}">
              <div class="pk-spoils-flag  {{= data[i].AwardStatus==1?'end':data[i].AwardStatus==2?'can':''}} ">
                 {{ if(!data[i].IsRealProduct){  }}
-               <strong>{{= data[i].CouponValue}}</strong>元
+               <strong>{{= data[i].CouponDetailInfo.CouponValue}}</strong>元
                 {{ }else{ }}
                   <img src="{{= data[i].AwardSmallImage }}" alt="">
                 {{ } }}
@@ -54,6 +57,9 @@
            {{ } }}
          {{ } }}
       </ul>
+      <div class="more-spolis">
+        更多奖品不断更新中哦~
+      </div>
     </script>
     <script id="gains" type="text/template">
        <ul class="pk-gains-list">
@@ -74,42 +80,68 @@
         </ul>
     </script>
     <script id="vote-exchange-tpl" type="text/template">
+      {{ var date = new Date(),dateString = date.getFullYear()+'.'+date.getMonth()+'.'+date.getDate()  }}
       {{ if(!IsRealProduct){ }}
         <div class="content">
-            <span class="num"><strong class="">{{=CouponValue}}</strong>元</span>
+            <span class="num"><strong class="">{{=CouponDetailInfo.CouponValue}}</strong>元</span>
             <span class="txt">优惠券</span>
         </div>
         <div class="text">
           <div>
-            获得时间 2015.09.09
+            获得时间 {{= dateString }}
           </div>
           <div>
-            获得时间 <strong>2015.09.09 - 2015.09.09</strong>
+            优惠券期限 <strong>{{-:CouponDetailInfo.ValidStart | simpleDate }} - {{-:CouponDetailInfo.ValidEnd | simpleDate }}</strong>
           </div>
-          <p>兑换后优惠券可在个人中心-我的钱包中查看哦~</p>
+          <p>{{= AwardStatus == 2?'兑换后':''}}优惠券可在个人中心-我的钱包中查看哦~ </p>
         </div>
-        <div class="dialog-btn" data-CouponNumber="{{=CouponNumber}}">
-            使用200积分,立即兑换
+        {{ if(AwardStatus == 2){ }}
+        <div class="dialog-btn J-receive-coupon" data-CouponNumber="{{=CouponDetailInfo.CouponNumber}}">
+            使用{{=NeedPoint}}积分,立即兑换
         </div>
+        {{ }else{ }}
+        <div class="dialog-btn  J-close-exchange" onclick=";">我知道了</div>
+        {{ } }}
       {{ }else{ }}
         <div class="content">
             <img src="{{=AwardImage}}" alt="">
         </div>
         <div class="text">
           <div>
-            获得时间 2015.09.09
+            获得时间 {{= dateString }}
           </div>
           <div>
-            获得时间 <strong>2015.09.09 - 2015.09.09</strong>
+            数量有限,购完为止
+          </div>
+          <div>
+              <strong>{{=NeedPoint}}积分+1元兑换实物奖品，请点击</strong>
           </div>
         </div>
-        <div class="dialog-btn">
-            使用200积分,立即兑换
+        <div class="dialog-btn J-add-privilege">
+            加1元，立即换购
         </div>
       {{ } }}
     </script>
     <section class="pk-vote">
-        <summary></summary>
+        <summary>
+            <div class="vote-briefing">
+                <div class="briefing-item">
+                    胜
+                    <div class="num">X</div>
+                </div>
+                <div  class="briefing-item">
+                    负
+                    <div class="num">X</div>
+                </div>
+                <div  class="briefing-item J-open" data-url="/pk/vote_list.html" onclick=";">
+                  积分 ( 已连胜<strong>X</strong>次 )
+                  <div class="num">
+                    X
+                  </div>
+                  <i>></i>
+                </div>
+            </div>
+        </summary>
         <div class="pk-tab">
         <!-- is-switch-state -->
           <div class="pk-tab-header">
@@ -123,14 +155,14 @@
           </div>
           <div class="pk-tab-body">
             <div class="tab-body-item pk-vote-spoils open">
-              <h4>获得的奖励已放入您的钱包 ( 个人中心 - 我的钱包 )</h4>
-              <spoils></spoils>
-              <div class="more-spolis">
-                更多奖品不断更新中哦~
-              </div>
+              <spoils>
+                  <div class="pk-loading" id="pkLoading"></div>
+              </spoils>
             </div>
             <div class="tab-body-item ">
-              <gains></gains>
+              <gains>
+                  <div class="pk-loading" id="pkLoading"></div>
+              </gains>
             </div>
           </div>
         </div>
@@ -147,8 +179,12 @@
           </div>
         </div>
     </section>
+    <!-- build:js /scripts/zepto,ejs.js -->
     <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+    <!-- endbuild -->
     <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015092301.js?wxAutoInit=1"></script>
+    <!-- build:js /scripts/pk/vote.js -->
     <script src="/scripts/pk/vote.js"></script>
+    <!-- endbuild -->
   </body>
 </html>

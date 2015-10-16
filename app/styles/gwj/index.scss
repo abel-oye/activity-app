@@ -18,11 +18,113 @@ $rem:1rem/32;
     background:#fffce0;
     padding:$rem*15 $rem*30;
   }
+  &-header,
+  &-footer{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width:$rem*588;
+  }
+  &-header{
+    background-image:url(/images/gwj/turntable_header.png);
+    height:$rem*12;
+  }
+  &-footer{
+    background-image:url(/images/gwj/turntable_footer.png);
+    height:$rem*10;
+  }
   &-body{
-    background:#fff;
+    background:#fff url(/images/gwj/turntable_body.png);
+    background-repeat-x: no-repeat;
+    background-size: 100%;
     padding:$rem*20;
     overflow:hidden;
     margin-right:$rem*-8;
+    position:relative;
+    &>div,
+    .starter{
+      width:$rem*170;
+      height:$rem*170;
+      float:left;
+      border:$rem solid #612922;
+      margin-right:$rem*10;
+      margin-bottom:$rem*10;
+    }
+    .board{
+      font-size:$rem*18;
+      color:#fff;
+      text-align:center;
+      background-color: #ef3d72;
+      background-size: $rem*80 $rem*80; /* 控制条纹的大小 */
+      background-image: -webkit-gradient(linear, 0 100%, 100% 0,
+                                  color-stop(.25, rgba(241, 81, 128,.8)), color-stop(.25, transparent),
+                                  color-stop(.5, transparent), color-stop(.5, rgba(241, 81, 128,.8)),
+                                  color-stop(.75, rgba(241, 81, 128,.8)), color-stop(.75, transparent),
+                                  to(transparent));
+      .coupon{
+        background:url(/images/gwj/coupon_bg.png);
+        text-align:center;
+        width:$rem*142;
+        height:$rem*60;
+        color:#ef3d72;
+        margin:$rem*40 auto $rem*28;
+        font-size:$rem*40;
+        small,
+        span{
+          font-size:$rem*18;
+        }
+        small{
+          vertical-align: super;
+        }
+      }
+      .img{
+         margin:$rem*20 auto $rem*10;
+         width:$rem*98;
+         height:$rem*98;
+      }
+      &.active{
+        .coupon{
+          background-position:-$rem*142 0;
+          color:#fff;
+        }
+        .txt{
+          color:#EF3D72;
+        }
+      }
+    }
+    .starter{
+      background:#ffee30;
+      &.clicked,
+      &:active{
+        .btn{
+            background-position:-$rem*120 0 ;
+        }
+      }
+      .btn{
+        background:url(/images/gwj/start_btn.png) no-repeat;
+        width:$rem*120;
+        height:$rem*90;
+        margin:$rem*20 auto;
+      }
+      .start_txt{
+        background:url(/images/gwj/start_txt.png) no-repeat;
+        width:$rem*94;
+        height:$rem*23;
+        margin:0 auto;
+      }
+    }
+    //移动块
+    .active{
+      //position:absolute;
+      left:$rem*20;
+      top:$rem*20;;
+      background-color: #fff;
+      background-size: $rem*80 $rem*80; /* 控制条纹的大小 */
+      background-image: -webkit-gradient(linear, 0 100%, 100% 0,
+                                  color-stop(.25, rgba(254, 239, 243,.8)), color-stop(.25, transparent),
+                                  color-stop(.5, transparent), color-stop(.5, rgba(254, 239, 243,.8)),
+                                  color-stop(.75, rgba(254, 239, 243,.8)), color-stop(.75, transparent),
+                                  to(transparent));
+    }
   }
 }
 

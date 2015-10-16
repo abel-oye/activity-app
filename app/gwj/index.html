@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
     <meta name="format-detection" content="telephone=no" />
-    <title>pk</title>
+    <title>海外购物节</title>
     <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
     <link rel="dns-prefetch" href="//staticontent.matouapp.ymatou.com">
     <link rel="dns-prefetch" href="//staticwap.ymatou.com">
@@ -12,21 +12,98 @@
     <script data-js-path="redraw.js">
      !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(320,16);
     </script>
+    <!-- build:css /styles/gwj/index.css-->
     <link rel="stylesheet" type="text/css" href="/styles/gwj/index.css">
+    <!-- endbuild-->
   </head>
   <body>
     <section class="gwj-container">
       <div class="turntable-wrapper">
-          <div class="turntable-header">
-
-          </div>
+          <div class="turntable-header"></div>
           <div class="turntable-body">
+              <div class="board active">
+                <div class="img">
+                  <img src="/images/gwj/iwatch.png" alt="">
+                </div>
+                <div class="txt">
+                  APPLE WATCH
+                </div>
+              </div>
+              <div class="board">
+                <div class="coupon">
+                <small>&yen;</small>5<span>元</span>
+                </div>
+                <div class="txt">
+                  现金抵用券
+                </div>
+              </div>
+              <div class="board">
+                <div class="coupon">
+                <small>&yen;</small>50<span>元</span>
+                </div>
+                <div class="txt">
+                  现金抵用券
+                </div>
+              </div>
+              <div class="board">
+                  <div class="coupon">
+                  <small>&yen;</small>5<span>元</span>
+                  </div>
+                  <div class="txt">
+                    现金抵用券
+                  </div>
+              </div>
+              <button class="starter J-turntable-run" onclick=";">
+                  <div class="btn">
 
+                  </div>
+                  <div class="start_txt">
+
+                  </div>
+              </button>
+              <div class="board">
+                <div class="coupon">
+                <small>&yen;</small>300<span>元</span>
+                </div>
+                <div class="txt">
+                  现金抵用券
+                </div>
+              </div>
+              <div class="board">
+                <div class="coupon">
+                <small>&yen;</small>100<span>元</span>
+                </div>
+                <div class="txt">
+                  现金抵用券
+                </div>
+              </div>
+              <div class="board">
+                <div class="coupon">
+                <small>&yen;</small>20<span>元</span>
+                </div>
+                <div class="txt">
+                  现金抵用券
+                </div>
+              </div>
+              <div class="board">
+                <div class="coupon">
+                <small>&yen;</small>5<span>元</span>
+                </div>
+                <div class="txt">
+                  现金抵用券
+                </div>
+              </div>
           </div>
+          <div class="turntable-footer"></div>
       </div>
     </section>
+    <!-- build:js /scripts/zepto,ejs.js -->
     <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+    <!-- endbuild -->
     <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015092301.js?wxAutoInit=1"></script>
+    <!-- build:js /scripts/gwj/index.js -->
     <script src="/scripts/gwj/index.js"></script>
+    <!-- endbuild -->
   </body>
 </html>
+
