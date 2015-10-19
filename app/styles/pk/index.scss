@@ -304,7 +304,6 @@ $right_color: #2e95ff;
         .pk-succ-vote
         {
             display: none;
-
             width: 100%;
             height: $rem*102;
 
@@ -365,6 +364,9 @@ $right_color: #2e95ff;
             .pk-vote
             {
                 display: none;
+            }
+            .right-vote{
+                display:block;
             }
         }
         &.left-vote-group,
@@ -839,7 +841,7 @@ $right_color: #2e95ff;
     top: 50%;
     left: 50%;
     display:none;
-    width: $rem*630;
+    width: 95%;
     height: $rem*280;
 
     transform: translate(-50%, -50%);

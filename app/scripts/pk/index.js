@@ -231,6 +231,7 @@ $(function () {
         jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetSummary', {
             accessToken: authInfo.AccessToken
         }), function (data) {
+            data.hasLogin = true;
             var html = ejs.render($('#summary').html(), data);
             $('summary').html(html);
         });
@@ -295,7 +296,8 @@ $(function () {
     }else{
         var html = ejs.render($('#summary').html(), {
             WinTotal:null,
-            StraightTotal:null
+            StraightTotal:null,
+            hasLogin:false
         });
         $('summary').html(html);
     }
@@ -316,8 +318,9 @@ $(function () {
                 ProductId: voteProductId
             }), function (data) {
                 if (data.HasSuccess) {
-                    $('#pk-vote').hide();
-                    console.log(data);
+                    $('.pk-vote-dialog').hide();
+                    showLog('投票成功！');
+                    window.location.reload();
                 }
             });
         };
@@ -338,11 +341,12 @@ $(function () {
                 parent = $this.parent(),
                 content = parent.find('.rule-content'),
                 title;
-            if (parent.has('open')) {
-                $this.text('收起更多细则');
+            if (parent.hasClass('open')) {
+                 $this.text('查看更多细则');
             }
             else {
-                $this.text('查看更多细则');
+                $this.text('收起更多细则');
+
             }
             title = content.attr('title');
             content.attr('title',content.text());
@@ -358,19 +362,20 @@ $(function () {
             });
         })
         .on('click', '.J-close-record', function () {
-            $(this).closest('.pk-record').hide();
+            $(this).closest('.pk-record').removeClass('open');
             $('.pk-record-close').show();
         })
         .on('click', '.J-open-record', function () { //打开
             if(checkLogin()){
                 $(this).hide();
-                $('.pk-record').show();
+                $('.pk-record').addClass('open');
             }
         }).on('click', '.J-open-vote', function () { //打开投票
             if(checkLogin()){
                 var $this = $(this);
-                voteProductId = $this.attr('data-product-name');
-                $('.pk-vote-dialog').show().find('.pk-dialog-body strong').text(voteProductId);
+                voteProductId = $this.attr('data-product-id');
+
+                $('.pk-vote-dialog').show().find('.pk-dialog-body strong').text($this.attr('data-product-name'));
             }else{
                 YmtApi.one('userStatusChange',function(){
                     window.location.reload()
@@ -390,7 +395,7 @@ $(function () {
                 YmtApi.openShare({
                     shareTitle: '【有人@你】全球洋货年度PK赛正在直播！快来支持你选择的战队吧！',
                     shareUrl: 'http://static.pk.ymatou.com/share.html?id='+PKId+'&UserId='+userId,
-                    sharePicUrl: '',
+                    sharePicUrl: 'http://static.pk.yamtou.com/images/pk.png',
                     shareContent: '【有人@你】全球洋货年度PK赛正在直播！快来支持你选择的战队吧！'
                 });
             }

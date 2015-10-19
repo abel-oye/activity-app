@@ -126,18 +126,18 @@
     </script>
 
     <script id="summary" type="text/template">
-          <div class="pk-record {{= WinTotal ? 'open' : ''}}">
+          <div class="pk-record {{= hasLogin ? 'open' : ''}}">
             <div class="pk-record-header">
               <span class="close-btn J-close-record" onclick=";">x</span>
             </div>
-            <div class="pk-record-body J-open" data-url="/pk/vote.html" onclick=";">
+            <div class="pk-record-body J-open" data-url="/pk/vote.html?r=1" onclick=";">
               <strong>{{= WinTotal }}</strong>次猜中 {{ if( StraightTotal > 1 ){ }}(<strong>{{= StraightTotal }}</strong>连中){{ } }}
               <hr/>
               查看我的投票>
             </div>
             <div class="pk-record-footer"></div>
           </div>
-          <div class="pk-record-close {{= !WinTotal ? 'open' : ''}} J-open-record" onclick=";"></div>
+          <div class="pk-record-close {{= !hasLogin ? 'open' : ''}} J-open-record" onclick=";"></div>
     </script>
 
     <!-- 投票 column-vote-group right-vote-group left-vote-group -->
@@ -230,7 +230,7 @@
         </div>
         <div class="pk-dialog-footer">
           <span class="left-btn J-close-vote" onclick=";"></span>
-          <span class="right-btn J-confirm-vote"></span>
+          <span class="right-btn J-confirm-vote"  onclick=";"></span>
         </div>
     </div>
     <div class="pk-back-top" onclick=";"></div>

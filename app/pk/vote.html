@@ -63,8 +63,10 @@
       </div>
     </script>
     <script id="gains" type="text/template">
+        {{ data = PastPKGameRecordList }}
+        {{ if(data && data[0]){ }}
        <ul class="pk-gains-list">
-          {{ for(var i =0,data = PastPKGameRecordList,len=data.length;i<len;i++){ }}
+          {{ for(var i =0,len=data.length;i<len;i++){ }}
             <li class="pk-gains-item J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}" onclick=";">
               <div class="pk-spoils-flag {{= data[i].HasWin==null?'census':data[i].HasWin?'nice':'fial'}}">{{= data[i].HasWin==null?'统计中':data[i].HasWin?'猜中':'猜错'}}</div>
               <div class="group pk-flag">
@@ -78,6 +80,9 @@
             </li>
           {{ } }}
         </ul>
+        {{ }else{ }}
+            <div class="pk-no-reuslt">亲爱的小主，您暂时还任何战绩</div>
+        {{ } }}
     </script>
     <script id="vote-exchange-tpl" type="text/template">
       {{ var date = new Date(),dateString = date.getFullYear()+'.'+date.getMonth()+'.'+date.getDate()  }}
