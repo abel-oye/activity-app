@@ -287,3 +287,67 @@ $rem:1rem/32;
         float:right;
     }
 }
+.buyer-set{
+    &-wrapper{
+        overflow:hidden;
+        padding-left:$rem*18;
+    }
+    &-item{
+        width:33.3333%;
+        float:left;
+        height:$rem*403;
+        padding-right:$rem*18;
+    }
+}
+
+.buyer-box{
+    &-header,
+    &-footer{
+        background-repeat:no-repeat;
+    }
+
+    &-header{
+        height:$rem*8;
+        background-size: 100% 100%;
+        background-image:url(/images/gwj/buyer_header_bg.png);
+    }
+    &-body{
+        background-image:url(/images/gwj/buyer_body_bg.png);
+        background-repeat-x: no-repeat;
+        background-size: 100%;
+        font-size:$rem*18;
+        color:#42210e;
+        .pic{
+            width:100%;
+            height:$rem*190;
+        }
+        .info-wrapper{
+            padding:0 $rem*8;
+            .text{
+                padding:$rem*12 0;
+            }
+        }
+        .tag{
+            padding:$rem*15 0;
+            text-align:center;
+            border-bottom:$rem dashed #7a7a7a;
+        }
+        .btn-wrapper{
+            padding-left:$rem*1;
+            padding-right:$rem*5;
+        }
+        .btn{
+            height:$rem*50;
+            background:#ec3c71;
+            font-size:$rem*24;
+            text-align:center;
+            color:#fff;
+
+        }
+    }
+    &-footer{
+        height:$rem*12;
+        background-size: 100%;
+        background-image:url(/images/gwj/buyer_footer_bg.png);
+    }
+}

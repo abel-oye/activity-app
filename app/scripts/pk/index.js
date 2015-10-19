@@ -14,46 +14,6 @@ $(function () {
     ejs.open = '{{';
     ejs.close = '}}';
 
-    ejs.filters.apartTime = function(timeStr){
-         if (!timeStr) return '';
-       var second = 1000,
-           minute = second * 60,
-           hour = minute * 60,
-           day = hour * 24,
-           halfamonth = day * 15,
-           month = day * 30,
-           now = new Date().getTime(),
-           diffValue = now - new Date(timeStr).getTime(),
-           result;
-       if(diffValue < 0){
-               //若日期不符则弹出窗口告之
-               //alert("结束日期不能小于开始日期！");
-       }
-       var monthC =diffValue/month,
-           weekC =diffValue/(7*day),
-           dayC =diffValue/day,
-           hourC =diffValue/hour,
-           minC =diffValue/minute,
-           secC =diffValue/second;
-       if(monthC>=1){
-               result= parseInt(monthC,10) + "个月前";
-       }else if(weekC>=1){
-               result=parseInt(weekC,10) + "周前";
-       }else if(dayC>=1){
-               result=parseInt(dayC,10) +"天前";
-       }else if(hourC>=1){
-               result= parseInt(hourC,10) +"个小时前";
-       }else if(minC>=1){
-               result=parseInt(minC,10) +"分钟前";
-       }else if(secC >= 1){
-               result=parseInt(secC,10) +"秒钟前";
-       }else{
-            result="刚刚";
-       }
-
-       return result;
-    }
-
     var isFuntion = function (str) {
         return 'function' === typeof str;
     };
@@ -208,7 +168,7 @@ $(function () {
 
     //投票动态
     var dynamics = function(){
-         $('.pk-dynamics-list').each(function(){
+         $('.pk-dynamics-list').each(function(i,z){
             var $this = $(this),
                 childs = $this.find('li'),
                 len = childs.length,
@@ -225,7 +185,13 @@ $(function () {
                    inx ++;
                 }
             }
-            timer = setInterval(move,2000);
+            if(i){
+                setTimeout(function(){
+                    timer = setInterval(move,1800);
+                },800)
+            }else{
+                timer = setInterval(move,1800);
+            }
         });
     }
 
@@ -398,10 +364,10 @@ $(function () {
                 pic = $this.attr('data-share-pic');
             var share = function(userId){
                 YmtApi.openShare({
-                    shareTitle: '【有人@你】全球洋货年度PK赛正在直播！快来支持你选择的战队吧！',
-                    shareUrl: 'http://static.pk.ymatou.com/share.html?id='+PKId+'&UserId='+userId,
+                    shareTitle: '【有人@你】全球洋货年度PK赛正在直播！快来支持你选择的战队吧！ ',
+                    shareUrl: 'http://static.pk.ymatou.com/pk/share.html?id='+PKId+'&UserId='+userId,
                     sharePicUrl: 'http://static.ymatou.com/images/sprites/logo.2015090615.png',
-                    shareContent: '【有人@你】全球洋货年度PK赛正在直播！快来支持你选择的战队吧！',
+                    shareContent: '全球洋货分成红蓝两队，你偏爱哪一方呢？赶紧为你心爱的Ta投票吧，说不定可以把ta和iPhone6s一起带回家噢~',
                     showWeiboBtn:1
                 });
             }

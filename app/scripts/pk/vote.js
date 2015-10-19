@@ -182,11 +182,10 @@ $(function () {
         var $this = $(this),
             $tab = $this.closest('.pk-tab');
 
-       /* if (!$this.hasClass('open')) {
-            $tab.find('.tab-header-item,.tab-body-item').removeClass('open');
+       if (!$this.hasClass('open')) {
+            $tab.find('.tab-header-item').removeClass('open');
             $this.addClass('open');
-            $tab.find('.tab-body-item').eq($this.index() - 1).addClass('open');
-        }*/
+        }
 
         if($this.index() == 1){
             $tab.removeClass('is-switch-state');
