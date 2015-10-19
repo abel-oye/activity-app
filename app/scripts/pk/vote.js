@@ -159,10 +159,10 @@ $(function () {
         currExchange = exchangeList[inx];
 
         var html = ejs.render($('#vote-exchange-tpl').html(), currExchange);
-        $('#vote-exchange').show().find('.vote-coupon-dialog').html(html);
+        $('.vote-exchange').show().find('.vote-coupon-dialog').html(html);
 
     }).on('click', '.J-close-exchange', function () {
-        $('#vote-exchange').hide();
+        $('.vote-exchange').hide();
     }).on('click', '.J-receive-coupon', function () {
         jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/ReceiveCouponInfo', {
             accessToken: authInfo.AccessToken,
@@ -170,7 +170,7 @@ $(function () {
             couponNumber: currExchange.CouponDetailInfo.BatchCode
         }), function (data,res) {
             showLog(res.Msg);
-            $('#vote-exchange').hide();
+            $('.vote-exchange').hide();
         });
     }).on('click', '.J-add-privilege', function () {
         jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/ExchangeProductAward', {

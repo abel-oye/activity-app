@@ -14,6 +14,46 @@ $(function () {
     ejs.open = '{{';
     ejs.close = '}}';
 
+    ejs.filters.apartTime = function(timeStr){
+         if (!timeStr) return '';
+       var second = 1000,
+           minute = second * 60,
+           hour = minute * 60,
+           day = hour * 24,
+           halfamonth = day * 15,
+           month = day * 30,
+           now = new Date().getTime(),
+           diffValue = now - new Date(timeStr).getTime(),
+           result;
+       if(diffValue < 0){
+               //若日期不符则弹出窗口告之
+               //alert("结束日期不能小于开始日期！");
+       }
+       var monthC =diffValue/month,
+           weekC =diffValue/(7*day),
+           dayC =diffValue/day,
+           hourC =diffValue/hour,
+           minC =diffValue/minute,
+           secC =diffValue/second;
+       if(monthC>=1){
+               result= parseInt(monthC,10) + "个月前";
+       }else if(weekC>=1){
+               result=parseInt(weekC,10) + "周前";
+       }else if(dayC>=1){
+               result=parseInt(dayC,10) +"天前";
+       }else if(hourC>=1){
+               result= parseInt(hourC,10) +"个小时前";
+       }else if(minC>=1){
+               result=parseInt(minC,10) +"分钟前";
+       }else if(secC >= 1){
+               result=parseInt(secC,10) +"秒钟前";
+       }else{
+            result="刚刚";
+       }
+
+       return result;
+    }
+
     var isFuntion = function (str) {
         return 'function' === typeof str;
     };
@@ -157,9 +197,34 @@ $(function () {
                     $('#loading-fixed').remove();
 
                      rowIntercept($('.J-textflow'), 2);
+
+                     pastDynamics()
                 }
             });
         };
+
+    //投票动态
+    var dynamics = function(){
+         $('.pk-dynamics-list').each(function(){
+            var $this = $(this),
+                childs = $this.find('li'),
+                len = childs.length,
+                inx = 0,timer;
+            if(!len){
+                return;
+            }
+            var move = function(){
+                $this.css('transform','translate(0,'+(-100*inx)+'%)');
+                if(inx+1 == len){
+                    timer = null;
+                    clearInterval(timer);
+                }else{
+                   inx ++;
+                }
+            }
+            timer = setInterval(move,2000);
+        });
+    }
 
     //获得战绩统计
     var getSummary = function () {
@@ -180,6 +245,30 @@ $(function () {
                 var html = ejs.render($('#past').html(), data);
                 $('past').html(html);
                  rowIntercept($('.J-textflow'), 2);
+            }
+        });
+    };
+    //获得投票动态
+    var pastDynamics = function () {
+        jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001//api/PKGame/GetJoinPKGameData', {
+        }), function (data) {
+            if (data) {
+                var dynList = data.RealData;
+                Array.prototype.push.apply(dynList,data.NoData);
+
+                var len = dynList.length,
+                    redLen = Math.floor(len/2),
+                    html = $('#pk-dynamics').html();
+
+                $('.pk-left-wrapper .pk-dynamics').html(ejs.render(html, {
+                    data:dynList.slice(0,redLen)
+                }));
+
+                $('.pk-right-wrapper .pk-dynamics').html(ejs.render(html, {
+                    data:dynList.slice(redLen)
+                }));
+
+                dynamics();
             }
         });
     };
@@ -281,14 +370,14 @@ $(function () {
             if(checkLogin()){
                 var $this = $(this);
                 voteProductId = $this.attr('data-product-name');
-                $('#pk-vote').show().find('.pk-dialog-body strong').text(voteProductId);
+                $('.pk-vote-dialog').show().find('.pk-dialog-body strong').text(voteProductId);
             }else{
                 YmtApi.one('userStatusChange',function(){
                     window.location.reload()
                 });
             }
         }).on('click', '.J-close-vote', function () { //关闭投票
-            $('#pk-vote').hide();
+            $('.pk-vote-dialog').hide();
         }).on('click', '.J-confirm-vote', function () { //确认投票
             confirmVote();
         }).on('click', '.J-share', function () { //分享
@@ -308,9 +397,8 @@ $(function () {
             if(authInfo.UserId){
                 share(authInfo.UserI)
             }
-
-
         });
 
         rowIntercept();
+
 });

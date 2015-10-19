@@ -283,6 +283,7 @@ $rem:1rem/32;
   bottom:0;
   left:0;
   right:0;
+  z-index: 99;
   background:rgba(0,0,0,.7);
   display:none;
   &.open{
@@ -292,7 +293,8 @@ $rem:1rem/32;
 
 .vote-dialog{
   position:fixed;
-  z-index:9;
+  z-index:100;
+  display:none;
   width:$rem*530;
   top:50%;
   left:50%;

@@ -81,6 +81,7 @@ $right_color: #2e95ff;
         background-image: url(/images/start_bg.png);
         background-repeat: no-repeat;
         background-position: center bottom;
+        background-size:contain;
         .text
         {
             color: #ff0043;
@@ -134,7 +135,7 @@ $right_color: #2e95ff;
     span
     {
         font-size: $rem*14;
-        height:$rem*16;
+        height:$rem*18;
         overflow:hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -834,16 +835,17 @@ $right_color: #2e95ff;
 .pk-dialog
 {
     position: fixed;
-    z-index: 9;
+    z-index: 100;
     top: 50%;
     left: 50%;
-
+    display:none;
     width: $rem*630;
     height: $rem*280;
 
     transform: translate(-50%, -50%);
 
     background: url(/images/vote_confirm.png) no-repeat;
+    background-size:contain;
     &-body
     {
         font-size: $rem*26;
@@ -1020,3 +1022,13 @@ $right_color: #2e95ff;
     }
 }
 
+//pk 动态
+.pk-dynamics{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    &-list{
+        height: 100%;
+       transition: transform 0.25s ease-in-out;
+    }
+}

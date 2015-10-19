@@ -43,11 +43,9 @@
              <div class="pk-sling-wrapper">
                <span class="pk-sling"></span>
              </div>
-             <ul class="">
-                <li>11</li>
-                <li>22</li>
-                <li>3333</li>
-            </ul>
+             <div class="pk-dynamics">
+
+             </div>
              <div class="pk-sling-wrapper">
                <span class="pk-sling"></span>
              </div>
@@ -83,6 +81,9 @@
             <div class="pk-vote-show">
               <div class="pk-sling-wrapper">
                 <span class="pk-sling"></span>
+              </div>
+              <div class="pk-dynamics">
+
               </div>
               <div class="pk-sling-wrapper">
                 <span class="pk-sling"></span>
@@ -163,6 +164,13 @@
        </div>
     </script>
 
+    <script id="pk-dynamics"  type="text/template">
+        <ul class="pk-dynamics-list">
+            {{ for(var i =0,len = data.length;i<len;i++){ }}
+                <li>{{= data[i].NickName }} {{-: data[i].DateTime | apartTime }}</li>
+            {{ } }}
+        </ul>
+    </script>
     <section class="pk-container pk-hide">
       <div class="pk-wrapper">
         <div class="pk-header">
@@ -212,19 +220,18 @@
       <!--投票记录-->
       <summary></summary>
     </section>
-    <div class="pk-mask" id="pk-vote">
-      <div class="pk-dialog">
-          <div class="pk-dialog-header"></div>
-          <div class="pk-dialog-body">
-            哈尼,确定为
-            <strong></strong>
-            投出您宝贵的一票吗？
-          </div>
-          <div class="pk-dialog-footer">
-            <span class="left-btn J-close-vote"></span>
-            <span class="right-btn J-confirm-vote"></span>
-          </div>
-      </div>
+    <div class="pk-mask J-close-vote pk-vote-dialog" onclick=";"></div>
+    <div class="pk-dialog  pk-vote-dialog">
+        <div class="pk-dialog-header"></div>
+        <div class="pk-dialog-body">
+          哈尼,确定为
+          <strong></strong>
+          投出您宝贵的一票吗？
+        </div>
+        <div class="pk-dialog-footer">
+          <span class="left-btn J-close-vote" onclick=";"></span>
+          <span class="right-btn J-confirm-vote"></span>
+        </div>
     </div>
     <div class="pk-back-top" onclick=";"></div>
     <div class="pk-loading loading-fixed" id="loading-fixed"></div>
