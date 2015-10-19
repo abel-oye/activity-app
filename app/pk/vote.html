@@ -28,7 +28,8 @@
               <div class="num">{{= FailTotal }}</div>
           </div>
           <div  class="briefing-item J-open" data-url="/pk/vote_list.html" onclick=";">
-            积分 {{if(StraightTotal > 1){ }} ( 已连胜<strong>{{= StraightTotal }}</strong>次 ) {{ } }}
+            战绩
+             {{if(StraightTotal > 1){ }} ( 已连胜<strong>{{= StraightTotal }}</strong>次 ) {{ } }}
             <div class="num">
               {{= PointTotal }}
             </div>
@@ -96,7 +97,8 @@
         </div>
         {{ if(AwardStatus == 2){ }}
         <div class="dialog-btn J-receive-coupon" data-CouponNumber="{{=CouponDetailInfo.CouponNumber}}">
-            使用{{=NeedPoint}}积分,立即兑换
+            使用{{=NeedPoint}}战绩
+            ,立即兑换
         </div>
         {{ }else{ }}
         <div class="dialog-btn  J-close-exchange" onclick=";">我知道了</div>
@@ -113,7 +115,8 @@
             数量有限,购完为止
           </div>
           <div>
-              <strong>{{=NeedPoint}}积分+1元兑换实物奖品，请点击</strong>
+              <strong>{{=NeedPoint}}战绩
+              +1元兑换实物奖品，请点击</strong>
           </div>
         </div>
         <div class="dialog-btn J-add-privilege">
@@ -133,7 +136,8 @@
                     <div class="num">X</div>
                 </div>
                 <div  class="briefing-item J-open" data-url="/pk/vote_list.html" onclick=";">
-                  积分 ( 已连胜<strong>X</strong>次 )
+                  战绩
+                   ( 已连胜<strong>X</strong>次 )
                   <div class="num">
                     X
                   </div>
@@ -146,7 +150,8 @@
           <div class="pk-tab-header">
             <div class="tab-header-line"></div>
             <div class="tab-header-item open">
-              战利品(积分兑换)
+              战利品(战绩
+              兑换)
             </div>
             <div class="tab-header-item">
                 历史战绩

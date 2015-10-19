@@ -18,14 +18,20 @@
   </head>
   <body>
     <script id="voteList" type="text/template">
+     {{ if(PointDetailList && PointDetailList.length){ }}
        <ul class="pk-vote-list">
           {{ for(var i =0,len=PointDetailList.length;i<len;i++){ }}
             <li class="pk-vote-item">
               <p>{{-: PointDetailList[i].DateTime |  simpleDate }}</p>
-              <h3>{{= PointDetailList[i].Type==1?'获得':'消费' }}<strong>{{= PointDetailList[i].Point }}</strong>积分</h3>
+              <h3>{{= PointDetailList[i].Type==1?'获得':PointDetailList[i].Type==3?'奖励':'消费' }}<strong>{{= PointDetailList[i].Point }}</strong>战绩</h3>
             </li>
           {{ } }}
         </ul>
+    {{ }else{ }}
+        <div class="pk-no-reuslt">
+            亲爱的小主，您没有积分记录哦
+        </div>
+    {{ } }}
     </script>
     <section class="pk-vote">
       <voteList></voteList>
