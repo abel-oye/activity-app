@@ -36,7 +36,7 @@
               <span class="pk-sling"></span>
               <span class="pk-sling"></span>
             </div>
-            <div class="pk-pro-body {{= WinProductId==RedProductId?'win':''}} J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=RedProductId}}">
+            <div class="pk-pro-body {{= WinProductId==RedProductId?'win':''}} J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=RedProductId}}" data-title="商品详情">
               <img src="{{=RedProductImage}}" alt="">
               <div class="pk-pro-info">
                 <span class="country"><img src="{{= RedCountryIcon }}" alt="">{{= RedCountry }}</span>
@@ -71,7 +71,7 @@
               <span class="pk-sling"></span>
               <span class="pk-sling"></span>
             </div>
-            <div class="pk-pro-body {{= WinProductId==BlueProductId?'win':''}} J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=BlueProductId}}">
+            <div class="pk-pro-body {{= WinProductId==BlueProductId?'win':''}} J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=BlueProductId}}" data-title="商品详情">
               <img src="{{=BlueProductImage}}" alt="">
               <div class="pk-pro-info">
                 <span class="country"><img src="{{=BlueCountryIcon}}" alt="">{{=BlueCountry}}</span>
@@ -99,11 +99,13 @@
       <div class="pk-vote-wrapper column-vote-group">
          <div class="pk-vote-col">
               <span class="pk-vote-num">{{=!WinProductId?'?':RedNumberOfVotes}}票</span>
-              <span class="pk-vote J-open pk-see-pro-left" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=RedProductId}}" onclick=";" ></span>
+              <span class="pk-vote J-open pk-see-pro-left" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=RedProductId}}"
+                onclick=";" data-title="商品详情"></span>
           </div>
          <div class="pk-vote-col">
               <span class="pk-vote-num">{{=!WinProductId?'?':BlueNumberOfVotes}}票</span>
-              <span class="pk-vote J-open pk-see-pro-right" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=BlueProductId}}" onclick=";"></span>
+              <span class="pk-vote J-open pk-see-pro-right" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=BlueProductId}}"
+                onclick=";" data-title="商品详情"></span>
          </div>
        </div>
     </script>

@@ -236,6 +236,7 @@ $rem:1rem/32;
     margin-bottom:$rem*14;
 }
 
+//好货大搜罗
 .wares-pro{
     &-pic{
         margin-bottom:$rem*6;
@@ -248,6 +249,7 @@ $rem:1rem/32;
         overflow:hidden;
         background:#f8f8f8;
         padding-left:$rem*10;
+        padding-bottom:$rem*20;
     }
     &-item{
         float:left;
@@ -267,9 +269,21 @@ $rem:1rem/32;
             &>strong{
                 font-size:$rem*14;
             }
-            &del{
+            &.del-price{
                 color:#979797;
             }
         }
+    }
+}
+.goods-footer{
+    padding:$rem*20 $rem*18;
+    border-bottom:$rem solid #42210e;
+    overflow:hidden;
+    .see-more{
+        background:url(/images/gwj/see_more.png);
+        background-size:contain;
+        width:$rem*118;
+        height:$rem*25;
+        float:right;
     }
 }

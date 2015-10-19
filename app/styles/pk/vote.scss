@@ -189,9 +189,7 @@ $rem:1rem/32;
     height:$rem*90;
     .text{
       display: block;
-        overflow: hidden;
-        height: 100%;
-        font-size:$rem*18;
+      font-size:$rem*18;
     }
   }
   .group{

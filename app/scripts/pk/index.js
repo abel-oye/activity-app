@@ -125,7 +125,7 @@ $(function () {
      * 设置行数处理多行文本
      */
     var rowIntercept = function ($target, rowNum) {
-        $target = $target || 'J-textflow';
+        $target = $target || '.J-textflow';
         if(typeof $target === 'string'){
             $target = $($target);
         }
@@ -345,10 +345,10 @@ $(function () {
                 content = parent.find('.rule-content'),
                 title;
             if (parent.hasClass('open')) {
-                 $this.text('查看更多细则');
+                 $this.text('查看更多细则').removeClass('handstand');
             }
             else {
-                $this.text('收起更多细则');
+                $this.text('收起更多细则').addClass('handstand');
 
             }
             title = content.attr('title');

@@ -67,14 +67,14 @@
         {{ if(data && data[0]){ }}
        <ul class="pk-gains-list">
           {{ for(var i =0,len=data.length;i<len;i++){ }}
-            <li class="pk-gains-item J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}" onclick=";">
+            <li class="pk-gains-item J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}" data-title="比赛详情" onclick=";">
               <div class="pk-spoils-flag {{= data[i].HasWin==null?'census':data[i].HasWin?'nice':'fial'}}">{{= data[i].HasWin==null?'统计中':data[i].HasWin?'猜中':'猜错'}}</div>
               <div class="group pk-flag">
                  <img class="pro-pic" src="{{= data[i].RedProductImage }}" alt="商品图片">
                  <img class="pro-pic"  src="{{= data[i].BlueProductImage }}" alt="商品图片">
               </div>
               <div class="text-area">
-                <span class="text">{{= data[i].RedProductName+' vs '+data[i].BlueProductSubTitle }}</span>
+                <span class="text J-textflow">{{= data[i].RedProductName+' vs '+data[i].BlueProductSubTitle }}红队PK后台添加 vs 测试测试测试红队PK后台添加 vs 测试测试测试红队PK后台添加 vs 测试测试测试红队PK后台添加 vs 测试测试测试</span>
               </div>
               <i class="back">></i>
             </li>
@@ -140,7 +140,7 @@
                     负
                     <div class="num">X</div>
                 </div>
-                <div  class="briefing-item J-open" data-url="/pk/vote_list.html" onclick=";">
+                <div  class="briefing-item J-open" data-url="/pk/vote_list.html" data-title="战绩清单" onclick=";">
                   战绩
                    ( 已连胜<strong>X</strong>次 )
                   <div class="num">

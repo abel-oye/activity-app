@@ -29,7 +29,7 @@
               <span class="pk-sling"></span>
               <span class="pk-sling"></span>
             </div>
-            <div class="pk-pro-body J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=RedProductId}}">
+            <div class="pk-pro-body J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=RedProductId}}" data-title="商品详情">
               <img src="{{=RedProductImage}}" alt="">
               <div class="pk-pro-info">
                 <span class="country"><img src="{{= RedCountryIcon }}" alt="">{{= RedCountry }}</span>
@@ -68,7 +68,7 @@
               <span class="pk-sling"></span>
               <span class="pk-sling"></span>
             </div>
-            <div class="pk-pro-body J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=BlueProductId}}">
+            <div class="pk-pro-body J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=BlueProductId}}" data-title="商品详情">
               <img src="{{=BlueProductImage}}" alt="">
               <div class="pk-pro-info">
                 <span class="country"><img src="{{=BlueCountryIcon}}" alt="">{{=BlueCountry}}</span>
@@ -107,7 +107,7 @@
                 <ul class="pk-past-list">
                   {{ for(var i=0,data=PastPKGameDataList,len=data.length;i<len;i++){ }}
                     <li>
-                      <div class="pk-past-pro J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}" onclick=";">
+                      <div class="pk-past-pro J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}" data-title="比赛详情" onclick=";">
                         <div class="pro-pic-wrapper pk-flag">
                           <img class="pro-pic" src="{{=data[i].RedProductImage}}" alt="">
                           <img class="pro-pic" src="{{=data[i].BlueProductImage}}" alt="">
@@ -207,7 +207,7 @@
                     <p>3．如在活动期间发现违规行为，洋码头有权取消违规账号所得奖品，封闭帐号。</p>
                     <p>4．本活动与苹果公司无关。在法律允许范围内，洋码头保留最终解释权。</p>
                   </div>
-                <small class="J-seeMore" onclick=";">查看更多细则</small>
+                  <small class="pk-seeMore J-seeMore" onclick=";">查看更多细则</small>
               </div>
               <div class="pk-rule-footer"></div>
             </div>

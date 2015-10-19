@@ -1034,3 +1034,20 @@ $right_color: #2e95ff;
        transition: transform 0.25s ease-in-out;
     }
 }
+
+
+.pk-seeMore {
+    &:after{
+        content:'';
+        background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAHCAMAAAAPmYwrAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAABgUExURUxpcXt7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e3t7e5ceIc8AAAAfdFJOUwDnCAWOGM/+vgNL7B6HhlBR7yPxnCWZG8UfKCrDvce5gzORAAAAS0lEQVQI1z2MRQ7AMADDUlpxzJj//3JSBz7FUmRsbsVLOnc4xvBYiDwwL7SVB3xpeSVAaUtnjKPVKr+ankKwrb/GWJBFhx85TDKPG8r9A3SMeNZnAAAAAElFTkSuQmCC) no-repeat;
+        display:inline-block;
+        width:$rem*14;
+        height:$rem*7;
+        transition: transform .25s ease-in-out;
+    }
+    &.handstand{
+        &:after{
+            transform: rotate(180deg);
+        }
+    }
+}

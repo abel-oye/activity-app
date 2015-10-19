@@ -86,6 +86,55 @@ $(function () {
             }
         });
     };
+
+    /**
+     * 文字截断
+     * @param  {[type]} $target [description]
+     * @param  {[type]} rowNum  [description]
+     * 不用设置高度否则会影响计算，最佳设置字体大小和行高
+     * 设置行数处理多行文本
+     */
+    var rowIntercept = function ($target, rowNum) {
+        $target = $target || '.J-textflow';
+        if(typeof $target === 'string'){
+            $target = $($target);
+        }
+        rowNum = rowNum || 2;
+      $target.each(function () {
+        var $this = $(this),
+          getCurrentStyle = function (elem, styleName) {
+            return window.getComputedStyle ? window.getComputedStyle(elem, null)[styleName] : elem.currentStyle[styleName];
+          },
+          clientHeight = this.clientHeight, //容器高度
+          fontSize = parseFloat(getCurrentStyle($this[0], 'fontSize')) || 22,
+          lineHeight = parseFloat(getCurrentStyle($this[0], 'lineHeight')) || fontSize * 1.5;
+
+
+
+        var title = $this.attr('title');
+        //将原来的值保存到title中
+        if (title === undefined || title === '') {
+          $this.attr('title', title = $this.text());
+        }
+        //将原来的值还原重新计算
+        $this.text(title);
+        var dheight = parseInt(rowNum * lineHeight);
+        if (clientHeight >= dheight) {
+          while (dheight * 3 < this.clientHeight) {
+            $this.html(title.substring(0, title.length / 2));
+            title = $this.text();
+          }
+          //减去末尾文字
+          while (dheight < this.clientHeight) {
+            title = $this.text();
+            $this.html(title.replace(/(\s)*([a-zA-Z0-9]?|\W)(\.\.\.)?$/, '...'));
+          }
+          $this.removeClass('J-textflow');
+        }
+
+      });
+    };
+
     //当前页面做登录强制验证
     if(!YmtApi.utils.hasLogin()){
         YmtApi.toLogin();
@@ -144,6 +193,7 @@ $(function () {
         }else{
             $tab.addClass('is-switch-state');
         }
+         rowIntercept();
     });
 
     $(document).on('click', '.J-open', function () {
