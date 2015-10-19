@@ -250,7 +250,7 @@ $(function () {
     };
     //获得投票动态
     var pastDynamics = function () {
-        jsonpGetData(YmtApi.utils.addParam('http://172.16.2.97:8001//api/PKGame/GetJoinPKGameData', {
+        jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetJoinPKGameData', {
         }), function (data) {
             if (data) {
                 var dynList = data.RealData;
