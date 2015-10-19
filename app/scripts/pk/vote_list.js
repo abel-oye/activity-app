@@ -12,6 +12,14 @@ $(function () {
     ejs.open = '{{';
     ejs.close = '}}';
 
+    //日期转换
+    ejs.filters.simpleDate = function (price) {
+        if (!price) return '';
+
+        var date = price.split(/ |T/)[0];
+        return date.replace(/[-\/]/g, '.');
+    };
+
     var isFuntion = function (str) {
         return 'function' === typeof str;
     };

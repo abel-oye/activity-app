@@ -125,13 +125,21 @@ $right_color: #2e95ff;
     {
         font-size: $rem*24;
         line-height: 1;
-
+        height:$rem*24;
+        overflow:hidden;
+        text-overflow: ellipsis;
+          white-space: nowrap;
         color: $left_color;
     }
     span
     {
         font-size: $rem*14;
-
+        height:$rem*16;
+        overflow:hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width:100%;
+        display:block;
         color: #2a1600;
     }
 }
@@ -462,7 +470,7 @@ $right_color: #2e95ff;
         {
             .rule-content
             {
-                height: $rem*630;
+                //height: $rem*630;
             }
         }
     }
@@ -476,7 +484,7 @@ $right_color: #2e95ff;
     {
         overflow: hidden;
 
-        height: $rem*60;
+        //height: $rem*60;
 
         transition: height .25s cubic-bezier(.4, 0, 1, 1);
         text-align: left;
@@ -569,9 +577,13 @@ $right_color: #2e95ff;
 
         margin-bottom: $rem*27;
         padding-right: $rem*35;
+        height:$rem*96;
         & > .title
         {
             text-align: left;
+            //height:$rem*54;
+            font-size:$rem*18;
+            //overflow:hidden;
         }
     }
     &-more

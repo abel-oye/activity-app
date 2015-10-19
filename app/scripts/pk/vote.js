@@ -131,14 +131,18 @@ $(function () {
     //tab切换
     $('.pk-tab-header').on('click', '.tab-header-item', function () {
         var $this = $(this),
-            $header = $this.closest('.pk-tab-header'),
-            $tab = $header.parent();
+            $tab = $this.closest('.pk-tab');
 
-        if (!$this.hasClass('open')) {
+       /* if (!$this.hasClass('open')) {
             $tab.find('.tab-header-item,.tab-body-item').removeClass('open');
             $this.addClass('open');
             $tab.find('.tab-body-item').eq($this.index() - 1).addClass('open');
-            $header.toggleClass('is-switch-state');
+        }*/
+
+        if($this.index() == 1){
+            $tab.removeClass('is-switch-state');
+        }else{
+            $tab.addClass('is-switch-state');
         }
     });
 

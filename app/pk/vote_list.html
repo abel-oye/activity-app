@@ -21,7 +21,7 @@
        <ul class="pk-vote-list">
           {{ for(var i =0,len=PointDetailList.length;i<len;i++){ }}
             <li class="pk-vote-item">
-              <p>{{= PointDetailList[i].DateTime }}</p>
+              <p>{{-: PointDetailList[i].DateTime |  simpleDate }}</p>
               <h3>{{= PointDetailList[i].Type==1?'获得':'消费' }}<strong>{{= PointDetailList[i].Point }}</strong>积分</h3>
             </li>
           {{ } }}

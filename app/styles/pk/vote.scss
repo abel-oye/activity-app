@@ -50,16 +50,23 @@ $rem:1rem/32;
 //tab
 .pk-tab{
   background:#fff;
+  width: 100%;
+  overflow: hidden;
+  &.is-switch-state{
+    .tab-header-line{
+      transform: translate(100%,0);
+      background:#2e95ff;
+    }
+    .pk-tab-body{
+       transform: translate(-100%,0);
+    }
+  }
+
   &-header{
     border:$rem*2 solid #cecece;
     height: $rem*93;
     position:relative;
-    &.is-switch-state{
-      .tab-header-line{
-        transform: translate(100%,0);
-        background:#2e95ff;
-      }
-    }
+
     .tab-header-item{
       width:50%;
       font-size:$rem*22;
@@ -84,6 +91,16 @@ $rem:1rem/32;
       left:0;
       transition: transform 0.25s ease-in-out;
     }
+  }
+  &-body{
+      display: flex;
+      display: -webkit-box;
+      width: 100%;
+      transition: transform 0.25s ease-in-out;
+      .tab-body-item{
+        width:100%;
+        //display:block;
+      }
   }
 }
 //奖品
