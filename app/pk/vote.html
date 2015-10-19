@@ -74,7 +74,7 @@
                  <img class="pro-pic"  src="{{= data[i].BlueProductImage }}" alt="商品图片">
               </div>
               <div class="text-area">
-                <span class="text J-textflow">{{= data[i].RedProductName+' vs '+data[i].BlueProductSubTitle }}红队PK后台添加 vs 测试测试测试红队PK后台添加 vs 测试测试测试红队PK后台添加 vs 测试测试测试红队PK后台添加 vs 测试测试测试</span>
+                <span class="text J-textflow">{{= data[i].RedProductName+' vs '+data[i].BlueProductSubTitle }}</span>
               </div>
               <i class="back">></i>
             </li>
@@ -101,9 +101,8 @@
           <p>{{= AwardStatus == 2?'兑换后':''}}优惠券可在个人中心-我的钱包中查看哦~ </p>
         </div>
         {{ if(AwardStatus == 2){ }}
-        <div class="dialog-btn J-receive-coupon" data-CouponNumber="{{=CouponDetailInfo.CouponNumber}}">
-            使用{{=NeedPoint}}战绩
-            ,立即兑换
+        <div class="dialog-btn J-receive-coupon" data-CouponNumber="{{=CouponDetailInfo.CouponNumber}}" onclick=";">
+            使用{{=NeedPoint}}战绩,立即兑换
         </div>
         {{ }else{ }}
         <div class="dialog-btn  J-close-exchange" onclick=";">我知道了</div>
@@ -124,7 +123,7 @@
               +1元兑换实物奖品，请点击</strong>
           </div>
         </div>
-        <div class="dialog-btn J-add-privilege">
+        <div class="dialog-btn J-add-privilege" onclick=";">
             加1元，立即换购
         </div>
       {{ } }}

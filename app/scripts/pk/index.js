@@ -342,8 +342,8 @@ $(function () {
         .on('click', '.J-seeMore', function () {
             var $this = $(this),
                 parent = $this.parent(),
-                content = parent.find('.rule-content'),
-                title;
+                content = parent.find('.rule-content');
+
             if (parent.hasClass('open')) {
                  $this.text('查看更多细则').removeClass('handstand');
             }
@@ -351,10 +351,11 @@ $(function () {
                 $this.text('收起更多细则').addClass('handstand');
 
             }
-            title = content.attr('title');
+            /*title = content.attr('title');
             content.attr('title',content.text());
-            content.text(title);
+            content.text(title);*/
             parent.toggleClass('open');
+            content.toggleClass('textflow');
         })
         .on('click', '.J-open', function () {
             var $this = $(this);

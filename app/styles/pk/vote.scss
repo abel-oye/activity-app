@@ -188,8 +188,13 @@ $rem:1rem/32;
     font-size:$rem*28;
     height:$rem*90;
     .text{
-      display: block;
       font-size:$rem*18;
+      height:$rem*54;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
   }
   .group{
