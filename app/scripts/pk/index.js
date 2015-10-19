@@ -136,8 +136,11 @@ $(function () {
             return window.getComputedStyle ? window.getComputedStyle(elem, null)[styleName] : elem.currentStyle[styleName];
           },
           clientHeight = this.clientHeight, //容器高度
-          //fontSize = parseFloat(getCurrentStyle($this[0], 'fontSize')) || 22,
-          lineHeight = parseFloat(getCurrentStyle($this[0], 'lineHeight')) || 33;
+          fontSize = parseFloat(getCurrentStyle($this[0], 'fontSize')) || 22,
+          lineHeight = parseFloat(getCurrentStyle($this[0], 'lineHeight')) || fontSize * 1.5;
+
+
+
         var title = $this.attr('title');
         //将原来的值保存到title中
         if (title === undefined || title === '') {
@@ -148,13 +151,13 @@ $(function () {
         var dheight = parseInt(rowNum * lineHeight);
         if (clientHeight >= dheight) {
           while (dheight * 3 < this.clientHeight) {
-            $this.text(title.substring(0, title.length / 2));
+            $this.html(title.substring(0, title.length / 2));
             title = $this.text();
           }
           //减去末尾文字
           while (dheight < this.clientHeight) {
             title = $this.text();
-            $this.text(title.replace(/(\s)*([a-zA-Z0-9]?|\W)(\.\.\.)?$/, '...'));
+            $this.html(title.replace(/(\s)*([a-zA-Z0-9]?|\W)(\.\.\.)?$/, '...'));
           }
           $this.removeClass('J-textflow');
         }
@@ -295,8 +298,8 @@ $(function () {
         getSummary();
     }else{
         var html = ejs.render($('#summary').html(), {
-            WinTotal:null,
-            StraightTotal:null,
+            WinTotal:0,
+            StraightTotal:0,
             hasLogin:false
         });
         $('summary').html(html);
@@ -358,6 +361,7 @@ $(function () {
 
             YmtApi.open({
                 url: $this.attr('data-url'),
+                title:$this.attr('data-title'),
                 isNew: true,
             });
         })
@@ -395,8 +399,9 @@ $(function () {
                 YmtApi.openShare({
                     shareTitle: '【有人@你】全球洋货年度PK赛正在直播！快来支持你选择的战队吧！',
                     shareUrl: 'http://static.pk.ymatou.com/share.html?id='+PKId+'&UserId='+userId,
-                    sharePicUrl: 'http://static.pk.yamtou.com/images/pk.png',
-                    shareContent: '【有人@你】全球洋货年度PK赛正在直播！快来支持你选择的战队吧！'
+                    sharePicUrl: 'http://static.ymatou.com/images/sprites/logo.2015090615.png',
+                    shareContent: '【有人@你】全球洋货年度PK赛正在直播！快来支持你选择的战队吧！',
+                    showWeiboBtn:1
                 });
             }
             if(authInfo.UserId){

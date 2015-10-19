@@ -150,6 +150,7 @@ $(function () {
         var $this = $(this);
         YmtApi.open({
             url: $this.attr('data-url'),
+            title: $this.attr('data-title'),
             isNew: true,
         });
     }).on('click', '.J-open-exchange', function () {
@@ -170,6 +171,7 @@ $(function () {
             couponNumber: currExchange.CouponDetailInfo.BatchCode
         }), function (data,res) {
             showLog(res.Msg);
+            window.location.reload();
             $('.vote-exchange').hide();
         });
     }).on('click', '.J-add-privilege', function () {
@@ -184,6 +186,7 @@ $(function () {
                     url:'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+data.ProductId,
                     isNew:true
                 });
+                window.location.reload();
             }
 
         });

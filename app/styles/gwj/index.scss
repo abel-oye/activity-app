@@ -261,5 +261,15 @@ $rem:1rem/32;
             font-size:$rem*18;
             color:#292929;
         }
+        .price{
+            font-size:$rem*12;
+            color:#b91107;
+            &>strong{
+                font-size:$rem*14;
+            }
+            &del{
+                color:#979797;
+            }
+        }
     }
 }

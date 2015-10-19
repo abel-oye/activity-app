@@ -485,8 +485,8 @@ $right_color: #2e95ff;
     }
     .rule-content
     {
-        overflow: hidden;
-
+        //overflow: hidden;
+        line-height:1.5;
         //height: $rem*60;
 
         transition: height .25s cubic-bezier(.4, 0, 1, 1);
