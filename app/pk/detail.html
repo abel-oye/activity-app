@@ -19,9 +19,9 @@
   <body>
     <script id="pkInfo" type="text/template">
       {{ if(hasLogin){ }}
-      <div class="pk-status-header {{= VoteProductId == WinProductId ? 'succ':''}}">
+      <div class="pk-status-header {{= (!VoteProductId || VoteProductId != WinProductId ) ? '':'succ'}}">
         <div class="text">
-          {{= !VoteProductId ? '很遗憾您未参加本场比赛投票' : !WinProductId ? '投票统计中,每天上午10点公布结果' : VoteProductId == WinProductId ? '恭喜您猜中了本场比赛的结果':'很遗憾您未猜中本场比赛结果'}}
+          {{= !WinProductId ? '投票统计中,每天上午10点公布结果'  :  !VoteProductId ? '很遗憾您未参加本场比赛投票' : VoteProductId == WinProductId ? '恭喜您猜中了本场比赛的结果':'很遗憾您未猜中本场比赛结果'}}
         </div>
       </div>
        {{ } }}
