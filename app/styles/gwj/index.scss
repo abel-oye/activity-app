@@ -547,7 +547,14 @@ $rem:1rem/32;
 .gwj-loading-bg{
     background: url(/images/gwj/loading.gif) no-repeat center;
 }
+.gwj-hold-bg{
+    background: url(/images/gwj/hold@100x100.png) no-repeat center;
+    background-size: 80%;
+}
 
+.gwj-hold-bg-big{
+    background: url(/images/gwj/hold@250x250.png) no-repeat center;
+}
 
 //买手占位图
 .buyer-hold{

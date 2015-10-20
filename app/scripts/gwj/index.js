@@ -299,13 +299,8 @@ $(function () {
             isNew: true,
         });
     }).on('click', '.J-turntable-run', function () { //转盘运行
-        if(!turntable.runing){
-            turntable.run();
-            module.joinLottery();
-        }else{
-            turntable.stop(2)
-        }
-
+        turntable.run();
+        module.joinLottery();
     }).on('scroll',function(){
         var top = document.documentElement.scrollTop || document.body.scrollTop,
             bottom = document.querySelector('#gwj_01').getBoundingClientRect().bottom;
@@ -343,7 +338,21 @@ $(function () {
 
     }).on('click','.J-close-exchange',function(){
         $('.vote-exchange').removeClass('open');
-    });
+    }).on('click', '.J-share', function () { //分享
+            var $this = $(this),
+                url = $this.attr('data-share-url'),
+                content = $this.attr('data-share-content'),
+                title = $this.attr('data-share-title'),
+                pic = $this.attr('data-share-pic');
+
+            YmtApi.openShare({
+                shareTitle: '他破解了一个全球知名网站，想看看里面的秘密，惊的下巴都掉了！ ',
+                shareUrl: 'http://static.pk.ymatou.com/gwj/share.html',
+                sharePicUrl: 'http://static.pk.ymatou.com/images/gwj/gwj_share-4d3a881e31.jpg',
+                shareContent: '2016最潮购省攻略！听说省下来的钱都可以去迪拜住一个月了！所以梦想还是要有的，万一实现了呢~',
+                showWeiboBtn:1
+            });
+        });
 
 
 });

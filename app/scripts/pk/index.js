@@ -221,19 +221,14 @@ $(function () {
         jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetJoinPKGameData', {
         }), function (data) {
             if (data) {
-                var dynList = data.RealData;
-                Array.prototype.push.apply(dynList,data.NoData);
-
-                var len = dynList.length,
-                    redLen = Math.floor(len/2),
-                    html = $('#pk-dynamics').html();
+                var html = $('#pk-dynamics').html();
 
                 $('.pk-left-wrapper .pk-dynamics').html(ejs.render(html, {
-                    data:dynList.slice(0,redLen)
+                    data:data.RedData
                 }));
 
                 $('.pk-right-wrapper .pk-dynamics').html(ejs.render(html, {
-                    data:dynList.slice(redLen)
+                    data:data.BlueData
                 }));
 
                 dynamics();
@@ -370,7 +365,7 @@ $(function () {
                 });
             }
             if(authInfo.UserId){
-                share(authInfo.UserI)
+                share(authInfo.UserId)
             }
         });
 
