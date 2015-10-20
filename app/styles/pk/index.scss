@@ -74,7 +74,8 @@
  .pk-pro-wrapper {
      //padding:0 5%;
  }
- //pk商品名称 .pk-pro-title {
+ //pk商品名称
+ .pk-pro-title {
      line-height: 1;
      padding: $rem*7 $rem*14;
      text-align: center;
@@ -304,7 +305,8 @@
      background-size: $rem*120 $rem*120;
      /* 控制条纹的大小 */
  }
- //规则 .pk-rule {
+ //规则
+ .pk-rule {
      font-size: $rem*20;
      text-align: center;
      &-header, &-footer {
@@ -349,7 +351,8 @@
          font-size: $rem*16;
      }
  }
- //往期 .pk-past {
+ //往期
+ .pk-past {
      padding: 0 $rem*14;
      text-align: center;
      &-header, &-footer {
@@ -430,7 +433,8 @@
  }
  .pk-flag {
      position: relative;
-     //pk 标志 &:after {
+     //pk 标志
+     &:after {
          position: absolute;
          z-index: 2;
          top: $rem*180;
@@ -497,7 +501,8 @@
          background-size: contain;
      }
  }
- //回到顶部 .pk-back-top {
+ //回到顶部
+ .pk-back-top {
      position: fixed;
      right: $rem*30;
      bottom: $rem*15;
@@ -508,7 +513,8 @@
      background: url(data:image/png;base64,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) no-repeat;
      background-size: contain;
  }
- //投票记录 .pk-record {
+ //投票记录
+ .pk-record {
      position: fixed;
      top: 25%;
      display: none;
@@ -569,7 +575,8 @@
          }
      }
  }
- //遮罩 .pk-mask {
+ //遮罩
+ .pk-mask {
      position: fixed;
      z-index: 99;
      top: 0;
@@ -624,7 +631,8 @@
          }
      }
  }
- //分享页 .pk-vie-info {
+ //分享页
+ .pk-vie-info {
      overflow: hidden;
      margin-bottom: $rem*20;
      padding: $rem*20;
@@ -659,7 +667,8 @@
          color: #434343;
      }
  }
- //如何参加 .pk-flow {
+ //如何参加
+ /*.pk-flow {
      &-text {
          font-size: $rem*18;
          padding: $rem*20 0;
@@ -695,8 +704,9 @@
              background-color: #b0b0b0;
          }
      }
- }
- //下载 .pk-download {
+ }*/
+ //下载
+ .pk-download {
      display: block;
      padding: $rem*16 0;
      text-align: center;
@@ -711,7 +721,8 @@
          background-size: contain;
      }
  }
- //pk 动态 .pk-dynamics {
+ //pk 动态
+ .pk-dynamics {
      width:100%;
      height:100%;
      overflow:hidden;
