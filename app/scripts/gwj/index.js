@@ -93,6 +93,8 @@ $(function () {
         minCircleNum = 6;
 
     var timer = null,
+        minNum = 5, //最小圈数
+        currNum = 0,
         maxSpeed = 200, //最快速度
         minSpeed = 60, //最快速度
         tempo = 0.18, //速率
@@ -106,6 +108,9 @@ $(function () {
 
     var turntable = {
         runing:false,
+        complete:function(){
+
+        },
         move: function (inx) {
             inx = sequence[inx];
             var $wrap = $('.turntable-body'),
@@ -113,7 +118,6 @@ $(function () {
             $boards.removeClass('active').eq(inx).addClass('active');
         },
         loop: function () {
-
             var speend = currSpeed + direction * tempo * currSpeed;
             //限速
             if (direction > 0) {
@@ -128,6 +132,7 @@ $(function () {
                 currCircleNum = 0;
                 clearInterval(timer);
                 timer = null;
+                turntable.complete && turntable.complete();
                 return;
             }
 
@@ -142,7 +147,10 @@ $(function () {
             if (_inx >= sequence.length) {
                 currCircleNum++;
                 _inx = 0;
-                isFinal && currFinalNum++;
+                if(currNum++ >= minNum){
+                   direction = 1 ;
+                   isFinal  && currFinalNum++;
+                }
             }
             turntable.move(_inx++);
         },
@@ -151,10 +159,11 @@ $(function () {
             currFinalNum = 0;
             direction = -1;
             this.runing = true;
+            currNum = 0;
             this.loop();
         },
         stop: function (inx) {
-            direction = 1;
+            //direction = 1;
             stopInx = +inx;
             isFinal = true;
             this.runing = false;
@@ -166,10 +175,26 @@ $(function () {
         if(YmtApi.utils.hasLogin()){
                 jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/JoinLottery', {
                     accessToken: authInfo.AccessToken,
-                    deviceId:search.deviceId,
+                    deviceId:search.deviceId || '1',
                     hasShare:false
                 }), function (data) {
-                    console.log(data)
+                    if(data){
+                        var map = {
+                            0:'0',
+                            1:'1',
+                            2:'2',
+                            3:'7',
+                            4:'3',
+                            5:'6',
+                            6:'5',
+                            7:'5',
+                        }
+                        turntable.stop(map[data.LotteryIndex]);
+
+                        turntable.complete = function(){
+                           alert()
+                        }
+                    }
                 });
             }else{
                 YmtApi.toLogin();
@@ -316,6 +341,8 @@ $(function () {
         }
         $this.toggleClass('handstand').prev().toggleClass('close');
 
+    }).on('click','.J-close-exchange',function(){
+        $('.vote-exchange').removeClass('open');
     });
 
 

@@ -379,5 +379,4 @@ $(function () {
         YmtApi.on('userStatusChange',function(){
             window.location.reload();
         });
-        alert()
 });
