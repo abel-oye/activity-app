@@ -193,7 +193,6 @@ $(function () {
             }
         });
     }
-
     //获得战绩统计
     var getSummary = function () {
         jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetSummary', {
@@ -377,4 +376,8 @@ $(function () {
 
         rowIntercept();
 
+        YmtApi.on('userStatusChange',function(){
+            window.location.reload();
+        });
+        alert()
 });

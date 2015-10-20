@@ -17,15 +17,103 @@
     <!-- endbuild-->
   </head>
   <body>
+    <!--热门买手-->
+    <script id="buyerList" type="text/template">
+        <div class="gwj-title-wapper">
+            <div class="gwj-title gwj-title-04"></div>
+        </div>
+        <div class="gwj-area-body buyer-set-wrapper">
+        {{ for(var i=0,data=HotBuyerList,len=data.length;i<len;i++){ }}
+            <div class="buyer-set-item">
+               <div class="buyer-box">
+                   <img class="buyer-bg gwj-loading-bg" lazy-load="/images/gwj/buyer.jpg" src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+               </div>
+            </div>
+        {{ } }}
+        </div>
+        <div class="gwj-area-footer goods-footer">
+            <div class="see-more"></div>
+        </div>
+    </script>
+    <!--洋货团-->
+    <script id="foreignIndex" type="text/template">
+        <div class="gwj-title-wapper">
+            <div class="gwj-title gwj-title-03"></div>
+        </div>
+        <!--好货大搜罗-->
+        <div class="gwj-area-body ">
+            {{ for(var i=0,len = PageParts.length,j=0,data,jLen=0;i<len;i++){ }}
+            <div class="wares-set-item">
+                <div class="wares-pro-pic">
+                    <img lazy-load="{{= PageParts[i].BannerUrl }}" class="gwj-loading-bg" alt="">
+                </div>
+                <div class="wares-pro-list">
+                    {{ for(var j=0,data=PageParts[i].Products || [],jLen=Math.min(data.length,4);j<jLen;j++ ){  }}
+                        <div class="wares-pro-item J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=data[j].ProductId}}" data-title="商品详情">
+                            <img class="gwj-loading-bg" lazy-load="{{= data[j].PicUrl }}" src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+                            <h5>{{= data[j].Name }}</h5>
+                            <div class="price">
+                                &yen;{{-: data[j].Price | pirceRegion}}
+                            </div>
+                            <div class="price del-price">&yen;<strong>{{-: data[j].MarketPrice  | pirceRegion }}</strong></div>
+                        </div>
+                    {{ } }}
+                </div>
+            </div>
+            {{ } }}
+        </div>
+        <div class="gwj-area-footer goods-footer">
+            <div class="see-more"></div>
+        </div>
+
+    </script>
+    <script id="explosive-pro"  type="text/template">
+        <div class="gwj-title-wapper">
+            <div class="gwj-title gwj-title-05"></div>
+        </div>
+        <div class="gwj-area-body explosive-pro-tab">
+            <ul class="tab-header">
+                <li class="active">亚洲</li>
+                <li>欧洲</li>
+                <li>北美</li>
+                <li>澳新</li>
+            </ul>
+            <div class="tab-body">
+                <div class="tab-body-item active">
+                    {{ for(var i =0,len=ProductList.length;i<len;i++){ }}
+                    <div class="explosive-pro-item">
+                        <div class="explosive-pro-box J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductList[i].ProductId}}" data-title="商品详情">
+                           <div>
+                               <img class="gwj-loading-bg" lazy-load="{{= ProductList[i].PicUrl }}" src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+                           </div>
+                           <h5 class="title">{{= ProductList[0].Name }}</h5>
+                           <div class="price-box">
+                               <span>特供价</span>
+                               <span class="num"><strong>{{=ProductList[i].Price4Sale}}</strong>元</span>
+                           </div>
+                        </div>
+                    </div>
+                    {{ } }}
+                </div>
+                <div class="tab-body-item">
+                    <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getExplosiveProMod" data-arguments="2911.263" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+                </div>
+                <div class="tab-body-item">
+                    <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getExplosiveProMod" data-arguments="2911,264" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+                </div>
+                <div class="tab-body-item">
+                    <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getExplosiveProMod" data-arguments="2911,265" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+                </div>
+            </div>
+        </div>
+    </script>
     <section class="gwj-container">
     <div class="gwj-header">
         <div class="gwj-top-banner">
-            <div class="pk-big-btn">
-
-            </div>
+            <div class="pk-big-btn J-open" data-title="洋货团大擂台" data-url="http://static.pk.ymatou.com/pk/index.html"></div>
         </div>
     </div>
-      <div class="turntable-wrapper">
+      <div class="turntable-wrapper" id="gwj_01">
           <div class="gwj-title-wapper">
               <div class="gwj-title gwj-title-pk"></div>
           </div>
@@ -111,268 +199,74 @@
               </div>
               <div class="rule-content">
                 <p>1.10月23日至11月2日，每人每天有1次抽奖机会，分享后可再获得1次抽奖机会；</p>
-                <p >2. 中奖后，优惠券直接发放到个人帐户，在“我-钱包-优惠券”里查看；</p>
-                   <p>3. 抽到实物奖品哦，客服会与您联系；</p>
-                   <p>4. 优惠券不累计，不置换现金。使用有效期至2015年11月2日；</p>
-                   <p>5. 如在活动期间发现有违规行为，洋码头有权取消违规账号所得奖品；</p>
-                   <p>6. 本活动最终解释权归洋码头所有；</p>
-                   <p>7. 活动与苹果公司无关，洋码头保留最终解释权。</p>
-                   <p class="retract">收起^</p>
+                <div class="close">
+                    <p >2. 中奖后，优惠券直接发放到个人帐户，在“我-钱包-优惠券”里查看；</p>
+                    <p>3. 抽到实物奖品哦，客服会与您联系；</p>
+                    <p>4. 优惠券不累计，不置换现金。使用有效期至2015年11月2日；</p>
+                    <p>5. 如在活动期间发现有违规行为，洋码头有权取消违规账号所得奖品；</p>
+                    <p>6. 本活动最终解释权归洋码头所有；</p>
+                    <p>7. 活动与苹果公司无关，洋码头保留最终解释权。</p>
+                </div>
+                <!--handstand-->
+                <p class="retract J-open-rule">展开 </p>
               </div>
           </div>
       </div>
-      <div class="gwj-area">
+      <div class="gwj-area" id="gwj_02">
         <div class="gwj-title-wapper">
-            <div class="gwj-title gwj-title-pk"></div>
+            <div class="gwj-title gwj-title-02"></div>
         </div>
         <div class="gwj-area-body">
             <!--砍价团-->
-            <div class="gwj-group">
-                <ul class="slide-wrapper">
-                    <li>
+            <div class="gwj-group ">
+                <ul class="slide-wrapper swiper-wrapper"><!--
+                    --><li class="swiper-slide slide-item">
                         <img src="http://p6.img.ymatou.com/G01/M00/04/16/rBBlD1X70WyAEAwaAAEvkP0UpFE89_o.jpeg" alt="">
-                    </li>
-                </ul>
-                <ol class="slide-pagination">
-                    <li></li>
-                    <li class="active"></li>
-                </ol>
+                    </li><!--
+                    --><li  class="swiper-slide slide-item">
+                        <img src="http://p6.img.ymatou.com/G01/M00/04/16/rBBlD1X70WyAEAwaAAEvkP0UpFE89_o.jpeg" alt="">
+                    </li><!--
+                --></ul>
+                <div class="slide-pagination">
+                    <li class="swiper-pagination-bullet"></li>
+                </div>
             </div>
 
         </div>
       </div>
-      <div class="gwj-area">
-        <div class="gwj-title-wapper">
-            <div class="gwj-title gwj-title-pk"></div>
-        </div>
-        <!--好货大搜罗-->
-        <div class="gwj-area-body ">
-            <div class="wares-set-item">
-                <div class="wares-pro-pic">
-                    <img src="http://p6.img.ymatou.com/G01/M00/04/16/rBBlD1X70WyAEAwaAAEvkP0UpFE89_o.jpeg" alt="">
-                </div>
-                <div class="wares-pro-list">
-                    <div class="wares-pro-item">
-                        <img src="http://p6.img.ymatou.com/G01/M00/04/16/rBBlD1X70WyAEAwaAAEvkP0UpFE89_o.jpeg" alt="">
-                        <h5>洋码头</h5>
-                        <div class="price">
-                            &yen;<strong>40</strong>.00
-                        </div>
-                        <div class="price del-price">&yen;<strong>90</strong></div>
-                    </div>
-                    <div class="wares-pro-item">
-                        <img src="http://p6.img.ymatou.com/G01/M00/04/16/rBBlD1X70WyAEAwaAAEvkP0UpFE89_o.jpeg" alt="">
-                        <h5>洋码头</h5>
-                        <div class="price">
-                            &yen;<strong>40</strong>.00
-                        </div>
-                        <div class="price del-price">&yen;<strong>90</strong></div>
-                    </div>
-                    <div class="wares-pro-item">
-                        <img src="http://p6.img.ymatou.com/G01/M00/04/16/rBBlD1X70WyAEAwaAAEvkP0UpFE89_o.jpeg" alt="">
-                        <h5>洋码头</h5>
-                        <div class="price">
-                            &yen;<strong>40</strong>.00
-                        </div>
-                        <div class="price del-price">&yen;<strong>90</strong></div>
-                    </div>
-                    <div class="wares-pro-item">
-                        <img src="http://p6.img.ymatou.com/G01/M00/04/16/rBBlD1X70WyAEAwaAAEvkP0UpFE89_o.jpeg" alt="">
-                        <h5>洋码头</h5>
-                        <div class="price">
-                            &yen;<strong>40</strong>.00
-                        </div>
-                        <div class="price del-price">&yen;<strong>90</strong></div>
-                    </div>
-                </div>
-            </div>
-            <div class="wares-set-item">
-                <div class="wares-pro-pic">
-                    <img src="http://p6.img.ymatou.com/G01/M00/04/16/rBBlD1X70WyAEAwaAAEvkP0UpFE89_o.jpeg" alt="">
-                </div>
-                <div class="wares-pro-list">
-                    <div class="wares-pro-item">
-                        <img src="http://p6.img.ymatou.com/G01/M00/04/16/rBBlD1X70WyAEAwaAAEvkP0UpFE89_o.jpeg" alt="">
-                        <h5>洋码头</h5>
-                        <div class="price">
-                            &yen;<strong>40</strong>.00
-                        </div>
-                        <div class="price del-price">&yen;<strong>90</strong></div>
-                    </div>
-                    <div class="wares-pro-item">
-                        <img src="http://p6.img.ymatou.com/G01/M00/04/16/rBBlD1X70WyAEAwaAAEvkP0UpFE89_o.jpeg" alt="">
-                        <h5>洋码头</h5>
-                        <div class="price">
-                            &yen;<strong>40</strong>.00
-                        </div>
-                        <div class="price del-price">&yen;<strong>90</strong></div>
-                    </div>
-                    <div class="wares-pro-item">
-                        <img src="http://p6.img.ymatou.com/G01/M00/04/16/rBBlD1X70WyAEAwaAAEvkP0UpFE89_o.jpeg" alt="">
-                        <h5>洋码头</h5>
-                        <div class="price">
-                            &yen;<strong>40</strong>.00
-                        </div>
-                        <div class="price del-price">&yen;<strong>90</strong></div>
-                    </div>
-                    <div class="wares-pro-item">
-                        <img src="http://p6.img.ymatou.com/G01/M00/04/16/rBBlD1X70WyAEAwaAAEvkP0UpFE89_o.jpeg" alt="">
-                        <h5>洋码头</h5>
-                        <div class="price">
-                            &yen;<strong>40</strong>.00
-                        </div>
-                        <div class="price del-price">&yen;<strong>90</strong></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="gwj-area-footer goods-footer">
-            <div class="see-more"></div>
-        </div>
+      <div class="gwj-area" id="gwj_03">
+          <foreignIndex>
+              <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getForeginIndex" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+          </foreignIndex>
+
       </div>
 
-      <div class="gwj-area">
-        <div class="gwj-title-wapper">
-            <div class="gwj-title gwj-title-pk"></div>
-        </div>
+      <div class="gwj-area" id="gwj_04">
         <!--各国买手-->
-        <div class="gwj-area-body buyer-set-wrapper">
-            <div class="buyer-set-item">
-                <div class="buyer-box">
-                    <div class="pic">
-                        <img src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                    </div>
-                    <div class="info-wrapper">
-                        <div class="tag">
-                            Mk , COACH
-                        </div>
-                        <img class="face" src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                        <div class="text">
-                            <div class="country">
-                                <img src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                                日本
-                            </div>
-                            <div>
-                                袜子玩阿伟啊
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn">
-                        点击进入指标
-                    </div>
-                </div>
-            </div>
-            <div class="buyer-set-item">
-                <div class="buyer-box">
-                    <div class="pic">
-                        <img src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                    </div>
-                    <div class="info-wrapper">
-                        <div class="tag">
-                            Mk , COACH
-                        </div>
-                        <img class="face" src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                        <div class="text">
-                            <div class="country">
-                                <img src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                                日本
-                            </div>
-                            <div>
-                                袜子玩阿伟啊
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn">
-                        点击进入指标
-                    </div>
-                </div>
-            </div>
-            <div class="buyer-set-item">
-                <div class="buyer-box">
-                    <div class="pic">
-                        <img src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                    </div>
-                    <div class="info-wrapper">
-                        <div class="tag">
-                            Mk , COACH
-                        </div>
-                        <img class="face" src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                        <div class="text">
-                            <div class="country">
-                                <img src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                                日本
-                            </div>
-                            <div>
-                                袜子玩阿伟啊
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn">
-                        点击进入指标
-                    </div>
-                </div>
-            </div>
-            <div class="buyer-set-item">
-                <div class="buyer-box">
-                    <div class="pic">
-                        <img src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                    </div>
-                    <div class="info-wrapper">
-                        <div class="tag">
-                            Mk , COACH
-                        </div>
-                        <img class="face" src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                        <div class="text">
-                            <div class="country">
-                                <img src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                                日本
-                            </div>
-                            <div>
-                                袜子玩阿伟啊
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn">
-                        点击进入指标
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="gwj-area-footer goods-footer">
-            <div class="see-more"></div>
-        </div>
+        <buyerList>
+            <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getHotBuyerList" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+        </buyerList>
       </div>
        <!--海外爆款推荐-->
-      <div class="gwj-area">
-        <div class="gwj-title-wapper">
-            <div class="gwj-title gwj-title-pk"></div>
-        </div>
-        <div class="gwj-area-body explosive-pro">
-            <ul class="explosive-pro-tab">
-                <li class="active">亚洲</li>
-                <li>欧洲</li>
-                <li>北美</li>
-                <li>澳新</li>
-            </ul>
-            <div class="explosive-pro-item">
-                <div class="explosive-pro-box">
-                   <div>
-                       <img src="http://p6.img.ymatou.com/G01/M00/04/05/rBBlD1X6cTCAHaJDAABhspyG-Js960_o.jpg" alt="">
-                   </div>
-                   <h5>韩国进口品牌巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h5>
-                   <div>
-                       <span>特供价</span>
-                       <span><strong>9999</strong>元</span>
-                   </div>
-                </div>
-            </div>
-            <div class="explosive-pro-item"></div>
-            <div class="explosive-pro-item"></div>
-        </div>
+      <div class="gwj-area" id="gwj_05">
+        <explosive-pro>
+            <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getExplosivePro" data-arguments="2911,265" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+        </explosive-pro>
       </div>
     </section>
-    <!-- build:js /scripts/zepto,ejs.js -->
+    <div class="gwj-tab-wrapper ">
+        <div class="gwj-tab fixed"  id="gwj-tab">
+            <a class="active" href="#gwj_01">码头转转乐</a>
+            <a  href="#gwj_02">全民砍价团</a>
+            <a  href="#gwj_03">全球好货</a>
+            <a  href="#gwj_04">各国买手</a>
+            <a  href="#gwj_05">海外爆款</a>
+        </div>
+    </div>
+    <!-- build:js /scripts/zepto,ejs,swiper,imgLazyLoad.js -->
     <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+    <script type="text/javascript" src="/scripts/commons/swiper.3.1.2.js"></script>
+    <script type="text/javascript" src="/scripts/commons/imgLazyLoad.js"></script>
     <!-- endbuild -->
     <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015092301.js?wxAutoInit=1"></script>
     <!-- build:js /scripts/gwj/index.js -->

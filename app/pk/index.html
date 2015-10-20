@@ -107,7 +107,7 @@
                 <ul class="pk-past-list">
                   {{ for(var i=0,data=PastPKGameDataList,len=data.length;i<len;i++){ }}
                     <li>
-                      <div class="pk-past-pro J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}" data-title="比赛详情" onclick=";">
+                      <div class="pk-past-pro J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}" data-title="往期擂台" onclick=";">
                         <div class="pro-pic-wrapper pk-flag">
                           <img class="pro-pic" src="{{=data[i].RedProductImage}}" alt="">
                           <img class="pro-pic" src="{{=data[i].BlueProductImage}}" alt="">
@@ -130,7 +130,7 @@
             <div class="pk-record-header">
               <span class="close-btn J-close-record" onclick=";">x</span>
             </div>
-            <div class="pk-record-body J-open" data-url="/pk/vote.html" onclick=";" data-title="我的战绩">
+            <div class="pk-record-body J-open" data-url="/pk/vote.html" onclick=";" data-title="我的投票">
               <strong>{{= WinTotal }}</strong>次猜中 {{ if( StraightTotal > 1 ){ }}(<strong>{{= StraightTotal }}</strong>连中){{ } }}
               <hr/>
               查看我的投票>
@@ -167,7 +167,7 @@
     <script id="pk-dynamics"  type="text/template">
         <ul class="pk-dynamics-list">
             {{ for(var i =0,len = data.length;i<len;i++){ }}
-                <li>投了 {{= data[i].NickName }} 一票</li>
+                <li>{{= data[i].NickName }} 投了一票</li>
             {{ } }}
         </ul>
     </script>

@@ -72,6 +72,9 @@ gulp.task('html', ['styles'], () => {
         .pipe($.if('*.css', $.minifyCss({
             compatibility: '*'
         })))
+        .pipe($.if('*.css', $.autoprefixer({
+            browsers: ['last 1 version']
+        })))
         .pipe(assets.restore())
         .pipe($.useref())
         .pipe($.revReplace())
