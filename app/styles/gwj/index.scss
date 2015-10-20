@@ -21,7 +21,7 @@ $rem:1rem/32;
     background:url(/images/gwj/pk_big_btn.png) no-repeat;
     background-size: 100% 100%;
     height:$rem*158;
-    width:$rem*608;
+    width:95%;
     margin:0 auto;
     position:absolute;
     bottom:$rem*18;
@@ -58,6 +58,7 @@ $rem:1rem/32;
 
         &-title{
             background:url(/images/gwj/rule_title.png) no-repeat center;
+            background-size:contain;
             height:$rem*26;
             margin:$rem*15 0;
         }
@@ -92,7 +93,7 @@ $rem:1rem/32;
     background-size: 100%;
     padding:$rem*20;
     overflow:hidden;
-    margin-right:$rem*-8;
+    //margin-right:$rem*-8;
     position:relative;
     &>div,
     .starter{
@@ -280,7 +281,7 @@ $rem:1rem/32;
     border-bottom:$rem solid #42210e;
     overflow:hidden;
     .see-more{
-        background:url(/images/gwj/see_more.png);
+        background:url(/images/gwj/see_more.png) no-repeat;
         background-size:contain;
         width:$rem*118;
         height:$rem*25;
@@ -295,59 +296,111 @@ $rem:1rem/32;
     &-item{
         width:33.3333%;
         float:left;
-        height:$rem*403;
+        //height:$rem*403;
         padding-right:$rem*18;
+        margin-bottom:$rem*20;
+
     }
 }
 
 .buyer-box{
-    &-header,
-    &-footer{
-        background-repeat:no-repeat;
-    }
-
-    &-header{
-        height:$rem*8;
-        background-size: 100% 100%;
-        background-image:url(/images/gwj/buyer_header_bg.png);
-    }
-    &-body{
-        background-image:url(/images/gwj/buyer_body_bg.png);
-        background-repeat-x: no-repeat;
-        background-size: 100%;
-        font-size:$rem*18;
-        color:#42210e;
-        .pic{
-            width:100%;
-            height:$rem*190;
+    background-image:url(/images/gwj/buyer_bg.png);
+    font-size:$rem*18;
+    color:#42210e;
+    background-size: 100% 100%;
+    padding:$rem*2 $rem*6 $rem*7 $rem*2;
+    .pic{
+        width:100%;
+        height:$rem*190;
+        img{
+            max-width:100%;
+            max-height:100%;
         }
-        .info-wrapper{
-            padding:0 $rem*8;
-            .text{
-                padding:$rem*12 0;
+    }
+    .info-wrapper{
+        padding:0 $rem*8;
+        .text{
+            padding:$rem*12 0 $rem*12 $rem*60;
+        }
+    }
+    .tag{
+        &:before{
+            content:'';
+            background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAMAAABFjsb+AAAAZlBMVEUAAABCIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5CIQ5ELRjFAAAAIXRSTlMAyLCg19sKy2Dfs0nqXPby0quUfXRoQwa7uZeOiFFCJBkTwZCVAAAAlUlEQVQY003OiQ6DIBAE0EFEQK330bud///JEqwLk0A2L7PJQlLwSOuEFHtvSuM9maj+TyWFivDf1QgY5qR9Y4vYS4vdhm+PgRnh0TqjQ08WG1PhqTSCnbRxwZGWuFKH4U2H1ezx9BviiRe6+ICRdsdEW2FeAzWxZRGiWVbAkkhwfkVSQIaJEgolHD5aSJBCkqmrZf4BiFMKnZXVDF8AAAAASUVORK5CYII=) no-repeat;
+            display:inline-block;
+            width:$rem*19;
+            height:$rem*19;
+            background-size:contain;
+              vertical-align: middle;
+        }
+        padding:$rem*15 0;
+        text-align:center;
+        border-bottom:$rem*2 dashed #7a7a7a;
+    }
+    .face{
+        height:$rem*44;
+        width:$rem*44;
+        float:left;
+        border-radius:50%;
+        margin-top:$rem*12;
+    }
+    .country{
+
+        img{
+            height:$rem*20;
+            width:$rem*20;
+            border-radius:50%;
+              vertical-align: middle;
+        }
+    }
+    .btn-wrapper{
+        padding-left:$rem*1;
+        padding-right:$rem*5;
+    }
+    .btn{
+        height:$rem*50;
+        line-height:$rem*50;
+        background:#ec3c71;
+        font-size:$rem*24;
+        text-align:center;
+        color:#fff;
+
+    }
+}
+//海外推荐
+.explosive-pro{
+    padding:0 $rem*10;
+    &-tab{
+        overflow:hidden;
+        border:$rem solid #040000;
+        background:#fff;
+        width:100%;
+        margin-bottom:$rem*15;
+        &>li{
+            width:25%;
+            color:#42210e;
+            float:left;
+            padding:$rem*10 0;
+            text-align:center;
+            border-right:$rem solid #42210e;
+            &.active{
+                background:#ffffb5;
             }
         }
-        .tag{
-            padding:$rem*15 0;
-            text-align:center;
-            border-bottom:$rem dashed #7a7a7a;
-        }
-        .btn-wrapper{
-            padding-left:$rem*1;
-            padding-right:$rem*5;
-        }
-        .btn{
-            height:$rem*50;
-            background:#ec3c71;
-            font-size:$rem*24;
-            text-align:center;
-            color:#fff;
-
+    }
+    &-item{
+        width:50%;
+        float:left;
+        img{
+            max-height:$rem*260;
+            max-width:$rem*260;
         }
     }
-    &-footer{
-        height:$rem*12;
-        background-size: 100%;
-        background-image:url(/images/gwj/buyer_footer_bg.png);
+    &-box{
+        background-image:url(/images/gwj/buyer_bg.png);
+        background-size: 100% 100%;
+        padding:$rem*20;
+        font-size:$rem*18;
+        color:#333;
     }
 }

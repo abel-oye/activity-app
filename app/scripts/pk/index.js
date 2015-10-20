@@ -131,7 +131,6 @@ $(function () {
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetTodayPKProductData', {
                 accessToken: authInfo.AccessToken
             }), function (data) {
-                data.RedProductPrice = 0.01;
                 if (data) {
                     PKId = data.PKId;
                     var html = ejs.render($('#pkInfo').html(), data);
@@ -366,7 +365,7 @@ $(function () {
                 YmtApi.openShare({
                     shareTitle: '【有人@你】全球洋货年度PK赛正在直播！快来支持你选择的战队吧！ ',
                     shareUrl: 'http://static.pk.ymatou.com/pk/share.html?id='+PKId+'&UserId='+userId,
-                    sharePicUrl: 'http://static.ymatou.com/images/sprites/logo.2015090615.png',
+                    sharePicUrl: 'http://static.pk.ymatou.com/images/pk_share-7a30468c08.jpg',
                     shareContent: '全球洋货分成红蓝两队，你偏爱哪一方呢？赶紧为你心爱的Ta投票吧，说不定可以把ta和iPhone6s一起带回家噢~',
                     showWeiboBtn:1
                 });
