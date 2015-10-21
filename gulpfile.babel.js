@@ -69,11 +69,10 @@ gulp.task('html', ['styles'], () => {
         .pipe(assets)
         .pipe($.rev())
         .pipe($.if('*.js', $.uglify()))
-        .pipe($.if('*.css', $.minifyCss({
-            compatibility: '*'
-        })))
         .pipe($.if('*.css', $.autoprefixer({
             browsers: ['last 1 version']
+        }), $.minifyCss({
+            compatibility: '*'
         })))
         .pipe(assets.restore())
         .pipe($.useref())
@@ -195,15 +194,15 @@ gulp.task('wiredep', () => {
 
 gulp.task('rev', () => {
     return gulp.src(['dist/rev/**/*.json', 'dist/styles/{,*/}*'])
-       .pipe($.revCollector())
-       .pipe(gulp.dest('dist/styles'));
+        .pipe($.revCollector())
+        .pipe(gulp.dest('dist/styles'));
 });
 
 gulp.task('build', ['lint', 'images', 'fonts', 'extras', 'html'], () => {
     return gulp.src('dist/**/*').pipe($.size({
         title: 'build',
         gzip: true
-    })).on('end',() => {
+    })).on('end', () => {
         gulp.start('rev');
     });
 
