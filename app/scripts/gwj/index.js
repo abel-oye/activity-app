@@ -489,9 +489,5 @@
 
         $widnow.on('scroll touchmove', handler);
     };
-    //document.documentElement.style.fontSize = '16px';
-    $(function(){
-        alert(document.documentElement.clientWidth+' '+$('.turntable-box').width()+" "+$('.board').width())
-    })
 })();
 
