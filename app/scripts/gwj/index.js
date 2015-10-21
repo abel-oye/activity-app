@@ -53,10 +53,10 @@ $(function () {
      * 通过jsonp获得数据
      * @param  {String}   url      请求的地址
      * @param  {Function} callback 回调方法
-     * @param  {String}   fnName   [description]
+     * @param  {String}   callbackName   [description]
      * @return {[type]}            [description]
      */
-    var jsonpGetData = function (url, callback) {
+    var jsonpGetData = function (url, callback,callbackName) {
         /*if(fnName){
             if(!(typeof window[fnName] === 'function')){
                 window[fnName] = function(data){
@@ -68,7 +68,7 @@ $(function () {
         $.ajax({
             url: url,
             type: 'GET',
-            //jsonpCallback:undefined,
+            jsonpCallback:callbackName,
             dataType: 'jsonp',
             timeout:60000,//1分钟过期
             cache:false,
@@ -213,6 +213,17 @@ $(function () {
                 }
             });
         },
+        //双11更便宜
+        getCheap:function(){
+            jsonpGetData(YmtApi.utils.addParam('http://api.evt.ymatou.com/ActivityTemplate/Products/aid_4023/pid_4700/ps_100', {
+
+            }), function (data) {
+                if(data){
+                    var html = ejs.render($('#cheap-tpl').html(), data);
+                    $('cheap').html(html);
+                }
+            },'ymatou_at_4023_4700');
+        },
         getForeginIndex : function(){
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.app.ymatou.com/api/Polymeric/ForeignIndex', {
 
@@ -225,43 +236,69 @@ $(function () {
         },
         //爆款推荐
         getExplosivePro:function(aid,pid){
-            var args =  Array.prototype.slice.call(arguments);
+            var args =  Array.prototype.slice.call(arguments),
+                modInfo,
+                pageIndex = 0,
+                pageSize = 10;
 
-            var getJsonP = function(aid,pid,callback){
-                var callbackName = 'ymatou_at_'+aid+'_'+pid;
-                $.ajax({
-                    url: 'http://api.evt.ymatou.com/ActivityTemplate/Products/aid_'+aid+'/pid_'+pid+'/pi_1/ps_10',
-                    type: 'GET',
-                    jsonpCallback:callbackName,
-                    dataType: 'jsonp',
-                    beforeSend:function(xhr,settings){
-                        settings.url = settings.url.replace(/_=\d*&/,'')
-                    },
-                    success: function (res) {
-                        if (res && (res.Code === 200 || res.Code === '200')) {
-                            isFuntion(callback) && callback(res.Data);
-                        }
-                        else {
-                            //showLog(res.Msg || '操作错误.');
-                        }
-                    },
-                    error: function () {
-                        showLog('操作错误.');
-                    }
-                });
+            //取当前模块的位置
+            if(modInfo = activeMod[aid+'_'+pid]){
+                pageIndex = modInfo.pageIndex++;
+                pageSize = modInfo.pageSize;
+            }else{
+               activeMod[aid+'_'+pid] = {
+                    pageIndex:0,
+                    pageSize:10,
+                    isInit:false
+               }
             }
-            Array.prototype.push.apply(args,[function(data){
-                if(data && data.ProductList){
-                    var html = ejs.render($('#explosive-pro').html(), data);
-                    $('explosive-pro').html(html);
-                }
-            }])
 
-            getJsonP.apply(this,args);
+            Array.prototype.push.apply(args,[pageIndex,pageSize,function(data){
+                if(data && data.ProductList){
+                    if(!activeMod.isInit){
+                        activeMod.isInit = true;
+                        activeMod[aid+'_'+pid].isInit = true;
+                        var html = ejs.render($('#explosive-pro').html(), data);
+                        $('explosive-pro').html(html);
+                        infiniteScroll({
+                          selector: '.tab-body',
+                          offset: 300,
+                          callback: function () {
+                            var tab = $('.explosive-pro-tab .tab-header .active');
+                            module.getExplosivePro(tab.attr('data-aid'),tab.attr('data-pid'));
+                          }
+                        });
+                    }else{
+
+                        var html = ejs.render($('#explosive-pro-item').html(), data);
+                        if(!activeMod[aid+'_'+pid].isInit){
+                            activeMod[aid+'_'+pid].isInit = true;
+                            $('#explosive_'+aid+'_'+pid).html(html);
+                        }else{
+                            $('#explosive_'+aid+'_'+pid).append(html);
+                        }
+                    }
+
+                }
+            }]);
+
+            getActivityJsonP.apply(null,args);
         },
         getExplosiveProMod:function(){
 
         }
+    }
+
+    //存放活动模块
+    var activeMod = {
+        isInit:false
+    }
+    //
+    var getActivityJsonP = function(aid,pid,pageIndex,pageSize,callback){
+        var callbackName = 'ymatou_at_'+aid+'_'+pid;
+        pageIndex = pageIndex || 1;
+        pageSize = pageSize || 10;
+        jsonpGetData('http://api.evt.ymatou.com/ActivityTemplate/Products/aid_'+aid+'/pid_'+pid+'/pi_'+pageIndex+'/ps_'+pageSize,callback,callbackName);
     }
 
     var checkModule = function(){
@@ -326,6 +363,12 @@ $(function () {
             .eq($this.index()).addClass('active');
         $this.addClass('active');
 
+        //判断是否已经初始化
+        var aid = $this.attr('data-aid'),
+            pid = $this.attr('data-pid');
+        if(!( activeMod[aid+'_'+pid] && activeMod[aid+'_'+pid].isInit)){
+            module.getExplosivePro(aid,pid);
+        }
     })
     .on('click','.J-open-rule',function(){
         var $this = $(this);
@@ -354,5 +397,45 @@ $(function () {
             });
         });
 
+    /**
+     * [infiniteScroll description]
+     * @param  {Object} options 配置信息
+     *                  selector
+     *                  offset
+     *                  callback
+     *                  throttle
+     */
+    var infiniteScroll = function ( /*配置*/ options) {
+      if ('function' !== typeof (options.callback)) {
+        return;
+      }
+      options.offset = parseInt(options.offset) || 0;
+      var throttleTime = options.throttle || 450;
+
+      var callback = options.callback,
+        $widnow = $(window),
+        $sel = $(options.selector),
+        throttle = true,
+        currTop = 0; //控制滑动方向
+      if(!($sel&&$sel[0])){
+        return;
+      }
+      var selectorHeight = function () {
+          //当前高度 加上容器的位置
+          return $sel.height() + $sel.offset().top;
+        },handler = function () {
+        if (throttle && ($widnow.scrollTop() > currTop) && ($widnow.scrollTop() + $widnow.height() + options.offset >= selectorHeight())) {
+          throttle = false;
+          currTop = $widnow.scrollTop();
+          setTimeout(function () {
+            throttle = true;
+          }, throttleTime);
+
+          callback();
+        }
+      }
+
+      $widnow.on('scroll touchmove', handler);
+    };
 
 });

@@ -65,21 +65,37 @@
         <div class="gwj-area-footer goods-footer">
             <div class="see-more"></div>
         </div>
-
     </script>
+    <script id="explosive-pro-item" type="text/template">
+        {{ for(var i =0,len=ProductList.length;i<len;i++){ }}
+        <div class="explosive-pro-item">
+            <div class="explosive-pro-box J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductList[i].ProductId}}" data-title="商品详情">
+               <div>
+                   <img class="gwj-hold-bg" lazy-load="{{= ProductList[i].PicUrl }}" src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+               </div>
+               <h5 class="title">{{= ProductList[0].Name }}</h5>
+               <div class="price-box">
+                   <span>特供价</span>
+                   <span class="num"><strong>{{=ProductList[i].Price4Sale}}</strong>元</span>
+               </div>
+            </div>
+        </div>
+        {{ } }}
+    </script>
+
     <script id="explosive-pro"  type="text/template">
         <div class="gwj-title-wapper">
             <div class="gwj-title gwj-title-05"></div>
         </div>
         <div class="gwj-area-body explosive-pro-tab">
             <ul class="tab-header">
-                <li class="active">亚洲</li>
-                <li>欧洲</li>
-                <li>北美</li>
-                <li>澳新</li>
+                <li class="active" data-aid="2911" data-pid="262"> 亚洲</li>
+                <li  data-aid="2911" data-pid="263">欧洲</li>
+                <li  data-aid="2911" data-pid="264">北美</li>
+                <li  data-aid="2911" data-pid="265">澳新</li>
             </ul>
             <div class="tab-body">
-                <div class="tab-body-item active">
+                <div class="tab-body-item active"  id="explosive_2911_262">
                     {{ for(var i =0,len=ProductList.length;i<len;i++){ }}
                     <div class="explosive-pro-item">
                         <div class="explosive-pro-box J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductList[i].ProductId}}" data-title="商品详情">
@@ -95,16 +111,44 @@
                     </div>
                     {{ } }}
                 </div>
-                <div class="tab-body-item">
-                    <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getExplosiveProMod" data-arguments="2911.263" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+                <div class="tab-body-item" id="explosive_2911_263">
+
                 </div>
-                <div class="tab-body-item">
-                    <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getExplosiveProMod" data-arguments="2911,264" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+                <div class="tab-body-item" id="explosive_2911_264">
+
                 </div>
-                <div class="tab-body-item">
-                    <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getExplosiveProMod" data-arguments="2911,265" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+                <div class="tab-body-item" id="explosive_2911_265">
+
                 </div>
             </div>
+        </div>
+    </script>
+    <!--双11-->
+    <script id="cheap-tpl" type="text/template">
+        <div class="gwj-title-wapper">
+            <div class="gwj-title gwj-title-06"></div>
+        </div>
+        <div class="gwj-area-body cheap-wrapper">
+        {{ for(var i =0,len=Products.length;i<Math.min(len,6);i++){ }}
+            <div class="explosive-pro-item">
+                <div class="explosive-pro-box J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=Products[i].ProductId}}" data-title="商品详情">
+                   <div>
+                       <img class="gwj-hold-bg" lazy-load="{{= Products[i].PicUrl }}" src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+                   </div>
+                   <h5 class="title">{{= Products[0].Name }}</h5>
+                   <div class="pirce-market">
+                       他喵价 {{=Products[i].MarketPrice}}
+                   </div>
+                   <div class="price-box">
+                       <span>特供价</span>
+                       <span class="num"><strong>{{=Products[i].Price4Sale}}</strong>元</span>
+                   </div>
+                </div>
+            </div>
+            {{ } }}
+        </div>
+        <div class="gwj-area-footer goods-footer">
+            <div class="see-more"></div>
         </div>
     </script>
     <section class="gwj-container">
@@ -209,6 +253,12 @@
               </div>
           </div>
       </div>
+    <!--双11 便宜-->
+    <div class="gwj-area" id="gwj_06">
+        <cheap>
+            <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getCheap" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+        </cheap>
+    </div>
       <div class="gwj-area" id="gwj_02">
         <div class="gwj-title-wapper">
             <div class="gwj-title gwj-title-02"></div>
@@ -231,11 +281,11 @@
 
         </div>
       </div>
+     <!---->
       <div class="gwj-area" id="gwj_03">
           <foreignIndex>
               <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getForeginIndex" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
           </foreignIndex>
-
       </div>
 
       <div class="gwj-area" id="gwj_04">

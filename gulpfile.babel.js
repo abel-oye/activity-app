@@ -30,7 +30,7 @@ gulp.task('styles', () => {
             includePaths: ['.']
         }).on('error', $.sass.logError))
         .pipe($.autoprefixer({
-            browsers: ['last 1 version']
+            browsers: ['last 2 version']
         }))
         .pipe($.sourcemaps.write())
         .pipe(gulp.dest('.tmp/'))
@@ -69,9 +69,7 @@ gulp.task('html', ['styles'], () => {
         .pipe(assets)
         .pipe($.rev())
         .pipe($.if('*.js', $.uglify()))
-        .pipe($.if('*.css', $.autoprefixer({
-            browsers: ['last 1 version']
-        }), $.minifyCss({
+        .pipe($.if('*.css',$.minifyCss({
             compatibility: '*'
         })))
         .pipe(assets.restore())

@@ -447,6 +447,11 @@
          background: url(/images/pk.png) no-repeat;
          background-size: 100% 100%;
      }
+     &.pk-flag-fade{
+         &:after{
+            background-image: url(/images/pk_flag_2.png);
+        }
+     }
  }
  .pk-info-wrapper {
      position: relative;

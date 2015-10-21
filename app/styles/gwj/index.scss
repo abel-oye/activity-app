@@ -307,7 +307,9 @@ $rem:1rem/32;
     }
 }
 //好货大搜罗
-.gwj-area-body{}
+.gwj-area-body{
+    overflow:hidden;
+}
 
 .wares-set-item{
     border-bottom:$rem solid #e8e8e8;
@@ -455,14 +457,14 @@ $rem:1rem/32;
 }
 //海外推荐
 .explosive-pro{
-
     &-tab{
+        padding:0 $rem*12;
         .tab-header{
             overflow:hidden;
             border:1px solid #040000;
             background:#fff;
             width:100%;
-            padding:0 $rem*10;
+            //padding:0 $rem*10;
             overflow:hidden;
             margin-bottom:$rem*15;
             &>li{
@@ -472,6 +474,9 @@ $rem:1rem/32;
                 padding:$rem*10 0;
                 text-align:center;
                 border-right:1px solid #42210e;
+                &:last-child{
+                    border-right:0;
+                }
                 &.active{
                     background:#ffffb5;
                 }
@@ -480,7 +485,6 @@ $rem:1rem/32;
         }
 
         .tab-body{
-            padding-left:$rem*12;
             overflow:hidden;
             &-item{
                 display:none;
@@ -494,8 +498,12 @@ $rem:1rem/32;
     &-item{
         width:50%;
         float:left;
-        padding-right:$rem*12;
+        padding-right:$rem*6;
         margin-bottom:$rem*12;
+        &:nth-child(even){
+            padding-left:$rem*6;
+            padding-right:0;
+        }
     }
     &-box{
         background-image:url(/images/gwj/buyer_bg.png);
@@ -511,6 +519,10 @@ $rem:1rem/32;
             -webkit-box-orient: vertical;
             margin-bottom:$rem*20;
             margin-top:$rem*10;
+        }
+        .pirce-market{
+            text-decoration: line-through;
+            margin-top:$rem*-20;
         }
         img{
             height:$rem*260;
@@ -792,4 +804,8 @@ $rem:1rem/32;
       color:#fff;
       padding:$rem*14 0;
   }
+}
+
+.cheap-wrapper{
+    padding:0 $rem*12;
 }
