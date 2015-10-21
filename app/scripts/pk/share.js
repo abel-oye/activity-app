@@ -100,5 +100,5 @@ $(function () {
             desc:'全球洋货分成红蓝两队，你偏爱哪一方呢？赶紧为你心爱的Ta投票吧，说不定可以把ta和iPhone6s一起带回家噢~',
             imgUrl:'http://static.pk.ymatou.com/images/pk_share-7a30468c08.jpg'
         }
-    })
+    });
 });
