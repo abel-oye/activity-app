@@ -69,7 +69,7 @@
     <script id="explosive-pro-item" type="text/template">
         {{ for(var i =0,len=ProductList.length;i<len;i++){ }}
         <div class="explosive-pro-item">
-            <div class="explosive-pro-box J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductList[i].ProductId}}" data-title="商品详情">
+            <div class="explosive-pro-box J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductList[i].ProductId}}" data-title="商品详情" onclick=";">
                <div>
                    <img class="gwj-hold-bg" lazy-load="{{= ProductList[i].PicUrl }}" src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
                </div>
@@ -98,7 +98,7 @@
                 <div class="tab-body-item active"  id="explosive_2911_262">
                     {{ for(var i =0,len=ProductList.length;i<len;i++){ }}
                     <div class="explosive-pro-item">
-                        <div class="explosive-pro-box J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductList[i].ProductId}}" data-title="商品详情">
+                        <div class="explosive-pro-box J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductList[i].ProductId}}" data-title="商品详情">
                            <div>
                                <img class="gwj-hold-bg" lazy-load="{{= ProductList[i].PicUrl }}" src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
                            </div>
@@ -131,7 +131,7 @@
         <div class="gwj-area-body cheap-wrapper">
         {{ for(var i =0,len=Products.length;i<Math.min(len,6);i++){ }}
             <div class="explosive-pro-item">
-                <div class="explosive-pro-box J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=Products[i].ProductId}}" data-title="商品详情">
+                <div class="explosive-pro-box J-open"  onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=Products[i].ProductId}}" data-title="商品详情">
                    <div>
                        <img class="gwj-hold-bg" lazy-load="{{= Products[i].PicUrl }}" src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
                    </div>
@@ -157,7 +157,7 @@
     <section class="gwj-container">
     <div class="gwj-header">
         <div class="gwj-top-banner">
-            <div class="pk-big-btn J-open" data-title="洋货团大擂台" data-url="http://static.pk.ymatou.com/pk/index.html"></div>
+            <div class="pk-big-btn J-open" onclick=";" data-title="洋货团大擂台" data-url="http://static.pk.ymatou.com/pk/index.html"></div>
         </div>
     </div>
       <div class="turntable-wrapper" id="gwj_01">
@@ -252,7 +252,7 @@
                     <p>7. 活动与苹果公司无关，洋码头保留最终解释权。</p>
                 </div>
                 <!--handstand-->
-                <p class="retract J-open-rule">展开 </p>
+                <p class="retract J-open-rule" onclick=";">展开 </p>
               </div>
           </div>
       </div>
@@ -353,8 +353,8 @@
              </div>
             {{ }else{ }}
             <div class="btn-group">
-                <div class="dialog-btn J-share">立即分享</div>
-                <div class="dialog-btn J-close-exchange">我再想想</div>
+                <div class="dialog-btn J-share" onclick=";">立即分享</div>
+                <div class="dialog-btn J-close-exchange" onclick=";">我再想想</div>
             </div>
             {{ } }}
         {{ }else if(BCode == 104){ }}
@@ -384,8 +384,8 @@
             </div>
            {{ }else{ }}
            <div class="btn-group">
-               <div class="dialog-btn J-share">立即分享</div>
-               <div class="dialog-btn J-close-exchange">我再想想</div>
+               <div class="dialog-btn J-share" onclick=";">立即分享</div>
+               <div class="dialog-btn J-close-exchange" onclick=";">我再想想</div>
            </div>
            {{ } }}
         {{ } }}

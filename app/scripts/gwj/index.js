@@ -6,8 +6,9 @@
  * @email lijiang@ymaotu.com
  * @create-date 20151014
  */
-$(function () {
++(function(){
     'use strict';
+
 
     //初始化ejs
     ejs.open = '{{';
@@ -83,6 +84,10 @@ $(function () {
             cbFn = callback;
         }
 
+        cbFn.error = function(res){
+            showLog(res.Msg || '操作失败.')
+        }
+
         $.ajax({
             url: url,
             type: 'GET',
@@ -150,6 +155,7 @@ $(function () {
                 currCircleNum = 0;
                 clearInterval(timer);
                 timer = null;
+                turntable.runing = false;
                 turntable.complete && turntable.complete();
                 return;
             }
@@ -187,7 +193,6 @@ $(function () {
             //direction = 1;
             stopInx = +inx;
             isFinal = true;
-            this.runing = false;
         }
     }
 
@@ -195,7 +200,7 @@ $(function () {
         joinLottery: function () {
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/JoinLottery', {
                 accessToken: authInfo.AccessToken,
-                deviceId: search.deviceId || '132',
+                deviceId: search.DeviceId || search.DeviceToken || '132',
                 hasShare: true
             }), {
                 success: function (data, code) {
@@ -343,7 +348,7 @@ $(function () {
             var $this = $(this),
                 moduleName = $this.attr('data-module'),
                 args = ($this.attr('data-arguments') || '').split(',');
-
+                console.log(moduleName)
             moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
             $this.removeClass('J-module-Hold').addClass('module-load-end');
         });
@@ -484,5 +489,9 @@ $(function () {
 
         $widnow.on('scroll touchmove', handler);
     };
+    //document.documentElement.style.fontSize = '16px';
+    $(function(){
+        alert(document.documentElement.clientWidth+' '+$('.turntable-box').width()+" "+$('.board').width())
+    })
+})();
 
-});

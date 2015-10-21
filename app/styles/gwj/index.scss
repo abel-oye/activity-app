@@ -36,7 +36,7 @@ $rem:1rem/32;
 .gwj-header{
     position:relative;
     &:after{
-        animation: sign-sway 3s infinite;
+        animation: sign-sway 3s 10;
         content:'';
         display:block;
         position:absolute;
