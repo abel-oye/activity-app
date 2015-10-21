@@ -143,12 +143,15 @@
                        <span>特供价</span>
                        <span class="num"><strong>{{=Products[i].Price4Sale}}</strong>元</span>
                    </div>
+                    {{if(Products[i].StatusText){ }}
+                    <span class="statusText">{{=Products[i].StatusText}}</span>
+                    {{ } }}
                 </div>
             </div>
             {{ } }}
         </div>
         <div class="gwj-area-footer goods-footer">
-            <div class="see-more"></div>
+            <div class="see-more J-open" data-url="/gwj/cheap.html"></div>
         </div>
     </script>
     <section class="gwj-container">
@@ -311,48 +314,81 @@
         </div>
     </div>
     <script id="vote-exchange-tpl" type="text/template">
-      {{ var date = new Date(),dateString = date.getFullYear()+'.'+date.getMonth()+'.'+date.getDate()  }}
-      {{ if(!IsRealProduct){ }}
-        <div class="content">
-            <span class="num"><strong class="">{{=CouponDetailInfo.CouponValue}}</strong>元</span>
-            <span class="txt">优惠券</span>
-        </div>
-        <div class="text">
-          <div>
-            获得时间 {{= dateString }}
-          </div>
-          <div>
-            优惠券期限 <strong>{{-:CouponDetailInfo.ValidStart | simpleDate }} - {{-:CouponDetailInfo.ValidEnd | simpleDate }}</strong>
-          </div>
-          <p>{{= AwardStatus == 2?'兑换后':''}}优惠券可在个人中心-我的钱包中查看哦~ </p>
-        </div>
-        {{ if(AwardStatus == 2){ }}
-        <div class="dialog-btn J-receive-coupon" data-CouponNumber="{{=CouponDetailInfo.CouponNumber}}" onclick=";">
-            使用{{=NeedPoint}}战绩,立即兑换
-        </div>
+       <!--中奖实物-->
+       {{ if(BCode == 100){ }}
+           {{ if(ProductId){ }}
+            <h3 class="succ-title">恭喜您抽中了！</h3>
+           <div class="content pic-content">
+               <img src="/images/gwj/vote_iwatch.png" alt="">
+           </div>
+           <div class="dialog-btn J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductId}}">
+               加1元，立即换购
+           </div>
+           {{ }else if(CouponDetailInfo){ }}
+           <div class="content">
+               <span class="num"><strong class="">{{= CouponDetailInfo.CouponValue }}</strong>元</span>
+               <span class="txt">优惠券</span>
+           </div>
+           <div class="text">
+             <div>
+               使用期限 <strong>{{-: CouponDetailInfo.ValidStart | simpleDate}} - {{-: CouponDetailInfo.ValidEnd | simpleDate }}</strong>
+             </div>
+             <p>奖品已发放到您的账户内</p>
+             <div><strong>满{{= CouponDetailInfo.CouponOrderValue }}使用</strong></div>
+           </div>
+           <div class="dialog-btn J-close-exchange" onclick=";">
+                知道了
+           </div>
+           {{ } }}
+        {{ }else if(BCode == 101){ }}
+            <div class="text-msg">
+                 哎呦，没有抽中奖品哦 <br/>
+                 {{ if(HasUseCount < 2){ }}
+                  <strong>分享可以再抽一次!</strong>
+                 {{ } }}
+            </div>
+            {{if(HasUseCount > 1){}}
+             <div class="dialog-btn J-close-exchange" onclick=";">
+                  知道了
+             </div>
+            {{ }else{ }}
+            <div class="btn-group">
+                <div class="dialog-btn J-share">立即分享</div>
+                <div class="dialog-btn J-close-exchange">我再想想</div>
+            </div>
+            {{ } }}
+        {{ }else if(BCode == 104){ }}
+                <div class="text-msg">
+                    相同设备每天只能投三次
+                </div>
+                 <div class="dialog-btn J-close-exchange" onclick=";">
+                      知道了
+                 </div>
         {{ }else{ }}
-        <div class="dialog-btn  J-close-exchange" onclick=";">我知道了</div>
+           <div class="text-msg">
+                {{if(HasUseCount > 1){}}
+                     您今天的抽奖次数已用完<br/>
+                    <strong>明天再来试试吧!</strong>
+                {{ }else{ }}
+                    {{ if(BCode == 102){ }}
+                     哎呦，抽奖次数用完 <br/>
+                    {{ }else{ }}
+                     哎呦，没有抽中奖品哦 <br/>
+                    {{ } }}
+                    <strong>分享可以再抽一次!</strong>
+                {{ } }}
+           </div>
+           {{if(HasUseCount > 1){}}
+            <div class="dialog-btn J-close-exchange" onclick=";">
+                 知道了
+            </div>
+           {{ }else{ }}
+           <div class="btn-group">
+               <div class="dialog-btn J-share">立即分享</div>
+               <div class="dialog-btn J-close-exchange">我再想想</div>
+           </div>
+           {{ } }}
         {{ } }}
-      {{ }else{ }}
-        <div class="content pic-content">
-            <img src="{{=AwardImage}}" alt="">
-        </div>
-        <div class="text">
-          <div>
-            获得时间 {{= dateString }}
-          </div>
-          <div>
-            数量有限,购完为止
-          </div>
-          <div>
-              <strong>{{=NeedPoint}}战绩
-              +1元兑换实物奖品，请点击</strong>
-          </div>
-        </div>
-        <div class="dialog-btn J-add-privilege" onclick=";">
-            加1元，立即换购
-        </div>
-      {{ } }}
     </script>
      <!--open-->
     <div class="vote-mask vote-exchange J-close-exchange" onclick=";"></div>
@@ -360,38 +396,7 @@
       <div class="vote-dialog-header close-btn J-close-exchange" onclick=";"></div>
       <div class="vote-dialog-body">
         <div class="vote-coupon-dialog">
-           <!--中奖实物-->
-           <!--  <h3 class="succ-title">恭喜您抽中了！</h3>
-           <div class="content pic-content">
-               <img src="/images/gwj/iwatch.png" alt="">
-           </div>
-           <div class="dialog-btn J-add-privilege" onclick=";">
-               加1元，立即换购
-           </div> -->
 
-
-           <!-- <div class="content">
-               <span class="num"><strong class="">50</strong>元</span>
-               <span class="txt">优惠券</span>
-           </div>
-           <div class="text">
-             <div>
-               使用期限 <strong>2015.09.09 - 2015.09.31</strong>
-             </div>
-             <p>奖品已发放到您的账户内</p>
-             <div><strong>满40使用</strong></div>
-           </div>
-           <div class="dialog-btn J-close-exchange" data-CouponNumber="{{=CouponDetailInfo.CouponNumber}}" onclick=";">
-                知道了
-           </div> -->
-           <div class="text-msg">
-           您今天的抽奖次数已用完<br/>
-               <strong>明天再来试试吧!</strong>
-           </div>
-           <div class="btn-group">
-               <div class="dialog-btn J-share">立即分享</div>
-               <div class="dialog-btn J-close-exchange">我再想想</div>
-           </div>
         </div>
       </div>
       <div class="vote-dialog-footer"></div>
