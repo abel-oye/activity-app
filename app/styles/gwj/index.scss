@@ -199,6 +199,8 @@ $rem:1rem/32;
     background-repeat-x: no-repeat;
     background-size: 100%;
     padding:$rem*20;
+  }
+  &-box{
     overflow:hidden;
     //margin-right:$rem*-8;
     position:relative;
@@ -210,6 +212,9 @@ $rem:1rem/32;
       border:$rem solid #612922;
       margin-right:$rem*10;
       margin-bottom:$rem*10;
+      &:nth-child(3n){
+        margin-right:0;
+      }
     }
     .board{
       font-size:$rem*18;
@@ -248,9 +253,8 @@ $rem:1rem/32;
          margin:$rem*20 auto $rem*10;
          width:$rem*98;
          height:$rem*98;
-         img{
-            width:100%;
-         }
+         background:url(/images/gwj/iwatch.png) no-repeat;
+         background-size:contain;
       }
       &.active{
         .coupon{
@@ -581,6 +585,7 @@ $rem:1rem/32;
         img{
             height:$rem*260;
             width:$rem*260;
+            max-width:100%;
         }
         .price-box{
             width:100%;

@@ -96,9 +96,9 @@ $(function () {
 
     YmtApi.isWechat && YmtApi.initWechat({
         shareConf:{
-            title:'【有人@你】全球洋货年度PK赛正在直播！快来支持你选择的战队吧！',
+            title:'【有人@你】全球洋货年度PK赛正在直播！',
             desc:'全球洋货分成红蓝两队，你偏爱哪一方呢？赶紧为你心爱的Ta投票吧，说不定可以把ta和iPhone6s一起带回家噢~',
-            imgUrl:''
+            imgUrl:'http://static.pk.ymatou.com/images/pk_share-7a30468c08.jpg'
         }
     })
 });

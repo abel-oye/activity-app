@@ -173,6 +173,9 @@ $(function () {
             turntable.move(_inx++);
         },
         run: function () {
+            if(this.runing){
+                return;
+            }
             isFinal = false;
             currFinalNum = 0;
             direction = -1;
@@ -190,41 +193,36 @@ $(function () {
 
     var module = {
         joinLottery: function () {
-            if (YmtApi.utils.hasLogin()) {
-                jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/JoinLottery', {
-                    accessToken: authInfo.AccessToken,
-                    deviceId: search.deviceId || '132',
-                    hasShare: true
-                }), {
-                    success: function (data, code) {
-                        if (data) {
-                            var map = {
-                                0: '0',
-                                1: '1',
-                                2: '2',
-                                3: '7',
-                                4: '3',
-                                5: '6',
-                                6: '5',
-                                7: '5',
-                            }
-                            turntable.stop(map[data.LotteryIndex]);
-
-                            turntable.complete = function () {
-                                var html = ejs.render($('#vote-exchange-tpl').html(), data);
-                                $('.vote-coupon-dialog').html(html);
-                                $('.vote-exchange').addClass('open');
-                            }
+            jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/JoinLottery', {
+                accessToken: authInfo.AccessToken,
+                deviceId: search.deviceId || '132',
+                hasShare: true
+            }), {
+                success: function (data, code) {
+                    if (data) {
+                        var map = {
+                            0: '0',
+                            1: '1',
+                            2: '2',
+                            3: '7',
+                            4: '3',
+                            5: '6',
+                            6: '5',
+                            7: '5',
                         }
-                    },
-                    error: function () {
+                        turntable.stop(map[data.LotteryIndex]);
 
+                        turntable.complete = function () {
+                            var html = ejs.render($('#vote-exchange-tpl').html(), data);
+                            $('.vote-coupon-dialog').html(html);
+                            $('.vote-exchange').addClass('open');
+                        }
                     }
-                });
-            }
-            else {
-                YmtApi.toLogin();
-            }
+                },
+                error: function () {
+
+                }
+            });
         },
         //获得热门买手
         getHotBuyerList: function () {
@@ -372,8 +370,15 @@ $(function () {
                 isNew: true,
             });
         }).on('click', '.J-turntable-run', function () { //转盘运行
-            turntable.run();
-            module.joinLottery();
+
+            if (YmtApi.utils.hasLogin()) {
+                turntable.run();
+                module.joinLottery();
+            }
+            else {
+                YmtApi.toLogin();
+            }
+
         }).on('scroll', function () {
             var top = document.documentElement.scrollTop || document.body.scrollTop,
                 bottom = document.querySelector('#gwj_01').getBoundingClientRect().bottom;
