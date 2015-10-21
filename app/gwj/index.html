@@ -19,9 +19,7 @@
   <body>
     <!--热门买手-->
     <script id="buyerList" type="text/template">
-        <div class="gwj-title-wapper">
-            <div class="gwj-title gwj-title-04"></div>
-        </div>
+        <div class="gwj-title-wapper gwj-title-04"></div>
         <div class="gwj-area-body buyer-set-wrapper">
         {{ for(var i=0,data=HotBuyerList,len=Math.min(data.length,6);i<len;i++){ }}
             <div class="buyer-set-item J-open" data-url="LiveUrl" data-title="直播详情">
@@ -37,9 +35,7 @@
     </script>
     <!--洋货团-->
     <script id="foreignIndex" type="text/template">
-        <div class="gwj-title-wapper">
-            <div class="gwj-title gwj-title-03"></div>
-        </div>
+        <div class="gwj-title-wapper gwj-title-03"></div>
         <!--好货大搜罗-->
         <div class="gwj-area-body ">
             {{ for(var i=0,len = PageParts.length,j=0,data,jLen=0;i<len;i++){ }}
@@ -84,9 +80,7 @@
     </script>
 
     <script id="explosive-pro"  type="text/template">
-        <div class="gwj-title-wapper">
-            <div class="gwj-title gwj-title-05"></div>
-        </div>
+        <div class="gwj-title-wapper gwj-title-05"></div>
         <div class="gwj-area-body explosive-pro-tab">
             <ul class="tab-header">
                 <li class="active" data-aid="2911" data-pid="262"> 亚洲</li>
@@ -125,9 +119,7 @@
     </script>
     <!--双11-->
     <script id="cheap-tpl" type="text/template">
-        <div class="gwj-title-wapper">
-            <div class="gwj-title gwj-title-06"></div>
-        </div>
+        <div class="gwj-title-wapper gwj-title-06"></div>
         <div class="gwj-area-body cheap-wrapper">
         {{ for(var i =0,len=Products.length;i<Math.min(len,6);i++){ }}
             <div class="explosive-pro-item">
@@ -161,78 +153,95 @@
         </div>
     </div>
       <div class="turntable-wrapper" id="gwj_01">
-          <div class="gwj-title-wapper">
-              <div class="gwj-title gwj-title-pk"></div>
-          </div>
+          <div class="gwj-title-wapper"></div>
           <div class="turntable-header"></div>
           <div class="turntable-body">
               <div class="turntable-box">
-                  <div class="board active">
-                    <div class="img"></div>
-                    <div class="txt">
-                      APPLE WATCH
-                    </div>
-                  </div>
-                  <div class="board">
-                    <div class="coupon">
-                    <small>&yen;</small>5<span>元</span>
-                    </div>
-                    <div class="txt">
-                      现金抵用券
-                    </div>
-                  </div>
-                  <div class="board">
-                    <div class="coupon">
-                    <small>&yen;</small>50<span>元</span>
-                    </div>
-                    <div class="txt">
-                      现金抵用券
-                    </div>
-                  </div>
-                  <div class="board">
-                      <div class="coupon">
-                      <small>&yen;</small>5<span>元</span>
-                      </div>
-                      <div class="txt">
-                        现金抵用券
+                  <div class="turntable-grid">
+                      <div class="board active">
+                        <div class="img"></div>
+                        <div class="txt">
+                          APPLE WATCH
+                        </div>
                       </div>
                   </div>
-                  <button class="starter J-turntable-run" onclick=";">
-                      <div class="btn">
+                  <div class="turntable-grid">
+                      <div class="board">
+                        <div class="coupon">
+                        <small>&yen;</small>5<span>元</span>
+                        </div>
+                        <div class="txt">
+                          现金抵用券
+                        </div>
+                      </div>
+                  </div>
+                  <div class="turntable-grid">
+                      <div class="board">
+                        <div class="coupon">
+                        <small>&yen;</small>50<span>元</span>
+                        </div>
+                        <div class="txt">
+                          现金抵用券
+                        </div>
+                      </div>
+                  </div>
+                  <div class="turntable-grid">
+                      <div class="board">
+                          <div class="coupon">
+                          <small>&yen;</small>5<span>元</span>
+                          </div>
+                          <div class="txt">
+                            现金抵用券
+                          </div>
+                      </div>
+                  </div>
+                  <div class="turntable-grid">
+                      <button class="starter J-turntable-run" onclick=";">
+                          <div class="btn">
 
-                      </div>
-                      <div class="start_txt">
+                          </div>
+                          <div class="start_txt">
 
+                          </div>
+                      </button>
+                  </div>
+                  <div class="turntable-grid">
+                      <div class="board">
+                        <div class="coupon">
+                        <small>&yen;</small>300<span>元</span>
+                        </div>
+                        <div class="txt">
+                          现金抵用券
+                        </div>
                       </div>
-                  </button>
-                  <div class="board">
-                    <div class="coupon">
-                    <small>&yen;</small>300<span>元</span>
-                    </div>
-                    <div class="txt">
-                      现金抵用券
-                    </div>
                   </div>
-                  <div class="board">
-                    <div class="coupon">
-                    <small>&yen;</small>100<span>元</span>
-                    </div>
-                    <div class="txt">
-                      现金抵用券
-                    </div>
+                  <div class="turntable-grid">
+                      <div class="board">
+                        <div class="coupon">
+                        <small>&yen;</small>100<span>元</span>
+                        </div>
+                        <div class="txt">
+                          现金抵用券
+                        </div>
+                      </div>
                   </div>
-                  <div class="board">
-                    <div class="coupon">
-                    <small>&yen;</small>20<span>元</span>
-                    </div>
-                    <div class="txt">
-                      现金抵用券
-                    </div>
+                  <div class="turntable-grid">
+                      <div class="board">
+                        <div class="coupon">
+                        <small>&yen;</small>20<span>元</span>
+                        </div>
+                        <div class="txt">
+                          现金抵用券
+                        </div>
+                      </div>
+
                   </div>
-                  <div class="board">
-                    <div class="txt big-txt">
-                      谢谢参与
-                    </div>
+                  <div class="turntable-grid">
+                      <div class="board">
+                        <div class="txt big-txt">
+                          谢谢参与
+                        </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -263,9 +272,7 @@
         </cheap>
     </div>
       <div class="gwj-area" id="gwj_02">
-        <div class="gwj-title-wapper">
-            <div class="gwj-title gwj-title-02"></div>
-        </div>
+        <div class="gwj-title-wapper gwj-title-02"></div>
         <div class="gwj-area-body">
             <!--砍价团-->
             <div class="gwj-group ">
