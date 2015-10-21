@@ -99,54 +99,27 @@ $rem:1rem/32;
     height:$rem*113;
     width:100%;
     background: url(/images/gwj/title_01.png) no-repeat center bottom;
+    background-size:$rem*487 $rem*113;
     margin-bottom:$rem*20;
     &.gwj-title-02{
        background-image: url(/images/gwj/title_02.png) ;
+       background-size:$rem*488 $rem*97;
     }
     &.gwj-title-03{
        background-image: url(/images/gwj/title_03.png) ;
+       background-size:$rem*508 $rem*102;
     }
     &.gwj-title-04{
        background-image: url(/images/gwj/title_04.png) ;
+       background-size:$rem*508 $rem*102;
     }
     &.gwj-title-05{
        background-image: url(/images/gwj/title_05.png) ;
+       background-size:$rem*508 $rem*101;
     }
     &.gwj-title-06{
        background-image: url(/images/gwj/title_06.png) ;
-    }
-    .gwj-title{
-        width:$rem*390;
-        height:$rem*97;
-        background:url(/images/gwj/title_pk.png) no-repeat;
-        background-size:100% 100%;
-        position:absolute;
-        left:50%;
-        top:$rem*-5;
-        transform: translate(-50%, -50%);
-    }
-    .gwj-title-02{
-        background-image:url(/images/gwj/title_group.png);
-    }
-    .gwj-title-03{
-        background-image:url(/images/gwj/title_03.png);
-        width:$rem*408;
-        height:$rem*102;
-    }
-    .gwj-title-04{
-        background-image:url(/images/gwj/title_04.png);
-        width:$rem*408;
-        height:$rem*102;
-    }
-    .gwj-title-05{
-        background-image:url(/images/gwj/title_05.png);
-        width:$rem*408;
-        height:$rem*102;
-    }
-    .gwj-title-06{
-        background-image:url(/images/gwj/title_06.png);
-        width:$rem*408;
-        height:$rem*102;
+       background-size:$rem*508 $rem*102;
     }
 }
 //转盘
