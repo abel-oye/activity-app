@@ -22,7 +22,7 @@
         <div class="gwj-title-wapper gwj-title-04"></div>
         <div class="gwj-area-body buyer-set-wrapper">
         {{ for(var i=0,data=HotBuyerList,len=Math.min(data.length,6);i<len;i++){ }}
-            <div class="buyer-set-item J-open" data-url="LiveUrl" data-title="直播详情">
+            <div class="buyer-set-item J-open" data-url="{{=data[i].LiveUrl}}" onclick=";" data-title="直播详情">
                <div class="buyer-box">
                    <img class="buyer-bg gwj-hold-bg" lazy-load="{{=data[i].MainPicUrl}}" src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
                </div>
@@ -30,7 +30,7 @@
         {{ } }}
         </div>
         <div class="gwj-area-footer goods-footer">
-            <div class="see-more"></div>
+            <div class="see-more" onclick=";"></div>
         </div>
     </script>
     <!--洋货团-->
@@ -45,7 +45,7 @@
                 </div>
                 <div class="wares-pro-list">
                     {{ for(var j=0,data=PageParts[i].Products || [],jLen=Math.min(data.length,4);j<jLen;j++ ){  }}
-                        <div class="wares-pro-item J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=data[j].ProductId}}" data-title="商品详情">
+                        <div class="wares-pro-item J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=data[j].ProductId}}" data-title="商品详情" onclick=";">
                             <img class="gwj-hold-bg" lazy-load="{{= data[j].PicUrl }}" src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
                             <h5>{{= data[j].Name }}</h5>
                             <div class="price">
@@ -59,7 +59,7 @@
             {{ } }}
         </div>
         <div class="gwj-area-footer goods-footer">
-            <div class="see-more"></div>
+            <div class="see-more"  onclick=";"></div>
         </div>
     </script>
     <script id="explosive-pro-item" type="text/template">
@@ -143,7 +143,7 @@
             {{ } }}
         </div>
         <div class="gwj-area-footer goods-footer">
-            <div class="see-more J-open" data-url="/gwj/cheap.html"></div>
+            <div class="see-more J-open" data-url="/gwj/cheap.html"  onclick=";"></div>
         </div>
     </script>
     <section class="gwj-container">
@@ -314,7 +314,7 @@
     <div class="gwj-tab-wrapper ">
         <div class="gwj-tab fixed"  id="gwj-tab">
             <a class="active" href="#gwj_01">转转乐</a>
-            <a  href="#gwj_06">砍猫记</a>
+            <a  href="#gwj_06">砍喵记</a>
             <a  href="#gwj_02">全民砍价</a>
             <a  href="#gwj_03">全球好货</a>
             <a  href="#gwj_04">各国买手</a>

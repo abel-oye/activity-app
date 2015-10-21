@@ -182,6 +182,7 @@
             if(this.runing){
                 return;
             }
+            module.joinLottery();
             isFinal = false;
             currFinalNum = 0;
             direction = -1;
@@ -378,7 +379,6 @@
 
             if (YmtApi.utils.hasLogin()) {
                 turntable.run();
-                module.joinLottery();
             }
             else {
                 YmtApi.toLogin();
