@@ -35,7 +35,9 @@
     };
 
     var search = YmtApi.utils.getUrlObj(),
-        authInfo = YmtApi.utils.getAuthInfo();
+        authInfo = function(){
+            return YmtApi.utils.getAuthInfo()
+        };
     var showLogStatus = true;
 
     /**
@@ -227,7 +229,7 @@
             }
 
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/JoinLottery', {
-                accessToken: authInfo.AccessToken,
+                accessToken: authInfo().AccessToken,
                 deviceId: search.DeviceId || search.DeviceToken || '132',
                 hasShare: true
             }), {
@@ -250,7 +252,7 @@
         //获得热门买手
         getHotBuyerList: function () {
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/HotBuyer/GetHotBuyerList', {
-                accessToken: authInfo.AccessToken,
+                accessToken: authInfo().AccessToken,
                 deviceId: search.deviceId,
                 hasShare: false
             }), function (data) {
@@ -336,7 +338,7 @@
         },
         share: function () {
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/LotteryShareRecord', {
-                accessToken:authInfo.AccessToken
+                accessToken:authInfo().AccessToken
             }), function (data) {
 
             });
@@ -511,5 +513,12 @@
 
         $widnow.on('scroll touchmove', handler);
     };
+
+    YmtApi.on('userStatusChange',function(data){
+     showLog(JSON.stringify(data))
+    });
+
 })();
+
+
 
