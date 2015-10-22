@@ -23,7 +23,7 @@ $(function () {
         //则从cookie取一次。
         authInfo = (function(){
             var auth = YmtApi.utils.getAuthInfo();
-            if(!auth.AccessToken){
+            if(!YmtApi.utils.hasLogin()){
                 auth.AccessToken = (function () {
                     var tokenMatch = document.cookie.match(/AccessToken=([^;]*)/)
                     if (tokenMatch) {
