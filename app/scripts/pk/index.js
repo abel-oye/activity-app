@@ -400,5 +400,4 @@ $(function () {
                 window.location.reload();
             }
         });
-        alert()
 });
