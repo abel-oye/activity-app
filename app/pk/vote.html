@@ -123,9 +123,14 @@
               +1元兑换实物奖品，请点击</strong>
           </div>
         </div>
-        <div class="dialog-btn J-add-privilege" onclick=";">
-            加1元，立即换购
+
+        {{ if(AwardStatus == 2){ }}
+        <div class="dialog-btn J-add-privilege" data-ProductId="{{=ProductId}}" onclick=";">
+            使用{{=NeedPoint}}战绩,立即兑换
         </div>
+        {{ }else{ }}
+           <div class="dialog-btn  J-close-exchange J-open"  data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductId}}" onclick=";" > 加1元，立即换购</div>
+        {{ } }}
       {{ } }}
     </script>
     <section class="pk-vote">
