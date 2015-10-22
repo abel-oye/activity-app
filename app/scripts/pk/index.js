@@ -20,20 +20,7 @@ $(function () {
 
     var search = YmtApi.utils.getUrlObj(),
         //@TODO ios 未登录打开webview重新加载无法获得登录态，
-        //则从cookie取一次。
-        authInfo = (function(){
-            var auth = YmtApi.utils.getAuthInfo();
-            if(!YmtApi.utils.hasLogin()){
-                auth.AccessToken = (function () {
-                    var tokenMatch = document.cookie.match(/AccessToken=([^;]*)/)
-                    if (tokenMatch) {
-                        return tokenMatch[1];
-                    }
-                    return null;
-                })();
-            }
-            return auth;
-        })();
+        authInfo = YmtApi.utils.getAuthInfo();
     var showLogStatus = true;
 
     /**
@@ -267,7 +254,7 @@ $(function () {
     getPkInfo();
     pastCompetition();
 
-    if (YmtApi.utils.hasLogin() || authInfo.AccessToken) {
+    if (YmtApi.utils.hasLogin()) {
         getSummary();
     }else{
         var html = ejs.render($('#summary').html(), {
@@ -279,7 +266,7 @@ $(function () {
     }
 
     var checkLogin = function(){
-        if(YmtApi.utils.hasLogin() || authInfo.AccessToken){
+        if(YmtApi.utils.hasLogin()){
             return true;
         }else{
             YmtApi.toLogin();
@@ -356,13 +343,7 @@ $(function () {
                 $('.pk-vote-dialog').show().find('.pk-dialog-body strong').text($this.attr('data-product-name'));
             }else{
                 YmtApi.one('userStatusChange',function(){
-                   if(/iphone|ipad|ipod/i.test(window.navigator.userAgent)){
-                      var exp = new Date();
-                      exp.setTime(exp.getTime() + 2*60*60*1000);//设置2两小时cookie
-                      document.cookie = "AccessToken="+ escape (data.AccessToken) + ";expires=" + exp.toGMTString();
-                  }else{
-                      window.location.reload();
-                  }
+                    window.location.reload();
                 });
             }
         }).on('click', '.J-close-vote', function () { //关闭投票
@@ -392,12 +373,6 @@ $(function () {
         rowIntercept();
 
         YmtApi.on('userStatusChange',function(data){
-            if(/iphone|ipad|ipod/i.test(window.navigator.userAgent)){
-                var exp = new Date();
-                exp.setTime(exp.getTime() + 15*60*1000);//设置15分钟cookie
-                document.cookie = "AccessToken="+ escape (data.AccessToken) + ";expires=" + exp.toGMTString();
-            }else{
-                window.location.reload();
-            }
+             window.location.reload();
         });
 });
