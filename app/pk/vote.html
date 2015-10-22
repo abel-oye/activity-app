@@ -67,7 +67,7 @@
         {{ if(data && data[0]){ }}
        <ul class="pk-gains-list">
           {{ for(var i =0,len=data.length;i<len;i++){ }}
-            <li class="pk-gains-item J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}" data-title="比赛详情" onclick=";">
+            <li class="pk-gains-item J-open" data-url="/pk/detail.html?id={{= data[i].PKId }}" data-title="往期擂台" onclick=";">
               <div class="pk-spoils-flag {{= data[i].HasWin==null?'census':data[i].HasWin?'nice':'fial'}}">{{= data[i].HasWin==null?'统计中':data[i].HasWin?'猜中':'猜错'}}</div>
               <div class="group pk-flag">
                  <img class="pro-pic" src="{{= data[i].RedProductImage }}" alt="商品图片">
