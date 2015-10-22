@@ -81,8 +81,8 @@ $(function () {
     //获得pk信息
     var getPkInfo = function () {
         jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/GetWXSharePKData', {
-            PKId: search.id,
-            UserId: search.UserId || ''
+            PKId: search.kid,
+            UserId: search.uid || ''
         }), function (data) {
             var html = ejs.render($('#pkInfo').html(), data);
             $('pkInfo').html(html);
