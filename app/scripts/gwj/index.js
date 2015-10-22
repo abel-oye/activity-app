@@ -514,10 +514,6 @@
         $widnow.on('scroll touchmove', handler);
     };
 
-    YmtApi.on('userStatusChange',function(data){
-     showLog(JSON.stringify(data))
-    });
-
 })();
 
 
