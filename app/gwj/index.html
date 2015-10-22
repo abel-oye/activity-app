@@ -29,9 +29,6 @@
             </div>
         {{ } }}
         </div>
-        <div class="gwj-area-footer goods-footer">
-            <div class="see-more" onclick=";"></div>
-        </div>
     </script>
     <!--洋货团-->
     <script id="foreignIndex" type="text/template">
@@ -145,6 +142,90 @@
         <div class="gwj-area-footer goods-footer">
             <div class="see-more J-open" data-url="/gwj/cheap.html"  onclick=";"></div>
         </div>
+    </script>
+    <script id="vote-exchange-tpl" type="text/template">
+       <!--中奖实物-->
+       {{ if(BCode == 100){ }}
+           {{ if(ProductId){ }}
+            <h3 class="succ-title">恭喜您抽中了！</h3>
+           <div class="content pic-content">
+               <img src="/images/gwj/vote_iwatch.png" alt="">
+           </div>
+           <div class="dialog-btn J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductId}}">
+               加1元，立即换购
+           </div>
+           {{ }else if(CouponDetailInfo){ }}
+           <div class="content">
+               <span class="num"><strong class="">{{= CouponDetailInfo.CouponValue }}</strong>元</span>
+               <span class="txt">优惠券</span>
+           </div>
+           <div class="text">
+             <div>
+               使用期限 <strong>{{-: CouponDetailInfo.ValidStart | simpleDate}} - {{-: CouponDetailInfo.ValidEnd | simpleDate }}</strong>
+             </div>
+             <p>奖品已发放到您的账户内</p>
+             <div><strong>满{{= CouponDetailInfo.CouponOrderValue }}使用</strong></div>
+           </div>
+           <div class="dialog-btn J-close-exchange" onclick=";">
+                知道了
+           </div>
+           {{ } }}
+        {{ }else if(BCode == 101){ }}
+            <div class="text-msg">
+                 哎呦，没有抽中奖品哦 <br/>
+                 {{ if(HasUseCount < 2){ }}
+                  <strong>分享可以再抽一次!</strong>
+                 {{ } }}
+            </div>
+            {{if(HasUseCount > 1){}}
+             <div class="dialog-btn J-close-exchange" onclick=";">
+                  知道了
+             </div>
+            {{ }else{ }}
+            <div class="btn-group">
+                <div class="dialog-btn J-share" onclick=";">立即分享</div>
+                <div class="dialog-btn J-close-exchange" onclick=";">我再想想</div>
+            </div>
+            {{ } }}
+        {{ }else if(BCode == 103){ }}
+            <div class="text-msg">
+                系统错误请重试
+            </div>
+             <div class="dialog-btn J-close-exchange" onclick=";">
+                  知道了
+             </div>
+        {{ }else if(BCode == 104){ }}
+            <div class="text-msg">
+                当前设备超过今天抽奖次数
+            </div>
+             <div class="dialog-btn J-close-exchange" onclick=";">
+                  知道了
+             </div>
+        {{ }else{ }}
+           <div class="text-msg">
+                {{if(HasUseCount > 1){}}
+                     您今天的抽奖次数已用完<br/>
+                    <strong>明天再来试试吧!</strong>
+                {{ }else{ }}
+                    {{ if(BCode == 102){ }}
+                     哎呦，抽奖次数用完 <br/>
+                    {{ }else{ }}
+                     哎呦，没有抽中奖品哦 <br/>
+                    {{ } }}
+                    <strong>分享可以再抽一次!</strong>
+                {{ } }}
+           </div>
+           {{if(HasUseCount > 1){}}
+            <div class="dialog-btn J-close-exchange" onclick=";">
+                 知道了
+            </div>
+           {{ }else{ }}
+           <div class="btn-group">
+               <div class="dialog-btn J-share" onclick=";">立即分享</div>
+               <div class="dialog-btn J-close-exchange" onclick=";">我再想想</div>
+           </div>
+           {{ } }}
+        {{ } }}
     </script>
     <section class="gwj-container">
     <div class="gwj-header">
@@ -265,12 +346,6 @@
               </div>
           </div>
       </div>
-    <!--双11 便宜-->
-    <div class="gwj-area" id="gwj_06">
-        <cheap>
-            <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getCheap" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
-        </cheap>
-    </div>
       <div class="gwj-area" id="gwj_02">
         <div class="gwj-title-wapper gwj-title-02"></div>
         <div class="gwj-area-body">
@@ -291,6 +366,12 @@
 
         </div>
       </div>
+    <!--双11 便宜-->
+    <div class="gwj-area" id="gwj_06">
+        <cheap>
+            <img class="gwj-loading-bg buyer-hold J-module-Hold" data-module="getCheap" lazy-load="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" alt="">
+        </cheap>
+    </div>
      <!---->
       <div class="gwj-area" id="gwj_03">
           <foreignIndex>
@@ -314,91 +395,13 @@
     <div class="gwj-tab-wrapper ">
         <div class="gwj-tab fixed"  id="gwj-tab">
             <a class="active" href="#gwj_01">转转乐</a>
-            <a  href="#gwj_06">砍喵记</a>
             <a  href="#gwj_02">全民砍价</a>
+            <a  href="#gwj_06">砍喵记</a>
             <a  href="#gwj_03">全球好货</a>
             <a  href="#gwj_04">各国买手</a>
             <a  href="#gwj_05">海外爆款</a>
         </div>
     </div>
-    <script id="vote-exchange-tpl" type="text/template">
-       <!--中奖实物-->
-       {{ if(BCode == 100){ }}
-           {{ if(ProductId){ }}
-            <h3 class="succ-title">恭喜您抽中了！</h3>
-           <div class="content pic-content">
-               <img src="/images/gwj/vote_iwatch.png" alt="">
-           </div>
-           <div class="dialog-btn J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductId}}">
-               加1元，立即换购
-           </div>
-           {{ }else if(CouponDetailInfo){ }}
-           <div class="content">
-               <span class="num"><strong class="">{{= CouponDetailInfo.CouponValue }}</strong>元</span>
-               <span class="txt">优惠券</span>
-           </div>
-           <div class="text">
-             <div>
-               使用期限 <strong>{{-: CouponDetailInfo.ValidStart | simpleDate}} - {{-: CouponDetailInfo.ValidEnd | simpleDate }}</strong>
-             </div>
-             <p>奖品已发放到您的账户内</p>
-             <div><strong>满{{= CouponDetailInfo.CouponOrderValue }}使用</strong></div>
-           </div>
-           <div class="dialog-btn J-close-exchange" onclick=";">
-                知道了
-           </div>
-           {{ } }}
-        {{ }else if(BCode == 101){ }}
-            <div class="text-msg">
-                 哎呦，没有抽中奖品哦 <br/>
-                 {{ if(HasUseCount < 2){ }}
-                  <strong>分享可以再抽一次!</strong>
-                 {{ } }}
-            </div>
-            {{if(HasUseCount > 1){}}
-             <div class="dialog-btn J-close-exchange" onclick=";">
-                  知道了
-             </div>
-            {{ }else{ }}
-            <div class="btn-group">
-                <div class="dialog-btn J-share" onclick=";">立即分享</div>
-                <div class="dialog-btn J-close-exchange" onclick=";">我再想想</div>
-            </div>
-            {{ } }}
-        {{ }else if(BCode == 104){ }}
-                <div class="text-msg">
-                    相同设备每天只能投三次
-                </div>
-                 <div class="dialog-btn J-close-exchange" onclick=";">
-                      知道了
-                 </div>
-        {{ }else{ }}
-           <div class="text-msg">
-                {{if(HasUseCount > 1){}}
-                     您今天的抽奖次数已用完<br/>
-                    <strong>明天再来试试吧!</strong>
-                {{ }else{ }}
-                    {{ if(BCode == 102){ }}
-                     哎呦，抽奖次数用完 <br/>
-                    {{ }else{ }}
-                     哎呦，没有抽中奖品哦 <br/>
-                    {{ } }}
-                    <strong>分享可以再抽一次!</strong>
-                {{ } }}
-           </div>
-           {{if(HasUseCount > 1){}}
-            <div class="dialog-btn J-close-exchange" onclick=";">
-                 知道了
-            </div>
-           {{ }else{ }}
-           <div class="btn-group">
-               <div class="dialog-btn J-share" onclick=";">立即分享</div>
-               <div class="dialog-btn J-close-exchange" onclick=";">我再想想</div>
-           </div>
-           {{ } }}
-        {{ } }}
-    </script>
-
      <!--open-->
     <div class="vote-mask vote-exchange J-close-exchange" onclick=";"></div>
     <div class="vote-dialog vote-exchange">

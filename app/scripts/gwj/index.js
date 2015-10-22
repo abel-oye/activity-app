@@ -84,9 +84,12 @@
             cbFn = callback;
         }
 
-        cbFn.error = function(res){
-            showLog(res.Msg || '操作失败.')
+
+
+        cbFn.error = cbFn.error || function(res){
+            showLog(res.Msg || '操作失败..');
         }
+
 
         $.ajax({
             url: url,
@@ -103,9 +106,7 @@
                     isFuntion(cbFn.error) && cbFn.error(res);
                 }
             },
-            error: cbFn.error || function () {
-                showLog('操作失败.')
-            }
+            error: cbFn.error
         });
     };
 
@@ -195,10 +196,36 @@
             stopInx = +inx;
             isFinal = true;
         }
-    }
+    };
+
+    /**
+     * 打开转转乐 弹层
+     */
+    var openDialog = function(data){
+        var html = ejs.render($('#vote-exchange-tpl').html(), data);
+        $('.vote-coupon-dialog').html(html);
+        $('.vote-exchange').addClass('open');
+    },drawNum = 0;
 
     var module = {
         joinLottery: function () {
+            var map = {
+                0: '0',
+                1: '1',
+                2: '2',
+                3: '7',
+                4: '3',
+                5: '6',
+                6: '5',
+                7: '5',
+            }
+
+            var complete = function(data){
+                turntable.complete = function () {
+                    openDialog(data);
+                }
+            }
+
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/JoinLottery', {
                 accessToken: authInfo.AccessToken,
                 deviceId: search.DeviceId || search.DeviceToken || '132',
@@ -206,27 +233,17 @@
             }), {
                 success: function (data, code) {
                     if (data) {
-                        var map = {
-                            0: '0',
-                            1: '1',
-                            2: '2',
-                            3: '7',
-                            4: '3',
-                            5: '6',
-                            6: '5',
-                            7: '5',
-                        }
                         turntable.stop(map[data.LotteryIndex]);
-
-                        turntable.complete = function () {
-                            var html = ejs.render($('#vote-exchange-tpl').html(), data);
-                            $('.vote-coupon-dialog').html(html);
-                            $('.vote-exchange').addClass('open');
-                        }
+                        drawNum = data.HasUseCount;
+                        complete(data);
                     }
                 },
                 error: function () {
-
+                    //如果出错 直接显示谢谢惠顾
+                    turntable.stop(map[7]);
+                    complete({
+                        BCode:103
+                    });
                 }
             });
         },
@@ -283,8 +300,6 @@
                     isInit: false
                 }
             }
-
-            console.log(pageIndex,pageSize)
 
             Array.prototype.push.apply(args, [pageIndex, pageSize, function (data) {
                 if (data && data.ProductList) {
@@ -378,6 +393,13 @@
         }).on('click', '.J-turntable-run', function () { //转盘运行
 
             if (YmtApi.utils.hasLogin()) {
+                // 判断当前状态是否为1
+                if(drawNum === 1){
+                    return openDialog({
+                        BCode:102,
+                        HasUseCount:1
+                    });
+                }
                 turntable.run();
             }
             else {
