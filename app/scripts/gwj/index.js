@@ -152,6 +152,10 @@
             else {
                 speend = Math.max(speend, minSpeed);
             }
+            console.assert(_inx != 0, isFinal);
+            if(isFinal){
+                console.log(isFinal,currFinalNum,finalNum,stopInx,_inx)
+            }
 
             //开启倒数且最后一圈且达到当前坐标 停止
             if (isFinal && currFinalNum === finalNum && stopInx === _inx) {
@@ -235,7 +239,7 @@
             }), {
                 success: function (data, code) {
                     if (data) {
-                        turntable.stop(map[data.LotteryIndex]);
+                        turntable.stop(0);
                         drawNum = data.HasUseCount;
                         complete(data);
                     }
@@ -339,8 +343,9 @@
         share: function () {
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/LotteryShareRecord', {
                 accessToken:authInfo().AccessToken
-            }), function (data) {
-
+            }),{
+                success:function(){},
+                error:function(){}
             });
         }
     }

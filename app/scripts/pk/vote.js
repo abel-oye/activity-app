@@ -220,8 +220,8 @@ $(function () {
             couponNumber: currExchange.CouponDetailInfo.BatchCode
         }), function (data,res) {
             showLog(res.Msg);
-            window.location.reload();
             $('.vote-exchange').hide();
+            window.location.reload();
         });
     }).on('click', '.J-add-privilege', function () {
         jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/PKGame/ExchangeProductAward', {
@@ -233,9 +233,12 @@ $(function () {
                 $('#vote-exchange').hide();
                 YmtApi.open({
                     url:'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+data.ProductId,
+                    title:'商品详情',
                     isNew:true
                 });
-                window.location.reload();
+                setTimeout(function(){
+                  window.location.reload();
+              },1E3);
             }
 
         });
