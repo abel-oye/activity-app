@@ -357,10 +357,10 @@ $(function () {
                 pic = $this.attr('data-share-pic');
             var share = function(userId){
                 YmtApi.openShare({
-                    shareTitle: '【有人@你】全球洋货年度PK赛正在直播！',
+                    shareTitle: '【有人@你】全球洋货年度PK赛正在直播',
                     shareUrl: 'http://static.pk.ymatou.com/pk/share.html?kid='+PKId+'&uid='+userId,
-                    sharePicUrl: 'http://static.pk.ymatou.com/images/pk_share-7a30468c08.jpg',
-                    shareContent: '全球洋货分成红蓝两队，你偏爱哪一方呢？赶紧为你心爱的Ta投票吧，说不定可以把ta和iPhone6s一起带回家噢~',
+                    sharePicUrl: 'http://static.pk.ymatou.com/images/pk_share-e399f01951.jpg',
+                    shareContent: '全球洋货分成红蓝两队，选择你想要支持的队伍，并投票，还可以把iPhone6s Plus一起带回家喔！',
                     showWeiboBtn:1
                 });
             }

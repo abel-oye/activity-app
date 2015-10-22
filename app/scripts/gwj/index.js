@@ -144,6 +144,9 @@
             $boards.removeClass('active').eq(inx).addClass('active');
         },
         loop: function () {
+
+            turntable.move(_inx);
+
             var speend = currSpeed + direction * tempo * currSpeed;
             //限速
             if (direction > 0) {
@@ -151,10 +154,6 @@
             }
             else {
                 speend = Math.max(speend, minSpeed);
-            }
-            console.assert(_inx != 0, isFinal);
-            if(isFinal){
-                console.log(isFinal,currFinalNum,finalNum,stopInx,_inx)
             }
 
             //开启倒数且最后一圈且达到当前坐标 停止
@@ -174,6 +173,8 @@
                 timer = setInterval(turntable.loop, speend);
             }
 
+            _inx++;
+
             //跑完一圈
             if (_inx >= sequence.length) {
                 currCircleNum++;
@@ -183,7 +184,8 @@
                     isFinal && currFinalNum++;
                 }
             }
-            turntable.move(_inx++);
+
+
         },
         run: function () {
             if(this.runing){
@@ -223,7 +225,7 @@
                 4: '3',
                 5: '6',
                 6: '5',
-                7: '5',
+                7: '4',
             }
 
             var complete = function(data){
@@ -239,7 +241,7 @@
             }), {
                 success: function (data, code) {
                     if (data) {
-                        turntable.stop(0);
+                        turntable.stop(map[data.LotteryIndex]);
                         drawNum = data.HasUseCount;
                         complete(data);
                     }
@@ -344,7 +346,10 @@
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/LotteryShareRecord', {
                 accessToken:authInfo().AccessToken
             }),{
-                success:function(){},
+                success:function(){
+                    //重置抽奖次数
+                    drawNum = 0;
+                },
                 error:function(){}
             });
         }
