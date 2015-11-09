@@ -23,3 +23,16 @@
 	  url(#{$fontpath}.ttf) format('truetype'),
 	  url(#{$fontpath}.svg#svgFontName) format('svg');
 }
+
+
+/**
+ * 文字多行截断
+ * @param  {Number} $lineNum 行数
+ */
+@mixin textOverFlow($lineNum:2){
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $lineNum;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}

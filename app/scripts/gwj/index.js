@@ -509,8 +509,7 @@
                 return $sel.height() + $sel.offset().top;
             },
             handler = function (event) {
-                console.dir(event.changedTouches && event.changedTouches[0])
-                if (throttle && ($widnow.scrollTop() > currTop) && ($widnow.scrollTop() + $widnow.height() + options.offset >= selectorHeight())) {
+                if (throttle && ($widnow.scrollTop() + $widnow.height() + options.offset >= selectorHeight())) {
                     throttle = false;
                     currTop = $widnow.scrollTop();
                     setTimeout(function () {

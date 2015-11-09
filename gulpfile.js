@@ -105,7 +105,7 @@ _gulp2['default'].task('clean', _del2['default'].bind(null, ['.tmp', 'dist']));
 _gulp2['default'].task('serve', ['styles', 'fonts'], function () {
     (0, _browserSync2['default'])({
         notify: false,
-        port: 9000,
+        port: 9004,
         open: false,
         server: {
             baseDir: ['.tmp', 'app'],
