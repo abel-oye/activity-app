@@ -453,13 +453,14 @@
         })
         .on('click', '.J-open-rule', function () {
             var $this = $(this);
-            if ($this.hasClass('handstand')) {
+            /*if ($this.hasClass('handstand')) {
                 $this.text('展开 ')
             }
             else {
                 $this.text('收起 ')
             }
-            $this.toggleClass('handstand').prev().toggleClass('close');
+            $this.toggleClass('handstand').prev().toggleClass('close');*/
+            $('._close').height('auto').css('overflow','hidden')
 
         }).on('click', '.J-close-exchange', function () {
             $('.vote-exchange').removeClass('open');

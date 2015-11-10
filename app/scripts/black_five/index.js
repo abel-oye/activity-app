@@ -6,8 +6,10 @@
  * @email lijiang@ymaotu.com
  * @create-date 20151119
  */
-+(function(){
++(function () {
     'use strict';
+
+    var _pk_id='11111';
 
     //初始化ejs
     ejs.open = '{{';
@@ -16,7 +18,28 @@
     var isFuntion = function (str) {
         return 'function' === typeof str;
     };
+    var toastStatus = true;
 
+    /**
+     * 显示日志
+     */
+    var showLog = function (msg, callback) {
+        if (toastStatus) {
+            toastStatus = false;
+            var errElm = $('.ymtui-toast');
+            if (!errElm[0]) {
+                errElm = $('<div class="ymtui-toast"></div>')
+                    .appendTo('body');
+            }
+            errElm.html(msg).addClass('show');
+
+            setTimeout(function () {
+                errElm.removeClass('show');
+                toastStatus = true;
+                callback && callback();
+            }, 2400);
+        }
+    };
     /**
      * 通过jsonp获得数据
      * @param  {String}   url      请求的地址
@@ -45,7 +68,7 @@
 
 
 
-        cbFn.error = cbFn.error || function(res){
+        cbFn.error = cbFn.error || function (res) {
             showLog(res.Msg || '操作失败..');
         }
 
@@ -69,12 +92,12 @@
         });
     };
 
-   var search = YmtApi.utils.getUrlObj(),
-    authInfo = function(){
-        return YmtApi.utils.getAuthInfo()
-    };
+    var search = YmtApi.utils.getUrlObj(),
+        authInfo = function () {
+            return YmtApi.utils.getAuthInfo()
+        };
 
-    var turntable = (function(){
+    var turntable = (function () {
         //大转盘
         var sequence = [0, 1, 2, 4, 7, 6, 5, 3],
             _inx = 0,
@@ -151,7 +174,7 @@
 
             },
             run: function () {
-                if(this.runing){
+                if (this.runing) {
                     return;
                 }
                 module.joinLottery();
@@ -177,11 +200,13 @@
     /**
      * 打开转转乐 弹层
      */
-    var openDialog = function(data){
-        var html = ejs.render($('#vote-exchange-tpl').html(), data);
-        $('.vote-coupon-dialog').html(html);
-        $('.vote-exchange').addClass('open');
-    },drawNum = 0;
+    var openDialog = function (data) {
+            var html = ejs.render($('#vote-exchange-tpl').html(), data);
+            console.log(html)
+            $('#receive-package-bd').html(html);
+            $('.receive-package').addClass('open');
+        },
+        drawNum = 0;
 
     var checkModule = function () {
 
@@ -191,7 +216,7 @@
             var $this = $(this),
                 moduleName = $this.attr('data-module'),
                 args = ($this.attr('data-arguments') || '').split(',');
-                console.log(moduleName)
+            console.log(moduleName)
             moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
             $this.removeClass('J-module-Hold').addClass('module-load-end');
         });
@@ -210,7 +235,7 @@
                 7: '4',
             }
 
-            var complete = function(data){
+            var complete = function (data) {
                 turntable.complete = function () {
                     openDialog(data);
                 }
@@ -223,6 +248,7 @@
             }), {
                 success: function (data, code) {
                     if (data) {
+                        data.LotteryIndex = data.LotteryIndex < 0  ? 0 : data.LotteryIndex;
                         turntable.stop(map[data.LotteryIndex]);
                         drawNum = data.HasUseCount;
                         complete(data);
@@ -232,14 +258,157 @@
                     //如果出错 直接显示谢谢惠顾
                     turntable.stop(map[7]);
                     complete({
-                        BCode:103
+                        BCode: 103
                     });
+                }
+            });
+        },
+        //明星卖家
+        starSeller: function () {
+            jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/HotBuyer/GetHotBuyerList', {
+
+            }), {
+                success: function (data, code) {
+                    if (data) {
+                        var html = ejs.render($('#star-seller-tpl').html(), data);
+                        $('star-seller').html(html);
+                    }
+                },
+                error: function () {
+
+                }
+            });
+        },
+        /**
+         * 获得活动商品
+         * @param  {string} aid 活动编号
+         * @param  {string} pid 模块编号
+         */
+        activeModule:function(aid,pid){
+            getActivityJsonP(aid,pid,2,function(data){
+                if(data && data.Products){
+                    var html = ejs.render($('#active-tpl').html(), data);
+                    $('[data-arguments="'+aid+','+pid+'"]').html(html);
+                }
+
+            });
+        },
+        //砍价团
+        groupList:function(){
+            jsonpGetData(YmtApi.utils.addParam('http://api.appactivity.ymatou.com/api/BargainGroup/Tuan/TopicJoinList?sign=828', {
+
+            }), {
+                success: function (data, code) {
+                    if (data) {
+                        //var html = ejs.render($('#group-tpl').html(), data);
+                        //$('.bf-group-list').html(html);
+                    }
+                },
+                error: function (err) {
+                    //@TODO fuck 砍价团的接口格式不一致
+                    if(err && err.RetCode == 200){
+                        var html = ejs.render($('#group-tpl').html(), err.RetData);
+                        $('.bf-group-list').html(html);
+                    }
+                }
+            });
+        },
+        share: function () {
+            jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/LotteryShareRecord', {
+                accessToken:authInfo().AccessToken
+            }),{
+                success:function(){
+                    //重置抽奖次数
+                    drawNum = 0;
+                },
+                error:function(){}
+            });
+        },
+        receivePk:function(packageId){//领取大礼包
+            var authInfo = YmtApi.utils.getAuthInfo(),
+                deviceId = (YmtApi.isIos ? search.DeviceId : search.DeviceToken) || '0000000';
+
+            jsonpGetData(YmtApi.utils.addParam('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon?DeviceCode='+deviceId+'&PackageId='+packageId,{
+               BuyerUserId:authInfo.UserId,
+               AccessToken:authInfo.AccessToken
+           }), {
+               success:function(data){
+                   if(data){
+                       showLog('领取成功！');
+                   }
+               },
+               error:function(data){
+                   switch(data.BCode){
+                       case -1:
+                          showLog('礼包不存在');
+                          break;
+                       case -2:
+                          showLog('用户不存在');
+                          break;
+                       case -3:
+                          showLog('该设备已达最大领取次数');
+                          break;
+                       case -4:
+                          showLog('该用户已领取大礼包');
+                          break;
+                   }
+               }
+           });
+        },
+        checkReceive:function(){//检查是否领取大礼包
+            jsonpGetData(YmtApi.utils.addAuth(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/CheckUserHasReceive',{
+                PackageId:'111'
+            })), {
+                success:function(data){
+                    if(data && data.hasSuccess){
+                        $('.bf-package').removeClass('bf-package')
+                    }else{
+                        $('#bf-tab').addClass('bf-package')
+                    }
+                },
+                error:function(data){
+
+                }
+            });
+        },
+        follow:function(){//关注卖家
+
+            jsonpGetData(YmtApi.utils.addAuth(YmtApi.utils.addParam('http://jsapi.app.ymatou.com/api//api/User/UserAttent',{
+               SellerId: sellerId,
+                AttentType: 1
+            })), {
+                success:function(data){
+
+                },
+                error:function(data){
+
                 }
             });
         }
     }
 
-    $(document).on('scroll', function () {
+    if(YmtApi.utils.hasLogin()){
+        //检查用户是否领取大礼包
+        module.checkReceive();
+    }else{
+        $('#bf-tab').addClass('bf-package')
+    }
+
+    var getActivityJsonP = function (aid, pid, pageSize, callback) {
+        var callbackName = 'ymatou_at_' + aid + '_' + pid;
+        pageSize = pageSize || 10;
+        jsonpGetData('http://api.evt.ymatou.com/ActivityTemplate/Products/aid_' + aid + '/pid_' + pid + '/ps_' + pageSize, callback, callbackName);
+    }
+
+    $(document).on('click', '.J-open', function () {
+            var $this = $(this);
+
+            YmtApi.open({
+                url: $this.attr('data-url'),
+                title: $this.attr('data-title'),
+                isNew: true,
+            });
+        }).on('scroll', function () {
             var top = document.documentElement.scrollTop || document.body.scrollTop,
                 bottom = document.querySelector('#bf_01').getBoundingClientRect().bottom;
 
@@ -257,10 +426,10 @@
 
             if (YmtApi.utils.hasLogin()) {
                 // 判断当前状态是否为1
-                if(drawNum === 1){
+                if (drawNum === 1) {
                     return openDialog({
-                        BCode:102,
-                        HasUseCount:1
+                        BCode: 102,
+                        HasUseCount: 1
                     });
                 }
                 turntable.run();
@@ -269,6 +438,56 @@
                 YmtApi.toLogin();
             }
 
-        })
+        }).on('click', '.J-close', function () { //转盘运行
+            var $this = $(this);
+
+            $('.' + $this.attr('data-target')).removeClass('open').addClass('close');
+
+        }).on('click', '.J-open-receive', function () {
+            var $this = $(this);
+            $('#receive-package-bd').html($('#package-tpl').html());
+            $('.receive-package').addClass('open');
+
+        }).on('click','.J-add-draw',function(){//增加抽奖次数
+            module.share();
+        }).on('click','.J-receive-pk',function(){
+
+            var $this = $(this);;
+
+            if(YmtApi.utils.hasLogin()){
+                module.receivePk(_pk_id);
+            }else{
+                YmtApi.toLogin();
+            }
+        }).on('click','.J-open-rule',function(){
+            $('.more-rule').html()
+            var $this = $(this),
+                $parent = $this.closest('.rule-content');
+            $this.html($parent.hasClass('close')?'收起':'展开')
+            $parent.toggleClass('close');
+        }).on('click','.J-coupon',function(){
+            var $this = $(this);
+                coupon = $this.attr('data-coupon'),
+                sellerId = $this.attr('data-seller-id');
+
+            module.receivePk(coupon);
+            module.follow(sellerId);
+        });
+
+    lazyLoad.init({
+        offset: 350,
+        callback: function (elem) {
+            var $this = $(elem);
+            if ($this.hasClass('J-module-Hold')) {
+                var moduleName = $this.attr('data-module'),
+                    args = ($this.attr('data-arguments') || '').split(',');
+                console.log(moduleName)
+                moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
+                $this.removeClass('J-module-Hold').addClass('module-load-end');
+            }
+
+        }
+    });
+
 
 })();

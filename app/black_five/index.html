@@ -14,11 +14,58 @@
     <script data-js-path="redraw.js">
      !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
     </script>
-    <!-- build:css /styles/pk/index.css-->
+    <!-- build:css /styles/black_five/index.css-->
     <link rel="stylesheet" type="text/css" href="/styles/black_five/index.css">
     <!-- endbuild-->
   </head>
   <body>
+  <!--明星卖家-->
+  <script id="star-seller-tpl" type="text/template">
+     <div class="bf-seller">
+         <div class="bf-seller-hd bg__full"></div>
+         <div class="bf-seller-bd">
+             <div class="bf-seller-list">
+             {{ for(var i=0,len=HotBuyerList.length;i<len;i++){ }}
+                 <div class="bf-seller-item bg__full load-hold"
+                    lazy-load-background="{{= HotBuyerList[i].MainPicUrl }}" onclick="location.href='{{=HotBuyerList[i].LiveUrl}}'">
+                    <div class="coupon J-coupon" data-coupon="{{= HotBuyerList[i].CouponId }}" data-seller-id="{{= HotBuyerList[i].SellerId }}"></div>
+                </div>
+             {{ } }}
+             </div>
+         </div>
+         <div class="bf-seller-ft bg__full"></div>
+     </div>
+  </script>
+  <script id="active-tpl" type="text/template">
+
+      {{ for(var i=0,len=Products.length;i<len;i++){ }}
+        <div class="bf-collect-item J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=Products[i].ProductId}}" onclick=";">
+            <div class="collect-pro-wrapper">
+            <div class="pic bg__full" lazy-load-background="{{=Products[i].PicUrl}}" ></div>
+            <div class="info">
+                <div>
+                    <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlagUrl}}" ></span>{{=Products[i].CountryName}}
+                </div>
+                <h4>{{=Products[i].Name}}</h4>
+                <div>
+                    <del>市场价:{{=Products[i].MarketPrice}}</del>
+                </div>
+                <div class="price-wrapper">
+                    <span>黑五价</span>
+                    <span>{{=Products[i].Price4Sale}}元</span>
+                </div>
+            </div>
+        </div>
+    </div>
+      {{ } }}
+  </script>
+  <script id="group-tpl" type="text/template">
+    {{ for(var i=0,len=TopicJoinList.length;i<len;i++){ }}
+      <div class="bf-group-item">
+          <div class="group-pic bg__full" lazy-load-background="{{= TopicJoinList[i].ActivityImageUrl }}"></div>
+      </div>
+    {{ } }}
+  </script>
       <section class="bf-container">
             <div class="bf-banner-hd"></div>
             <div class="bf-flow">
@@ -143,86 +190,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="bf-turntable-ft">
+                <div class="bf-turntable-ft ">
                     <div>
                         <span class="rule-title"></span>
                     </div>
-                    <div class="rule-content">
-                        <p>1. 11月12日至11月19日，每人每天有1次抽奖机会，分享后可再获得2次抽奖机会；</p>
-                        <div class="close">
+                    <div class="rule-content close">
+                        <p>1. 11月11日至11月19日，每人每天有1次抽奖机会，分享后可再获得2次抽奖机会；</p>
+                        <div class="more-rule ">
                             <p >2. 中奖后，优惠券直接发放到个人帐户，在“我-钱包-优惠券”里查看；</p>
                             <p>3. 抽到实物奖品后，使用1元兑换购买指定商品，后续会有客服联系核对；</p>
                             <p>4. 优惠券不累计，不置换现金。使用有效期中奖起的24个小时；</p>
                             <p>5. 如在活动期间发现有违规行为，洋码头有权取消违规账号所得奖品；</p>
                             <p>7. 活动与苹果公司无关，洋码头保留最终解释权。</p>
                         </div>
+                        <!--handstand-->
+                        <p class="retract J-open-rule" onclick=";">展开 </p>
                     </div>
 
-                    <!--handstand-->
-                    <p class="retract J-open-rule" onclick=";">展开 </p>
                 </div>
             </div>
             <!--砍价团-->
-            <div class="bf-groud" id="bf_02">
-                <div class="bf-groud-hd">
-
-                </div>
-                <div class="bf-groud-bd">
-                    <div class="bf-groud-list">
-                        <div class="bf-groud-item">
-                            <div class="groud-pic" style="background-image:url(http://img-storage.qiniudn.com/15-11-9/72692481.jpg)"></div>
-                        </div>
-                        <div class="bf-groud-item">
-                            <div class="groud-pic" style="background-image:url(http://img-storage.qiniudn.com/15-11-9/72692481.jpg)"></div>
-                        </div>
+            <div class="bf-group" id="bf_02">
+                <div class="bf-group-hd"></div>
+                <div class="bf-group-bd">
+                    <div class="bf-group-list">
+                         <div class="J-module-Hold" data-module="groupList"
+                                 lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
                     </div>
                 </div>
             </div>
             <!--好货大搜罗-->
-            <div class="bf-collect">
+            <div class="bf-collect" id="bf_03">
                 <div class="bf-collect-hd"></div>
                 <div class="bf-collect-bd">
                     <div class="bf-collect-list">
-                        <div class="bf-collect-item">
-                            <div class="collect-pro-wrapper">
-                                <div class="pic bg__full" style="background-image: url(http://p10.img.ymatou.com/G02/upload/product/small/M06/6F/0E/CgvUBVYpAwGAVrUaAAbWkrVvxys981_s.jpg)">
-
-                                </div>
-                                <div class="info">
-                                    <div>
-                                        <span class="national-flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/Australia.png)"></span>日本
-                                    </div>
-                                    <h4>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h4>
-                                    <div>
-                                        <del>市场价:13454</del>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span>黑五价</span>
-                                        <span>9999元</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="bf-collect-item">
-                            <div class="collect-pro-wrapper">
-                                <div class="pic bg__full" style="background-image: url(http://p10.img.ymatou.com/G02/upload/product/small/M06/6F/0E/CgvUBVYpAwGAVrUaAAbWkrVvxys981_s.jpg)">
-
-                                </div>
-                                <div class="info">
-                                    <div>
-                                        <span class="national-flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/Australia.png)"></span>日本
-                                    </div>
-                                    <h4>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h4>
-                                    <div>
-                                        <del>市场价:13454</del>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span>黑五价</span>
-                                        <span>9999元</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="J-module-Hold" data-module="activeModule" data-arguments="3255,1300"
+                                 lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
                     </div>
                 </div>
             </div>
@@ -235,46 +238,8 @@
                 </div>
                 <div class="bf-classify-bd">
                     <div class="bf-collect-list">
-                        <div class="bf-collect-item">
-                            <div class="collect-pro-wrapper">
-                                <div class="pic bg__full" style="background-image: url(http://p10.img.ymatou.com/G02/upload/product/small/M06/6F/0E/CgvUBVYpAwGAVrUaAAbWkrVvxys981_s.jpg)">
-
-                                </div>
-                                <div class="info">
-                                    <div>
-                                        <span class="national-flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/Australia.png)"></span>日本
-                                    </div>
-                                    <h4>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h4>
-                                    <div>
-                                        <del>市场价:13454</del>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span>黑五价</span>
-                                        <span>9999元</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="bf-collect-item">
-                            <div class="collect-pro-wrapper">
-                                <div class="pic bg__full" style="background-image: url(http://p10.img.ymatou.com/G02/upload/product/small/M06/6F/0E/CgvUBVYpAwGAVrUaAAbWkrVvxys981_s.jpg)">
-
-                                </div>
-                                <div class="info">
-                                    <div>
-                                        <span class="national-flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/Australia.png)"></span>日本
-                                    </div>
-                                    <h4>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h4>
-                                    <div>
-                                        <del>市场价:13454</del>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span>黑五价</span>
-                                        <span>9999元</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="J-module-Hold" data-module="activeModule" data-arguments="3255,1300"
+                                 lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
                     </div>
                 </div>
             </div>
@@ -285,46 +250,8 @@
                 </div>
                 <div class="bf-classify-bd">
                     <div class="bf-collect-list">
-                        <div class="bf-collect-item">
-                            <div class="collect-pro-wrapper">
-                                <div class="pic bg__full" style="background-image: url(http://p10.img.ymatou.com/G02/upload/product/small/M06/6F/0E/CgvUBVYpAwGAVrUaAAbWkrVvxys981_s.jpg)">
-
-                                </div>
-                                <div class="info">
-                                    <div>
-                                        <span class="national-flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/Australia.png)"></span>日本
-                                    </div>
-                                    <h4>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h4>
-                                    <div>
-                                        <del>市场价:13454</del>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span>黑五价</span>
-                                        <span>9999元</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="bf-collect-item">
-                            <div class="collect-pro-wrapper">
-                                <div class="pic bg__full" style="background-image: url(http://p10.img.ymatou.com/G02/upload/product/small/M06/6F/0E/CgvUBVYpAwGAVrUaAAbWkrVvxys981_s.jpg)">
-
-                                </div>
-                                <div class="info">
-                                    <div>
-                                        <span class="national-flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/Australia.png)"></span>日本
-                                    </div>
-                                    <h4>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h4>
-                                    <div>
-                                        <del>市场价:13454</del>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span>黑五价</span>
-                                        <span>9999元</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                         <div class="J-module-Hold" data-module="activeModule" data-arguments="3255,1300"
+                                 lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
                     </div>
                 </div>
             </div>
@@ -335,46 +262,8 @@
                 </div>
                 <div class="bf-classify-bd">
                     <div class="bf-collect-list">
-                        <div class="bf-collect-item">
-                            <div class="collect-pro-wrapper">
-                                <div class="pic bg__full" style="background-image: url(http://p10.img.ymatou.com/G02/upload/product/small/M06/6F/0E/CgvUBVYpAwGAVrUaAAbWkrVvxys981_s.jpg)">
-
-                                </div>
-                                <div class="info">
-                                    <div>
-                                        <span class="national-flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/Australia.png)"></span>日本
-                                    </div>
-                                    <h4>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h4>
-                                    <div>
-                                        <del>市场价:13454</del>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span>黑五价</span>
-                                        <span>9999元</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="bf-collect-item">
-                            <div class="collect-pro-wrapper">
-                                <div class="pic bg__full" style="background-image: url(http://p10.img.ymatou.com/G02/upload/product/small/M06/6F/0E/CgvUBVYpAwGAVrUaAAbWkrVvxys981_s.jpg)">
-
-                                </div>
-                                <div class="info">
-                                    <div>
-                                        <span class="national-flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/Australia.png)"></span>日本
-                                    </div>
-                                    <h4>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h4>
-                                    <div>
-                                        <del>市场价:13454</del>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span>黑五价</span>
-                                        <span>9999元</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                         <div class="J-module-Hold" data-module="activeModule" data-arguments="3255,1300"
+                                 lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
                     </div>
                 </div>
             </div>
@@ -385,46 +274,8 @@
                 </div>
                 <div class="bf-classify-bd">
                     <div class="bf-collect-list">
-                        <div class="bf-collect-item">
-                            <div class="collect-pro-wrapper">
-                                <div class="pic bg__full" style="background-image: url(http://p10.img.ymatou.com/G02/upload/product/small/M06/6F/0E/CgvUBVYpAwGAVrUaAAbWkrVvxys981_s.jpg)">
-
-                                </div>
-                                <div class="info">
-                                    <div>
-                                        <span class="national-flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/Australia.png)"></span>日本
-                                    </div>
-                                    <h4>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h4>
-                                    <div>
-                                        <del>市场价:13454</del>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span>黑五价</span>
-                                        <span>9999元</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="bf-collect-item">
-                            <div class="collect-pro-wrapper">
-                                <div class="pic bg__full" style="background-image: url(http://p10.img.ymatou.com/G02/upload/product/small/M06/6F/0E/CgvUBVYpAwGAVrUaAAbWkrVvxys981_s.jpg)">
-
-                                </div>
-                                <div class="info">
-                                    <div>
-                                        <span class="national-flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/Australia.png)"></span>日本
-                                    </div>
-                                    <h4>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h4>
-                                    <div>
-                                        <del>市场价:13454</del>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span>黑五价</span>
-                                        <span>9999元</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="J-module-Hold" data-module="activeModule" data-arguments="3255,1300"
+                                                        lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
                     </div>
                 </div>
             </div>
@@ -435,46 +286,8 @@
                 </div>
                 <div class="bf-classify-bd">
                     <div class="bf-collect-list">
-                        <div class="bf-collect-item">
-                            <div class="collect-pro-wrapper">
-                                <div class="pic bg__full" style="background-image: url(http://p10.img.ymatou.com/G02/upload/product/small/M06/6F/0E/CgvUBVYpAwGAVrUaAAbWkrVvxys981_s.jpg)">
-
-                                </div>
-                                <div class="info">
-                                    <div>
-                                        <span class="national-flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/Australia.png)"></span>日本
-                                    </div>
-                                    <h4>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h4>
-                                    <div>
-                                        <del>市场价:13454</del>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span>黑五价</span>
-                                        <span>9999元</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                          <div class="bf-collect-item">
-                            <div class="collect-pro-wrapper">
-                                <div class="pic bg__full" style="background-image: url(http://p10.img.ymatou.com/G02/upload/product/small/M06/6F/0E/CgvUBVYpAwGAVrUaAAbWkrVvxys981_s.jpg)">
-
-                                </div>
-                                <div class="info">
-                                    <div>
-                                        <span class="national-flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/Australia.png)"></span>日本
-                                    </div>
-                                    <h4>巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉</h4>
-                                    <div>
-                                        <del>市场价:13454</del>
-                                    </div>
-                                    <div class="price-wrapper">
-                                        <span>黑五价</span>
-                                        <span>9999元</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="J-module-Hold" data-module="activeModule" data-arguments="3255,1300"
+                                 lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
                     </div>
                 </div>
             </div>
@@ -492,21 +305,14 @@
                     <div class=" australia-wrapper"></div>
                 </div>
             </div>
-            <!--明显买手-->
-            <div class="bf-seller">
-                <div class="bf-seller-hd bg__full"></div>
-                <div class="bf-seller-bd">
-                    <div class="bf-seller-list">
-                        <div class="bf-seller-item bg__full" style="background:url(http://img-storage.qiniudn.com/15-11-9/8032923.jpg)"></div>
-                    </div>
-                    <div class="bf-seller-list">
-                        <div class="bf-seller-item bg__full" style="background:url(http://img-storage.qiniudn.com/15-11-9/8032923.jpg)"></div>
-                    </div>
-                </div>
-                <div class="bf-seller-ft bg__full"></div>
-            </div>
 
-            <div class="bf-tab-wrapper bf-package show" id="bf-tab">
+            <!--明星买手-->
+            <star-seller>
+                <div class="J-module-Hold" data-module="starSeller"
+                    lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+            </star-seller>
+
+            <div class="bf-tab-wrapper show" id="bf-tab">
                 <nav class="bf-tab ">
                     <div class="bf-tab-hd">
                         <span></span>
@@ -518,19 +324,109 @@
                         <li><a href="#bf_04">专享卖家券</a></li>
                     </ul>
                 </nav>
-                <div class="black-five-icon"></div>
-                <div class="bf-receive-bg"></div>
+                <div class="black-five-icon J-open-receive" onclick=";"></div>
+                <div class="bf-receive-bg J-open-receive" onclick=";"></div>
                 <div class="bf-receive-hand"></div>
             </div>
 
       </section>
+
+      <div class="receive-package receive-package-mask"></div>
+     <div class="receive-package receive-package-dialog">
+       <div class="receive-package-dialog-bd" id="receive-package-bd">
+
+       </div>
+     </div>
+      <script id="vote-exchange-tpl" type="text/template">
+            <!--中奖-->
+            {{ if(BCode == 100){ }}
+                {{ if(ProductId){ }}
+                    <div class="content package-content-bg1">
+                        <h4 class="bg"></h4>
+                        <div class="coupon-bg" style="background-image:url(http://i13.tietuku.com/7ebfd293ec6cb11e.png)" 1style="background-image:url({{=ProductPic}})"></div>
+                        <div class="txt">
+                           少年我看你骨骼惊奇，赏你一个换购机会吧<br>加1元，立即换购商品
+                        </div>
+                    </div>
+                    <div class="J-close close-btn J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductId}}">
+                {{ }else{ }}
+                    <div class="content package-content-bg1">
+                        <h4 class="bg"></h4>
+                        <div class="coupon-bg">
+                            <div>
+                               <sub>&yen;</sub><strong>{{= CouponDetailInfo.CouponValue }}</strong>元
+                            </div>
+                            <div>
+                                现金优惠券
+                            </div>
+                        </div>
+                        <div class="txt">
+                            优惠券已发放到您的个人账户<br/>
+                            请在“我-钱包-优惠券”里查看
+                        </div>
+                        <div class="txt">
+                            <strong>满{{= CouponDetailInfo.CouponOrderValue }}元使用，有效期中奖起24小时之内</strong>
+                        </div>
+                    </div>
+                    <div class="J-close close-btn center-btn" data-target="receive-package" onclick=";">朕知道了</div>
+                {{ } }}
+            <!--没中奖-->
+            {{ }else if(BCode == 101){ }}
+
+            <!--没中奖-->
+            {{ }else if(BCode == 103){ }}
+
+             <!--次数用完-->
+            {{ }else if(BCode == 104){ }}
+                <div class="content package-content-bg1">
+                    <h4 class="bg">抽奖次数已用完</h4>
+                    <div class="coupon-bg">
+                        <div>
+                           <sub>&yen;</sub><strong>{{= CouponDetailInfo.CouponValue }}</strong>元
+                        </div>
+                        <div>
+                            现金优惠券
+                        </div>
+                    </div>
+                    <h4 class="bg">分享后可再抽两次</h4>
+                </div>
+            {{ }else{ }}
+                <div class="content package-content-bg1">
+                    <h4 class="">抽奖次数已用完</h4>
+                    <div class="no-chance"></div>
+                    {{ if(HasUseCount > 2){ }}
+                        <h4 class="">请陛下明日再来</h4>
+                    {{ }else{ }}
+                        <h4 class="">分享后可再抽两次</h4>
+                    {{ } }}
+                </div>
+                {{ if(HasUseCount > 2){ }}
+                    <div class="J-close close-btn center-btn" data-target="receive-package" onclick=";">朕知道了</div>
+                {{ }else{ }}
+                    <div class="J-share share-btn J-add-draw" data-share-url="" data-share-content=""
+                        data-share-title=""
+                        data-share-pic=""  onclick=";">朕要分享</div>
+                    <div class="J-close close-btn" data-target="receive-package" onclick=";">容朕想一想</div>
+                {{ } }}
+            {{ } }}
+      </script>
+
+      <script id="package-tpl" type="text/template">
+        <div class="content package-content-bg">
+        </div>
+            <div class="J-share share-btn J-receive-pk" data-share-url="" data-share-content=""
+                data-share-title=""
+                data-share-pic=""  onclick=";">朕要分享</div>
+            <div class="J-close close-btn" data-target="receive-package" onclick=";">容朕想一想</div>
+      </script>
+
       <!-- build:js /scripts/zepto,ejs,swiper,imgLazyLoad.js -->
       <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
       <script type="text/javascript" src="/scripts/commons/swiper.3.1.2.js"></script>
       <script type="text/javascript" src="/scripts/commons/imgLazyLoad.js"></script>
       <!-- endbuild -->
       <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
-      <!-- build:js /scripts/gwj/index.js -->
+      <!-- build:js /scripts/black_five/index.js -->
       <script src="/scripts/black_five/index.js"></script>
       <!-- endbuild -->
   </body>
