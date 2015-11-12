@@ -9,15 +9,20 @@
 +(function () {
     'use strict';
 
-    var _pk_id='11111';
+    var _pk_id='4';
 
     //初始化ejs
     ejs.open = '{{';
     ejs.close = '}}';
 
+    ejs.filters.convertImgUrl = function(str){
+        return str.replace(/\/original\//,'/small/').replace(/_o/,'_s');
+    }
+
     var isFuntion = function (str) {
         return 'function' === typeof str;
     };
+
     var toastStatus = true;
 
     /**
@@ -34,7 +39,7 @@
             errElm.html(msg).addClass('show');
 
             setTimeout(function () {
-                errElm.removeClass('show');
+                errElm.removeClass('show');1
                 toastStatus = true;
                 callback && callback();
             }, 2400);
@@ -66,12 +71,9 @@
             cbFn = callback;
         }
 
-
-
         cbFn.error = cbFn.error || function (res) {
-            showLog(res.Msg || '操作失败..');
+            showLog(res.Msg);
         }
-
 
         $.ajax({
             url: url,
@@ -87,8 +89,7 @@
                 else {
                     isFuntion(cbFn.error) && cbFn.error(res);
                 }
-            },
-            error: cbFn.error
+            }
         });
     };
 
@@ -202,7 +203,6 @@
      */
     var openDialog = function (data) {
             var html = ejs.render($('#vote-exchange-tpl').html(), data);
-            console.log(html)
             $('#receive-package-bd').html(html);
             $('.receive-package').addClass('open');
         },
@@ -216,7 +216,6 @@
             var $this = $(this),
                 moduleName = $this.attr('data-module'),
                 args = ($this.attr('data-arguments') || '').split(',');
-            console.log(moduleName)
             moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
             $this.removeClass('J-module-Hold').addClass('module-load-end');
         });
@@ -243,12 +242,17 @@
 
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/JoinLottery', {
                 accessToken: authInfo().AccessToken,
-                deviceId: search.DeviceId || search.DeviceToken || '132',
+                deviceId: (YmtApi.isIos ? search.DeviceId : search.DeviceToken) || '132',
                 hasShare: true
             }), {
                 success: function (data, code) {
                     if (data) {
                         data.LotteryIndex = data.LotteryIndex < 0  ? 0 : data.LotteryIndex;
+                        data.ProductPic = 'http://i13.tietuku.com/7ebfd293ec6cb11e.png';
+
+                        if(data.LotteryIndex == 6){
+                            data.ProductPic = 'http://i13.tietuku.com/7ebfd293ec6cb11e.png';
+                        }
                         turntable.stop(map[data.LotteryIndex]);
                         drawNum = data.HasUseCount;
                         complete(data);
@@ -285,7 +289,7 @@
          * @param  {string} pid 模块编号
          */
         activeModule:function(aid,pid){
-            getActivityJsonP(aid,pid,2,function(data){
+            getActivityJsonP(aid,pid,100,function(data){
                 if(data && data.Products){
                     var html = ejs.render($('#active-tpl').html(), data);
                     $('[data-arguments="'+aid+','+pid+'"]').html(html);
@@ -357,13 +361,13 @@
         },
         checkReceive:function(){//检查是否领取大礼包
             jsonpGetData(YmtApi.utils.addAuth(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/CheckUserHasReceive',{
-                PackageId:'111'
+                PackageId:_pk_id
             })), {
                 success:function(data){
-                    if(data && data.hasSuccess){
-                        $('.bf-package').removeClass('bf-package')
+                    if(data && data.HasSuccess){
+                        $('.bf-tab-wrapper').removeClass('bf-package')
                     }else{
-                        $('#bf-tab').addClass('bf-package')
+                        $('.bf-tab-wrapper').addClass('bf-package')
                     }
                 },
                 error:function(data){
@@ -371,11 +375,11 @@
                 }
             });
         },
-        follow:function(){//关注卖家
+        follow:function(sellerId){//关注卖家
 
-            jsonpGetData(YmtApi.utils.addAuth(YmtApi.utils.addParam('http://jsapi.app.ymatou.com/api//api/User/UserAttent',{
+            jsonpGetData(YmtApi.utils.addAuth(YmtApi.utils.addParam('http://jsapi.app.ymatou.com/api/User/UserAttent',{
                SellerId: sellerId,
-                AttentType: 1
+                AttentType: 0
             })), {
                 success:function(data){
 
@@ -414,9 +418,11 @@
 
             if (top > bottom) {
                 $('#bf-tab').removeClass('show');
+                $('.ymt-butler').addClass('show')
             }
             else {
                 $('#bf-tab').addClass('show');
+                $('.ymt-butler').removeClass('show')
             }
         })
         .on('click', '#bf-tab li', function () {
@@ -443,35 +449,66 @@
 
             $('.' + $this.attr('data-target')).removeClass('open').addClass('close');
 
-        }).on('click', '.J-open-receive', function () {
-            var $this = $(this);
-            $('#receive-package-bd').html($('#package-tpl').html());
-            $('.receive-package').addClass('open');
+        }).on('click', '.J-open-receive', function () {//打开大礼包
+            if(YmtApi.utils.hasLogin()){
+               $('#receive-package-bd').html($('#package-tpl').html());
+               $('.receive-package').addClass('open');
+            }else{
+                YmtApi.toLogin();
+            }
 
         }).on('click','.J-add-draw',function(){//增加抽奖次数
             module.share();
         }).on('click','.J-receive-pk',function(){
-
-            var $this = $(this);;
-
-            if(YmtApi.utils.hasLogin()){
-                module.receivePk(_pk_id);
-            }else{
-                YmtApi.toLogin();
-            }
+            module.receivePk(_pk_id);
         }).on('click','.J-open-rule',function(){
             $('.more-rule').html()
             var $this = $(this),
                 $parent = $this.closest('.rule-content');
             $this.html($parent.hasClass('close')?'收起':'展开')
             $parent.toggleClass('close');
-        }).on('click','.J-coupon',function(){
-            var $this = $(this);
+        }).on('click','.J-coupon',function(){//领取优惠券
+            var $this = $(this),
                 coupon = $this.attr('data-coupon'),
                 sellerId = $this.attr('data-seller-id');
+            if(YmtApi.utils.hasLogin()){
+                module.receivePk(coupon);
+                module.follow(sellerId);
+            }else{
+                YmtApi.toLogin();
+            }
 
-            module.receivePk(coupon);
-            module.follow(sellerId);
+        }).on('click', '.J-share', function () { //分享
+            var $this = $(this),
+                url = $this.attr('data-share-url'),
+                content = $this.attr('data-share-content'),
+                title = $this.attr('data-share-title'),
+                pic = $this.attr('data-share-pic');
+
+            YmtApi.openShare({
+                shareTitle: title,
+                shareUrl: url,
+                sharePicUrl: pic,
+                shareContent: content,
+                showWeiboBtn: 1
+            });
+        }).on('click', '.ymt-butler', function () { //洋管家
+            if(YmtApi.utils.hasLogin()){
+                var auth = YmtApi.utils.getAuthInfo();;
+                var UserId = auth.UserId || 0;
+                var index = UserId % 10;
+                //客服组
+                var customServiceIdList = ["5771600", "5771700", "5771737", "5771792", "5771899", "5771996","5772067", "5772141", "5772204", "5772284"];
+
+                YmtApi.openChatDetail({
+                    SessionId:UserId+'_'+customServiceIdList[index],
+                    ToId:customServiceIdList[index],
+                    ToLoginId:'洋管家'//auth.UserId
+                    // ToLogoUrl:''
+                });
+            }else{
+                YmtApi.toLogin();
+            }
         });
 
     lazyLoad.init({
@@ -481,7 +518,6 @@
             if ($this.hasClass('J-module-Hold')) {
                 var moduleName = $this.attr('data-module'),
                     args = ($this.attr('data-arguments') || '').split(',');
-                console.log(moduleName)
                 moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
                 $this.removeClass('J-module-Hold').addClass('module-load-end');
             }
