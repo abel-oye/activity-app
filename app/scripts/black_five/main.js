@@ -1,10 +1,10 @@
 /* global ejs: true,YmtApi:true */
 
 /**
- * 黑五预热页
+ * 黑五页
  * @author river
  * @email lijiang@ymaotu.com
- * @create-date 20151119
+ * @create-date 20151113
  */
 +(function () {
     'use strict';
@@ -98,115 +98,7 @@
             return YmtApi.utils.getAuthInfo()
         };
 
-    var turntable = (function () {
-        //大转盘
-        var sequence = [0, 1, 2, 4, 7, 6, 5, 3],
-            _inx = 0,
-            currCircleNum = 0,
-            minCircleNum = 6;
 
-        var timer = null,
-            minNum = 5, //最小圈数
-            currNum = 0,
-            maxSpeed = 350, //最快速度
-            minSpeed = 80, //最快速度
-            tempo = 0.18, //速率
-            direction = -1, //加速度方向
-            stopInx = 0, //停止索引
-            isFinal = false, //是否进入
-            finalNum = 2, //最后缓冲圈数
-            currFinalNum = 0, //最后倒计时 当前圈数
-            currSpeed = 500; //当前速度
-
-
-        var turntable = {
-            runing: false,
-            complete: function () {
-
-            },
-            move: function (inx) {
-                inx = sequence[inx];
-                var $wrap = $('.turntable-box'),
-                    $boards = $wrap.find('.board');
-                $boards.removeClass('active').eq(inx).addClass('active');
-            },
-            loop: function () {
-
-                turntable.move(_inx);
-
-                var speend = currSpeed + direction * tempo * currSpeed;
-                //限速
-                if (direction > 0) {
-                    speend = Math.min(speend, maxSpeed);
-                }
-                else {
-                    speend = Math.max(speend, minSpeed);
-                }
-
-                //开启倒数且最后一圈且达到当前坐标 停止
-                if (isFinal && currFinalNum === finalNum && stopInx === _inx) {
-                    currCircleNum = 0;
-                    clearInterval(timer);
-                    timer = null;
-                    turntable.runing = false;
-                    turntable.complete && turntable.complete();
-                    return;
-                }
-
-                //当速度改变了，或者没有定时器时 生成新的定时器
-                if (!timer || speend != currSpeed) {
-                    currSpeed = speend;
-                    clearInterval(timer);
-                    timer = setInterval(turntable.loop, speend);
-                }
-
-                _inx++;
-
-                //跑完一圈
-                if (_inx >= sequence.length) {
-                    currCircleNum++;
-                    _inx = 0;
-                    if (currNum++ >= minNum) {
-                        direction = 1;
-                        isFinal && currFinalNum++;
-                    }
-                }
-
-
-            },
-            run: function () {
-                if (this.runing) {
-                    return;
-                }
-                module.joinLottery();
-                isFinal = false;
-                currFinalNum = 0;
-                direction = -1;
-                this.runing = true;
-                currNum = 0;
-                this.loop();
-            },
-            stop: function (inx) {
-                //direction = 1;
-                stopInx = +inx;
-                isFinal = true;
-            }
-        };
-
-        return turntable;
-
-    })()
-
-
-    /**
-     * 打开转转乐 弹层
-     */
-    var openDialog = function (data) {
-            var html = ejs.render($('#vote-exchange-tpl').html(), data);
-            $('#receive-package-bd').html(html);
-            $('.receive-package').addClass('open');
-        },
-        drawNum = 0;
 
     var checkModule = function () {
 
@@ -391,17 +283,33 @@
         }
     }
 
-    if(YmtApi.utils.hasLogin()){
-        //检查用户是否领取大礼包
-        module.checkReceive();
-    }else{
-        $('#bf-tab').addClass('bf-package')
-    }
-
     var getActivityJsonP = function (aid, pid, pageSize, callback) {
         var callbackName = 'ymatou_at_' + aid + '_' + pid;
         pageSize = pageSize || 10;
         jsonpGetData('http://api.evt.ymatou.com/ActivityTemplate/Products/aid_' + aid + '/pid_' + pid + '/ps_' + pageSize, callback, callbackName);
+    }
+
+    //检查坐标
+    var checkCoordinate = function(){
+        var li = $('#bf-tab ul li'),
+            active = li.filter('.active'),
+            coor = $('.coordinate');
+        var left = active.offset().left,
+            width = active.width();
+        //这里注意去写分离 减少重绘
+       coor.removeClass('first')
+            .removeClass('last')
+            .css({
+                width:width,
+                left:left
+            });
+        $('.ymt-person').css({
+            left:left
+        })
+
+        if(active.index() === 0){
+            coor.addClass('first');
+        }
     }
 
     $(document).on('click', '.J-open', function () {
@@ -428,56 +336,7 @@
         .on('click', '#bf-tab li', function () {
             $('#bf-tab li').removeClass('active');
             $(this).addClass('active');
-        }).on('click', '.J-turntable-run', function () { //转盘运行
-
-            if (YmtApi.utils.hasLogin()) {
-                // 判断当前状态是否为1
-                if (drawNum === 1) {
-                    return openDialog({
-                        BCode: 102,
-                        HasUseCount: 1
-                    });
-                }
-                turntable.run();
-            }
-            else {
-                YmtApi.toLogin();
-            }
-
-        }).on('click', '.J-close', function () { //转盘运行
-            var $this = $(this);
-
-            $('.' + $this.attr('data-target')).removeClass('open').addClass('close');
-
-        }).on('click', '.J-open-receive', function () {//打开大礼包
-            if(YmtApi.utils.hasLogin()){
-               $('#receive-package-bd').html($('#package-tpl').html());
-               $('.receive-package').addClass('open');
-            }else{
-                YmtApi.toLogin();
-            }
-
-        }).on('click','.J-add-draw',function(){//增加抽奖次数
-            module.share();
-        }).on('click','.J-receive-pk',function(){//领取大礼包
-            module.receivePk(_pk_id);
-        }).on('click','.J-open-rule',function(){
-            $('.more-rule').html()
-            var $this = $(this),
-                $parent = $this.closest('.rule-content');
-            $this.html($parent.hasClass('close')?'收起':'展开')
-            $parent.toggleClass('close');
-        }).on('click','.J-coupon',function(){//领取优惠券
-            var $this = $(this),
-                coupon = $this.attr('data-coupon'),
-                sellerId = $this.attr('data-seller-id');
-            if(YmtApi.utils.hasLogin()){
-                module.receivePk(coupon);
-                module.follow(sellerId);
-            }else{
-                YmtApi.toLogin();
-            }
-
+            checkCoordinate();
         }).on('click', '.J-share', function () { //分享
             var $this = $(this),
                 url = $this.attr('data-share-url'),

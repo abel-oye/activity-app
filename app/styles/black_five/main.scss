@@ -1,0 +1,592 @@
+@charset'UTF-8';
+ /**
+ * 黑五页
+ * @Author river
+ * @email lijiang@ymatou.com
+ * @Date 2015/11/12
+ */
+ @import'../_components/variables.scss';
+ @import'../_components/_mixin.scss';
+ @import'../_components/reset.scss';
+
+ $rem: 1rem/32;
+
+.bg__full{
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+
+.bf-banner-hd{
+    background-image:url(/images/black_five/bf-banner.png);
+    background-size:contain;
+    width:100%;
+    height:$rem*673;
+}
+
+//领取优惠券
+.bf-coupon{
+    &-wrapper{
+       padding:$rem*8;
+       background-color:#e93d3d;
+       padding-bottom:$rem*35;
+    }
+    &-inner{
+        background-image:url(/images/black_five/coupon.png);
+        background-size:contain;
+        width:$rem*730;
+        min-height:$rem*391;
+
+    }
+}
+
+.bf-area{
+    padding:$rem*30 $rem*10;
+    &-hd{
+        background-size:contain;
+        margin-bottom:$rem*40;
+        @extend .bg__full;
+    }
+    &-bd{
+        margin-bottom:$rem*18;
+    }
+}
+//砍价团
+.bf-groud{
+    background-color:#ffbb19;
+    position:relative;
+    .bf-area-hd{
+        background-image:url(/images/black_five/group-title.png);
+        width:$rem*728;
+        height:$rem*73;
+    }
+    &-pro{
+        width:$rem*730;
+        height:$rem*476;
+    }
+    &-count{
+        font-size:$rem*24;
+        color:#fff;
+        padding:$rem*4 $rem*22;
+        background:#ff5247;
+        position:absolute;
+        left:$rem*40;
+        bottom:$rem*68;
+        border-radius:$rem*50;
+    }
+    //砍价团分页
+    &-pagination{
+        position:absolute;
+        bottom:$rem*40;
+        left:0;
+        text-align:center;
+        width:100%;
+        .swiper-pagination-bullet{
+            width:$rem*15;
+            height:$rem*15;
+            border-radius:50%;
+            background:#ffa8a3;
+            margin-right:$rem*15;
+            display:inline-block;
+        }
+        .swiper-pagination-bullet-active{
+            background:#ff5247;
+        }
+    }
+}
+//全球买手
+.bf-seller{
+    background:#ff5247;
+    .bf-area-hd{
+        background-image:url(/images/black_five/seller-title.png);
+        width:$rem*704;
+        height:$rem*347;
+        margin:0 auto;
+        margin-bottom:$rem*22;
+    }
+    .bf-area-ft{
+        padding-bottom:$rem*40;
+    }
+    .bf-seller-item{
+        background:#ffe1df;
+        .seller-info{
+            padding:$rem*11 $rem*16;
+             font-size:$rem*24;
+             color:#42210e;
+             overflow:hidden;
+            &>.info{
+                &:after{
+                    content:'';
+                    display:table;
+                    clear:both;
+                }
+            }
+        }
+        .seller-pic{
+            width:$rem*115;
+            height:$rem*115;
+            border-radius:50%;
+            float:left;
+            margin-right:$rem*12;
+        }
+        .info{
+            margin-top:$rem*10;
+        }
+        .national-info{
+            color:#765a52;
+            .flag{
+                width:$rem*27;
+                height:$rem*27;
+                display:inline-block;
+                border-radius:50%;
+                margin-right:$rem*15;
+            }
+        }
+        .seller-btn{
+            width:100%;
+            height:$rem*50;
+            margin-top:$rem*10;
+            &>span{
+                display: block;
+                float: left;
+                height:100%;
+                width:50%;
+                text-align:center;
+                font-size:$rem*20;
+                line-height:$rem*50;
+               &:first-child{
+                    border:1px dashed #ff9f9a;
+                    color:#ff5247;
+               }
+               &:last-child{
+                background:#ff5247;
+                color:#fff;
+                height:$rem*45;
+                font-size:$rem*24;
+                line-height:$rem*45;
+                box-shadow: 0 $rem*5 #CA362C;
+               }
+            }
+        }
+        .pro-info{
+            background:#fff;
+            padding:$rem*13 $rem*11;
+            .pro-pic{
+                height:$rem*337;
+            }
+        }
+    }
+}
+//查看更多
+.see-more{
+    height:$rem*63;
+    line-height:$rem*63;
+    border:1px dashed #fff;
+    border-radius:$rem*63;
+    text-align:center;
+    font-size:$rem*30;
+    color:#fff;
+}
+//列表
+.bf-list{
+    overflow: hidden;
+    .bf-item{
+        float:left;
+        &_2col{
+            width:50%;
+            &:nth-child(2n-1){
+                padding-right:$rem*5;
+            }
+            &:nth-child(2n){
+                padding-left:$rem*5;
+            }
+        }
+        &_3col{
+            width:33.333333%;
+            &:nth-child(2n-1){
+                padding-right:$rem*7.5;
+            }
+            &:nth-child(2n){
+                padding-left:$rem*2.5;
+                padding-right:$rem*2.5;
+            }
+            &:nth-child(3n){
+                padding-right:$rem*7.5;
+            }
+        }
+    }
+}
+
+.usa_seller{
+    background-image:url(/images/black_five/usa_seller.png);
+    width:100%;
+    height:$rem*197;
+    margin:$rem*50 0 $rem*10;
+}
+.jsk_seller{
+    background-image:url(/images/black_five/jsk_seller.png);
+}
+.europe_seller{
+    background-image:url(/images/black_five/europe_seller.png);
+}
+.australia_seller{
+    background-image:url(/images/black_five/australia_seller.png);
+}
+
+.jsk_seller,
+.europe_seller,
+.australia_seller{
+    height:$rem*308;
+}
+
+//黑五必败
+.bf-losing{
+    background:#ff5470;
+    .bf-area-hd{
+        background-image:url(/images/black_five/losing-title.png);
+        width:$rem*731;
+        height:$rem*78;
+        margin:0 auto;
+        margin-bottom:$rem*22;
+    }
+}
+
+.losing-pro-wrapper{
+    background: #FFF;
+    padding-bottom:$rem*10;
+    margin-bottom:$rem*10;
+    .pic{
+        height:$rem*310;
+          background-size: contain;
+    }
+    .info{
+        padding:0 $rem*22;
+        font-size:$rem*22;
+        color:#a3a3a3;
+        margin-top:$rem*10;
+        &>h4{
+            color:#333;
+            height:$rem*66;
+            @include textOverFlow(2);
+        }
+        .original-price{
+            margin:$rem*10 0;
+        }
+    }
+    .price-wrapper{
+        width:100%;
+        height:$rem*60;
+        line-height:$rem*60;
+        border:1px solid #ff5247;
+        border-radius:$rem*60;
+        box-shadow: 0 4px #a22f27;
+
+        &>span{
+            display:inline-block;
+            height:100%;
+            text-align:center;
+            float:left;
+        }
+        &>:first-child{
+            background:#fff;
+            color:#ff524b;
+            border-top-left-radius: $rem*60;
+            border-bottom-left-radius: $rem*60;
+            width:40%;
+        }
+        &>:last-child{
+            background:#ff5247;
+            color:#fff;
+            border-top-right-radius: $rem*60;
+            border-bottom-right-radius: $rem*60;
+            width:60%;
+            &>strong{
+                font-size:$rem*35;
+                font-weight:bold;
+            }
+        }
+    }
+    .national-flag{
+        display:inline-block;
+        width:$rem*25;
+        height:$rem*25;
+        background-size:contain;
+        background-repeat:no-repeat;
+        vertical-align: middle;
+        margin-right:$rem*10;
+    }
+}
+
+.losing-watch{
+    font-size:$rem*32;
+    color:#fff;
+    text-align:center;
+    height:$rem*62;
+    &>h3{
+        height:$rem*32;
+        border-bottom:2px solid #fff;
+        &>span{
+            padding:0 $rem*28;
+            background:#ff5470;
+        }
+    }
+
+}
+//全球好货
+.bf-goods{
+    background:#fff;
+    padding:0;
+    .see-more{
+        color:#000;
+        border-color:#6a6a6a;
+
+    }
+    .bf-area-ft{
+        background:#eeeeee;
+        padding:$rem*18 $rem*10 $rem*35;
+    }
+}
+
+//1配7 全球好货
+.goods-item{
+
+}
+.goods-banner{
+    height:$rem*404;
+    border:1px solid #ffd9df;
+    position:relative;
+    &:after{
+        content:'';
+        border:$rem*12 solid transparent;
+        margin-left:$rem*-6;
+        position:absolute;
+        left:50%;
+        bottom:0;
+        border-bottom-color:#fff;
+    }
+}
+
+.goods-pic{
+    &-list{
+        background:#f8f8f8;
+        padding:$rem*18 0;
+        overflow:hidden;
+    }
+    &-item{
+        background:#fff;
+        margin-left:$rem*8;
+        float:left;
+        text-align:center;
+        width:$rem*200;
+        font-size:$rem*22;
+        color:#3c3c3c;
+        h4{
+           height: $rem*33;
+           overflow: hidden;
+           white-space: nowrap;
+           text-overflow: ellipsis;
+        }
+        .pic{
+            height:$rem*200;
+            margin-bottom:$rem*15;
+        }
+        .pirce{
+            color:#c33;
+            font-size:$rem*14;
+            strong{
+                font-size:$rem*20;
+            }
+        }
+         .original-price{
+            font-size:$rem*12;
+            color:#999;
+            strong{
+                font-size:$rem*15;
+            }
+         }
+    }
+}
+
+//大熊
+.big-bear{
+    background-image:url('/images/black_five/bear.jpg');
+    height:$rem*407;
+}
+
+.bf-tab{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:$rem*7;
+    font-size:$rem*25;
+    height:$rem*200;
+    transition: transform 0.25s ease-in-out;
+    will-change:transform;
+    z-index:3;
+    &.fixed-out{
+        transform: translate(0, 100%);
+        bottom:0!important;
+    }
+    &-wrapper{
+        height:$rem*105;
+        position:relative;
+        background-color: #fff;
+        &.show{
+            .bf-tab{
+                transform: translate(0, 100%);
+                bottom:0!important;
+            }
+        }
+
+    }
+  &-hd{
+        position:relative;
+        height:$rem*94;
+        z-index:2;
+        left:0;
+        span{//小洋人
+            z-index:2;
+            position:relative;
+            transition: left 0.25s ease-in-out;
+            will-change:transform;
+            &:before{
+                content:'';
+                position:absolute;
+                left:0;
+                top:0;
+                width:$rem*38;
+                height:$rem*68;
+                animation: sign-sway 3s infinite alternate;
+                will-change:transform;
+                background-image:url(/images/black_five/balloon.png);
+                @extend .bg__full;
+            }
+            &:after{
+                content:'';
+                position:absolute;
+                left:$rem*26;
+                //bottom:$rem*-12;
+                top:$rem*28;
+                background-image:url(/images/black_five/people.png);
+                width:$rem*70;
+                height:$rem*70;
+                 @extend .bg__full;
+            }
+        }
+
+        &:after{
+            content:'';
+            background-image:url(/images/black_five/tab_bg.png);
+            @extend .bg__full;
+            position:absolute;
+            width:$rem*248;
+            height:$rem*86;
+            right:$rem*25;
+            bottom:$rem*-10;
+        }
+    }
+    &-bd{
+        position:relative;
+        &>ul{
+            position:relative;
+            bottom:0;
+            &:before{
+                content:'';
+                position:absolute;
+            }
+            &:before{
+                width:$rem*40;
+                height:$rem*30;
+                left:$rem*10;
+                top:$rem*5;
+                 @extend .bg__full;
+                background-image:url(/images/black_five/tab-left-flag.png);
+            }
+            height:$rem*94;
+            line-height:$rem*94;
+            color:#fff;
+            text-align:center;
+            background: #363636;
+            border-bottom-left-radius:$rem*94;
+            border-top-left-radius:$rem*94;
+            box-shadow: 0 $rem*6 #6F6F6F;
+        }
+
+        li{
+            float:left;
+            overflow:hidden;
+            a{
+                display:block;
+                padding:0 $rem*12;
+                height:100%;
+                width:100%;
+                color:#fff;
+                position:relative;
+                z-index: 3;
+            }
+            &:first-child{
+                border-top-left-radius:$rem*94;
+                border-bottom-left-radius:$rem*94;
+            }
+            &.active{
+               a{
+                   // background:#e7392d;
+                }
+            }
+        }
+    }
+
+    //active坐标
+    .coordinate{
+        background:#e7392d;
+        position:absolute;
+        width:$rem*124;
+        height:$rem*94;
+        top:0;
+        left:0;
+        transition: all 0.25s ease-in-out;
+        &.first{
+            border-top-left-radius:$rem*94;
+            border-bottom-left-radius:$rem*94;
+        }
+    }
+    .bear-header{
+        background-image:url(/images/black_five/bear-header.png);
+        width:$rem*101;
+        height:$rem*110;
+        @extend bg__full;
+        z-index: 2;
+        right: 0;
+        bottom: $rem*-4;
+        position:absolute;
+    }
+}
+//气球摆动
+@keyframes sign-sway {
+  0% {
+
+    transform: translateX(10%) rotate(-10deg);
+  }
+
+  100% {
+
+    transform: translateX(30%)  rotate(10deg);
+  }
+}
+
+.ymt-butler{
+    background-image:url(data:image/png;base64,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);
+    width:$rem*101;
+    height:$rem*126;
+    position:fixed;
+    bottom:$rem*220;
+    right:$rem*0;
+    transition: transform 0.35s ease-in-out;
+    will-change:transform;
+    transform:translate(100%,0);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+    border-radius: $rem*50;
+    &.show{
+        transform:translate(0,0);
+    }
+}
