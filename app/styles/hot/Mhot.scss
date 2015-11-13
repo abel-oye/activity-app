@@ -1,0 +1,154 @@
+@charset "UTF-8";
+
+@import "../_components/variables.scss";
+@import "../_components/_mixin.scss";
+@import "../_components/reset.scss";
+
+@function torem($px) {
+    @return $px / 32 * 1rem;
+}
+
+.tab {
+    height: torem(100);
+    border-bottom: 1px solid #d0cfcf;
+    box-shadow: 0 2px 2px #dcdbdb;
+}
+
+.tab-list {
+    font-size: torem(28);
+    width: 100%;
+    display: table;
+    line-height: torem(100);
+
+    a {
+        color: #666;
+        border-bottom: torem(2) solid #fff;
+        display: inline-block;
+        line-height: torem(50);
+        cursor: pointer;
+    }
+
+    & > .item {
+        display: table-cell;
+        text-align: center;
+    }
+
+    & > .item.cur {
+        a {
+            color: #eb1212;
+            border-bottom-color: #eb1212;
+        }
+    }
+}
+
+.sub-tab {
+    display: block;
+    height: torem(82);
+    border-bottom: 1px solid #c8c8c8;
+    box-shadow: 0 3px 2px #a6a5a5;
+}
+
+.sub-tab-list {
+    font-size: torem(24);
+    color: #333;
+    line-height: torem(82);
+
+    & > .item {
+        font-family: 'microsoft yahei';
+        display: inline-block;
+        padding: 0 torem(32);
+    }
+
+    & > .item.cur {
+        color: #eb1212;
+    }
+}
+
+.content-list {
+    margin-top: 3px;
+    background-color: #dbdbdb;
+    padding-top: 18px;
+}
+
+.product-list {
+    margin-left: torem(10);
+
+    @include clearfix;
+
+    & > .item {
+        width: 50%;
+        height: torem(630);
+        margin-bottom: torem(10);
+        padding-right: torem(10);
+        float: left;
+    }
+}
+
+.product {
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+
+    .hd {
+        height: torem(360);
+
+        .img-cnt {
+            width: 100%;
+            height: 100%;
+            background-image: url(http://p8.img.ymatou.com/G02/upload/product/small/M06/6E/CA/CgvUBVYpAiuAXIA0AAN25x8ct9M558_s.jpg);
+            background-size: contain;
+        }
+    }
+
+    .bd {
+        padding: torem(10);
+        font-size: torem(26);
+    }
+
+    .country {
+        color: #a3a3a3;
+        line-height: torem(36);
+    }
+
+    .country-flag {
+        width: torem(36);
+        height: torem(36);
+    }
+
+    .p-title {
+        margin: torem(15) 0;
+        white-space: normal;
+        word-break: break-all;
+        max-height: 11.6rem;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        line-height: torem(30);
+    }
+
+    .p-original {
+        color: #adadad;
+        text-decoration: line-through;
+        font-size: torem(25);
+    }
+
+    .p-btn {
+        text-align: center;
+        padding-left: torem(145);
+        padding-right: torem(45);
+        height: torem(70);
+        line-height: torem(70);
+        background: url(/images/Mhot/btn1.png) no-repeat;
+        background-size: contain;
+        margin: torem(10) torem(10);
+        color: #fff;
+        font-size: torem(28);
+
+        .price {
+            font-size: torem(38);
+            vertical-align: top;
+        }
+    }
+}
