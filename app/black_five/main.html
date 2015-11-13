@@ -16,43 +16,99 @@
     <!-- endbuild-->
   </head>
   <body>
+    <!--砍价团-->
+    <script id="group-tpl" type="text/template">
+     <div class="bf-group-list swiper-wrapper">
+    <!--
+     {{ for(var i=0,len=Math.min(TopicJoinList.length,4);i<len;i++){ }}
+        --><div class="bf-group-item swiper-slide">
+          <div class="bf-group-pro bg__full img-hold"  data-url="http://web.app.ymatou.com/Tuan/Render?sign=828&backFlag=1&topicFlag=0&topicid={{=TopicJoinList[i].TopicId}}&templatename=detail" lazy-load-background="{{= TopicJoinList[i].ActivityImageUrl }}">
+            <span class="bf-group-count">已成团{{=TopicJoinList[i].MemberCount}}人</span>
+          </div>
+        </div><!--
+    {{ } }}
+    -->
+    </div>
+    <div class="bf-group-pagination">
+        {{ for(var i=0,len=Math.min(TopicJoinList.length,4);i<len;i++){ }}
+            <span class="swiper-pagination-bullet "></span>
+        {{ } }}
+     </div>
+    </script>
+
+    <script id="goods-tpl" type="text-template">
+    {{ for(var i=0,len=PageParts.length;i<len;i++){ }}
+      <div class="goods-item">
+          <div class="goods-banner bg__full img-hold" lazy-load-background="{{= PageParts[i].BannerUrl}}"></div>
+          <div class="goods-pic-list swiper-wrapper">
+            {{ for(var j=0,len2=PageParts[i].Products.length;j<len2;j++){ }}
+            <div class="goods-pic-item swiper-slide J-open " data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=PageParts[i].Products[j].ProductId}}" onclick=";">
+                <div class="pic bg__full img-hold" lazy-load-background="{{= PageParts[i].Products[j].PicUrl}}" ></div>
+                <h4>{{= PageParts[i].Products[j].Name}}</h4>
+                <div class="pirce">
+                  &yen;{{-: PageParts[i].Products[j].MarketPrice | pirceRegion }}
+                </div>
+                <div class="original-price">
+                  <del>&yen;{{-: PageParts[i].Products[j].Price | pirceRegion }}</del>
+                </div>
+            </div>
+            {{ } }}
+            <div class="goods-pic-item swiper-slide"></div>
+          </div>
+      </div>
+      {{ } }}
+    </script>
+
+    <script id="active-tpl" type="text/template">
+    {{ for(var i=0,len=Products.length;i<len;i++){ }}
+      <div class="bf-item">
+          <div class="losing-pro-wrapper J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=Products[i].ProductId}}" onclick=";">
+              <div class="pic bg__full load-hold img-hold" lazy-load-background="{{-: Products[i].PicUrl | convertImgUrl }}"></div>
+              <div class="info">
+                  <div>
+                      <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlagUrl}}"></span>{{=Products[i].CountryName}}
+                  </div>
+                  <h4>{{=Products[i].Name}}</h4>
+                  <div  class="original-price">
+                      <del>市场价:{{=Products[i].MarketPrice}}</del>
+                  </div>
+                  <div class="price-wrapper">
+                      <span>黑五价</span>
+                      <span><strong>{{=Products[i].Price4Sale}}</strong>元</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+       {{ } }}
+    </script>
+
      <section class="bf-container">
       <div class="bf-banner-hd bg__full"></div>
       <div class="bf-coupon-wrapper">
-        <div class="bf-coupon-inner"></div>
+        <div class="bf-coupon-inner J-receive-pk"></div>
       </div>
       <!--砍价团-->
-      <div class="bf-area bf-groud" id="bf_01">
+      <div class="bf-area bf-group J-bf-axie" id="bf_01">
         <div class="bf-area-hd"></div>
         <div class="bf-area-bd">
-          <div class="bf-groud-list">
-            <div class="bf-groud-item">
-              <div class="bf-groud-pro bg__full" style="background-image:url(/images/black_five/group-pro.jpg)">
-                <span class="bf-groud-count">已成团xxx人</span>
-              </div>
-            </div>
-          </div>
-          <div class="bf-groud-pagination">
-            <!--change staus:swiper-pagination-bullet-active-->
-            <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
-            <span class="swiper-pagination-bullet"></span>
-          </div>
+          <div class="J-module-Hold" data-module="groupList"
+                    lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
         </div>
         <div class="bf-area-ft"></div>
       </div>
 
       <!--全球买手-->
-      <div class="bf-area bf-seller" id="bf_02">
-        <div class="bf-area-hd"></div>
+      <div class="bf-area bf-seller J-bf-axie" id="bf_02">
+        <div class="bf-area-hd" lazy-load-background="/images/black_five/seller-title.png"></div>
         <div class="bf-area-bd">
-          <div class="bf-list">
-            <div class="bf-item bf-item_2col">
+          <div class="bf-list bf-item_2col">
+            <div class="bf-item ">
                <div class="bf-seller-item">
                  <div class="seller-info">
                     <div class="seller-pic bg__full" style="background-image:url(http://p5.img.ymatou.com/upload/userlogo/original/574544_697f183901d24aa2a5b180b907b50bbe_o.jpg)"></div>
                     <div class="info">
                       <div class="national-info">
-                        <span class="flag bg__full" style="background-image:url(http://img.ymatou.com/app/flag/circle/Germany.png)"></span>日本
+                        <span class="flag bg__full img-hold" style="background-image:url(http://img.ymatou.com/app/flag/circle/Germany.png)"></span>日本
                       </div>
                       <div>
                         董太太爱大嘴猴
@@ -62,9 +118,10 @@
                       </div>
                     </div>
                     <div>
-                      <div class="seller-btn">
-                        <span>优惠券&yen;100</span>
-                        <span>点击领取</span>
+                    <!--status change:received-->
+                      <div class="seller-btn received">
+                        <span>已领取</span>
+                        <span> 进入卖家主页</span>
                       </div>
                     </div>
                  </div>
@@ -73,13 +130,13 @@
                  </div>
                </div>
             </div>
-             <div class="bf-item bf-item_2col">
+             <div class="bf-item">
                <div class="bf-seller-item">
                  <div class="seller-info">
                     <div class="seller-pic bg__full" style="background-image:url(http://p5.img.ymatou.com/upload/userlogo/original/574544_697f183901d24aa2a5b180b907b50bbe_o.jpg)"></div>
                     <div class="info">
                       <div class="national-info">
-                        <span class="flag bg__full" style="background-image:url(http://img.ymatou.com/app/flag/circle/Germany.png)"></span>日本
+                        <span class="flag bg__full img-hold" style="background-image:url(http://img.ymatou.com/app/flag/circle/Germany.png)"></span>日本
                       </div>
                       <div>
                         董太太爱大嘴猴
@@ -104,150 +161,62 @@
 
         </div>
         <div class="bf-area-ft">
-            <div class="see-more">
+            <div class="see-more J-open" data-url="" onclick=";">
               查看更多全球买手
             </div>
-            <div class="usa_seller bg__full">
-
-            </div>
-            <div class="bf-list">
-              <div class="bf-item bf-item_3col">
-                <div class="jsk_seller bg__full"></div>
+            <div class="usa_seller bg__full J-open img-hold" data-url=""  lazy-load-background="/images/black_five/usa_seller.png"></div>
+            <div class="bf-list bf-item_3col">
+              <div class="bf-item ">
+                <div class="jsk_seller bg__full J-open img-hold" data-url="" lazy-load-background="/images/black_five/jsk_seller.png"></div>
               </div>
-              <div class="bf-item bf-item_3col">
-                <div class="europe_seller bg__full"></div>
+              <div class="bf-item">
+                <div class="europe_seller bg__full J-open img-hold" data-url="" lazy-load-background="/images/black_five/europe_seller.png"></div>
               </div>
-              <div class="bf-item bf-item_3col">
-                <div class="australia_seller bg__full"></div>
+              <div class="bf-item">
+                <div class="australia_seller bg__full J-open img-hold" data-url="" lazy-load-background="/images/black_five/australia_seller.png"></div>
               </div>
             </div>
         </div>
       </div>
      <!-- 黑五必败-->
-      <div class="bf-area bf-losing" id="bf_03">
+      <div class="bf-area bf-losing J-bf-axie" id="bf_03">
         <div class="bf-area-hd"></div>
         <div class="bf-area-bd">
-          <div class="">
-            <div class="bf-list">
-              <div class="bf-item bf-item_2col">
-                  <div class="losing-pro-wrapper">
-                      <div class="pic bg__full load-hold lazyload transition" style="opacity: 1; background-image: url(http://p5.img.ymatou.com/upload/product/small/7fbce995a70d432cb8652e5b22422ca8_s.jpg);"></div>
-                      <div class="info">
-                          <div>
-                              <span class="national-flag lazyload transition" style="opacity: 1; background-image: url(http://img.ymatou.com/app/flag/circle/America.png);"></span>美国
-                          </div>
-                          <h4>AIR JORDAN 1 女鞋 554725-120</h4>
-                          <div  class="original-price">
-                              <del>市场价:599.00</del>
-                          </div>
-                          <div class="price-wrapper">
-                              <span>黑五价</span>
-                              <span><strong>0</strong>元</span>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="bf-item bf-item_2col">
-                   <div class="losing-pro-wrapper">
-                       <div class="pic bg__full load-hold lazyload transition" style="opacity: 1; background-image: url(http://p5.img.ymatou.com/upload/product/small/7fbce995a70d432cb8652e5b22422ca8_s.jpg);"></div>
-                       <div class="info">
-                           <div>
-                               <span class="national-flag lazyload transition" style="opacity: 1; background-image: url(http://img.ymatou.com/app/flag/circle/America.png);"></span>美国
-                           </div>
-                           <h4>AIR JORDAN 1 女鞋 554725-120</h4>
-                           <div  class="original-price">
-                               <del>市场价:599.00</del>
-                           </div>
-                           <div class="price-wrapper">
-                               <span>黑五价</span>
-                               <span><strong>0</strong>元</span>
-                           </div>
-                       </div>
-                   </div>
-              </div>
-            </div>
+          <div class="bf-list bf-item_2col">
+           <div class="J-module-Hold" data-module="activeModule" data-arguments="3255,1300"
+                                            lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
           </div>
-          <div>
-
-          </div>
-          <div class="losing-watch" id="bf_04">
+          <div class="losing-watch J-bf-axie" id="bf_04">
             <h3> <span>现场直击</span></h3>
           </div>
-          <div class="bf-list">
-            <div class="bf-item bf-item_2col">
-                <div class="losing-pro-wrapper">
-                    <div class="pic bg__full load-hold lazyload transition" style="opacity: 1; background-image: url(http://p5.img.ymatou.com/upload/product/small/7fbce995a70d432cb8652e5b22422ca8_s.jpg);"></div>
-                    <div class="info">
-                        <div>
-                            <span class="national-flag lazyload transition" style="opacity: 1; background-image: url(http://img.ymatou.com/app/flag/circle/America.png);"></span>美国
-                        </div>
-                        <h4>AIR JORDAN 1 女鞋 554725-120</h4>
-                        <div class="original-price">
-                            <del>市场价:599.00</del>
-                        </div>
-                        <div class="price-wrapper">
-                            <span>黑五价</span>
-                            <span><strong>0</strong>元</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="bf-item bf-item_2col">
-                 <div class="losing-pro-wrapper">
-                     <div class="pic bg__full load-hold lazyload transition" style="opacity: 1; background-image: url(http://p5.img.ymatou.com/upload/product/small/7fbce995a70d432cb8652e5b22422ca8_s.jpg);"></div>
-                     <div class="info">
-                         <div>
-                             <span class="national-flag lazyload transition" style="opacity: 1; background-image: url(http://img.ymatou.com/app/flag/circle/America.png);"></span>美国
-                         </div>
-                         <h4>AIR JORDAN 1 女鞋 554725-120</h4>
-                         <div class="original-price">
-                             <del>市场价:599.00</del>
-                         </div>
-                         <div class="price-wrapper">
-                             <span>黑五价</span>
-                             <span><strong>0</strong>元</span>
-                         </div>
-                     </div>
-                 </div>
-            </div>
+          <div class="bf-list bf-item_2col">
+           <div class="J-module-Hold" data-module="activeModule" data-arguments="3255,1300"
+                                            lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
           </div>
         </div>
         <div class="bf-area-ft">
-          <div class="see-more">
+          <div class="see-more J-open" data-url="" onclick=";">
             查看更多黑五必败
           </div>
         </div>
       </div>
       <!--全球好货-->
-      <div class="bf-area bf-goods" id="bf_05">
+      <div class="bf-area bf-goods J-bf-axie" id="bf_05">
         <div class="bf-area-bd">
-            <div class="goods-item">
-                <div class="goods-banner bg__full"  style="background-image:url(http://p5.img.ymatou.com/upload/activitytemplatebanner/88ef662433ed4c1a8c3c71cfee036854.jpg)"></div>
-                <div class="goods-pic-list">
-                  <div class="goods-pic-item">
-                      <div class="pic bg__full" style="background-image:url(http://p5.img.ymatou.com/upload/product/list/2130d283d1344122a6d84f5d6ce8c69b_l.jpg)"></div>
-                      <h4>狮王查看更多全球好货</h4>
-                      <div class="pirce">
-                        &yen;<strong>29</strong>.00
-                      </div>
-                      <div class="original-price">
-                        <del>&yen;29.00</del>
-                      </div>
-                  </div>
-                </div>
-            </div>
+            <div class="J-module-Hold" data-module="getGoodsList"
+                             lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
         </div>
         <div class="bf-area-ft">
-          <div class="see-more">
+          <div class="see-more J-open" data-url="" onclick=";">
             查看更多全球好货
           </div>
         </div>
       </div>
       <!--大熊-->
-      <div class="big-bear bg__full" id="bf_06"></div>
+      <div class="big-bear bg__full" id="bf_06"  lazy-load-background="/images/black_five/bear.jpg"></div>
       <!--statuc change:show-->
     </section>
-    <div class="bf-tab-wrapper " id="bf-tab">
+    <div class="bf-tab-wrapper show" id="bf-tab">
         <nav class="bf-tab ">
             <div class="bf-tab-hd">
                 <span class="ymt-person"></span>
@@ -269,6 +238,7 @@
     <div class="ymt-butler bg__full" onclick=";"></div>
     <!-- build:js /scripts/zepto,ejs,swiper,imgLazyLoad.js -->
     <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+    <script type="text/javascript" src="/scripts/commons/fastclick.js"></script>
     <script type="text/javascript" src="/scripts/commons/swiper.3.1.2.js"></script>
     <script type="text/javascript" src="/scripts/commons/imgLazyLoad.js"></script>
     <!-- endbuild -->

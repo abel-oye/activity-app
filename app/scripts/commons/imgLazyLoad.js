@@ -25,7 +25,7 @@
 	 */
 	var inView = function (element, view) {
 		var box = element.getBoundingClientRect();
-		return box.top >= view.t && box.top < view.b && box.left > view.l && box.left < view.r;
+		return box.top >= view.t && box.top < view.b && box.left >= view.l && box.left < view.r;
 	};
 
 	/**

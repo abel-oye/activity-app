@@ -7,6 +7,9 @@
  * @create-date 20151113
  */
 +(function () {
+
+    FastClick.attach(document.body);
+
     'use strict';
 
     var _pk_id='4';
@@ -14,6 +17,15 @@
     //初始化ejs
     ejs.open = '{{';
     ejs.close = '}}';
+
+    ejs.filters.pirceRegion = function (price) {
+        console.log(price)
+        if (!price) {
+            return price;
+        }
+        var num = ((+price || 0).toFixed(2) + '').split('.');
+        return '<strong>' + num[0] + '</strong>' + (num[1] ? '.' + num[1] : '');
+    };
 
     ejs.filters.convertImgUrl = function(str){
         return str.replace(/\/original\//,'/small/').replace(/_o/,'_s');
@@ -114,51 +126,6 @@
     }
 
     var module = {
-        joinLottery: function () {
-            var map = {
-                0: '0',
-                1: '1',
-                2: '2',
-                3: '7',
-                4: '3',
-                5: '6',
-                6: '5',
-                7: '4',
-            }
-
-            var complete = function (data) {
-                turntable.complete = function () {
-                    openDialog(data);
-                }
-            }
-
-            jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/Lottery/JoinLottery', {
-                accessToken: authInfo().AccessToken,
-                deviceId: (YmtApi.isIos ? search.DeviceId : search.DeviceToken) || '132',
-                hasShare: true
-            }), {
-                success: function (data, code) {
-                    if (data) {
-                        data.LotteryIndex = data.LotteryIndex < 0  ? 1 : data.LotteryIndex;
-                        data.ProductPic = 'http://i13.tietuku.com/7ebfd293ec6cb11e.png';
-
-                        if(data.LotteryIndex == 6){
-                            data.ProductPic = 'http://i13.tietuku.com/7ebfd293ec6cb11e.png';
-                        }
-                        turntable.stop(map[data.LotteryIndex]);
-                        drawNum = data.HasUseCount;
-                        complete(data);
-                    }
-                },
-                error: function () {
-                    //如果出错 直接显示谢谢惠顾
-                    turntable.stop(map[7]);
-                    complete({
-                        BCode: 103
-                    });
-                }
-            });
-        },
         //明星卖家
         starSeller: function () {
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/HotBuyer/GetHotBuyerList', {
@@ -181,12 +148,11 @@
          * @param  {string} pid 模块编号
          */
         activeModule:function(aid,pid){
-            getActivityJsonP(aid,pid,100,function(data){
+            getActivityJsonP(aid,pid,10,function(data){
                 if(data && data.Products){
                     var html = ejs.render($('#active-tpl').html(), data);
                     $('[data-arguments="'+aid+','+pid+'"]').html(html);
                 }
-
             });
         },
         //砍价团
@@ -204,8 +170,39 @@
                     //@TODO fuck 砍价团的接口格式不一致
                     if(err && err.RetCode == 200){
                         var html = ejs.render($('#group-tpl').html(), err.RetData);
-                        $('.bf-group-list').html(html);
+                        $('#bf_01 .bf-area-bd').html(html);
+
+                        new Swiper('#bf_01 .bf-area-bd', {
+                            pagination: '.bf-group-pagination',
+                            slidesPerView: 1,
+                            spaceBetween: 0,
+                            loop: false,
+                            centeredSlides: true,
+                            autoplayDisableOnInteraction: false
+                        });
                     }
+                }
+            });
+        },
+        //全球好货
+        getGoodsList:function(){
+            jsonpGetData(YmtApi.utils.addParam('http://jsapi.app.ymatou.com/api/Polymeric/ForeignIndex', {
+                pagepartIndex:1,
+                pagepartSize:5
+            }), {
+                success: function (data, code) {
+                    if (data) {
+                        var html = ejs.render($('#goods-tpl').html(), data);
+                        $('#bf_05 .bf-area-bd').html(html);
+
+                        new Swiper('#bf_05 .goods-item', {
+                            freeMode: true,
+                            slidesPerView: 4.7
+                        });
+                    }
+                },
+                error: function (err) {
+
                 }
             });
         },
@@ -222,7 +219,7 @@
         },
         receivePk:function(packageId){//领取大礼包
             var authInfo = YmtApi.utils.getAuthInfo(),
-                deviceId = (YmtApi.isIos ? search.DeviceId : search.DeviceToken) || '0000000';
+                deviceId = search.DeviceId || search.DeviceToken || '0000000';
 
             jsonpGetData(YmtApi.utils.addParam('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon?DeviceCode='+deviceId+'&PackageId='+packageId,{
                BuyerUserId:authInfo.UserId,
@@ -289,7 +286,9 @@
         jsonpGetData('http://api.evt.ymatou.com/ActivityTemplate/Products/aid_' + aid + '/pid_' + pid + '/ps_' + pageSize, callback, callbackName);
     }
 
-    //检查坐标
+    /**
+     * 检查坐标变更tab的active 位置
+     */
     var checkCoordinate = function(){
         var li = $('#bf-tab ul li'),
             active = li.filter('.active'),
@@ -312,6 +311,31 @@
         }
     }
 
+
+    var checkAxis = function(){
+        var $axle = $('.J-bf-axie'),
+            doc = document.documentElement,
+             view = {
+                l: (window.pageXOffset || doc.scrollLeft),
+                t: 0,
+                b: window.innerHeight,
+                r: (window.innerWidth || doc.clientWidth)
+            }//视口位置
+
+            $axle.each(function(index, el) {
+                var box = el.getBoundingClientRect();
+                console.log(view,box)
+                if(box.top >= view.t && box.top < view.b && box.left >= view.l && box.left < view.r){
+                    $('#bf-tab li').removeClass('active')
+                        .find('[href="#'+el.id+'"]')
+                        .parent().addClass('active');
+                    checkCoordinate();
+                    return false;
+                }
+            });
+        }
+
+    var scrollChackeStatus = false;//scroll 检查频率控制
     $(document).on('click', '.J-open', function () {
             var $this = $(this);
 
@@ -321,17 +345,28 @@
                 isNew: true,
             });
         }).on('scroll', function () {
-            var top = document.documentElement.scrollTop || document.body.scrollTop,
-                bottom = document.querySelector('#bf_01').getBoundingClientRect().bottom;
+            if(!scrollChackeStatus){
+                scrollChackeStatus = true;
 
-            if (top > bottom) {
-                $('#bf-tab').removeClass('show');
-                $('.ymt-butler').addClass('show')
+                var top = document.documentElement.scrollTop || document.body.scrollTop,
+                    bottom = document.querySelector('#bf_01').getBoundingClientRect().bottom;
+
+                if (top > bottom) {
+                    $('#bf-tab').removeClass('show');
+                    $('.ymt-butler').addClass('show')
+                }
+                else {
+                    $('#bf-tab').addClass('show');
+                    $('.ymt-butler').removeClass('show')
+                }
+
+                checkAxis();
+
+                setTimeout(function(){
+                    scrollChackeStatus = false;
+                },250);
             }
-            else {
-                $('#bf-tab').addClass('show');
-                $('.ymt-butler').removeClass('show')
-            }
+
         })
         .on('click', '#bf-tab li', function () {
             $('#bf-tab li').removeClass('active');
@@ -368,15 +403,19 @@
             }else{
                 YmtApi.toLogin();
             }
+        }).on('click','.J-receive-pk',function(){//领取大礼包
+            module.receivePk(_pk_id);
         });
 
     lazyLoad.init({
-        offset: 350,
+        offset: 0,
         callback: function (elem) {
+            //注册模块懒加载
             var $this = $(elem);
             if ($this.hasClass('J-module-Hold')) {
                 var moduleName = $this.attr('data-module'),
                     args = ($this.attr('data-arguments') || '').split(',');
+                console.log(moduleName)
                 moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
                 $this.removeClass('J-module-Hold').addClass('module-load-end');
             }
