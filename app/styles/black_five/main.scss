@@ -16,6 +16,23 @@
 
  $rem: 1rem/32;
 
+.mask{
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+
+    background: rgba(0,0,0,.7);
+    &.open
+    {
+        display: block;
+    }
+}
+
+
 .bg__full{
     background-size:contain;
     background-repeat:no-repeat;
@@ -27,6 +44,12 @@
     background-size:contain;
     width:100%;
     height:$rem*673;
+    text-align:right;
+    .activity-detail{
+        width:100%;
+        height:100%;
+        display:inline-block;
+    }
 }
 
 //领取优惠券
@@ -116,8 +139,8 @@
     background:#ff5247;
     .bf-area-hd{
         //background-image:url(/images/black_five/seller-title.png);
-        width:$rem*704;
-        height:$rem*347;
+        width:$rem*728;
+        height:$rem*920;
         margin:0 auto;
         margin-bottom:$rem*22;
     }
@@ -613,4 +636,128 @@
 //
 .J-module-Hold{
     min-height:$rem*300;
+}
+//领取礼包
+.receive-package{
+    &-mask{
+        @extend .mask;
+    }
+    &-dialog{
+        background-image:url(http://pm2.img.ymatou.com/G02/M00/7E/DE/CgvUBFZHHKaAYxLDAAG8kgpxG_4512_o.png);
+        @extend .bg__full;
+        width:$rem*750;
+        height:$rem*596;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 100;
+        margin-left:-$rem*375;
+        margin-top:-$rem*298;
+        background-position: top;
+        display:none;
+        &.open{
+            display:block;
+        }
+        &-bd{
+            position:relative;
+            height: 100%;
+            .content{
+                h4{
+                    text-align:center;
+                    font-size:$rem*48;
+                    font-weight:bold;
+                    color:#410005;
+                    white-space: nowrap;
+                    &.small{
+                        font-size:$rem*30;
+                        white-space: initial;
+                    }
+                    &.bg{
+                        background-image:url(http://pm1.img.ymatou.com/G02/M00/65/0B/CgvUBFZFpgaAXBklAAAPrvdEPCk464_o.png);
+                        @extend .bg__full;
+                        width:100%;
+                        height:$rem*51;
+                        background-position:center;
+                    }
+                }
+                .no-chance{
+                    background-image:url(http://pm5.img.ymatou.com/G02/M0A/30/C9/CgvUBVZCKfSAXDcHAAAe3NhnTns160_o.png);
+                    @extend .bg__full;
+                    width:$rem*192;
+                    height:$rem*168;
+                    margin:0 auto;
+                }
+                .coupon-bg{
+                    background-image:url(http://pm5.img.ymatou.com/G02/M03/31/6A/CgvUA1ZCKkKAfLwIAAAHgDsXa8s146_o.png);
+                    @extend .bg__full;
+                    width:$rem*298;
+                    height:$rem*142;
+                    margin:$rem*20 auto;
+                    padding-top:$rem*20;
+                    color:#fff;
+                    padding:0 $rem*42;
+                    font-size:$rem*32;
+                    text-align:center;
+                    strong{
+                        font-size:$rem*45;
+                    }
+                    sub{
+                        font-size:$rem*23;
+                    }
+                    &>:first-child{
+                        border-bottom:2px dashed #FFF;
+                    }
+                }
+                .txt{
+                    padding-left:$rem*50;
+                    font-size:$rem*14;
+                    color:#410005;
+                    &>strong{
+                       font-size:$rem*16;
+                       color:#fe4855;
+                       font-weight:bold;
+                    }
+                }
+                position:absolute;
+                width:$rem*410;
+                height:$rem*303;
+                right:$rem*25;
+                top:$rem*65;
+                &.package-content-bg{
+                    background-image:url(http://pm5.img.ymatou.com/G02/M09/65/4C/CgvUBVZFphKAPInzAAAzXOApmDs842_o.png);
+                    @extend .bg__full;
+
+                }
+
+            }
+        }
+        .share-btn,
+        .close-btn{
+             position:absolute;
+             width:$rem*313;
+             height:$rem*96;
+             line-height:$rem*96;
+             bottom:$rem*40;
+             border-radius:$rem*16;
+             font-size:$rem*55;
+             color:#410005;
+             text-align:center;
+             font-weight:bold;
+             &.center-btn{
+                 right: 50%;
+                 transform: translate(50%,0);
+             }
+        }
+        .close-btn{
+            right:$rem*46;
+            background-color:#01efef;
+            box-shadow:0 $rem*14 #00a3a3;
+        }
+        .share-btn{
+            color:#fff;
+            left:$rem*56;
+            background-color:#fe4855;
+            box-shadow:0 $rem*14 #b83740;
+        }
+    }
 }
