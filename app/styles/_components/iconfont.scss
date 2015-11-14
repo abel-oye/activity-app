@@ -3,7 +3,7 @@
 @import "./_mixin.scss";
 
 @font-face{
-  @include fontface("evt app","/app/fonts/iconfont");
+  @include fontface("evt app","/fonts/iconfont");
 }
 
 .icon,
@@ -20,6 +20,13 @@
 .icon-share:before { content: "\e604"; }
 .icon-xin:before { content: "\e608"; }
 .icon-grow-grass:before { content: "\e602"; }
-.icon-beihai-bonded:before{content:"\e603"}
-.icon-local-return:before{content:"\e606"}
-.icon-beihai-directMail:before{content:"\e605"}
+.icon-beihai-bonded:before {content:"\e609"}
+.icon-local-return:before {content:"\e60a"}
+.icon-beihai-directMail:before {content:"\e609"}
+.icon-seller-baoshui:before { content: "\e603" }
+.icon-domestic-post:before { content: "\e60b"; }
+.icon-pingyou:before { content: "\e60c"; }
+.icon-authentic-zhiyou:before { content: "\e60d"; }
+.icon-zhiyou:before { content: "\e60e"; }
+.icon-saohuo:before { content: "\e601"; }
+.icon-xianhuo:before { content: "\e605"; }

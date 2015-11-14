@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticontent.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
+    <script data-js-path="redraw.js">
+        !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
+    </script>
+    <!-- build:css /styles/black_five/index.css-->
+    <link rel="stylesheet" type="text/css" href="/styles/black_five/buyerlist.css">
+    <!-- endbuild-->
+</head>
+
+<body>
+    <div class="seller-list-page">
+        <div class="seller-top-banner"></div>
+        <div class="seller-tab-list" id="seller-tab-list">
+            <div class="seller-tab active-tab" tab-areaCode="meiguo">美国买手</div>
+            <div class="seller-tab" tab-areaCode="aoxing">澳新买手</div>
+            <div class="seller-tab" tab-areaCode="rihan">日韩买手</div>
+            <div class="seller-tab" tab-areaCode="ouzhou">欧洲买手</div>
+        </div>
+        <div class="seller-list-wrap" id="seller-list-wrap">
+            <ul class="seller-list active-list" list-areaCode="meiguo">
+
+            </ul>
+            <ul class="seller-list" list-areaCode="aoxing"></ul>
+            <ul class="seller-list" list-areaCode="rihan"></ul>
+            <ul class="seller-list" list-areaCode="ouzhou"></ul>
+        </div>
+    </div>
+
+    <script id="seller-item-tpl" type="text/template">
+        {{ for (var i = 0; i < BuyerList.length; i++){ }}
+        <li class="seller-item">
+            <div class="seller-info">
+                <div class="personal-info">
+                    <img src="{{= BuyerList[i].Buyer.SellerLogo}}" alt="买手头像" class="info-avatar">
+                    <div class="info-wrap">
+                        <span class="info-name">{{= BuyerList[i].Buyer.SellerName}}</span>
+                        <span class="info-country">
+                            <img src="{{= BuyerList[i].Buyer.Flag}}" alt="买手国家" class="flag">{{= BuyerList[i].Buyer.CountryName}}
+                        </span>
+                    </div>
+                    <div class="info-coupon">
+                        <span class="value">&yen;{{= BuyerList[i].Buyer.CouponPrice}}优惠券</span>
+                        {{ if(BuyerList[i].HasBrought) { }}
+                        <span class="hasget">已领取</span>
+                        {{ }else{ }}
+                        <span class="get">领取</span>
+                        {{ } }}
+                    </div>
+                </div>
+                <div class="tag-info">
+                    <span class="tag-item live">直播&nbsp;{{= BuyerList[i].Buyer.Activities}}</span>
+                    <span class="tag-item fans">粉丝&nbsp;{{= BuyerList[i].Buyer.FavCount}}</span>
+                    <span class="tag-item goods">商品&nbsp;{{= BuyerList[i].Buyer.ProductCount}}</span>
+                </div>
+            </div>
+            <div class="goods-classify">
+                <span class="classify-title">好货分类 :</span>
+                <div class="classify-tag">呵呵,呵呵,呵呵,呵呵,呵呵,呵呵,呵呵,呵呵,呵呵,呵呵,呵呵,呵呵</div>
+            </div>
+            <div class="goods-list">
+                {{ var products = BuyerList[i].Products }}
+                {{ for (var j = 0; j < products.length; j++) { }}
+                <div class="goods-item">
+                    <div class="goods-pic" style="background-image: url({{= products[j].PicUrl}})"></div>
+                    <div class="goods-info">
+                        <div class="goods-desc">
+                            <span class="free-post">包邮包税</span>{{= products[j].Name}}
+                        </div>
+                        <div class="delivery-way">
+                            <i class="icon-beihai-directMail"></i>贝海直邮
+                        </div>
+                        <div class="price-info">
+                            <span class="goods-price">&yen;&nbsp;<strong>{{= products[j].Price}}</strong>.00</span>
+                            <span class="amount-remain">仅剩{{= products[j].Stock}}件</span>
+                        </div>
+                        <div class="buy-btn">立即购买</div>
+                    </div>
+                </div>
+                {{ } }}
+            </div>
+            <div class="view-all">
+                <span class="all-live">共<strong>{{= BuyerList[i].Buyer.Activities}}</strong>场直播</span>
+                <span class="all-see">查看全部 <strong>></strong></span>
+            </div>
+        </li>
+        {{ } }}
+    </script>
+
+    <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+    <script type="text/javascript" src="/scripts/commons/imgLazyLoad.js"></script>
+    <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
+    <script src="/scripts/black_five/buyerlist.js"></script>
+</body>
+
+</html>
