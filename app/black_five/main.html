@@ -16,6 +16,46 @@
     <!-- endbuild-->
   </head>
   <body>
+  <script id="package-tpl" type="text/template">
+        <div class="J-share share-btn J-receive-pk J-close" data-target="receive-package" data-share-url="http://evtc.ymatou.com/evt1120/wxPackage" data-share-content="洋码头黑色星期五全球狂购节来啦！各国洋货低至1折，更有5亿现金红包大派送！人人有份，还不赶快一起来抢！"
+            data-share-title="洋码头黑五狂购节派现金啦！"
+            data-share-pic="http://pm4.img.ymatou.com/G02/M0A/31/CA/CgvUA1ZCPiuAP8Z7AABOfcrqVew149_o.jpg"  onclick=";">朕要分享</div>
+        <div class="J-close close-btn" data-target="receive-package" onclick=";">容朕三思</div>
+  </script>
+
+    <!-- 全球买手 -->
+    <script id="globalseller-tpl" type="text/template">
+    {{ for(var i=0,len=BuyerList.length;i<len;i++){ }}
+      <div class="bf-item ">
+         <div class="bf-seller-item">
+           <div class="seller-info">
+              <div class="seller-pic bg__full" style="background-image:url({{=BuyerList[i].SellerLogo}})"></div>
+              <div class="info">
+                <div class="national-info">
+                  <span class="flag bg__full img-hold" style="background-image:url({{=BuyerList[i].Flag}})"></span>{{=BuyerList[i].CountryName}}
+                </div>
+                <div>
+                  {{=BuyerList[i].SellerName}}
+                </div>
+                <div>
+                  粉丝数:{{=BuyerList[i].FavCount}}
+                </div>
+              </div>
+              <div>
+              <!--status change:received-->
+                <div class="seller-btn received">
+                  <span>已领取</span>
+                  <span> 进入卖家主页</span>
+                </div>
+              </div>
+           </div>
+           <div class="pro-info">
+              <div class="pro-pic bg__full" style="background-image:url({{=BuyerList[i].PicUrl}})"></div>
+           </div>
+         </div>
+      </div>
+       {{ } }}
+    </script>
     <!--砍价团-->
     <script id="group-tpl" type="text/template">
      <div class="bf-group-list swiper-wrapper">
@@ -66,15 +106,15 @@
               <div class="pic bg__full load-hold img-hold" lazy-load-background="{{-: Products[i].PicUrl | convertImgUrl }}"></div>
               <div class="info">
                   <div>
-                      <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlagUrl}}"></span>{{=Products[i].CountryName}}
+                      <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlagUrl||Products[i].Flag}}"></span>{{=Products[i].CountryName}}
                   </div>
                   <h4>{{=Products[i].Name}}</h4>
                   <div  class="original-price">
-                      <del>市场价:{{=Products[i].MarketPrice}}</del>
+                      <del>市场价:{{=Products[i].MarketPrice||Products[i].Customer.Price}}</del>
                   </div>
                   <div class="price-wrapper">
                       <span>黑五价</span>
-                      <span><strong>{{=Products[i].Price4Sale}}</strong>元</span>
+                      <span><strong>{{=Products[i].Price4Sale||Products[i].Price}}</strong>元</span>
                   </div>
               </div>
           </div>
@@ -83,9 +123,11 @@
     </script>
 
      <section class="bf-container">
-      <div class="bf-banner-hd bg__full"></div>
+      <div class="bf-banner-hd bg__full" >
+        <div class="activity-detail J-open" data-url="www.baidu.com"></div>
+      </div>
       <div class="bf-coupon-wrapper">
-        <div class="bf-coupon-inner J-receive-pk"></div>
+        <div class="bf-coupon-inner J-open-receive"></div>
       </div>
       <!--砍价团-->
       <div class="bf-area bf-group J-bf-axie" id="bf_01">
@@ -99,66 +141,9 @@
 
       <!--全球买手-->
       <div class="bf-area bf-seller J-bf-axie" id="bf_02">
-        <div class="bf-area-hd" lazy-load-background="/images/black_five/seller-title.png"></div>
+        <div class="bf-area-hd" lazy-load-background="/images/black_five/seller-title.jpg"></div>
         <div class="bf-area-bd">
-          <div class="bf-list bf-item_2col">
-            <div class="bf-item ">
-               <div class="bf-seller-item">
-                 <div class="seller-info">
-                    <div class="seller-pic bg__full" style="background-image:url(http://p5.img.ymatou.com/upload/userlogo/original/574544_697f183901d24aa2a5b180b907b50bbe_o.jpg)"></div>
-                    <div class="info">
-                      <div class="national-info">
-                        <span class="flag bg__full img-hold" style="background-image:url(http://img.ymatou.com/app/flag/circle/Germany.png)"></span>日本
-                      </div>
-                      <div>
-                        董太太爱大嘴猴
-                      </div>
-                      <div>
-                        粉丝数:1531354
-                      </div>
-                    </div>
-                    <div>
-                    <!--status change:received-->
-                      <div class="seller-btn received">
-                        <span>已领取</span>
-                        <span> 进入卖家主页</span>
-                      </div>
-                    </div>
-                 </div>
-                 <div class="pro-info">
-                    <div class="pro-pic bg__full" style="background-image:url(http://p5.img.ymatou.com/upload/product/big/82b5e97d3f5a415fa8afbd8602026801_b.jpg)"></div>
-                 </div>
-               </div>
-            </div>
-             <div class="bf-item">
-               <div class="bf-seller-item">
-                 <div class="seller-info">
-                    <div class="seller-pic bg__full" style="background-image:url(http://p5.img.ymatou.com/upload/userlogo/original/574544_697f183901d24aa2a5b180b907b50bbe_o.jpg)"></div>
-                    <div class="info">
-                      <div class="national-info">
-                        <span class="flag bg__full img-hold" style="background-image:url(http://img.ymatou.com/app/flag/circle/Germany.png)"></span>日本
-                      </div>
-                      <div>
-                        董太太爱大嘴猴
-                      </div>
-                      <div>
-                        粉丝数:1531354
-                      </div>
-                    </div>
-                    <div>
-                      <div class="seller-btn">
-                        <span>优惠券&yen;100</span>
-                        <span>点击领取</span>
-                      </div>
-                    </div>
-                 </div>
-                 <div class="pro-info">
-                    <div class="pro-pic bg__full" style="background-image:url(http://p5.img.ymatou.com/upload/product/big/82b5e97d3f5a415fa8afbd8602026801_b.jpg)"></div>
-                 </div>
-               </div>
-            </div>
-          </div>
-
+          <!-- <div class="J-module-Hold bf-list bf-item_2col buyerlist" data-module="globalSeller" lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div> -->
         </div>
         <div class="bf-area-ft">
             <div class="see-more J-open" data-url="" onclick=";">
@@ -180,17 +165,17 @@
       </div>
      <!-- 黑五必败-->
       <div class="bf-area bf-losing J-bf-axie" id="bf_03">
-        <div class="bf-area-hd"></div>
+        <div class="bf-area-hd J-open" data-url="http://evt.ymatou.com/activity_4689_capp" onclick=";"></div>
         <div class="bf-area-bd">
           <div class="bf-list bf-item_2col">
-           <div class="J-module-Hold" data-module="activeModule" data-arguments="3255,1300"
+           <div class="J-module-Hold MProductsModule" data-module="MProductsModule" data-arguments="3255,1300"
                                             lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
           </div>
           <div class="losing-watch J-bf-axie" id="bf_04">
             <h3> <span>现场直击</span></h3>
           </div>
           <div class="bf-list bf-item_2col">
-           <div class="J-module-Hold" data-module="activeModule" data-arguments="3255,1300"
+           <div class="J-module-Hold CProductsModule" data-module="CProductsModule"
                                             lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
           </div>
         </div>
@@ -234,6 +219,11 @@
            </div>
         </nav>
     </div>
+    <div class="receive-package receive-package-mask"></div>
+    <div class="receive-package receive-package-dialog">
+      <div class="receive-package-dialog-bd" id="receive-package-bd"></div>
+    </div>
+
     <!--洋管家-->
     <div class="ymt-butler bg__full" onclick=";"></div>
     <!-- build:js /scripts/zepto,ejs,swiper,imgLazyLoad.js -->
