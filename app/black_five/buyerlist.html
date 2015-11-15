@@ -27,13 +27,24 @@
             <div class="seller-tab" tab-areaCode="ouzhou">欧洲买手</div>
         </div>
         <div class="seller-list-wrap" id="seller-list-wrap">
-            <ul class="seller-list active-list" list-areaCode="meiguo">
+            <ul class="seller-list active-list">
 
             </ul>
-            <ul class="seller-list" list-areaCode="aoxing"></ul>
-            <ul class="seller-list" list-areaCode="rihan"></ul>
-            <ul class="seller-list" list-areaCode="ouzhou"></ul>
+            <ul class="seller-list"></ul>
+            <ul class="seller-list"></ul>
+            <ul class="seller-list"></ul>
+            <div class="load-more" id="load-more">
+                <div id="bowlG">
+                    <div id="bowl_ringG">
+                        <div class="ball_holderG">
+                            <div class="ballG"></div>
+                        </div>
+                    </div>
+                </div>
+                <span>加载中...</span>
+            </div>
         </div>
+        <div class="finish-tip" id="finish-tip">已显示全部</div>
     </div>
 
     <script id="seller-item-tpl" type="text/template">
@@ -48,12 +59,10 @@
                             <img src="{{= BuyerList[i].Buyer.Flag}}" alt="买手国家" class="flag">{{= BuyerList[i].Buyer.CountryName}}
                         </span>
                     </div>
-                    <div class="info-coupon">
+                    <div class="info-coupon" data-couponid={{= BuyerList[i].Buyer.CouponId}}>
                         <span class="value">&yen;{{= BuyerList[i].Buyer.CouponPrice}}优惠券</span>
-                        {{ if(BuyerList[i].HasBrought) { }}
-                        <span class="hasget">已领取</span>
-                        {{ }else{ }}
-                        <span class="get">领取</span>
+                        {{ if(!IsNeedBrought) { }}
+                        <span class="get-coupon">领取</span>
                         {{ } }}
                     </div>
                 </div>
@@ -65,7 +74,7 @@
             </div>
             <div class="goods-classify">
                 <span class="classify-title">好货分类 :</span>
-                <div class="classify-tag">呵呵,呵呵,呵呵,呵呵,呵呵,呵呵,呵呵,呵呵,呵呵,呵呵,呵呵,呵呵</div>
+                <div class="classify-tag">{{= BuyerList[i].Buyer.GoodProductCatalogs}}</div>
             </div>
             <div class="goods-list">
                 {{ var products = BuyerList[i].Products }}

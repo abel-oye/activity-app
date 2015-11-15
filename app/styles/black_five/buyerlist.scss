@@ -46,10 +46,28 @@
             color: #c8353f;
             border-bottom: $rem*5 solid #c8353f;
         }
+
+        .tab-scrollbar {
+            width: $rem*160;
+            height: $rem*5;
+            background-color: #c8353f;
+            border: 0;
+            margin: 0;
+            position: absolute;
+            bottom: 0;
+        }
     }
 
     .seller-list-wrap {
         background-color: #fff;
+    }
+
+    .finish-tip {
+        display: none;
+        text-align: center;
+        padding: $rem*100 0;
+        font-size: $rem*24;
+        background-color: #eee;
     }
 }
 
@@ -107,7 +125,7 @@
                             color: #d42f33;
                         }
 
-                        .hasget, .get {
+                        .hasget, .get-coupon {
                             display: inline-block;
                             float: right;
                             width: $rem*86;
@@ -121,7 +139,7 @@
                             background-color: #eee;
                         }
 
-                        .get {
+                        .get-coupon {
                             color: #fff;
                             background-color: #d42f33;
                         }
@@ -337,4 +355,75 @@
         display: block;
     }
 
+}
+
+.sg-error{
+  padding:$rem*5 $rem*10;
+  background:rgba(0,0,0,.6);
+  color:#fff;
+  position:fixed;
+  z-index:999;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  border-radius:$rem*5;
+  display:inline;
+  font-size:$rem*24;
+  -webkit-transition: opacity .6s ease-in-out;
+  opacity:0;
+}
+
+//加载更多
+.load-more{
+  display:none;
+  text-align:center;
+  margin:$rem*10 0;
+  font-size:$rem*20;
+  color:#383838;
+}
+
+#bowlG{
+  position:relative;
+  width:$rem*24;
+  height:$rem*24;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right:$rem*8;
+}
+#bowl_ringG{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #383838;
+  border-radius: 50%;
+}
+.ball_holderG{
+  position: absolute;
+  width: 30%;
+  height: 100%;
+  left: 36%;
+  top: 0px;
+  animation-name:ball_moveG;
+  animation-duration:1s;
+  animation-iteration-count:infinite;
+  animation-timing-function:linear;
+}
+.ballG{
+  position: absolute;
+  left: 0px;
+  top: -27%;
+  width: 240%;
+  height: 70%;
+  background: #fff;
+  border-radius: 50%;
+}
+
+@keyframes ball_moveG{
+  0%{
+    transform:rotate(0deg)
+  }
+  100%{
+    transform:rotate(360deg)
+  }
 }
