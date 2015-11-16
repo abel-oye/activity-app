@@ -59,8 +59,9 @@ var picLazyLoad = (function ($, window) {
 				_winScrollTop = $window.scrollTop();
 			$lazyImg.each(function () {
 				var $self = $(this),
-					_offsetTop = $self.offset().top;
-				if (_offsetTop <= (_winHeight + _winScrollTop)) {
+					_offsetTop = $self.offset().top,
+					_selfHeight = $self.height();
+				if (_offsetTop <= (_winHeight + _winScrollTop) && _winScrollTop <= (_offsetTop + _selfHeight)) {
 					if (!$self.attr('data-isLoad')) {
 						//加上标记
 						$self.attr('data-isLoad', 'true');
@@ -109,6 +110,7 @@ var picLazyLoad = (function ($, window) {
 			this.pid = pid || "";
 			this.uuid = getUUID(aid, pid);
 			this.isLoadError = false;
+			this.isLoading = false;
 		}
 
 		CntPage.prototype.setCnt = function () {
@@ -124,6 +126,8 @@ var picLazyLoad = (function ($, window) {
 				aid = me.aid,
 				pid = me.pid,
 				cntId = '#' + me.uuid;
+			if (me.isLoading) return;
+			me.isLoading = true;
 			showLoading();
 			$.ajax({
 				url: 'http://api.evt.ymatou.com/ActivityTemplate/Products/aid_' + aid + '/pid_' + pid + '/ps_50',
@@ -155,12 +159,15 @@ var picLazyLoad = (function ($, window) {
 
 					});
 					$(cntId).find('.J_productList').append(_productTempl(obj));
-					picLazyLoad(cntId);
 				},
 				complete: function () {
+					me.isLoading = false;
 					$('#ymtWrap').css('visibility', 'visible');
 					$('#contentList').show();
 					$('#ymtLoading').hide();
+					if (!me.isLoadError) {
+						picLazyLoad(cntId);
+					}
 				}
 			});
 		}
