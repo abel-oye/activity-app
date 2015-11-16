@@ -1,3 +1,43 @@
+window.tabSetting = [{
+	aid: '4646',
+	name: '鞋包服饰',
+	child: [{
+		pid: '6868',
+		name: '男鞋'
+	}, {
+		pid: '6866',
+		name: '女鞋'
+	}, {
+		pid: '6870',
+		name: '运动鞋'
+	}, {
+		pid: '6872',
+		name: '服饰配件'
+	}, {
+		pid: '6874',
+		name: '奢侈箱包'
+	}]
+}, {
+	aid: '4647',
+	name: '美妆个护',
+	child: [{
+		pid: '122',
+		name: 'aa'
+	}, {
+		pid: '222',
+		name: 'bb'
+	}, {
+		pid: '111',
+		name: 'cc'
+	}, {
+		pid: '222',
+		name: 'dd'
+	}, {
+		pid: '333',
+		name: 'ee'
+	}]
+}];
+
 var picLazyLoad = (function ($, window) {
 	var uid = 0,
 		$window = $(window),
