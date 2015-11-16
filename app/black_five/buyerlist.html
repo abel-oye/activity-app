@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticontent.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
+    <script data-js-path="redraw.js">
+        !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
+    </script>
+    <style>
+    @-webkit-keyframes fadeIn{from{background-color:rgba(255, 255, 255, .8)}to{background-color:rgba(255, 255, 255, .3)}}@keyframes fadeIn{from{background-color:rgba(255, 255, 255, .8)}to{background-color:rgba(255, 255, 255, .3)}}@-webkit-keyframes fadeOut{from{background-color:rgba(0, 0, 0, .3)}to{background-color:rgba(0, 0, 0, .8)}}@keyframes fadeOut{from{background-color:rgba(0, 0, 0, .3)}to{background-color:rgba(0, 0, 0, .8)}}.loading-spinner{height:3.75rem;width:3.75rem;background-color:rgba(0, 0, 0, .7);border-radius:.625rem;margin:0 auto;position:fixed;top:50%;left:50%;-webkit-transform:translate(-50%, -50%);-ms-transform:translate(-50%, -50%);transform:translate(-50%, -50%);font-size:0.625rem;text-align:center;color:#FFF}.loading-spinner-rotate{height:40%;width:40%;position:relative;margin:14% auto}.loading-spinner-rotate > .fan-page{width:9%;height:30%;background-color:#FFF;position:absolute;left:44.5%;top:37%;border-radius:30%;-webkit-animation:fadeOut 1.3s linear infinite;animation:fadeOut 1.3s linear infinite;border-radius:2px}.loading-spinner-rotate > :nth-child(1){-webkit-transform:rotate(0deg) translate(0, -142%);-ms-transform:rotate(0deg) translate(0, -142%);transform:rotate(0deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:0;animation-delay:0}.loading-spinner-rotate > :nth-child(2){-webkit-transform:rotate(30deg) translate(0, -142%);-ms-transform:rotate(30deg) translate(0, -142%);transform:rotate(30deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-1.1s;animation-delay:-1.1s}.loading-spinner-rotate > :nth-child(3){-webkit-transform:rotate(60deg) translate(0, -142%);-ms-transform:rotate(60deg) translate(0, -142%);transform:rotate(60deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-1s;animation-delay:-1s}.loading-spinner-rotate > :nth-child(4){-webkit-transform:rotate(90deg) translate(0, -142%);-ms-transform:rotate(90deg) translate(0, -142%);transform:rotate(90deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.9s;animation-delay:-0.9s}.loading-spinner-rotate > :nth-child(5){-webkit-transform:rotate(120deg) translate(0, -142%);-ms-transform:rotate(120deg) translate(0, -142%);transform:rotate(120deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.8s;animation-delay:-0.8s}.loading-spinner-rotate > :nth-child(6){-webkit-transform:rotate(150deg) translate(0, -142%);-ms-transform:rotate(150deg) translate(0, -142%);transform:rotate(150deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.7s;animation-delay:-0.7s}.loading-spinner-rotate > :nth-child(7){-webkit-transform:rotate(180deg) translate(0, -142%);-ms-transform:rotate(180deg) translate(0, -142%);transform:rotate(180deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.6s;animation-delay:-0.6s}.loading-spinner-rotate > :nth-child(8){-webkit-transform:rotate(210deg) translate(0, -142%);-ms-transform:rotate(210deg) translate(0, -142%);transform:rotate(210deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.5s;animation-delay:-0.5s}.loading-spinner-rotate > :nth-child(9){-webkit-transform:rotate(240deg) translate(0, -142%);-ms-transform:rotate(240deg) translate(0, -142%);transform:rotate(240deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.4s;animation-delay:-0.4s}.loading-spinner-rotate > :nth-child(10){-webkit-transform:rotate(270deg) translate(0, -142%);-ms-transform:rotate(270deg) translate(0, -142%);transform:rotate(270deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.3s;animation-delay:-0.3s}.loading-spinner-rotate > :nth-child(11){-webkit-transform:rotate(300deg) translate(0, -142%);-ms-transform:rotate(300deg) translate(0, -142%);transform:rotate(300deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.2s;animation-delay:-0.2s}.loading-spinner-rotate > :nth-child(12){-webkit-transform:rotate(330deg) translate(0, -142%);-ms-transform:rotate(330deg) translate(0, -142%);transform:rotate(330deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.1s;animation-delay:-0.1s}
+    </style>
+    <!-- build:css /styles/black_five/index.css-->
+    <link rel="stylesheet" type="text/css" href="/styles/black_five/buyerlist.css">
+    <!-- endbuild-->
+</head>
+
+<body>
+    <div class="seller-list-page">
+        <div class="seller-top-banner"></div>
+        <div class="seller-tab-list" id="seller-tab-list">
+            <div class="seller-tab active-tab" tab-areaCode="meiguo">美国买手</div>
+            <div class="seller-tab" tab-areaCode="aoxing">澳新买手</div>
+            <div class="seller-tab" tab-areaCode="rihan">日韩买手</div>
+            <div class="seller-tab" tab-areaCode="ouzhou">欧洲买手</div>
+        </div>
+        <div class="seller-list-wrap" id="seller-list-wrap">
+            <ul class="seller-list active-list">
+
+            </ul>
+            <ul class="seller-list"></ul>
+            <ul class="seller-list"></ul>
+            <ul class="seller-list"></ul>
+            <div class="load-more" id="load-more">
+                <div id="bowlG">
+                    <div id="bowl_ringG">
+                        <div class="ball_holderG">
+                            <div class="ballG"></div>
+                        </div>
+                    </div>
+                </div>
+                <span>加载中...</span>
+            </div>
+        </div>
+        <div class="loading-spinner" id="loading">
+            <ul class="loading-spinner-rotate">
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+            </ul>
+            <p>加载中</p>
+        </div>
+        <div class="finish-tip" id="finish-tip">已显示全部</div>
+    </div>
+
+    <script id="seller-item-tpl" type="text/template">
+        {{ for (var i = 0; i < BuyerList.length; i++){ }}
+        <li class="seller-item">
+            <div class="seller-info">
+                <div class="personal-info">
+                    <img src="{{= BuyerList[i].Buyer.SellerLogo}}" alt="买手头像" class="info-avatar">
+                    <div class="info-wrap">
+                        <span class="info-name">{{= BuyerList[i].Buyer.SellerName}}</span>
+                        <span class="info-country">
+                            <img src="{{= BuyerList[i].Buyer.Flag}}" alt="买手国家" class="flag">{{= BuyerList[i].Buyer.CountryName}}
+                        </span>
+                    </div>
+                    <div class="info-coupon" data-couponid={{= BuyerList[i].Buyer.CouponId}}>
+                        <span class="value">&yen;{{= BuyerList[i].Buyer.CouponPrice}}优惠券</span>
+                        {{ if(!IsNeedBrought) { }}
+                        <span class="get-coupon">领取</span>
+                        {{ } }}
+                    </div>
+                </div>
+                <div class="tag-info">
+                    <span class="tag-item live">直播&nbsp;{{= BuyerList[i].Buyer.Activities}}</span>
+                    <span class="tag-item fans">粉丝&nbsp;{{= BuyerList[i].Buyer.FavCount}}</span>
+                    <span class="tag-item goods">商品&nbsp;{{= BuyerList[i].Buyer.ProductCount}}</span>
+                </div>
+            </div>
+            <div class="goods-classify">
+                <span class="classify-title">好货分类 :</span>
+                <div class="classify-tag">{{= BuyerList[i].Buyer.GoodProductCatalogs}}</div>
+            </div>
+            <div class="goods-list">
+                {{ var products = BuyerList[i].Products }}
+                {{ for (var j = 0; j < products.length; j++) { }}
+                <div class="goods-item" data-productId={{= products[j].ProductId}} data-logo={{= products[j].Logo}} data-seller={{= products[j].Seller}} data-sellerId={{= products[j].SellerId}}>
+                    <div class="goods-pic" style="background-image: url({{= products[j].PicUrl}})"></div>
+                    <div class="goods-info">
+                        <div class="goods-desc">
+                            <span class="free-post">包邮包税</span>{{= products[j].Name}}
+                        </div>
+                        <div class="delivery-way">
+                            <i class="icon-beihai-directMail"></i>贝海直邮
+                        </div>
+                        <div class="price-info">
+                            <span class="goods-price">&yen;&nbsp;<strong>{{= products[j].Price}}</strong>.00</span>
+                            <span class="amount-remain">仅剩{{= products[j].Stock}}件</span>
+                        </div>
+                        <div class="buy-btn">立即购买</div>
+                    </div>
+                </div>
+                {{ } }}
+            </div>
+            <div class="view-all">
+                <span class="all-live">共<strong>{{= BuyerList[i].Buyer.Activities}}</strong>场直播</span>
+                <span class="all-see">查看全部 <strong>></strong></span>
+            </div>
+        </li>
+        {{ } }}
+    </script>
+
+    <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+    <script type="text/javascript" src="/scripts/commons/imgLazyLoad.js"></script>
+    <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
+    <script src="/scripts/black_five/buyerlist.js"></script>
+</body>
+
+</html>

@@ -247,7 +247,7 @@
             }), {
                 success: function (data, code) {
                     if (data) {
-                        data.LotteryIndex = data.LotteryIndex < 0  ? 0 : data.LotteryIndex;
+                        data.LotteryIndex = data.LotteryIndex < 0  ? 1 : data.LotteryIndex;
                         data.ProductPic = 'http://i13.tietuku.com/7ebfd293ec6cb11e.png';
 
                         if(data.LotteryIndex == 6){
@@ -353,7 +353,7 @@
                           showLog('该设备已达最大领取次数');
                           break;
                        case -4:
-                          showLog('该用户已领取大礼包');
+                          showLog('您已经领取成功');
                           break;
                    }
                }
@@ -365,7 +365,7 @@
             })), {
                 success:function(data){
                     if(data && data.HasSuccess){
-                        $('.bf-tab-wrapper').removeClass('bf-package')
+                        $('.bf-tab-wrapper').removeClass('bf-package');
                     }else{
                         $('.bf-tab-wrapper').addClass('bf-package')
                     }
@@ -459,7 +459,7 @@
 
         }).on('click','.J-add-draw',function(){//增加抽奖次数
             module.share();
-        }).on('click','.J-receive-pk',function(){
+        }).on('click','.J-receive-pk',function(){//领取大礼包
             module.receivePk(_pk_id);
         }).on('click','.J-open-rule',function(){
             $('.more-rule').html()

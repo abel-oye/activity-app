@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+@import "./variables.scss";
+/**
+ * 分栏
+ * @param $perfix 前缀
+ * @param $colNum 列数
+ * @param $gap    间隔
+ *
+ * @example
+ *  @include column('.bf-',3,10);
+ *
+ * bf-list
+ * bf-item_3col
+ *  bf-item
+ *
+ * <div class="bf-list bf-item_3col">
+ *     <div class="bf-item"></div>
+ *     <div class="bf-item"></div>
+ *     <div class="bf-item"></div>
+ * </div>
+ *
+ *@example
+ *  @include column('.bf-',2,10);
+ *
+ * bf-list
+ * bf-item_2col
+ *  bf-item
+ * <div class="bf-list bf-item_2col">
+ *     <div class="bf-item"></div>
+ *     <div class="bf-item"></div>
+ * </div>
+ *
+ */
+ @mixin column($prefix:'ymt-',$colNum:2,$gap:0){
+
+   #{$prefix}list{
+        @include clearfix();
+   }
+
+   #{$prefix}item{
+        float:left;
+   }
+
+   #{$prefix}item_#{$colNum}col{
+        #{$prefix}item{
+            width:100%/$colNum;
+            //最大列数 这里遍历排除第一个和最后一个 所以遍历从
+            //第二个到倒数第二个
+            $maxNum :$colNum - 1;
+
+            /**
+             * 首尾间隔计算方式
+             * x = ((列数 - 1)*间隔)/列数
+             * x = 间隔 - 间隔/列数
+             */
+            //第一个的右边间隔
+            $bothEndsGap: $gap - $gap/$colNum;
+
+            @if $colNum > 2 {
+                @for $i from 2 to $colNum {
+                    &:nth-child(#{$i}n){
+                        padding-left:$bothEndsGap/2;
+                        padding-right:$bothEndsGap/2;
+                    }
+                }
+            }
+
+            &:nth-child(#{$colNum}n){
+               padding-left:$bothEndsGap;
+            }
+
+            &:nth-child(#{$colNum}n-#{$colNum - 1}){
+               padding-right:$bothEndsGap;
+            }
+
+        }
+   }
+ }
