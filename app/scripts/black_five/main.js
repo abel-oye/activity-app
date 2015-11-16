@@ -127,7 +127,7 @@
     }
 
     var module = {
-        //全球买手
+        /*//全球买手
         globalSeller: function () {
             var data = {
                 "IsNeedBrought": true,
@@ -159,7 +159,7 @@
                 var html = ejs.render($('#globalseller-tpl').html(), data);
                 $('#bf_02 .buyerlist').html(html);
             }
-        },
+        },*/
         //明星卖家
         starSeller: function () {
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/HotBuyer/GetHotBuyerList', {
@@ -180,81 +180,6 @@
          * 获得活动C商品
          */
         CProductsModule: function (aid, pid) {
-            var data = {
-                "ResultCount": 1,
-                "Products": [{
-                    "ProductId": "sample string 1",
-                    "IsMall": true,
-                    "IsCustomer": true,
-                    "Customer": {
-                        "DeliveryType": 1,
-                        "IsVip": true,
-                        "IsNewCustomer": true,
-                        "Price": 4.0,
-                        "VipPrice": "sample string 5",
-                        "NewCustomerPrice": "sample string 6",
-                        "ActivityExpiresIn": 7.1
-                    },
-                    "Mall": {
-                        "DeliveryMethod": 1,
-                        "MarketPrice": 2.0,
-                        "MaxCatalogPrice": 3.0,
-                        "MinCatalogPrice": 4.0,
-                        "CanLocalReturn": true,
-                        "IsActivity": true
-                    },
-                    "PicUrl": "http://p5.img.ymatou.com/upload/product/big/82b5e97d3f5a415fa8afbd8602026801_b.jpg",
-                    "Name": "sample string 5",
-                    "Price": 6.0,
-                    "Stock": 7,
-                    "Logo": "http://p5.img.ymatou.com/upload/userlogo/original/574544_697f183901d24aa2a5b180b907b50bbe_o.jpg",
-                    "Seller": "sample string 9",
-                    "SellerId": 10,
-                    "CountryName": "sample string 11",
-                    "Flag": "http://img.ymatou.com/app/flag/circle/Germany.png",
-                    "ActivityId": 13,
-                    "TaxFarming": true,
-                    "BonderShipments": true,
-                    "FreeShipping": true,
-                    "IsXloboBonded": true
-                }, {
-                    "ProductId": "sample string 1",
-                    "IsMall": true,
-                    "IsCustomer": true,
-                    "Customer": {
-                        "DeliveryType": 1,
-                        "IsVip": true,
-                        "IsNewCustomer": true,
-                        "Price": 4.0,
-                        "VipPrice": "sample string 5",
-                        "NewCustomerPrice": "sample string 6",
-                        "ActivityExpiresIn": 7.1
-                    },
-                    "Mall": {
-                        "DeliveryMethod": 1,
-                        "MarketPrice": 2.0,
-                        "MaxCatalogPrice": 3.0,
-                        "MinCatalogPrice": 4.0,
-                        "CanLocalReturn": true,
-                        "IsActivity": true
-                    },
-                    "PicUrl": "http://p5.img.ymatou.com/upload/product/big/82b5e97d3f5a415fa8afbd8602026801_b.jpg",
-                    "Name": "sample string 5",
-                    "Price": 6.0,
-                    "Stock": 7,
-                    "Logo": "http://p5.img.ymatou.com/upload/userlogo/original/574544_697f183901d24aa2a5b180b907b50bbe_o.jpg",
-                    "Seller": "sample string 9",
-                    "SellerId": 10,
-                    "CountryName": "sample string 11",
-                    "Flag": "http://img.ymatou.com/app/flag/circle/Germany.png",
-                    "ActivityId": 13,
-                    "TaxFarming": true,
-                    "BonderShipments": true,
-                    "FreeShipping": true,
-                    "IsXloboBonded": true
-                }]
-            };
-
             jsonpGetData('http://jsapi.pk.ymatou.com/api/Friday/ExplosionIndex', {
                 success: function (data, code) {
                     if (data && data.Products.length) {
@@ -266,13 +191,8 @@
                     //@TODO fuck 砍价团的接口格式不一致
                 }
             });
-
-            // if (data && data.Products.length) {
-            //     var html = ejs.render($('#active-tpl').html(), data);
-            //     $('#bf_03 .CProductsModule').html(html);
-            // }
         },
-        /**http://jsapi.pk.ymatou.com/api/Friday/ExplosionIndex
+        /**
          * 获得活动商品
          * @param  {string} aid 活动编号
          * @param  {string} pid 模块编号
@@ -304,11 +224,11 @@
 
                         new Swiper('#bf_01 .bf-area-bd', {
                             pagination: '.bf-group-pagination',
-                            slidesPerView: 1,
-                            spaceBetween: 0,
-                            loop: false,
-                            centeredSlides: true,
-                            autoplayDisableOnInteraction: false
+                            loop: true,
+                            autoplay: 3000,
+                            onSlideChangeEnd: function() {
+                                lazyLoad.check();
+                            }
                         });
                     }
                 }
@@ -455,7 +375,6 @@
 
         $axle.each(function (index, el) {
             var box = el.getBoundingClientRect();
-            console.log(view, box)
             if (box.top >= view.t && box.top < view.b && box.left >= view.l && box.left < view.r) {
                 $('#bf-tab li').removeClass('active')
                     .find('[href="#' + el.id + '"]')

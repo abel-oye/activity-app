@@ -7,6 +7,7 @@
     <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
     <link rel="dns-prefetch" href="//staticontent.matouapp.ymatou.com">
     <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="content-prefetch" href="//staticwap.ymatou.com">
     <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
     <script data-js-path="redraw.js">
      !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
@@ -17,6 +18,9 @@
   </head>
   <body>
   <script id="package-tpl" type="text/template">
+        <div class="package-bg bg__full">
+          <div class="close-flag J-close" data-target="receive-package">X</div>
+        </div>
         <div class="J-share share-btn J-receive-pk J-close" data-target="receive-package" data-share-url="http://evtc.ymatou.com/evt1120/wxPackage" data-share-content="洋码头黑色星期五全球狂购节来啦！各国洋货低至1折，更有5亿现金红包大派送！人人有份，还不赶快一起来抢！"
             data-share-title="洋码头黑五狂购节派现金啦！"
             data-share-pic="http://pm4.img.ymatou.com/G02/M0A/31/CA/CgvUA1ZCPiuAP8Z7AABOfcrqVew149_o.jpg"  onclick=";">朕要分享</div>
@@ -25,7 +29,7 @@
 
     <!-- 全球买手 -->
     <script id="globalseller-tpl" type="text/template">
-    {{ for(var i=0,len=BuyerList.length;i<len;i++){ }}
+   /* {{ for(var i=0,len=BuyerList.length;i<len;i++){ }}
       <div class="bf-item ">
          <div class="bf-seller-item">
            <div class="seller-info">
@@ -53,7 +57,7 @@
               <div class="pro-pic bg__full" style="background-image:url({{=BuyerList[i].PicUrl}})"></div>
            </div>
          </div>
-      </div>
+      </div>*/
        {{ } }}
     </script>
     <!--砍价团-->
@@ -124,7 +128,7 @@
 
      <section class="bf-container">
       <div class="bf-banner-hd bg__full" >
-        <div class="activity-detail J-open" data-url="www.baidu.com"></div>
+        <span class="activity-detail J-open" data-url="http://sq0.ymatou.com/forBuyerApp/discover/detail?topic=810">活动详情</span>
       </div>
       <div class="bf-coupon-wrapper">
         <div class="bf-coupon-inner J-open-receive"></div>
@@ -141,7 +145,7 @@
 
       <!--全球买手-->
       <div class="bf-area bf-seller J-bf-axie" id="bf_02">
-        <div class="bf-area-hd" lazy-load-background="http://staticontent.ymatou.com/images/black_five/seller-title.jpg"></div>
+        <div class="bf-area-hd" lazy-load-background="http://staticontent.ymatou.com/images/black_five/seller-title.png"></div>
         <div class="bf-area-bd">
           <!-- <div class="J-module-Hold bf-list bf-item_2col buyerlist" data-module="globalSeller" lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div> -->
         </div>
@@ -198,7 +202,7 @@
         </div>
       </div>
       <!--大熊-->
-      <div class="big-bear bg__full" id="bf_06"  lazy-load-background="/images/black_five/bear.jpg"></div>
+      <div class="big-bear bg__full" id="bf_06"  lazy-load-background="http://staticontent.ymatou.com/images/black_five/bear.jpg"></div>
       <!--statuc change:show-->
     </section>
     <div class="bf-tab-wrapper show" id="bf-tab">
@@ -221,7 +225,7 @@
     </div>
     <div class="receive-package receive-package-mask"></div>
     <div class="receive-package receive-package-dialog">
-      <div class="receive-package-dialog-bd" id="receive-package-bd"></div>
+      <div class="receive-package-dialog-bd" id="receive-package-bd"> </div>
     </div>
 
     <!--洋管家-->
