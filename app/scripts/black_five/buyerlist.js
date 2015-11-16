@@ -259,7 +259,28 @@ $(function() {
         YmtApi.open({
             url: 'http://sq0.ymatou.com/forBuyerApp/discover/detail?topic=837',
             isNew: true
-        })
+        });
+    }).on('tap', '.seller-info', function (event) {
+        if ($(event.target).hasClass('get-coupon')) {
+            return;
+        }
+        var sellerName = $(this).attr('data-sellerName'),
+            sellerId = $(this).attr('data-sellerId');
+        YmtApi.open({
+            url: 'http://live.ymatou.com/forBuyerApp/sellerHome?SellerName=' + sellerName + '&SellerId=' + sellerId,
+            isNew: true,
+            title: '卖家主页',
+            backFlag: true
+        });
+    }).on('tap', '.all-see', function() {
+        var sellerName = $(this).attr('data-sellerName'),
+            sellerId = $(this).attr('data-sellerId');
+        YmtApi.open({
+            url: 'http://live.ymatou.com/forBuyerApp/sellerHome?SellerName=' + sellerName + '&SellerId=' + sellerId,
+            isNew: true,
+            title: '卖家主页',
+            backFlag: true
+        });
     }).on('tap', '.seller-tab', function () {
         var areaCode = $(this).attr('tab-areacode');
         Buyerlist.showContent(areaCode);

@@ -70,7 +70,7 @@
     <script id="seller-item-tpl" type="text/template">
         {{ for (var i = 0; i < BuyerList.length; i++){ }}
         <li class="seller-item">
-            <div class="seller-info">
+            <div class="seller-info" data-sellerName={{= BuyerList[i].Buyer.SellerName}} data-sellerId={{= BuyerList[i].Buyer.SellerId}}>
                 <div class="personal-info">
                     <img src="{{= BuyerList[i].Buyer.SellerLogo}}" alt="买手头像" class="info-avatar">
                     <div class="info-wrap">
@@ -103,23 +103,40 @@
                     <div class="goods-pic" style="background-image: url({{= products[j].PicUrl}})"></div>
                     <div class="goods-info">
                         <div class="goods-desc">
-                            <span class="free-post">包邮包税</span>{{= products[j].Name}}
+                            {{ if(products[j].FreeShipping && !products[j].TaxFarming){ }}
+                            <span class="free-post">包邮</span>
+                            {{ }else if(products[j].TaxFarming && !products[j].FreeShipping){ }}
+                            <span class="free-post">包税</span>
+                            {{ }else if(products[j].FreeShipping && products[j].TaxFarming){ }}
+                            <span class="free-post">包邮包税</span>
+                            {{ } }}
+                            {{= products[j].Name}}
                         </div>
                         <div class="delivery-way">
-                            <i class="icon-beihai-directMail"></i>贝海直邮
+                            {{ if (products[j].Customer.DeliveryType == 2){ }}
+                                <i class="icon-zhiyou"></i>直邮
+                            {{ }else if(products[j].Customer.DeliveryType == 3){ }}
+                                <i class="icon-beihai-directMail"></i>贝海直邮
+                            {{ }else if(products[j].Customer.DeliveryType == 7){ }}
+                                <i class="icon-authentic-zhiyou"></i>拼邮
+                            {{ } }}
                         </div>
                         <div class="price-info">
                             <span class="goods-price">&yen;&nbsp;<strong>{{= products[j].Price}}</strong>.00</span>
+                            {{ if (products[j].Stock > 0 && products[j].Stock <=3) { }}
                             <span class="amount-remain">仅剩{{= products[j].Stock}}件</span>
+                            {{ } }}
+                            {{ if (products[j].Stock == 0){ }}
+                            <span class="sold-out">已售罄</span>
+                            {{ } }}
                         </div>
-                        <div class="buy-btn">立即购买</div>
                     </div>
                 </div>
                 {{ } }}
             </div>
             <div class="view-all">
                 <span class="all-live">共<strong>{{= BuyerList[i].Buyer.Activities}}</strong>场直播</span>
-                <span class="all-see">查看全部 <strong>></strong></span>
+                <span class="all-see" data-sellerName={{= BuyerList[i].Buyer.SellerName}} data-sellerId={{= BuyerList[i].Buyer.SellerId}}>查看全部 <strong>></strong></span>
             </div>
         </li>
         {{ } }}
