@@ -12,6 +12,9 @@
     <script data-js-path="redraw.js">
         !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
     </script>
+    <style>
+    @-webkit-keyframes fadeIn{from{background-color:rgba(255, 255, 255, .8)}to{background-color:rgba(255, 255, 255, .3)}}@keyframes fadeIn{from{background-color:rgba(255, 255, 255, .8)}to{background-color:rgba(255, 255, 255, .3)}}@-webkit-keyframes fadeOut{from{background-color:rgba(0, 0, 0, .3)}to{background-color:rgba(0, 0, 0, .8)}}@keyframes fadeOut{from{background-color:rgba(0, 0, 0, .3)}to{background-color:rgba(0, 0, 0, .8)}}.loading-spinner{height:3.75rem;width:3.75rem;background-color:rgba(0, 0, 0, .7);border-radius:.625rem;margin:0 auto;position:fixed;top:50%;left:50%;-webkit-transform:translate(-50%, -50%);-ms-transform:translate(-50%, -50%);transform:translate(-50%, -50%);font-size:0.625rem;text-align:center;color:#FFF}.loading-spinner-rotate{height:40%;width:40%;position:relative;margin:14% auto}.loading-spinner-rotate > .fan-page{width:9%;height:30%;background-color:#FFF;position:absolute;left:44.5%;top:37%;border-radius:30%;-webkit-animation:fadeOut 1.3s linear infinite;animation:fadeOut 1.3s linear infinite;border-radius:2px}.loading-spinner-rotate > :nth-child(1){-webkit-transform:rotate(0deg) translate(0, -142%);-ms-transform:rotate(0deg) translate(0, -142%);transform:rotate(0deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:0;animation-delay:0}.loading-spinner-rotate > :nth-child(2){-webkit-transform:rotate(30deg) translate(0, -142%);-ms-transform:rotate(30deg) translate(0, -142%);transform:rotate(30deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-1.1s;animation-delay:-1.1s}.loading-spinner-rotate > :nth-child(3){-webkit-transform:rotate(60deg) translate(0, -142%);-ms-transform:rotate(60deg) translate(0, -142%);transform:rotate(60deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-1s;animation-delay:-1s}.loading-spinner-rotate > :nth-child(4){-webkit-transform:rotate(90deg) translate(0, -142%);-ms-transform:rotate(90deg) translate(0, -142%);transform:rotate(90deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.9s;animation-delay:-0.9s}.loading-spinner-rotate > :nth-child(5){-webkit-transform:rotate(120deg) translate(0, -142%);-ms-transform:rotate(120deg) translate(0, -142%);transform:rotate(120deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.8s;animation-delay:-0.8s}.loading-spinner-rotate > :nth-child(6){-webkit-transform:rotate(150deg) translate(0, -142%);-ms-transform:rotate(150deg) translate(0, -142%);transform:rotate(150deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.7s;animation-delay:-0.7s}.loading-spinner-rotate > :nth-child(7){-webkit-transform:rotate(180deg) translate(0, -142%);-ms-transform:rotate(180deg) translate(0, -142%);transform:rotate(180deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.6s;animation-delay:-0.6s}.loading-spinner-rotate > :nth-child(8){-webkit-transform:rotate(210deg) translate(0, -142%);-ms-transform:rotate(210deg) translate(0, -142%);transform:rotate(210deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.5s;animation-delay:-0.5s}.loading-spinner-rotate > :nth-child(9){-webkit-transform:rotate(240deg) translate(0, -142%);-ms-transform:rotate(240deg) translate(0, -142%);transform:rotate(240deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.4s;animation-delay:-0.4s}.loading-spinner-rotate > :nth-child(10){-webkit-transform:rotate(270deg) translate(0, -142%);-ms-transform:rotate(270deg) translate(0, -142%);transform:rotate(270deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.3s;animation-delay:-0.3s}.loading-spinner-rotate > :nth-child(11){-webkit-transform:rotate(300deg) translate(0, -142%);-ms-transform:rotate(300deg) translate(0, -142%);transform:rotate(300deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.2s;animation-delay:-0.2s}.loading-spinner-rotate > :nth-child(12){-webkit-transform:rotate(330deg) translate(0, -142%);-ms-transform:rotate(330deg) translate(0, -142%);transform:rotate(330deg) translate(0, -142%);-webkit-animation:fadeIn 1.3s linear infinite;animation:fadeIn 1.3s linear infinite;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-delay:-0.1s;animation-delay:-0.1s}
+    </style>
     <!-- build:css /styles/black_five/index.css-->
     <link rel="stylesheet" type="text/css" href="/styles/black_five/buyerlist.css">
     <!-- endbuild-->
@@ -43,6 +46,23 @@
                 </div>
                 <span>加载中...</span>
             </div>
+        </div>
+        <div class="loading-spinner" id="loading">
+            <ul class="loading-spinner-rotate">
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+                <li class="fan-page"></li>
+            </ul>
+            <p>加载中</p>
         </div>
         <div class="finish-tip" id="finish-tip">已显示全部</div>
     </div>
@@ -79,7 +99,7 @@
             <div class="goods-list">
                 {{ var products = BuyerList[i].Products }}
                 {{ for (var j = 0; j < products.length; j++) { }}
-                <div class="goods-item">
+                <div class="goods-item" data-productId={{= products[j].ProductId}} data-logo={{= products[j].Logo}} data-seller={{= products[j].Seller}} data-sellerId={{= products[j].SellerId}}>
                     <div class="goods-pic" style="background-image: url({{= products[j].PicUrl}})"></div>
                     <div class="goods-info">
                         <div class="goods-desc">

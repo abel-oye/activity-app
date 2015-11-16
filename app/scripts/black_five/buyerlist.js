@@ -21,6 +21,7 @@ $(function() {
     var accessToken = YmtApi.utils.getAuthInfo().AccessToken,
         $sellerTab = $('.seller-tab'),
         $sellerList = $('.seller-list'),
+        $loading = $('#loading'),
         $loadMore = $('#load-more'),
         $finishTip = $('.finish-tip'),
         $window = $(window);
@@ -103,6 +104,7 @@ $(function() {
             $sellerList.eq(index).addClass('active-list');
 
             if (!$sellerTab.eq(index).attr('init')) {
+                $loading.show();
                 $finishTip.hide(); //切换TAB时，隐藏”已显示全部“提示
                 $sellerTab.eq(index).attr('init', new Date().getTime());
                 var sellerTab = document.getElementById('seller-tab-list').children;
@@ -171,6 +173,7 @@ $(function() {
                 };*/
                 $sellerList.eq(index).attr('res', 'false');
                 if (res.Data && res.Data.BuyerList[0]) {
+                    pageIndex == 1 && $loading.hide();  //第一页数据返回时隐藏loading
                     var html = ejs.render($('#seller-item-tpl').html(), res.Data);
 
                     $sellerList.eq(index).append(html);
@@ -240,6 +243,7 @@ $(function() {
                 couponId = $(this).attr('data-couponid');
             Utils.reqJsonp('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon', function(res) {
                 if (res.Data) {
+                    $(this).removeClass('get-coupon').addClass('hasget');
                     showLog(res.Msg || '领取成功');
                 }
             }, {
@@ -251,12 +255,34 @@ $(function() {
         }
     };
 
-    $(document).on('tap', '.seller-tab', function() {
+    $(document).on('tap', '.seller-tab', function () {
         var areaCode = $(this).attr('tab-areacode');
         Buyerlist.showContent(areaCode);
-    }).on('click', '.get-coupon', function() {
+    }).on('click', '.get-coupon', function () {
         Buyerlist.getCoupon();
-    });
+    }).on('click', '.goods-item', function () {
+        var productId = $(this).attr('data-productId'),
+            logo = $(this).attr('data-logo'),
+            seller = $(this).attr('data-seller'),
+            sellerId = $(this).attr('data-sellerId');
+
+        var url = YmtApi.utils.addParam('/forBuyerApp/productDetail', {
+            param: JSON.stringify({
+                SellerModel: {
+                    Logo: logo,
+                    Seller: seller,
+                    SellerId: sellerId
+                },
+                ProductModel: {
+                    ProductId: productId
+                }
+            })
+        });
+        YmtApi.open({
+            title: '全球好货',
+            url: url
+        });
+    })
 
     $(window).on('scroll touchmove', function() {
         var index = $('.active-tab').index(),
@@ -270,5 +296,6 @@ $(function() {
         }
     });
 
-    Buyerlist.showContent('meiguo');
+    var areacode = YmtApi.utils.getUrlObj().AreaCode;
+    Buyerlist.showContent(areacode);
 });
