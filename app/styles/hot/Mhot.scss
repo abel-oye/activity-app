@@ -79,12 +79,18 @@
     height: torem(82);
     border-bottom: 1px solid #c8c8c8;
     box-shadow: 0 3px 2px #c8c8c8;
+    overflow: hidden;
 
     //a6a5a5
 }
 
+.sub-tab-cnt {
+    height: torem(82);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .sub-tab-list {
-    display: none;
     font-size: torem(24);
     color: #333;
     line-height: torem(82);
@@ -92,6 +98,7 @@
     & > .item {
         font-family: 'microsoft yahei';
         display: inline-block;
+        text-align: center;
         padding: 0 torem(32);
     }
 
@@ -186,6 +193,66 @@
             font-size: torem(38);
             vertical-align: top;
         }
+    }
+}
+
+//加载更多
+.load-more {
+    display: none;
+    text-align: center;
+    font-size: torem(20);
+    padding: torem(5) 0;
+    font-family: 'microsoft yahei';
+    color: #383838;
+    vertical-align: middle;
+}
+
+.bowlG {
+    position: relative;
+    width: torem(20);
+    height: torem(20);
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: torem(8);
+}
+
+.bowl_ringG {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #383838;
+    border-radius: 50%;
+}
+
+.ball_holderG {
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    left: 36%;
+    top: 0px;
+    animation-name: ball_moveG;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.ballG {
+    position: absolute;
+    left: 0px;
+    top: -27%;
+    width: 240%;
+    height: 70%;
+    background: #E8E8E8;
+    border-radius: 50%;
+}
+
+@keyframes ball_moveG {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }
 
