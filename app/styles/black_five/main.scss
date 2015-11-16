@@ -40,7 +40,7 @@
 }
 
 .bf-banner-hd{
-    background-image:url(/images/black_five/bf-banner.png);
+    background-image:url(http://staticontent.ymatou.com/images/black_five/bf-banner.png);
     background-size:contain;
     width:100%;
     height:$rem*673;
@@ -60,7 +60,7 @@
        padding-bottom:$rem*35;
     }
     &-inner{
-        background-image:url(/images/black_five/coupon.png);
+        background-image:url(http://staticontent.ymatou.com/images/black_five/coupon.png);
         background-size:contain;
         width:$rem*730;
         min-height:$rem*391;
@@ -92,7 +92,7 @@
         display:inline-block;
     }
     .bf-area-hd{
-        background-image:url(/images/black_five/group-title.png);
+        background-image:url(http://staticontent.ymatou.com/images/black_five/group-title.png);
         width:$rem*728;
         height:$rem*73;
     }
@@ -138,7 +138,7 @@
 .bf-seller{
     background:#ff5247;
     .bf-area-hd{
-        //background-image:url(/images/black_five/seller-title.png);
+        //background-image:url(http://staticontent.ymatou.com/images/black_five/seller-title.png);
         width:$rem*728;
         height:$rem*920;
         margin:0 auto;
@@ -270,19 +270,19 @@
 } */
 
 .usa_seller{
-    //background-image:url(/images/black_five/usa_seller.png);
+    //background-image:url(http://staticontent.ymatou.com/images/black_five/usa_seller.png);
     width:100%;
     height:$rem*197;
     margin:$rem*50 0 $rem*10;
 }
 .jsk_seller{
-    //background-image:url(/images/black_five/jsk_seller.png);
+    //background-image:url(http://staticontent.ymatou.com/images/black_five/jsk_seller.png);
 }
 .europe_seller{
-    //background-image:url(/images/black_five/europe_seller.png);
+    //background-image:url(http://staticontent.ymatou.com/images/black_five/europe_seller.png);
 }
 .australia_seller{
-    //background-image:url(/images/black_five/australia_seller.png);
+    //background-image:url(http://staticontent.ymatou.com/images/black_five/australia_seller.png);
 }
 
 .jsk_seller,
@@ -295,7 +295,7 @@
 .bf-losing{
     background:#ff5470;
     .bf-area-hd{
-        background-image:url(/images/black_five/losing-title.png);
+        background-image:url(http://staticontent.ymatou.com/images/black_five/losing-title.png);
         width:$rem*731;
         height:$rem*78;
         margin:0 auto;
@@ -511,7 +511,7 @@
                 height:$rem*68;
                 animation: sign-sway 3s infinite alternate;
                 will-change:transform;
-                background-image:url(/images/black_five/balloon.png);
+                background-image:url(http://staticontent.ymatou.com/images/black_five/balloon.png);
                 @extend .bg__full;
             }
             &:after{
@@ -520,7 +520,7 @@
                 left:$rem*26;
                 //bottom:$rem*-12;
                 top:$rem*28;
-                background-image:url(/images/black_five/people.png);
+                background-image:url(http://staticontent.ymatou.com/images/black_five/people.png);
                 width:$rem*70;
                 height:$rem*70;
                  @extend .bg__full;
@@ -529,7 +529,7 @@
 
         &:after{
             content:'';
-            background-image:url(/images/black_five/tab_bg.png);
+            background-image:url(http://staticontent.ymatou.com/images/black_five/tab_bg.png);
             @extend .bg__full;
             position:absolute;
             width:$rem*248;
@@ -553,7 +553,7 @@
                 left:$rem*10;
                 top:$rem*5;
                  @extend .bg__full;
-                background-image:url(/images/black_five/tab-left-flag.png);
+                background-image:url(http://staticontent.ymatou.com/images/black_five/tab-left-flag.png);
             }
             height:$rem*94;
             line-height:$rem*94;
@@ -604,7 +604,7 @@
         }
     }
     .bear-header{
-        background-image:url(/images/black_five/bear-header.png);
+        background-image:url(http://staticontent.ymatou.com/images/black_five/bear-header.png);
         width:$rem*101;
         height:$rem*110;
         @extend bg__full;
@@ -630,7 +630,7 @@
 
 
 .img-hold{
-    background-image:url(/images/black_five/loading.jpg);
+    background-image:url(http://staticontent.ymatou.com/images/black_five/loading.jpg);
 }
 
 //
@@ -643,7 +643,7 @@
         @extend .mask;
     }
     &-dialog{
-        background-image:url(http://pm2.img.ymatou.com/G02/M00/7E/DE/CgvUBFZHHKaAYxLDAAG8kgpxG_4512_o.png);
+        background-image:url(http://staticontent.ymatou.com/images/black_five/seller-title.jpg);
         @extend .bg__full;
         width:$rem*750;
         height:$rem*596;
@@ -661,75 +661,6 @@
         &-bd{
             position:relative;
             height: 100%;
-            .content{
-                h4{
-                    text-align:center;
-                    font-size:$rem*48;
-                    font-weight:bold;
-                    color:#410005;
-                    white-space: nowrap;
-                    &.small{
-                        font-size:$rem*30;
-                        white-space: initial;
-                    }
-                    &.bg{
-                        background-image:url(http://pm1.img.ymatou.com/G02/M00/65/0B/CgvUBFZFpgaAXBklAAAPrvdEPCk464_o.png);
-                        @extend .bg__full;
-                        width:100%;
-                        height:$rem*51;
-                        background-position:center;
-                    }
-                }
-                .no-chance{
-                    background-image:url(http://pm5.img.ymatou.com/G02/M0A/30/C9/CgvUBVZCKfSAXDcHAAAe3NhnTns160_o.png);
-                    @extend .bg__full;
-                    width:$rem*192;
-                    height:$rem*168;
-                    margin:0 auto;
-                }
-                .coupon-bg{
-                    background-image:url(http://pm5.img.ymatou.com/G02/M03/31/6A/CgvUA1ZCKkKAfLwIAAAHgDsXa8s146_o.png);
-                    @extend .bg__full;
-                    width:$rem*298;
-                    height:$rem*142;
-                    margin:$rem*20 auto;
-                    padding-top:$rem*20;
-                    color:#fff;
-                    padding:0 $rem*42;
-                    font-size:$rem*32;
-                    text-align:center;
-                    strong{
-                        font-size:$rem*45;
-                    }
-                    sub{
-                        font-size:$rem*23;
-                    }
-                    &>:first-child{
-                        border-bottom:2px dashed #FFF;
-                    }
-                }
-                .txt{
-                    padding-left:$rem*50;
-                    font-size:$rem*14;
-                    color:#410005;
-                    &>strong{
-                       font-size:$rem*16;
-                       color:#fe4855;
-                       font-weight:bold;
-                    }
-                }
-                position:absolute;
-                width:$rem*410;
-                height:$rem*303;
-                right:$rem*25;
-                top:$rem*65;
-                &.package-content-bg{
-                    background-image:url(http://pm5.img.ymatou.com/G02/M09/65/4C/CgvUBVZFphKAPInzAAAzXOApmDs842_o.png);
-                    @extend .bg__full;
-
-                }
-
-            }
         }
         .share-btn,
         .close-btn{
