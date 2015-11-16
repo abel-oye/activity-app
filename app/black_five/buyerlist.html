@@ -22,7 +22,7 @@
 
 <body>
     <div class="seller-list-page">
-        <div class="seller-top-banner"></div>
+        <div class="seller-top-banner" id="seller-top-banner"></div>
         <div class="seller-tab-list" id="seller-tab-list">
             <div class="seller-tab active-tab" tab-areaCode="meiguo">美国买手</div>
             <div class="seller-tab" tab-areaCode="aoxing">澳新买手</div>
@@ -82,7 +82,7 @@
                     <div class="info-coupon" data-couponid={{= BuyerList[i].Buyer.CouponId}}>
                         <span class="value">&yen;{{= BuyerList[i].Buyer.CouponPrice}}优惠券</span>
                         {{ if(!IsNeedBrought) { }}
-                        <span class="get-coupon">领取</span>
+                        <span class="get-coupon" getstatus='true'>领取</span>
                         {{ } }}
                     </div>
                 </div>
@@ -99,7 +99,7 @@
             <div class="goods-list">
                 {{ var products = BuyerList[i].Products }}
                 {{ for (var j = 0; j < products.length; j++) { }}
-                <div class="goods-item" data-productId={{= products[j].ProductId}} data-logo={{= products[j].Logo}} data-seller={{= products[j].Seller}} data-sellerId={{= products[j].SellerId}}>
+                <div class="goods-item" data-productId={{= products[j].ProductId}} data-logo={{= products[j].Logo}} data-seller={{= products[j].Seller}} data-sellerId={{= products[j].SellerId}} onclick=";">
                     <div class="goods-pic" style="background-image: url({{= products[j].PicUrl}})"></div>
                     <div class="goods-info">
                         <div class="goods-desc">

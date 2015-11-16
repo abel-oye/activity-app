@@ -18,7 +18,7 @@ $(function() {
         return '<strong>' + num[0] + '</strong>' + (num[1] ? '.' + num[1] : '.00');
     };
 
-    var accessToken = YmtApi.utils.getAuthInfo().AccessToken,
+    var accessToken = YmtApi.utils.getAuthInfo().AccessToken || '',
         $sellerTab = $('.seller-tab'),
         $sellerList = $('.seller-list'),
         $loading = $('#loading'),
@@ -35,21 +35,16 @@ $(function() {
     var Utils = {
         //显示日志
         showLog: function(msg, callback) {
-            var showLogStatus = true;
-            if (showLogStatus) {
-                showLogStatus = false;
-                var errElm = $('.sg-error');
-                if (!errElm[0]) {
-                    errElm = $('<div class="sg-error"></div>').appendTo('body');
-                }
-                errElm.html(msg).css('opacity', '1');
-
-                setTimeout(function() {
-                    $('.sg-error').css('opacity', '0');
-                    showLogStatus = true;
-                    callback && callback();
-                }, 1800);
+            var errElm = $('.sg-error');
+            if (!errElm[0]) {
+                errElm = $('<div class="sg-error"></div>').appendTo('body');
             }
+            errElm.html(msg).css('opacity', '1');
+
+            setTimeout(function() {
+                $('.sg-error').css('opacity', '0');
+                callback && callback();
+            }, 1800);
         },
 
         reqJsonp: function(url, callback, params) {
@@ -59,11 +54,7 @@ $(function() {
                 type: 'GET',
                 dataType: 'jsonp',
                 success: function(res) {
-                    if (res && (res.Code == 200)) {
-                        callback(res);
-                    } else {
-                        Utils.showLog(res.Msg || '操作失败');
-                    }
+                    callback(res);
                 }
             })
         },
@@ -205,7 +196,7 @@ $(function() {
         //获取是否领取优惠券状态
         getCouponStatus: function(couponIds) {
             Utils.reqJsonp('http://jsapi.pk.ymatou.com/api/FridayMore/BroughtCouponList', function(res) {
-                res.Data = {
+                /*res.Data = {
                     "BroughtCouponList": [{
                         "HasBrought": true,
                         "CouponId": "0"
@@ -217,7 +208,7 @@ $(function() {
                         "CouponId": "0"
                     }],
                     "ResultCount": 3
-                };
+                };*/
 
                 if (res.Data && res.Data.BroughtCouponList[0]) {
                     var couponStatusList = res.Data.BroughtCouponList;
@@ -236,31 +227,49 @@ $(function() {
             });
         },
 
-        getCoupon: function() {
-            var authInfo = YmtApi.utils.getAuthInfo(),
-                queryString = YmtApi.utils.getUrlObj(),
-                deviceId = (YmtApi.isIphone ? queryString.DeviceId : queryString.DeviceToken) || '0000000',
-                couponId = $(this).attr('data-couponid');
-            Utils.reqJsonp('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon', function(res) {
-                if (res.Data) {
-                    $(this).removeClass('get-coupon').addClass('hasget');
-                    showLog(res.Msg || '领取成功');
-                }
-            }, {
-                DeviceCode: deviceId,
-                PackageId: couponId,
-                BuyerUserId: authInfo.UserId,
-                AccessToken: authInfo.AccessToken
-            })
+        getCoupon: function(event) {
+            var $target = $(event.target);
+            $target.attr('getstatus', 'false');
+            var authInfo = YmtApi.utils.getAuthInfo();
+            if (authInfo.UserId && authInfo.AccessToken) {
+                var queryString = YmtApi.utils.getUrlObj(),
+                    deviceId = (YmtApi.isIphone ? queryString.DeviceId : queryString.DeviceToken) || '0000000',
+                    couponId = $(this).attr('data-couponid');
+                Utils.reqJsonp('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon', function(res) {
+                    $target.attr('getstatus', 'true');
+                    if (res.Data) {
+                        $target.removeClass('get-coupon').addClass('hasget');
+                        Utils.showLog(res.Msg || '领取成功');
+                    } else {
+                        Utils.showLog(res.Msg || '操作失败');
+                    }
+                }, {
+                    DeviceCode: deviceId,
+                    PackageId: couponId,
+                    BuyerUserId: authInfo.UserId,
+                    AccessToken: authInfo.AccessToken
+                });
+            } else {
+                YmtApi.toLogin();
+            }
         }
     };
 
-    $(document).on('tap', '.seller-tab', function () {
+    $(document).on('tap', '#seller-top-banner', function () {
+        YmtApi.open({
+            url: 'http://sq0.ymatou.com/forBuyerApp/discover/detail?topic=837',
+            isNew: true
+        })
+    }).on('tap', '.seller-tab', function () {
         var areaCode = $(this).attr('tab-areacode');
         Buyerlist.showContent(areaCode);
-    }).on('click', '.get-coupon', function () {
-        Buyerlist.getCoupon();
-    }).on('click', '.goods-item', function () {
+    }).on('tap', '.get-coupon', function (event) {
+        if ($(this).attr('getstatus') == 'true') {
+            Buyerlist.getCoupon(event);
+        } else {
+            Utils.showLog('请勿重复操作');
+        }
+    }).on('tap', '.goods-item', function () {
         var productId = $(this).attr('data-productId'),
             logo = $(this).attr('data-logo'),
             seller = $(this).attr('data-seller'),
@@ -282,7 +291,7 @@ $(function() {
             title: '全球好货',
             url: url
         });
-    })
+    });
 
     $(window).on('scroll touchmove', function() {
         var index = $('.active-tab').index(),
@@ -296,6 +305,6 @@ $(function() {
         }
     });
 
-    var areacode = YmtApi.utils.getUrlObj().AreaCode;
+    var areacode = YmtApi.utils.getUrlObj().AreaCode || 'meiguo';
     Buyerlist.showContent(areacode);
 });
