@@ -308,7 +308,6 @@ var picLazyLoad = (function ($, window) {
 			});
 		}
 	}
-
 	Mhot.init();
 
 })(window);
