@@ -49,6 +49,7 @@
     height:$rem*673;
     text-align:right;
     position:relative;
+    background-color:#e93d3d;
     .activity-detail{
         font-size:$rem*24;
         color:#fff;
@@ -101,6 +102,34 @@
         margin-bottom:$rem*18;
     }
 }
+//秒杀
+.bf-seckill{
+    background:#fe6a60;
+    &-list{
+        height:100%;
+          white-space: nowrap;
+          width:100%;
+    }
+    &-item{
+        display:inline-block;
+        height:100%;
+        width:100%;
+    }
+    &-pro{
+        height:100%;
+    }
+    .bf-area-hd{
+        background-image:url(#{$imgPath}seckill.png);
+        width:$rem*527;
+        height:$rem*84;
+        margin:0 auto $rem*20;
+    }
+    .bf-area-bd{
+        background:#fff;
+        height:$rem*390;
+        overflow:hidden;
+    }
+}
 //砍价团
 .bf-group{
     background-color:#ffbb19;
@@ -130,7 +159,7 @@
         background:#ff5247;
         position:absolute;
         left:$rem*40;
-        bottom:$rem*68;
+        bottom:$rem*25;
         border-radius:$rem*50;
     }
     //砍价团分页
@@ -161,8 +190,8 @@
     background:#ff5247;
     .bf-area-hd{
         //background-image:url(#{$imgPath}seller-title.png);
-        width:$rem*728;
-        height:$rem*920;
+        width:$rem*704;
+        height:$rem*347;
         margin:0 auto;
         margin-bottom:$rem*22;
     }
@@ -299,11 +328,12 @@
 
 .losing-pro-wrapper{
     background: #FFF;
-    padding-bottom:$rem*10;
+    padding-bottom:$rem*18;
     margin-bottom:$rem*10;
     .pic{
         height:$rem*310;
-          background-size: contain;
+        background-size: contain;
+          background-position: top;
     }
     .info{
         padding:0 $rem*22;
@@ -325,7 +355,7 @@
         line-height:$rem*60;
         border:1px solid #ff5247;
         border-radius:$rem*60;
-        box-shadow: 0 4px #a22f27;
+        box-shadow: 0 2px #a22f27;
 
         &>span{
             display:inline-block;
@@ -339,6 +369,7 @@
             border-top-left-radius: $rem*60;
             border-bottom-left-radius: $rem*60;
             width:40%;
+            font-weight:bold;
         }
         &>:last-child{
             background:#ff5247;
@@ -400,7 +431,7 @@
 }
 .goods-banner{
     height:$rem*404;
-    border:1px solid #ffd9df;
+    //border:1px solid #ffd9df;
     position:relative;
     &:after{
         content:'';
@@ -620,8 +651,6 @@
     transform: translateX(30%)  rotate(10deg);
   }
 }
-
-
 
 .img-hold{
     background-image:url(#{$imgPath}loading.jpg);

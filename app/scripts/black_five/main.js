@@ -6,6 +6,12 @@
  * @email lijiang@ymaotu.com
  * @create-date 20151113
  */
+(function (w, o) {
+    w['YmatouAnalyticsobject'] = w['YmatouAnalyticsobject'] || o;
+    w[o] = w[o] || function () {
+        (w[o].q = w[o].q || []).push(arguments)
+    }
+})(window, '_dc_');
 +(function () {
 
     FastClick.attach(document.body);
@@ -19,7 +25,6 @@
     ejs.close = '}}';
 
     ejs.filters.pirceRegion = function (price) {
-        console.log(price)
         if (!price) {
             return price;
         }
@@ -94,7 +99,7 @@
             jsonpCallback: callbackName,
             dataType: 'jsonp',
             timeout: 60000, //1分钟过期
-            cache: false,
+            cache: true,
             success: function (res) {
                 if (res && (res.Code === 200 || res.Code === '200')) {
                     isFuntion(cbFn.success) && cbFn.success(res.Data);
@@ -180,7 +185,7 @@
          * 获得活动C商品
          */
         CProductsModule: function (aid, pid) {
-            jsonpGetData('http://jsapi.pk.ymatou.com/api/Friday/ExplosionIndex', {
+            jsonpGetData('http://jsapi.bf.ymatou.com/api/Friday/ExplosionIndex', {
                 success: function (data, code) {
                     if (data && data.Products.length) {
                         var html = ejs.render($('#active-tpl').html(), data);
@@ -190,7 +195,7 @@
                 error: function (err) {
                     //@TODO fuck 砍价团的接口格式不一致
                 }
-            });
+            },'ymt_explosion_index');
         },
         /**
          * 获得活动商品
@@ -277,7 +282,7 @@
             }), {
                 success: function (data) {
                     if (data) {
-                        showLog('领取成功！');
+                        showLog('恭喜您，价值&yen;555的全场通用券已到您的账户，开始买买买吧');
                     }
                 },
                 error: function (data) {
@@ -292,7 +297,7 @@
                         showLog('该设备已达最大领取次数');
                         break;
                     case -4:
-                        showLog('您已经领取成功');
+                        showLog('您已经领取过该礼包');
                         break;
                     }
                 }
@@ -328,6 +333,34 @@
 
                 }
             });
+        },
+        //秒杀
+        seckillList:function(){
+           jsonpGetData('http://jsapi.ms.ymatou.com/ActivityTemplate/GetPagePartProductListForSecKill', {
+                success: function (data) {
+                    if(data){
+                        var html = ejs.render($('#seckill-tpl').html(), data);
+                        $('.bf-seckill .bf-area-bd').html(html);
+
+                        new Swiper('.bf-seckill .bf-area-bd', {
+                            pagination: '.bf-group-pagination',
+                            loop: true,
+                            autoplay: 7000,
+                            onSlideChangeStart: function() {
+                                lazyLoad.check();
+                            }
+                        });
+                    }
+
+                },
+                error: function (data) {
+
+                }
+            },'ymatou_at_ms');
+        },
+        //模块打点空方法
+        noop:function(){
+
         }
     }
 
@@ -375,7 +408,9 @@
 
         $axle.each(function (index, el) {
             var box = el.getBoundingClientRect();
-            if (box.top >= view.t && box.top < view.b && box.left >= view.l && box.left < view.r) {
+            if ((box.top >= view.t && box.top < view.b
+                || box.bottom >= view.t && box.bottom < view.b
+                || box.bottom > view.b && box.top < view.t) && box.left >= view.l && box.left < view.r) {
                 $('#bf-tab li').removeClass('active')
                     .find('[href="#' + el.id + '"]')
                     .parent().addClass('active');
@@ -475,6 +510,37 @@
             else {
                 YmtApi.toLogin();
             }
+        }).on('click', '.J-open-C-Product', function () {
+            var url = "",
+                $this = $(this),
+                productId = $this.attr('data-productId'),
+                sellerId = $this.attr('data-sellerId'),
+                logo = $this.attr('data-logo'),
+                seller = $this.attr('data-seller');
+
+            //判断是否扫货app 跳转相应的页面
+            if (YmtApi.isSaohuoApp) {
+                url = YmtApi.utils.addParam('/forBuyerApp/productDetail', {
+                    param: JSON.stringify({
+                        SellerModel: {
+                            Logo: logo,
+                            Seller: seller,
+                            SellerId:sellerId
+
+                        },
+                        ProductModel: {
+                            ProductId: productId
+                        }
+                    })
+                });
+            }
+            else {
+                url = 'http://sq.ymatou.com/product/' + productId;
+            }
+            YmtApi.open({
+                title: '全球好货',
+                url: url
+            });
         });
 
     lazyLoad.init({
@@ -485,7 +551,12 @@
             if ($this.hasClass('J-module-Hold')) {
                 var moduleName = $this.attr('data-module'),
                     args = ($this.attr('data-arguments') || '').split(',');
-                console.log(moduleName)
+
+                (window['_dc_'] || function(){})('exec', 'load_more_fn', {
+                    module_name:  'activity_16010_capp',
+                    sub_module_name: $this.attr('data-sub-module-name')
+                } )
+
                 moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
                 $this.removeClass('J-module-Hold').addClass('module-load-end');
             }
