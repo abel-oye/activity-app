@@ -164,7 +164,7 @@ _gulp2['default'].task('rev', function () {
     return _gulp2['default'].src(['dist/rev/**/*.json', 'dist/styles/{,*/}*']).pipe($.revCollector()).pipe(_gulp2['default'].dest('dist/styles'));
 });
 
-_gulp2['default'].task('build', ['lint', 'images', 'fonts', 'extras', 'html'], function () {
+_gulp2['default'].task('build', ['lint', 'fonts', 'extras', 'html'], function () {
     return _gulp2['default'].src('dist/**/*').pipe($.size({
         title: 'build',
         gzip: true

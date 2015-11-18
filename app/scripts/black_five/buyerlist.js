@@ -18,8 +18,8 @@ $(function() {
         return '<strong>' + num[0] + '</strong>' + (num[1] ? '.' + num[1] : '.00');
     };
 
-    var accessToken = YmtApi.utils.getAuthInfo().AccessToken || '',
-        $sellerTab = $('.seller-tab'),
+    var accessToken = YmtApi.utils.getAuthInfo().AccessToken,
+        $sellerTab = $('.seller-tab-wrap'),
         $sellerList = $('.seller-list'),
         $loading = $('#loading'),
         $loadMore = $('#load-more'),
@@ -27,10 +27,10 @@ $(function() {
         $window = $(window);
 
     var tabMap = new Map();
-    tabMap.set('meiguo', 0);
-    tabMap.set('aoxing', 1);
-    tabMap.set('rihan', 2);
-    tabMap.set('ouzhou', 3);
+    tabMap.set('1', 0);
+    tabMap.set('2', 1);
+    tabMap.set('3', 2);
+    tabMap.set('4', 3);
 
     var Utils = {
         //显示日志
@@ -57,31 +57,6 @@ $(function() {
                     callback(res);
                 }
             })
-        },
-
-        infiniteScroll: function(options, loadMoreTag) {
-            var throttleTime = options.throttle || 450,
-                callback = options.callback,
-                offset = parseInt(options.offset) || 0,
-                $sel = $(options.selector),
-                finishTag = options.finishTag,
-                $window = $(window),
-                throttle = true,
-                currTop = 0; //控制滑动方向
-
-            if (!throttle && !$sel && !$sel[0]) {
-                return;
-            }
-
-            if (loadMoreTag && !finishTag && $window.scrollTop() > currTop && ($window.scrollTop() + $window.height() + offset >= $sel.height() + $sel.offset().top)) {
-                throttle = false;
-                loadMoreTag = false;
-                currTop = $window.scrollTop();
-                callback();
-                setTimeout(function() {
-                    throttle = true;
-                }, throttleTime);
-            }
         }
     };
 
@@ -100,7 +75,7 @@ $(function() {
                 $sellerTab.eq(index).attr('init', new Date().getTime());
                 var sellerTab = document.getElementById('seller-tab-list').children;
                 sellerTab[index].pageIndex = 1;
-                Buyerlist.getBuyer($sellerTab.eq(index).attr('pageIndex'), 3, areaCode);
+                Buyerlist.getBuyer(sellerTab[index].pageIndex, 3, areaCode);
             } else {
                 $sellerList.eq(index).attr('finish') !== 'true' && $finishTip.hide(); //切换TAB时，如果数据还没全部加载完，隐藏”已显示全部“提示
             }
@@ -110,58 +85,10 @@ $(function() {
             var index = tabMap.get(areaCode);
             pageIndex != 1 && $loadMore.show();
             $sellerList.eq(index).attr('res', 'false');
-            Utils.reqJsonp('http://jsapi.pk.ymatou.com/api/FridayMore/BuyerExplosionList', function(res) {
-                /*res.Data = {
-                    "HasBrought": false,
-                    "ResultCount": 1,
-                    "BuyerList": [{
-                        "Buyer": {
-                            "SellerId": "536618",
-                            "SellerName": "Leon1982",
-                            "SellerLogo": "http://p5.img.ymatou.com/upload/userlogo/big/536618_05b78baf0d904a6bb5745742f894b0b7_b.JPG",
-                            "PicUrl": "http://pc5.img.ymatou.com/G02/shangou/M08/71/20/CgvUA1ZGYC6AY1RJAACuIP8VE5I776-lists_ls.jpg",
-                            "CountryName": "澳大利亚",
-                            "Flag": "http://img.ymatou.com/app/flag/circle/Australia.png",
-                            "Activities": 0,
-                            "FavCount": 11,
-                            "CouponId": null,
-                            "CouponPrice": 0,
-                            "CouponName": null,
-                            "ProductCount": 1,
-                            "GoodProductCatalogs": null
-                        },
-                        "ProductCount": 1,
-                        "Products": [{
-                            "ProductId": "bc08be3e-bcdb-43b7-9226-cbc45cf771db",
-                            "IsMall": false,
-                            "IsCustomer": true,
-                            "Customer": {
-                                "DeliveryType": 0,
-                                "IsVip": false,
-                                "IsNewCustomer": false,
-                                "Price": 169,
-                                "VipPrice": 0,
-                                "NewCustomerPrice": 0,
-                                "ActivityExpiresIn": 0
-                            },
-                            "Mall": null,
-                            "PicUrl": "http://pc5.img.ymatou.com/G02/shangou/M08/71/20/CgvUA1ZGYC6AY1RJAACuIP8VE5I776-lists_ls.jpg",
-                            "Name": "BM的秋葵大蒜精+维生素C ，90粒。鼻炎患者的好东西 ～鼻炎的朋友们，不如试试。可治疗鼻炎、鼻塞、感冒、上呼吸道感染、花粉过敏症状 超有效果噢^ _ ^ ",
-                            "Price": 169,
-                            "Stock": 5,
-                            "Logo": null,
-                            "Seller": "Leon1982",
-                            "SellerId": 536618,
-                            "CountryName": "澳大利亚",
-                            "Flag": null,
-                            "ActivityId": 0,
-                            "TaxFarming": false,
-                            "BonderShipments": false,
-                            "FreeShipping": false,
-                            "IsXloboBonded": false
-                        }]
-                    }]
-                };*/
+
+            var callback = 'buyer_explosion_list';
+            window[callback] = function(res) {
+                $loading.hide();
                 $sellerList.eq(index).attr('res', 'false');
                 if (res.Data && res.Data.BuyerList[0]) {
                     pageIndex == 1 && $loading.hide();  //第一页数据返回时隐藏loading
@@ -171,13 +98,27 @@ $(function() {
                     $loadMore.hide();
                     $sellerList.eq(index).attr('res', 'true');
 
+                    pageIndex == 1 && lazyLoad.check();
+
                     if (res.Data.IsNeedBrought) {
                         var couponIds = [];
                         for (var i = 0, len = res.Data.BuyerList.length; i < len; i++) {
-                            couponIds.push(res.Data.BuyerList[i].Buyer.CouponId);
+                            if (res.Data.BuyerList[i].ProductCount) {
+                                couponIds.push(res.Data.BuyerList[i].Buyer.CouponId);
+                            }
                         }
                         couponIds = couponIds.join(',');
-                        Buyerlist.getCouponStatus(couponIds);
+                        if (accessToken) {
+                            Buyerlist.getCouponStatus(couponIds);
+                        } else {
+                            var couponNode = $('[data-couponid]');
+                            for (var j = 0, len = couponNode.length; j < len; j++) {
+                                var couponid = couponNode.eq(i).attr('data-couponid');
+                                couponNode.eq(j).removeAttr('data-couponid');
+                                couponNode.eq(j).append('<span class="get-coupon" getstatus="true" couponid=' + couponid + '>领取</span>');
+                            }
+                        }
+
                     }
 
                 } else {
@@ -185,17 +126,25 @@ $(function() {
                     $finishTip.show();
                     $sellerList.eq(index).attr('finish', 'true');
                 }
-            }, {
-                AccessToken: accessToken,
-                PageIndex: pageIndex,
-                pageSize: pageSize,
-                AreaCode: areaCode
-            })
+            };
+
+            $.ajax({
+                url: 'http://jsapi.bf.ymatou.com/api/FridayMore/BuyerExplosionList',
+                data: {
+                    AccessToken: accessToken || '',
+                    PageIndex: pageIndex,
+                    pageSize: pageSize,
+                    AreaCode: areaCode
+                },
+                type: 'GET',
+                dataType: 'jsonp',
+                jsonpCallback: callback
+            });
         },
 
         //获取是否领取优惠券状态
         getCouponStatus: function(couponIds) {
-            Utils.reqJsonp('http://jsapi.pk.ymatou.com/api/FridayMore/BroughtCouponList', function(res) {
+            Utils.reqJsonp('http://jsapi.bf.ymatou.com/api/FridayMore/BroughtCouponList', function(res) {
                 /*res.Data = {
                     "BroughtCouponList": [{
                         "HasBrought": true,
@@ -209,20 +158,28 @@ $(function() {
                     }],
                     "ResultCount": 3
                 };*/
-
-                if (res.Data && res.Data.BroughtCouponList[0]) {
+                if (res.Data && res.Data.BroughtCouponList && res.Data.BroughtCouponList[0]) {
                     var couponStatusList = res.Data.BroughtCouponList;
-                    var couponNode = $('[data-couponid');
-                    var couponIds = couponIds.split(',');
+                    var couponNode = $('[data-couponid]');
                     for (var i = 0, len = couponNode.length; i < len; i++) {
-                        if (couponNode.attr('data-couponid') == couponStatusList[i].CouponId) {
-                            couponNode[i].removeAttr('data-couponid');
-                            couponStatusList[i].HasBrought ? couponNode[i].append('<span class="hasget">已领取</span>') : couponNode[i].append('<span class="get-coupon">领取</span>');
+                        for (var j = 0, len = couponStatusList.length; j < len; j++) {
+                            if (couponNode.eq(i).attr('data-couponid') == couponStatusList[j].CouponId) {
+                                var couponid = couponNode.eq(i).attr('data-couponid');
+                                couponNode.eq(i).removeAttr('data-couponid');
+                                couponStatusList[i].HasBrought ? couponNode.eq(i).append('<span class="hasget">已领取</span>') : couponNode.eq(i).append('<span class="get-coupon" getstatus="true" couponid='+ couponid + '>领取</span>');
+                            }
                         }
+                    }
+                } else {
+                    var couponNode = $('[data-couponid]');
+                    for (var j = 0, len = couponNode.length; j < len; j++) {
+                        var couponid = couponNode.eq(i).attr('data-couponid');
+                        couponNode.eq(j).removeAttr('data-couponid');
+                        couponNode.eq(j).append('<span class="get-coupon" getstatus="true" couponid='+ couponid + '>领取</span>');
                     }
                 }
             }, {
-                AccessToken: accessToken,
+                AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
                 CouponIds: couponIds
             });
         },
@@ -233,12 +190,12 @@ $(function() {
             var authInfo = YmtApi.utils.getAuthInfo();
             if (authInfo.UserId && authInfo.AccessToken) {
                 var queryString = YmtApi.utils.getUrlObj(),
-                    deviceId = (YmtApi.isIphone ? queryString.DeviceId : queryString.DeviceToken) || '0000000',
-                    couponId = $(this).attr('data-couponid');
+                    deviceId = queryString.DeviceId || queryString.DeviceToken || '0000000',
+                    couponId = $target.attr('couponid');
                 Utils.reqJsonp('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon', function(res) {
                     $target.attr('getstatus', 'true');
                     if (res.Data) {
-                        $target.removeClass('get-coupon').addClass('hasget');
+                        $target.removeClass('get-coupon').text('已领取').addClass('hasget');
                         Utils.showLog(res.Msg || '领取成功');
                     } else {
                         Utils.showLog(res.Msg || '操作失败');
@@ -250,6 +207,7 @@ $(function() {
                     AccessToken: authInfo.AccessToken
                 });
             } else {
+                $target.attr('getstatus', 'true');
                 YmtApi.toLogin();
             }
         }
@@ -281,7 +239,7 @@ $(function() {
             title: '卖家主页',
             backFlag: true
         });
-    }).on('tap', '.seller-tab', function () {
+    }).on('tap', '.seller-tab-wrap', function () {
         var areaCode = $(this).attr('tab-areacode');
         Buyerlist.showContent(areaCode);
     }).on('tap', '.get-coupon', function (event) {
@@ -326,6 +284,15 @@ $(function() {
         }
     });
 
-    var areacode = YmtApi.utils.getUrlObj().AreaCode || 'meiguo';
+    var areacode = YmtApi.utils.getUrlObj().AreaCode || '1';
     Buyerlist.showContent(areacode);
+
+    lazyLoad.init({
+        throttle: 250,
+        unload: false,
+        offset: 250,
+        callback: function() {
+
+        }
+    });
 });
