@@ -3,7 +3,6 @@
  @import'../_components/_mixin.scss';
  @import'../_components/reset.scss';
  @import'../_components/variables.scss';
- @import'../_components/iconfont.scss';
 
  $rem: 1rem/32;
 
@@ -11,7 +10,7 @@
     .seller-top-banner {
         width: 100%;
         height: $rem*376;
-        background-image: url(../../images/buyerlist/banner.jpg);
+        background-image: url(http://staticontent.ymatou.com/images/buyerlist/banner.jpg);
         background-size: cover;
         background-repeat: no-repeat;
     }
@@ -24,37 +23,33 @@
         background-color: #fff;
         border-bottom: 1px solid #d9d9d9;
 
-        .seller-tab {
+        .seller-tab-wrap {
             float: left;
-            width: $rem*160;
+            width: 25%;
             height: $rem*78;
             line-height: $rem*78;
             text-align: center;
             color: #666;
-            margin: 0 $rem*10;
+            padding: 0 $rem*10;
+
+            .seller-tab {
+
+            }
 
             &:first-child {
-                margin: 0 $rem*20 0 0;
+                padding: 0 $rem*20 0 0;
             }
 
             &:nth-last-child(-n+1) {
-                margin: 0 0 0 $rem*20;
+                padding: 0 0 0 $rem*20;
             }
         }
 
-        .seller-tab.active-tab {
+        .seller-tab-wrap.active-tab .seller-tab {
+            display: block;
+            height: $rem*78;
             color: #c8353f;
             border-bottom: $rem*5 solid #c8353f;
-        }
-
-        .tab-scrollbar {
-            width: $rem*160;
-            height: $rem*5;
-            background-color: #c8353f;
-            border: 0;
-            margin: 0;
-            position: absolute;
-            bottom: 0;
         }
     }
 
@@ -112,7 +107,7 @@
 
                     .info-coupon {
                         float: right;
-                        width: $rem*254;
+                        // width: $rem*254;
                         height: $rem*58;
                         font-size: $rem*22;
                         line-height: $rem*58;
@@ -122,6 +117,7 @@
                         text-align: center;
 
                         .value {
+                            padding: 0 $rem*20;
                             color: #d42f33;
                         }
 
@@ -129,7 +125,8 @@
                             display: inline-block;
                             float: right;
                             width: $rem*86;
-                            height: $rem*56;
+                            height: $rem*54;
+                            line-height: $rem*54;
                             border-top-right-radius: $rem*10;
                             border-bottom-right-radius: $rem*10;
                         }
@@ -199,9 +196,8 @@
                         border-radius: $rem*5;
                     }
                     .goods-info {
-                        float: left;
-                        width: $rem*565;
-                        padding-left: $rem*10;
+                        width: 100%;
+                        padding-left: $rem*145;
                         height: $rem*135;
                         position: relative;
                         .goods-desc {
@@ -235,20 +231,12 @@
                             font-size: $rem*18;
                             height: $rem*24;
                             line-height: $rem*24;
-                            i {
+                            .icon {
                                 margin-right: $rem*5;
-                                font-size: $rem*24;
-                            }
-
-                            .icon-xianhuo, .text-xianhuo {
-                                color: #5474af;
-                            }
-
-                            .text-saohuo, .text-xianhuo {
-                                margin-right: $rem*10;
-                            }
-                            .local-return{
-                                color:#895128;
+                                width: $rem*28;
+                                height: $rem*28;
+                                vertical-align: middle;
+                                fill: currentColor;
                             }
                         }
 
@@ -339,7 +327,7 @@
                 }
 
                 .all-see {
-                    font-size: $rem*28;
+                    font-size: $rem*24;
                     color: #b45b61;
                     float: right;
                 }

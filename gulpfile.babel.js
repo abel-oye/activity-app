@@ -69,7 +69,7 @@ gulp.task('html', ['styles'], () => {
         .pipe(assets)
         .pipe($.rev())
         .pipe($.if('*.js', $.uglify()))
-        .pipe($.if('*.css',$.minifyCss({
+        .pipe($.if('*.css', $.minifyCss({
             compatibility: '*'
         })))
         .pipe(assets.restore())
@@ -93,7 +93,7 @@ gulp.task('images', () => {
                     cleanupIDs: false
                 }]
             }))
-            .on('error', function (err) {
+            .on('error', function(err) {
                 console.log(err);
                 this.end();
             })))
@@ -196,7 +196,7 @@ gulp.task('rev', () => {
         .pipe(gulp.dest('dist/styles'));
 });
 
-gulp.task('build', ['lint', 'images', 'fonts', 'extras', 'html'], () => {
+gulp.task('build', ['lint', 'fonts', 'extras', 'html'], () => {
     return gulp.src('dist/**/*').pipe($.size({
         title: 'build',
         gzip: true
