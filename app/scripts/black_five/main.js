@@ -57,7 +57,6 @@
 
             setTimeout(function () {
                 errElm.removeClass('show');
-                1
                 toastStatus = true;
                 callback && callback();
             }, 2400);
@@ -252,7 +251,7 @@
 
                         new Swiper('#bf_05 .goods-item', {
                             freeMode: true,
-                            slidesPerView: 4.7
+                            slidesPerView: 3.7
                         });
                     }
                 },
@@ -275,30 +274,30 @@
         receivePk: function (packageId) { //领取大礼包
             var authInfo = YmtApi.utils.getAuthInfo(),
                 deviceId = search.DeviceId || search.DeviceToken || '0000000';
-
             jsonpGetData(YmtApi.utils.addParam('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon?DeviceCode=' + deviceId + '&PackageId=' + packageId, {
                 BuyerUserId: authInfo.UserId,
                 AccessToken: authInfo.AccessToken
             }), {
                 success: function (data) {
                     if (data) {
-                        showLog('恭喜您，价值&yen;555的全场通用券已到您的账户，开始买买买吧');
+                        //showLog('恭喜您，价值&yen;555的全场通用券已到您的账户，开始买买买吧');
+                        $('.receive-package-dialog').addClass('succ')
                     }
                 },
                 error: function (data) {
                     switch (data.BCode) {
-                    case -1:
-                        showLog('礼包不存在');
-                        break;
-                    case -2:
-                        showLog('用户不存在');
-                        break;
-                    case -3:
-                        showLog('该设备已达最大领取次数');
-                        break;
-                    case -4:
-                        showLog('您已经领取过该礼包');
-                        break;
+                        case -1:
+                            showLog('礼包不存在');
+                            break;
+                        case -2:
+                            showLog('用户不存在');
+                            break;
+                        case -3:
+                            showLog('该设备已达最大领取次数');
+                            break;
+                        case -4:
+                            showLog('您已经领取过该礼包');
+                            break;
                     }
                 }
             });
@@ -419,6 +418,21 @@
             }
         });
     }
+    var share =  function () { //分享
+        var $this = $(this),
+            url = $this.attr('data-share-url'),
+            content = $this.attr('data-share-content'),
+            title = $this.attr('data-share-title'),
+            pic = $this.attr('data-share-pic');
+
+        YmtApi.openShare({
+            shareTitle: title,
+            shareUrl: url,
+            sharePicUrl: pic,
+            shareContent: content,
+            showWeiboBtn: 1
+        });
+    }
 
     var scrollChackeStatus = false; //scroll 检查频率控制
     $(document).on('click', '.J-open', function () {
@@ -453,7 +467,7 @@
             }
 
         })
-        .on('click', '.J-close', function () { //转盘运行
+        .on('click', '.J-close', function () {
             var $this = $(this);
 
             $('.' + $this.attr('data-target')).removeClass('open').addClass('close');
@@ -471,21 +485,7 @@
             else {
                 YmtApi.toLogin();
             }
-        }).on('click', '.J-share', function () { //分享
-            var $this = $(this),
-                url = $this.attr('data-share-url'),
-                content = $this.attr('data-share-content'),
-                title = $this.attr('data-share-title'),
-                pic = $this.attr('data-share-pic');
-
-            YmtApi.openShare({
-                shareTitle: title,
-                shareUrl: url,
-                sharePicUrl: pic,
-                shareContent: content,
-                showWeiboBtn: 1
-            });
-        }).on('click', '.ymt-butler', function () { //洋管家
+        }).on('click', '.J-share',share).on('click', '.ymt-butler', function () { //洋管家
             if (YmtApi.utils.hasLogin()) {
                 var auth = YmtApi.utils.getAuthInfo();;
                 var UserId = auth.UserId || 0;
@@ -505,7 +505,17 @@
             }
         }).on('click', '.J-receive-pk', function () { //领取大礼包
             if (YmtApi.utils.hasLogin()) {
-                module.receivePk(_pk_id);
+                    share.apply(this);
+                if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
+                    module.receivePk(_pk_id);
+                }else{
+                    //@TODO android通过urlchange的方式如果协议ajax是同步触发，可能会导致
+                    //ajax被终止。在ajax使用同步阻塞方法，比如alert也可以解决这个问题
+                    setTimeout(function(){
+                        module.receivePk(_pk_id);
+                    }.bind(this),100)
+                }
+
             }
             else {
                 YmtApi.toLogin();
