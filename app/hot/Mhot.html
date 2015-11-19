@@ -36,14 +36,14 @@
         <div class="loadtxt ">正在加载</div>
     </div>
     <script id="templ_subTab" type="text/tmpl">
-      <div  id="aid{{= it.aid }}" class="sub-tab-cnt J_subTabCnt swiper-container">
+      <div  id="aid{{= it.index }}" class="sub-tab-cnt J_subTabCnt swiper-container">
       <ul class="sub-tab-list J_subTab swiper-wrapper">
         {{ for(var i=0; i<it.subList.length; i++){ }}
           <li id="{{= it.subList[i].pid }}" data-pid="{{= it.subList[i].pid }}" class="item swiper-slide">{{= it.subList[i].name }}</li>
         {{ } }} 
         <li class="swiper-slide sub-space"></li>    
       </ul> 
-      </div>
+      </div> 
     </script>
 
     <script id="templ_product" type="text/tmpl"> 
@@ -77,7 +77,7 @@
                     </div>
                 </div>
             </div>
-            <span>加载中...</span>
+            <span>加载中...</span> 
         </div>
       </div>
     </script>
@@ -132,11 +132,11 @@
     <script src="http://staticwap.ymatou.com/item.app/build/swiper.2015091501.js"></script>
      
     <!-- build:js /scripts/hot/setting.js --> 
-    <script src="http://172.16.1.97:9004/scripts/hot/setting.js?v=19"></script>
+    <script src="http://172.16.1.97:9004/scripts/hot/setting.js"></script>
     <!-- endbuild -->
-    <!-- build:js /scripts/hot/Mhot,doT.js --> 
-    <script src="/scripts/hot/doT.js?v=1"></script> 
-    <script src="/scripts/hot/Mhot.js?v=1"></script>  
-    <!-- endbuild -->
+    <!-- build:js /scripts/hot/Mhot,doTa.js --> 
+    <script src="/scripts/hot/doT.js"></script> 
+    <script src="/scripts/hot/Mhot.js"></script>     
+    <!-- endbuild --> 
   </body>
 </html>  
