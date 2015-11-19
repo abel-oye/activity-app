@@ -44,7 +44,7 @@ $(function() {
             setTimeout(function() {
                 $('.sg-error').css('opacity', '0');
                 callback && callback();
-            }, 1800);
+            }, 2400);
         },
 
         reqJsonp: function(url, callback, params) {
@@ -52,9 +52,13 @@ $(function() {
                 url: url,
                 data: params,
                 type: 'GET',
+                timeout: 30000,
                 dataType: 'jsonp',
                 success: function(res) {
                     callback(res);
+                },
+                error: function () {
+                    Utils.showLog('系统挤爆了，请稍后再试');
                 }
             })
         }
@@ -90,42 +94,43 @@ $(function() {
             window[callback] = function(res) {
                 $loading.hide();
                 $sellerList.eq(index).attr('res', 'false');
-                if (res.Data && res.Data.BuyerList[0]) {
-                    pageIndex == 1 && $loading.hide();  //第一页数据返回时隐藏loading
-                    var html = ejs.render($('#seller-item-tpl').html(), res.Data);
+                    if (res.Data && res.Data.BuyerList[0]) {
+                        pageIndex == 1 && $loading.hide();  //第一页数据返回时隐藏loading
+                        var html = ejs.render($('#seller-item-tpl').html(), res.Data);
 
-                    $sellerList.eq(index).append(html);
-                    $loadMore.hide();
-                    $sellerList.eq(index).attr('res', 'true');
+                        $sellerList.eq(index).append(html);
+                        $loadMore.hide();
+                        $sellerList.eq(index).attr('res', 'true');
 
-                    pageIndex == 1 && lazyLoad.check();
+                        pageIndex == 1 && lazyLoad.check();
 
-                    if (res.Data.IsNeedBrought) {
-                        var couponIds = [];
-                        for (var i = 0, len = res.Data.BuyerList.length; i < len; i++) {
-                            if (res.Data.BuyerList[i].ProductCount) {
-                                couponIds.push(res.Data.BuyerList[i].Buyer.CouponId);
+                        if (res.Data.IsNeedBrought) {
+                            var couponIds = [];
+                            for (var i = 0, len = res.Data.BuyerList.length; i < len; i++) {
+                                if (res.Data.BuyerList[i].ProductCount) {
+                                    couponIds.push(res.Data.BuyerList[i].Buyer.CouponId);
+                                }
                             }
-                        }
-                        couponIds = couponIds.join(',');
-                        if (accessToken) {
-                            Buyerlist.getCouponStatus(couponIds);
-                        } else {
-                            var couponNode = $('[data-couponid]');
-                            for (var j = 0, len = couponNode.length; j < len; j++) {
-                                var couponid = couponNode.eq(i).attr('data-couponid');
-                                couponNode.eq(j).removeAttr('data-couponid');
-                                couponNode.eq(j).append('<span class="get-coupon" getstatus="true" couponid=' + couponid + '>领取</span>');
+                            couponIds = couponIds.join(',');
+                            if (accessToken) {
+                                Buyerlist.getCouponStatus(couponIds);
+                            } else {
+                                var couponNode = $('[data-couponid]');
+                                for (var j = 0, len = couponNode.length; j < len; j++) {
+                                    var couponid = couponNode.eq(i).attr('data-couponid');
+                                    couponNode.eq(j).removeAttr('data-couponid');
+                                    couponNode.eq(j).append('<span class="get-coupon" getstatus="true" couponid=' + couponid + '>领取</span>');
+                                }
                             }
+
                         }
 
+                    } else {
+                        $loadMore.hide();
+                        $finishTip.show();
+                        $sellerList.eq(index).attr('finish', 'true');
                     }
 
-                } else {
-                    $loadMore.hide();
-                    $finishTip.show();
-                    $sellerList.eq(index).attr('finish', 'true');
-                }
             };
 
             $.ajax({
@@ -137,27 +142,19 @@ $(function() {
                     AreaCode: areaCode
                 },
                 type: 'GET',
+                timeout: 30000,
                 dataType: 'jsonp',
-                jsonpCallback: callback
+                jsonpCallback: callback,
+                error: function() {
+                    $loading.hide();
+                    Utils.showLog('系统挤爆了，请稍后再试');
+                }
             });
         },
 
         //获取是否领取优惠券状态
         getCouponStatus: function(couponIds) {
             Utils.reqJsonp('http://jsapi.bf.ymatou.com/api/FridayMore/BroughtCouponList', function(res) {
-                /*res.Data = {
-                    "BroughtCouponList": [{
-                        "HasBrought": true,
-                        "CouponId": "0"
-                    }, {
-                        "HasBrought": false,
-                        "CouponId": "0"
-                    }, {
-                        "HasBrought": false,
-                        "CouponId": "0"
-                    }],
-                    "ResultCount": 3
-                };*/
                 if (res.Data && res.Data.BroughtCouponList && res.Data.BroughtCouponList[0]) {
                     var couponStatusList = res.Data.BroughtCouponList;
                     var couponNode = $('[data-couponid]');
@@ -173,7 +170,7 @@ $(function() {
                 } else {
                     var couponNode = $('[data-couponid]');
                     for (var j = 0, len = couponNode.length; j < len; j++) {
-                        var couponid = couponNode.eq(i).attr('data-couponid');
+                        var couponid = couponNode.eq(j).attr('data-couponid');
                         couponNode.eq(j).removeAttr('data-couponid');
                         couponNode.eq(j).append('<span class="get-coupon" getstatus="true" couponid='+ couponid + '>领取</span>');
                     }
@@ -187,6 +184,9 @@ $(function() {
         getCoupon: function(event) {
             var $target = $(event.target);
             $target.attr('getstatus', 'false');
+            setTimeout(function () {
+                $target.attr('getstatus', 'true');
+            },1000);
             var authInfo = YmtApi.utils.getAuthInfo();
             if (authInfo.UserId && authInfo.AccessToken) {
                 var queryString = YmtApi.utils.getUrlObj(),
@@ -194,6 +194,10 @@ $(function() {
                     couponId = $target.attr('couponid');
                 Utils.reqJsonp('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon', function(res) {
                     $target.attr('getstatus', 'true');
+                    var idx = res.Msg.indexOf(':');
+                    if (idx != -1) {
+                        res.Msg = res.Msg.slice(idx + 1);
+                    }
                     if (res.Data) {
                         $target.removeClass('get-coupon').text('已领取').addClass('hasget');
                         Utils.showLog(res.Msg || '领取成功');
@@ -207,7 +211,6 @@ $(function() {
                     AccessToken: authInfo.AccessToken
                 });
             } else {
-                $target.attr('getstatus', 'true');
                 YmtApi.toLogin();
             }
         }
@@ -239,10 +242,10 @@ $(function() {
             title: '卖家主页',
             backFlag: true
         });
-    }).on('tap', '.seller-tab-wrap', function () {
+    }).on('tap click', '.seller-tab-wrap', function () {
         var areaCode = $(this).attr('tab-areacode');
         Buyerlist.showContent(areaCode);
-    }).on('tap', '.get-coupon', function (event) {
+    }).on('tap click', '.get-coupon', function (event) {
         if ($(this).attr('getstatus') == 'true') {
             Buyerlist.getCoupon(event);
         } else {
@@ -272,7 +275,20 @@ $(function() {
         });
     });
 
+    var tabTop = $('#seller-tab-list').offset().top;
     $(window).on('scroll touchmove', function() {
+        if ($(window).scrollTop() > tabTop) {
+            $('#seller-tab-list').css({
+                position: 'fixed',
+                top: 0
+            });
+        } else {
+            $('#seller-tab-list').css({
+                position: 'relative',
+            });
+        }
+
+
         var index = $('.active-tab').index(),
             sellerTab = document.getElementById('seller-tab-list').children,
             areacode = $('.active-tab').attr('tab-areaCode'),

@@ -43,7 +43,7 @@
 }
 
 .bf-banner-hd{
-    background-image:url(#{$imgPath}bf-banner.jpg);
+    background-image:url(#{$imgPath}bf-banner_cut.jpg);
     background-size:contain;
     width:100%;
     height:$rem*673;
@@ -670,7 +670,7 @@
 }
 
 .img-hold{
-    background-image:url(#{$imgPath}loading.jpg);
+    background-image:url(#{$imgPath}loading_cut.jpg);
 }
 
 //
