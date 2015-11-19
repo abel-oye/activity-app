@@ -43,7 +43,7 @@
 }
 
 .bf-banner-hd{
-    background-image:url(#{$imgPath}bf-banner.jpg);
+    background-image:url(#{$imgPath}bf-banner_cut.jpg);
     background-size:contain;
     width:100%;
     height:$rem*673;
@@ -82,7 +82,7 @@
        padding-bottom:$rem*35;
     }
     &-inner{
-        background-image:url(#{$imgPath}coupon.png);
+        background-image:url(#{$imgPath}coupon_cut.png);
         background-size:contain;
         width:$rem*730;
         min-height:$rem*391;
@@ -119,7 +119,7 @@
         height:100%;
     }
     .bf-area-hd{
-        background-image:url(#{$imgPath}seckill.png);
+        background-image:url(#{$imgPath}seckill_cut.png);
         width:$rem*527;
         height:$rem*84;
         margin:0 auto $rem*20;
@@ -143,7 +143,7 @@
         display:inline-block;
     }
     .bf-area-hd{
-        background-image:url(#{$imgPath}group-title.png);
+        background-image:url(#{$imgPath}group-title_cut.png);
         width:$rem*728;
         height:$rem*73;
     }
@@ -655,7 +655,7 @@
 }
 
 .img-hold{
-    background-image:url(#{$imgPath}loading.jpg);
+    background-image:url(#{$imgPath}loading_cut.jpg);
 }
 
 //
