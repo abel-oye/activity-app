@@ -77,17 +77,17 @@
 //领取优惠券
 .bf-coupon{
     &-wrapper{
-       padding:$rem*8;
        background-color:#e93d3d;
        padding-bottom:$rem*35;
     }
     &-inner{
-        background-image:url(#{$imgPath}coupon_cut.png);
+        background-image:url(#{$imgPath}coupon.png);
         background-size:contain;
-        width:$rem*730;
+        width:100%;
         min-height:$rem*391;
         margin:0 auto;
         background-repeat: no-repeat;
+        background-position: center;
     }
 }
 
@@ -119,10 +119,12 @@
         height:100%;
     }
     .bf-area-hd{
-        background-image:url(#{$imgPath}seckill_cut.png);
-        width:$rem*527;
+        background-image:url(#{$imgPath}seckill.png);
+        width:100%;
         height:$rem*84;
         margin:0 auto $rem*20;
+        background-repeat:no-repeat;
+        background-position:center;
     }
     .bf-area-bd{
         background:#fff;
@@ -134,8 +136,9 @@
 .bf-group{
     background-color:#ffbb19;
     position:relative;
-      width: 100%;
+    width: 100%;
      overflow: hidden;
+     box-sizing: border-box;
     &-list{
         white-space: nowrap;
     }
@@ -143,9 +146,11 @@
         display:inline-block;
     }
     .bf-area-hd{
-        background-image:url(#{$imgPath}group-title_cut.png);
-        width:$rem*728;
+        background-image:url(#{$imgPath}group-title.png);
+        width:100%;
         height:$rem*73;
+        background-repeat:no-repeat;
+        background-position:center;
     }
     &-pro{
         width:100%;
@@ -319,10 +324,12 @@
     background:#ff5470;
     .bf-area-hd{
         background-image:url(#{$imgPath}losing-title.png);
-        width:$rem*731;
+        width:100%;
         height:$rem*78;
         margin:0 auto;
         margin-bottom:$rem*22;
+        background-repeat:no-repeat;
+        background-position:center;
     }
 }
 
@@ -331,7 +338,7 @@
     padding-bottom:$rem*18;
     margin-bottom:$rem*10;
     .pic{
-        height:$rem*310;
+        height:$rem*360;
         background-size: contain;
           background-position: top;
     }
@@ -356,7 +363,7 @@
         border:1px solid #ff5247;
         border-radius:$rem*60;
         box-shadow: 0 2px #a22f27;
-
+        background-color: #FF5247;
         &>span{
             display:inline-block;
             height:100%;
@@ -567,9 +574,15 @@
     }
     &-bd{
         position:relative;
+        display: -moz-box;
+            display: -webkit-box;
+            display: box;
         &>ul{
             position:relative;
             bottom:0;
+            -moz-box-flex: 1;
+            -webkit-box-flex: 2;
+            box-flex: 1;
             &:before{
                 content:'';
                 position:absolute;
@@ -595,15 +608,16 @@
         li{
             float:left;
             overflow:hidden;
-            a{
+            //a{
                 display:block;
-                padding:0 $rem*12;
+
+                //padding:0 $rem*12;
                 height:100%;
-                width:100%;
+                width:20%;
                 color:#fff;
                 position:relative;
                 z-index: 3;
-            }
+           //}
             &:first-child{
                 border-top-left-radius:$rem*94;
                 border-bottom-left-radius:$rem*94;
@@ -637,8 +651,9 @@
         @extend bg__full;
         z-index: 2;
         right: 0;
-        bottom: $rem*-4;
-        position:absolute;
+        bottom: $rem*10;
+        display:block;
+        position:relative;
     }
 }
 //气球摆动
@@ -753,3 +768,8 @@
         }
     }
 }
+
+.lazyload.transition{
+    animation: fadeIn 1s both;
+}
+@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}

@@ -1,0 +1,160 @@
+@charset'UTF-8';
+ /**
+ * 黑五页-扫货爆款列表
+ * @Author river
+ * @email lijiang@ymatou.com
+ * @Date 2015/11/18
+ */
+ @import'../_components/variables.scss';
+ @import'../_components/_mixin.scss';
+ @import'../_components/reset.scss';
+ @import'../_components/loading.scss';
+
+ @import'../_components/column.scss';
+
+ @import'../assets/ymtUI.scss';
+ @import'../assets/ymt_components.scss';
+
+ $rem: 1rem/32;
+
+ //$imgPath:'/images/black_five/';
+ $imgPath:'http://staticontent.ymatou.com/images/black_five/';
+
+//列表
+@include column('.bf-',2,$rem*12);
+
+.sh-list-banner{
+    background:#ff5247 url(#{$imgPath}Clist_title.png) no-repeat center;
+    height:$rem*380;
+    background-size: contain;
+ }
+
+.sh-tab{
+    &-hd{
+        height:$rem*77;
+        &-wrapper{
+            box-shadow: 0 $rem*10 $rem*20 rgba(0,0,0,.4);
+            position:relative;
+            background:#fff;
+            top:0;
+            left:0;
+            width:100%;
+            z-index:9;
+        }
+        ul{
+            @include clearfix();
+            border-bottom:1px solid #d9d9d9;
+        }
+        li{
+            width:25%;
+            float:left;
+            text-align:center;
+            font-size:$rem*28;
+            color:#666;
+            height:$rem*77;
+            line-height:$rem*77;
+            &>span{
+                height:100%;
+                display:inline-block;
+                padding:0 $rem*22;
+            }
+            &.active{
+                color:#c8353f;
+            }
+        }
+    }
+    &-line{
+        position: absolute;
+        height:$rem*5;
+        background:#c8353f;
+        width:$rem*160;
+        left:$rem*15;
+        bottom:0;
+        transition: left 0.15s ease-in-out;
+    }
+    &-bd-item{
+        display:none;
+        &.active{
+            display:block;
+        }
+    }
+}
+
+.sh-list{
+    &-wrapper{
+        padding:$rem*12 $rem*10 0;
+        background:#e4e9e2;
+
+    }
+    &-item{
+        margin-bottom:$rem*12;
+        padding-bottom:$rem*8;
+        background:#fff;
+        border-radius:$rem*10;
+        overflow:hidden;
+        position:relative;
+        &:before{
+            content:'直播';
+            background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA6CAMAAADbe8pdAAAAbFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0Iv+qAAAAJHRSTlOzAKoEsKBsOwGSiHdmUBgOCaWbjIF+X11IRDYhY1hBPTIuKCdW3Pd7AAAAs0lEQVRIx+3R2QqDMBCF4Ry1Me773r3v/46VgJESrHZ6O//9B8McwXEcx3Ecx5Hz/sEnOnVERMeBGOlYChWQsS/w9KjfcgWQEPENM0ZMsh00Vh1hph4azw0/rl20GQyG64fHaTW4gMG6STpHpBe9DBFYy5Nyd55LBthYp+7NNxr6LmDjtfS8cb0jJywZbJX3gU3LJAN2se4ReR+0HhWwi01pW5h74xTAUbxMHzdhVctrjq3ecPwF0+cM2mkAAAAASUVORK5CYII=) no-repeat;
+              background-size: contain;
+            display:block;
+            color:#fff;
+            position: absolute;
+            font-size:$rem*22;
+            width:$rem*60;
+            text-align:center;
+            height:$rem*58;
+            line-height:$rem*50;
+            z-index:3;
+            top:0;
+            right:$rem*15;
+        }
+        .pic{
+            height:$rem*360;
+            background-size:contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            &.transition{
+                animation: fadeIn 1s both;
+            }
+        }
+        .info{
+            padding:0 $rem*10;
+            font-size:$rem*22;
+            color:#999;
+            &>h4{
+                color:#333;
+                height:$rem*66;
+                @include textOverFlow(2);
+            }
+            .price{
+               font-size:$rem*22;
+               color:#ca3741;
+               strong{
+                   font-size:$rem*25;
+                   font-weight:bold;
+               }
+            }
+            .national-flag{
+                display:inline-block;
+                width:$rem*25;
+                height:$rem*25;
+                background-size:contain;
+                background-repeat:no-repeat;
+                vertical-align: middle;
+                margin-right:$rem*10;
+            }
+        }
+
+    }
+
+}
+.load-finish{
+    padding:$rem*30 0;
+    text-align:center;
+    font-size:$rem*22;
+    color:#666;
+    clear: both;
+}
+
+@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}

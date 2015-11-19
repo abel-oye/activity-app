@@ -18,7 +18,7 @@
 
     'use strict';
 
-    var _pk_id = '4';
+    var _pk_id = '1120';
 
     //初始化ejs
     ejs.open = '{{';
@@ -97,7 +97,7 @@
             type: 'GET',
             jsonpCallback: callbackName,
             dataType: 'jsonp',
-            timeout: 60000, //1分钟过期
+            timeout: 30000, //1分钟过期
             cache: true,
             success: function (res) {
                 if (res && (res.Code === 200 || res.Code === '200')) {
@@ -106,6 +106,9 @@
                 else {
                     isFuntion(cbFn.error) && cbFn.error(res);
                 }
+            },
+            error:function(){
+                showLog('系统挤爆了，请稍后再试!');
             }
         });
     };
@@ -131,39 +134,7 @@
     }
 
     var module = {
-        /*//全球买手
-        globalSeller: function () {
-            var data = {
-                "IsNeedBrought": true,
-                "BuyerList": [{
-                    "SellerId": "sample string 1",
-                    "SellerName": "sample string 2",
-                    "SellerLogo": "http://p5.img.ymatou.com/upload/userlogo/original/574544_697f183901d24aa2a5b180b907b50bbe_o.jpg",
-                    "PicUrl": "http://p5.img.ymatou.com/upload/product/big/82b5e97d3f5a415fa8afbd8602026801_b.jpg",
-                    "CountryName": "sample string 5",
-                    "Flag": "http://img.ymatou.com/app/flag/circle/Germany.png",
-                    "Activities": 7,
-                    "FavCount": 8,
-                    "CouponPrice": 9.0,
-                    "ProductCount": 10
-                }, {
-                    "SellerId": "sample string 1",
-                    "SellerName": "sample string 2",
-                    "SellerLogo": "http://p5.img.ymatou.com/upload/userlogo/original/574544_697f183901d24aa2a5b180b907b50bbe_o.jpg",
-                    "PicUrl": "http://p5.img.ymatou.com/upload/product/big/82b5e97d3f5a415fa8afbd8602026801_b.jpg",
-                    "CountryName": "sample string 5",
-                    "Flag": "http://img.ymatou.com/app/flag/circle/Germany.png",
-                    "Activities": 7,
-                    "FavCount": 8,
-                    "CouponPrice": 9.0,
-                    "ProductCount": 10
-                }]
-            };
-            if (data && data.BuyerList.length) {
-                var html = ejs.render($('#globalseller-tpl').html(), data);
-                $('#bf_02 .buyerlist').html(html);
-            }
-        },*/
+
         //明星卖家
         starSeller: function () {
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/HotBuyer/GetHotBuyerList', {
@@ -188,7 +159,7 @@
                 success: function (data, code) {
                     if (data && data.Products.length) {
                         var html = ejs.render($('#active-tpl').html(), data);
-                        $('#bf_03 .CProductsModule').html(html);
+                        $('.CProductsModule').html(html);
                     }
                 },
                 error: function (err) {
@@ -202,7 +173,7 @@
          * @param  {string} pid 模块编号
          */
         MProductsModule: function (aid, pid) {
-            getActivityJsonP(aid, pid, 10, function (data) {
+            getActivityJsonP(aid, pid, 50, function (data) {
                 if (data && data.Products) {
                     var html = ejs.render($('#active-tpl').html(), data);
                     $('#bf_03 .MProductsModule').html(html);
@@ -251,7 +222,10 @@
 
                         new Swiper('#bf_05 .goods-item', {
                             freeMode: true,
-                            slidesPerView: 3.7
+                            slidesPerView: 3.7,
+                            onSlideChangeEnd: function() {
+                                lazyLoad.check();
+                            }
                         });
                     }
                 },
@@ -337,9 +311,9 @@
         seckillList:function(){
            jsonpGetData('http://jsapi.ms.ymatou.com/ActivityTemplate/GetPagePartProductListForSecKill', {
                 success: function (data) {
-                    if(data){
+                    if(data && data.Products && data.Products.length){
                         var html = ejs.render($('#seckill-tpl').html(), data);
-                        $('.bf-seckill .bf-area-bd').html(html);
+                        $('#seckill-wrapper').html(html);
 
                         new Swiper('.bf-seckill .bf-area-bd', {
                             pagination: '.bf-group-pagination',
@@ -369,6 +343,8 @@
         jsonpGetData('http://api.evt.ymatou.com/ActivityTemplate/Products/aid_' + aid + '/pid_' + pid + '/ps_' + pageSize, callback, callbackName);
     }
 
+    var stopCheck = false;
+
     /**
      * 检查坐标变更tab的active 位置
      */
@@ -392,10 +368,14 @@
         if (active.index() === 0) {
             coor.addClass('first');
         }
+
     }
 
 
     var checkAxis = function () {
+        if(stopCheck){
+            return;
+        }
         var $axle = $('.J-bf-axie'),
             doc = document.documentElement,
             view = {
@@ -411,8 +391,8 @@
                 || box.bottom >= view.t && box.bottom < view.b
                 || box.bottom > view.b && box.top < view.t) && box.left >= view.l && box.left < view.r) {
                 $('#bf-tab li').removeClass('active')
-                    .find('[href="#' + el.id + '"]')
-                    .parent().addClass('active');
+                    .filter('[data-href="' + el.id + '"]')
+                    .addClass('active');
                 checkCoordinate();
                 return false;
             }
@@ -435,7 +415,11 @@
     }
 
     var scrollChackeStatus = false; //scroll 检查频率控制
-    $(document).on('click', '.J-open', function () {
+    $(document).on('touchstart',function(){
+        //当点击tab切换之后，不再做滚动检测，当用户再次手动点击触发
+        //再次计算滚动切换tab位置
+        stopCheck = false;
+    }).on('click', '.J-open', function () {
             var $this = $(this);
 
             YmtApi.open({
@@ -474,9 +458,16 @@
 
         })
         .on('click', '#bf-tab li', function () {
+            var $this = $(this);
             $('#bf-tab li').removeClass('active');
-            $(this).addClass('active');
-            checkCoordinate();
+            $this.addClass('active');
+            location.hash = $this.attr('data-href');
+
+            stopCheck = true;
+            setTimeout(function(){
+                checkCoordinate();
+            });
+
         }).on('click', '.J-open-receive', function () { //打开大礼包
             if (YmtApi.utils.hasLogin()) {
                 $('#receive-package-bd').html($('#package-tpl').html());
