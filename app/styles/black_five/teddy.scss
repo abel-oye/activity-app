@@ -1,0 +1,104 @@
+@import'../_components/reset.scss';
+
+$rem: 1rem/32;
+
+.teddy-page {
+    background-color: #eff7d6;
+
+    .picture {
+        width: 100%;
+    }
+
+    .icon {
+        display: block;
+        width: $rem*44;
+        height: $rem*29;
+        margin: 0 auto $rem*28;
+        box-sizing: content-box;
+    }
+
+    .desc1 {
+        width: 98%;
+        margin: $rem*6 auto;
+        padding: $rem*20 0;
+        border: 2px dashed #857829;
+        border-radius: $rem*5;
+        text-align: center;
+        color: #412c00;
+        font-size: $rem*22;
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-size: $rem*36;
+            font-weight: 700;
+        }
+    }
+
+    .desc2 {
+        padding: $rem*24 0 $rem*50;
+        text-align: center;
+        color: #412c00;
+        background-color: #fff;
+        em {
+            font-size: $rem*36;
+            font-weight: bold;
+        }
+    }
+
+    .desc3 {
+        padding: $rem*24 0 $rem*50;
+        text-align: center;
+        color: #412c00;
+        background-color: #fff;
+    }
+
+    .desc4 {
+        font-size: $rem*30;
+        text-align: center;
+        color: #412c00;
+        background-color: #fff;
+        padding: $rem*70 0 $rem*40;
+    }
+
+    .desc5 {
+        font-size: $rem*24;
+        text-align: center;
+        color: #412c00;
+        background-color: #fff;
+        padding: $rem*24 0;
+    }
+
+    .desc6 {
+        font-size: $rem*30;
+        text-align: center;
+        color: #412c00;
+        padding: $rem*16 0 $rem*40;
+        strong {
+            font-weight: bold;
+        }
+        em {
+            font-size: $rem*44;
+            color: #de2910;
+        }
+    }
+
+    .desc7 {
+        width: 100%;
+        height: $rem*866;
+        background-image: url(http://staticontent.ymatou.com/images/teddy/outline.png);
+        background-size: cover;
+        background-position: center top;
+    }
+
+    .buy {
+        width: 100%;
+        height: $rem*866;
+        background-image: url(http://staticontent.ymatou.com/images/teddy/15.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
+

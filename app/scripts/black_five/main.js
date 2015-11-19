@@ -6,20 +6,25 @@
  * @email lijiang@ymaotu.com
  * @create-date 20151113
  */
+(function (w, o) {
+    w['YmatouAnalyticsobject'] = w['YmatouAnalyticsobject'] || o;
+    w[o] = w[o] || function () {
+        (w[o].q = w[o].q || []).push(arguments)
+    }
+})(window, '_dc_');
 +(function () {
 
     FastClick.attach(document.body);
 
     'use strict';
 
-    var _pk_id = '4';
+    var _pk_id = '1120';
 
     //初始化ejs
     ejs.open = '{{';
     ejs.close = '}}';
 
     ejs.filters.pirceRegion = function (price) {
-        console.log(price)
         if (!price) {
             return price;
         }
@@ -52,7 +57,6 @@
 
             setTimeout(function () {
                 errElm.removeClass('show');
-                1
                 toastStatus = true;
                 callback && callback();
             }, 2400);
@@ -93,8 +97,8 @@
             type: 'GET',
             jsonpCallback: callbackName,
             dataType: 'jsonp',
-            timeout: 60000, //1分钟过期
-            cache: false,
+            timeout: 30000, //1分钟过期
+            cache: true,
             success: function (res) {
                 if (res && (res.Code === 200 || res.Code === '200')) {
                     isFuntion(cbFn.success) && cbFn.success(res.Data);
@@ -102,6 +106,9 @@
                 else {
                     isFuntion(cbFn.error) && cbFn.error(res);
                 }
+            },
+            error:function(){
+                showLog('系统挤爆了，请稍后再试!');
             }
         });
     };
@@ -127,39 +134,7 @@
     }
 
     var module = {
-        //全球买手
-        globalSeller: function () {
-            var data = {
-                "IsNeedBrought": true,
-                "BuyerList": [{
-                    "SellerId": "sample string 1",
-                    "SellerName": "sample string 2",
-                    "SellerLogo": "http://p5.img.ymatou.com/upload/userlogo/original/574544_697f183901d24aa2a5b180b907b50bbe_o.jpg",
-                    "PicUrl": "http://p5.img.ymatou.com/upload/product/big/82b5e97d3f5a415fa8afbd8602026801_b.jpg",
-                    "CountryName": "sample string 5",
-                    "Flag": "http://img.ymatou.com/app/flag/circle/Germany.png",
-                    "Activities": 7,
-                    "FavCount": 8,
-                    "CouponPrice": 9.0,
-                    "ProductCount": 10
-                }, {
-                    "SellerId": "sample string 1",
-                    "SellerName": "sample string 2",
-                    "SellerLogo": "http://p5.img.ymatou.com/upload/userlogo/original/574544_697f183901d24aa2a5b180b907b50bbe_o.jpg",
-                    "PicUrl": "http://p5.img.ymatou.com/upload/product/big/82b5e97d3f5a415fa8afbd8602026801_b.jpg",
-                    "CountryName": "sample string 5",
-                    "Flag": "http://img.ymatou.com/app/flag/circle/Germany.png",
-                    "Activities": 7,
-                    "FavCount": 8,
-                    "CouponPrice": 9.0,
-                    "ProductCount": 10
-                }]
-            };
-            if (data && data.BuyerList.length) {
-                var html = ejs.render($('#globalseller-tpl').html(), data);
-                $('#bf_02 .buyerlist').html(html);
-            }
-        },
+
         //明星卖家
         starSeller: function () {
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.pk.ymatou.com/api/HotBuyer/GetHotBuyerList', {
@@ -180,105 +155,25 @@
          * 获得活动C商品
          */
         CProductsModule: function (aid, pid) {
-            var data = {
-                "ResultCount": 1,
-                "Products": [{
-                    "ProductId": "sample string 1",
-                    "IsMall": true,
-                    "IsCustomer": true,
-                    "Customer": {
-                        "DeliveryType": 1,
-                        "IsVip": true,
-                        "IsNewCustomer": true,
-                        "Price": 4.0,
-                        "VipPrice": "sample string 5",
-                        "NewCustomerPrice": "sample string 6",
-                        "ActivityExpiresIn": 7.1
-                    },
-                    "Mall": {
-                        "DeliveryMethod": 1,
-                        "MarketPrice": 2.0,
-                        "MaxCatalogPrice": 3.0,
-                        "MinCatalogPrice": 4.0,
-                        "CanLocalReturn": true,
-                        "IsActivity": true
-                    },
-                    "PicUrl": "http://p5.img.ymatou.com/upload/product/big/82b5e97d3f5a415fa8afbd8602026801_b.jpg",
-                    "Name": "sample string 5",
-                    "Price": 6.0,
-                    "Stock": 7,
-                    "Logo": "http://p5.img.ymatou.com/upload/userlogo/original/574544_697f183901d24aa2a5b180b907b50bbe_o.jpg",
-                    "Seller": "sample string 9",
-                    "SellerId": 10,
-                    "CountryName": "sample string 11",
-                    "Flag": "http://img.ymatou.com/app/flag/circle/Germany.png",
-                    "ActivityId": 13,
-                    "TaxFarming": true,
-                    "BonderShipments": true,
-                    "FreeShipping": true,
-                    "IsXloboBonded": true
-                }, {
-                    "ProductId": "sample string 1",
-                    "IsMall": true,
-                    "IsCustomer": true,
-                    "Customer": {
-                        "DeliveryType": 1,
-                        "IsVip": true,
-                        "IsNewCustomer": true,
-                        "Price": 4.0,
-                        "VipPrice": "sample string 5",
-                        "NewCustomerPrice": "sample string 6",
-                        "ActivityExpiresIn": 7.1
-                    },
-                    "Mall": {
-                        "DeliveryMethod": 1,
-                        "MarketPrice": 2.0,
-                        "MaxCatalogPrice": 3.0,
-                        "MinCatalogPrice": 4.0,
-                        "CanLocalReturn": true,
-                        "IsActivity": true
-                    },
-                    "PicUrl": "http://p5.img.ymatou.com/upload/product/big/82b5e97d3f5a415fa8afbd8602026801_b.jpg",
-                    "Name": "sample string 5",
-                    "Price": 6.0,
-                    "Stock": 7,
-                    "Logo": "http://p5.img.ymatou.com/upload/userlogo/original/574544_697f183901d24aa2a5b180b907b50bbe_o.jpg",
-                    "Seller": "sample string 9",
-                    "SellerId": 10,
-                    "CountryName": "sample string 11",
-                    "Flag": "http://img.ymatou.com/app/flag/circle/Germany.png",
-                    "ActivityId": 13,
-                    "TaxFarming": true,
-                    "BonderShipments": true,
-                    "FreeShipping": true,
-                    "IsXloboBonded": true
-                }]
-            };
-
-            jsonpGetData('http://jsapi.pk.ymatou.com/api/Friday/ExplosionIndex', {
+            jsonpGetData('http://jsapi.bf.ymatou.com/api/Friday/ExplosionIndex', {
                 success: function (data, code) {
                     if (data && data.Products.length) {
                         var html = ejs.render($('#active-tpl').html(), data);
-                        $('#bf_03 .CProductsModule').html(html);
+                        $('.CProductsModule').html(html);
                     }
                 },
                 error: function (err) {
                     //@TODO fuck 砍价团的接口格式不一致
                 }
-            });
-
-            // if (data && data.Products.length) {
-            //     var html = ejs.render($('#active-tpl').html(), data);
-            //     $('#bf_03 .CProductsModule').html(html);
-            // }
+            },'ymt_explosion_index');
         },
-        /**http://jsapi.pk.ymatou.com/api/Friday/ExplosionIndex
+        /**
          * 获得活动商品
          * @param  {string} aid 活动编号
          * @param  {string} pid 模块编号
          */
         MProductsModule: function (aid, pid) {
-            getActivityJsonP(aid, pid, 10, function (data) {
+            getActivityJsonP(aid, pid, 50, function (data) {
                 if (data && data.Products) {
                     var html = ejs.render($('#active-tpl').html(), data);
                     $('#bf_03 .MProductsModule').html(html);
@@ -304,11 +199,11 @@
 
                         new Swiper('#bf_01 .bf-area-bd', {
                             pagination: '.bf-group-pagination',
-                            slidesPerView: 1,
-                            spaceBetween: 0,
-                            loop: false,
-                            centeredSlides: true,
-                            autoplayDisableOnInteraction: false
+                            loop: true,
+                            autoplay: 3000,
+                            onSlideChangeEnd: function() {
+                                lazyLoad.check();
+                            }
                         });
                     }
                 }
@@ -327,7 +222,10 @@
 
                         new Swiper('#bf_05 .goods-item', {
                             freeMode: true,
-                            slidesPerView: 4.7
+                            slidesPerView: 3.7,
+                            onSlideChangeEnd: function() {
+                                lazyLoad.check();
+                            }
                         });
                     }
                 },
@@ -350,30 +248,30 @@
         receivePk: function (packageId) { //领取大礼包
             var authInfo = YmtApi.utils.getAuthInfo(),
                 deviceId = search.DeviceId || search.DeviceToken || '0000000';
-
             jsonpGetData(YmtApi.utils.addParam('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon?DeviceCode=' + deviceId + '&PackageId=' + packageId, {
                 BuyerUserId: authInfo.UserId,
                 AccessToken: authInfo.AccessToken
             }), {
                 success: function (data) {
                     if (data) {
-                        showLog('领取成功！');
+                        //showLog('恭喜您，价值&yen;555的全场通用券已到您的账户，开始买买买吧');
+                        $('.receive-package-dialog').addClass('succ')
                     }
                 },
                 error: function (data) {
                     switch (data.BCode) {
-                    case -1:
-                        showLog('礼包不存在');
-                        break;
-                    case -2:
-                        showLog('用户不存在');
-                        break;
-                    case -3:
-                        showLog('该设备已达最大领取次数');
-                        break;
-                    case -4:
-                        showLog('您已经领取成功');
-                        break;
+                        case -1:
+                            showLog('礼包不存在');
+                            break;
+                        case -2:
+                            showLog('用户不存在');
+                            break;
+                        case -3:
+                            showLog('该设备已达最大领取次数');
+                            break;
+                        case -4:
+                            showLog('您已经领取过该礼包');
+                            break;
                     }
                 }
             });
@@ -408,6 +306,56 @@
 
                 }
             });
+        },
+        //秒杀
+        seckillList:function(){
+           jsonpGetData('http://jsapi.ms.ymatou.com/ActivityTemplate/GetPagePartProductListForSecKill', {
+                success: function (data) {
+                    data.Products = [
+                        {
+                           ProductId:'c767b5ff-460b-4bb7-acd4-5e3277b35535',
+                           PicUrl:'http://pm3.img.ymatou.com/G02/M03/FA/A8/CgvUA1ZNoPyAGGBmAACgD53r7wE540_o.jpg',
+                        },{
+                           ProductId:'d2af03c7-ede4-4b35-b145-e3e1392a43c9',
+                           PicUrl:'http://pm4.img.ymatou.com/G02/M03/FA/0D/CgvUBVZNoOmAATf5AACkRz0bTWU507_o.jpg',
+                        },{
+                           ProductId:'b2b8fde3-08ed-4a73-aa3c-3fc4a09d7b37',
+                           PicUrl:'http://pm4.img.ymatou.com/G02/M00/F9/C5/CgvUBFZNoNeAJTzGAACKR-oN_HY433_o.jpg',
+                        },{
+                           ProductId:'85fb4af9-d656-48ce-9cb3-fcce3204933d',
+                           PicUrl:'http://pm3.img.ymatou.com/G02/M0A/FA/09/CgvUBVZNoMSAHTF_AACflCigjnw966_o.jpg',
+                        },{
+                           ProductId:'8bd1c96d-a108-450b-874f-f6a724c5bf98',
+                           PicUrl:'http://pm5.img.ymatou.com/G02/M0A/F9/C2/CgvUBFZNoK-AJ2__AACc6hp18SM443_o.jpg',
+                        },{
+                           ProductId:'d1f498a9-9501-4683-b8ec-8a589ec86c71',
+                           PicUrl:'http://pm3.img.ymatou.com/G02/M08/FA/05/CgvUBVZNoJKARlXtAACfQglGIfU104_o.jpg',
+                        }
+                    ]
+                    if(data && data.Products && data.Products.length){
+                        var html = ejs.render($('#seckill-tpl').html(), data);
+                        console.log(html)
+                        $('#seckill-wrapper').html(html);
+
+                        new Swiper('.bf-seckill .bf-area-bd', {
+                            pagination: '.bf-group-pagination',
+                            loop: true,
+                            autoplay: 7000,
+                            onSlideChangeStart: function() {
+                                lazyLoad.check();
+                            }
+                        });
+                    }
+
+                },
+                error: function (data) {
+
+                }
+            },'ymatou_at_ms');
+        },
+        //模块打点空方法
+        noop:function(){
+
         }
     }
 
@@ -416,6 +364,8 @@
         pageSize = pageSize || 10;
         jsonpGetData('http://api.evt.ymatou.com/ActivityTemplate/Products/aid_' + aid + '/pid_' + pid + '/ps_' + pageSize, callback, callbackName);
     }
+
+    var stopCheck = false;
 
     /**
      * 检查坐标变更tab的active 位置
@@ -440,10 +390,14 @@
         if (active.index() === 0) {
             coor.addClass('first');
         }
+
     }
 
 
     var checkAxis = function () {
+        if(stopCheck){
+            return;
+        }
         var $axle = $('.J-bf-axie'),
             doc = document.documentElement,
             view = {
@@ -455,19 +409,39 @@
 
         $axle.each(function (index, el) {
             var box = el.getBoundingClientRect();
-            console.log(view, box)
-            if (box.top >= view.t && box.top < view.b && box.left >= view.l && box.left < view.r) {
+            if ((box.top >= view.t && box.top < view.b
+                || box.bottom >= view.t && box.bottom < view.b
+                || box.bottom > view.b && box.top < view.t) && box.left >= view.l && box.left < view.r) {
                 $('#bf-tab li').removeClass('active')
-                    .find('[href="#' + el.id + '"]')
-                    .parent().addClass('active');
+                    .filter('[data-href="' + el.id + '"]')
+                    .addClass('active');
                 checkCoordinate();
                 return false;
             }
         });
     }
+    var share =  function () { //分享
+        var $this = $(this),
+            url = $this.attr('data-share-url'),
+            content = $this.attr('data-share-content'),
+            title = $this.attr('data-share-title'),
+            pic = $this.attr('data-share-pic');
+
+        YmtApi.openShare({
+            shareTitle: title,
+            shareUrl: url,
+            sharePicUrl: pic,
+            shareContent: content,
+            showWeiboBtn: 1
+        });
+    }
 
     var scrollChackeStatus = false; //scroll 检查频率控制
-    $(document).on('click', '.J-open', function () {
+    $(document).on('touchstart',function(){
+        //当点击tab切换之后，不再做滚动检测，当用户再次手动点击触发
+        //再次计算滚动切换tab位置
+        stopCheck = false;
+    }).on('click', '.J-open', function () {
             var $this = $(this);
 
             YmtApi.open({
@@ -499,16 +473,23 @@
             }
 
         })
-        .on('click', '.J-close', function () { //转盘运行
+        .on('click', '.J-close', function () {
             var $this = $(this);
 
             $('.' + $this.attr('data-target')).removeClass('open').addClass('close');
 
         })
         .on('click', '#bf-tab li', function () {
+            var $this = $(this);
             $('#bf-tab li').removeClass('active');
-            $(this).addClass('active');
-            checkCoordinate();
+            $this.addClass('active');
+            location.hash = $this.attr('data-href');
+
+            stopCheck = true;
+            setTimeout(function(){
+                checkCoordinate();
+            });
+
         }).on('click', '.J-open-receive', function () { //打开大礼包
             if (YmtApi.utils.hasLogin()) {
                 $('#receive-package-bd').html($('#package-tpl').html());
@@ -517,21 +498,7 @@
             else {
                 YmtApi.toLogin();
             }
-        }).on('click', '.J-share', function () { //分享
-            var $this = $(this),
-                url = $this.attr('data-share-url'),
-                content = $this.attr('data-share-content'),
-                title = $this.attr('data-share-title'),
-                pic = $this.attr('data-share-pic');
-
-            YmtApi.openShare({
-                shareTitle: title,
-                shareUrl: url,
-                sharePicUrl: pic,
-                shareContent: content,
-                showWeiboBtn: 1
-            });
-        }).on('click', '.ymt-butler', function () { //洋管家
+        }).on('click', '.J-share',share).on('click', '.ymt-butler', function () { //洋管家
             if (YmtApi.utils.hasLogin()) {
                 var auth = YmtApi.utils.getAuthInfo();;
                 var UserId = auth.UserId || 0;
@@ -551,11 +518,52 @@
             }
         }).on('click', '.J-receive-pk', function () { //领取大礼包
             if (YmtApi.utils.hasLogin()) {
-                module.receivePk(_pk_id);
+                    share.apply(this);
+                if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
+                    module.receivePk(_pk_id);
+                }else{
+                    //@TODO android通过urlchange的方式如果协议ajax是同步触发，可能会导致
+                    //ajax被终止。在ajax使用同步阻塞方法，比如alert也可以解决这个问题
+                    setTimeout(function(){
+                        module.receivePk(_pk_id);
+                    }.bind(this),100)
+                }
+
             }
             else {
                 YmtApi.toLogin();
             }
+        }).on('click', '.J-open-C-Product', function () {
+            var url = "",
+                $this = $(this),
+                productId = $this.attr('data-productId'),
+                sellerId = $this.attr('data-sellerId'),
+                logo = $this.attr('data-logo'),
+                seller = $this.attr('data-seller');
+
+            //判断是否扫货app 跳转相应的页面
+            if (YmtApi.isSaohuoApp) {
+                url = YmtApi.utils.addParam('/forBuyerApp/productDetail', {
+                    param: JSON.stringify({
+                        SellerModel: {
+                            Logo: logo,
+                            Seller: seller,
+                            SellerId:sellerId
+
+                        },
+                        ProductModel: {
+                            ProductId: productId
+                        }
+                    })
+                });
+            }
+            else {
+                url = 'http://sq.ymatou.com/product/' + productId;
+            }
+            YmtApi.open({
+                title: '全球好货',
+                url: url
+            });
         });
 
     lazyLoad.init({
@@ -566,7 +574,12 @@
             if ($this.hasClass('J-module-Hold')) {
                 var moduleName = $this.attr('data-module'),
                     args = ($this.attr('data-arguments') || '').split(',');
-                console.log(moduleName)
+
+                (window['_dc_'] || function(){})('exec', 'load_more_fn', {
+                    module_name:  'activity_16010_capp',
+                    sub_module_name: $this.attr('data-sub-module-name')
+                } )
+
                 moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
                 $this.removeClass('J-module-Hold').addClass('module-load-end');
             }
@@ -574,5 +587,13 @@
         }
     });
 
+    new Swiper('.bf-seckill .bf-area-bd', {
+        pagination: '.bf-group-pagination',
+        loop: true,
+        autoplay: 7000,
+        onSlideChangeStart: function() {
+            lazyLoad.check();
+        }
+    });
 
 })();

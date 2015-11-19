@@ -67,9 +67,9 @@ _gulp2['default'].task('html', ['styles'], function () {
         searchPath: ['.tmp', 'app', '.']
     });
 
-    return _gulp2['default'].src('app/{,*/}*.html').pipe(assets).pipe($.rev()).pipe($['if']('*.js', $.uglify())).pipe($['if']('*.css', $.minifyCss({
+    return _gulp2['default'].src('app/{,*/}*.html').pipe(assets).pipe($['if']('*.js', $.uglify())).pipe($['if']('*.css', $.minifyCss({
         compatibility: '*'
-    }))).pipe(assets.restore()).pipe($.useref()).pipe($.revReplace()).pipe($['if']('*.html', $.minifyHtml({
+    }))).pipe(assets.restore()).pipe($['if']('*.html', $.minifyHtml({
         conditionals: true,
         loose: true
     }))).pipe(_gulp2['default'].dest('dist'));
@@ -164,12 +164,12 @@ _gulp2['default'].task('rev', function () {
     return _gulp2['default'].src(['dist/rev/**/*.json', 'dist/styles/{,*/}*']).pipe($.revCollector()).pipe(_gulp2['default'].dest('dist/styles'));
 });
 
-_gulp2['default'].task('build', ['lint', 'images', 'fonts', 'extras', 'html'], function () {
+_gulp2['default'].task('build', ['lint', 'fonts', 'extras', 'html'], function () {
     return _gulp2['default'].src('dist/**/*').pipe($.size({
         title: 'build',
         gzip: true
     })).on('end', function () {
-        _gulp2['default'].start('rev');
+       //_gulp2['default'].start('rev');
     });
 });
 

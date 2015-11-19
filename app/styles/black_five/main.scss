@@ -16,6 +16,9 @@
 
  $rem: 1rem/32;
 
+ //$imgPath:'/images/black_five/';
+ $imgPath:'http://staticontent.ymatou.com/images/black_five/';
+
 .mask{
     position: fixed;
     z-index: 99;
@@ -40,31 +43,51 @@
 }
 
 .bf-banner-hd{
-    background-image:url(http://staticontent.ymatou.com/images/black_five/bf-banner.png);
+    background-image:url(#{$imgPath}bf-banner_cut.jpg);
     background-size:contain;
     width:100%;
     height:$rem*673;
     text-align:right;
+    position:relative;
+    background-color:#e93d3d;
     .activity-detail{
-        width:100%;
-        height:100%;
-        display:inline-block;
+        font-size:$rem*24;
+        color:#fff;
+        padding:$rem*10 $rem*25;
+        border-top-left-radius:$rem*44;
+        border-bottom-left-radius:$rem*44;
+        background-color:rgba(0,0,0,.4);
+        position:absolute;
+        top:$rem*450;
+        right:0;
+        &:after{
+            content:'?';
+            display:inline-block;
+            font-size:$rem*17;
+            width:$rem*25;
+            height:$rem*25;
+            border:1px solid #fff;
+            border-radius:50%;
+            text-align:center;
+            margin-left:$rem*5;
+        }
     }
 }
 
 //领取优惠券
 .bf-coupon{
     &-wrapper{
-       padding:$rem*8;
        background-color:#e93d3d;
        padding-bottom:$rem*35;
     }
     &-inner{
-        background-image:url(http://staticontent.ymatou.com/images/black_five/coupon.png);
+        background-image:url(#{$imgPath}coupon.png);
         background-size:contain;
-        width:$rem*730;
+        width:100%;
         min-height:$rem*391;
-
+        margin:0 auto;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 }
 
@@ -79,12 +102,43 @@
         margin-bottom:$rem*18;
     }
 }
+//秒杀
+.bf-seckill{
+    background:#fe6a60;
+    &-list{
+        height:100%;
+          white-space: nowrap;
+          width:100%;
+    }
+    &-item{
+        display:inline-block;
+        height:100%;
+        width:100%;
+    }
+    &-pro{
+        height:100%;
+    }
+    .bf-area-hd{
+        background-image:url(#{$imgPath}seckill.png);
+        width:100%;
+        height:$rem*84;
+        margin:0 auto $rem*20;
+        background-repeat:no-repeat;
+        background-position:center;
+    }
+    .bf-area-bd{
+        background:#fff;
+        height:$rem*390;
+        overflow:hidden;
+    }
+}
 //砍价团
 .bf-group{
     background-color:#ffbb19;
     position:relative;
-      width: 100%;
+    width: 100%;
      overflow: hidden;
+     box-sizing: border-box;
     &-list{
         white-space: nowrap;
     }
@@ -92,9 +146,11 @@
         display:inline-block;
     }
     .bf-area-hd{
-        background-image:url(http://staticontent.ymatou.com/images/black_five/group-title.png);
-        width:$rem*728;
+        background-image:url(#{$imgPath}group-title.png);
+        width:100%;
         height:$rem*73;
+        background-repeat:no-repeat;
+        background-position:center;
     }
     &-pro{
         width:100%;
@@ -105,10 +161,10 @@
         font-size:$rem*24;
         color:#fff;
         padding:$rem*4 $rem*22;
-        background:#ff5247;
+        background:#c33;
         position:absolute;
         left:$rem*40;
-        bottom:$rem*68;
+        bottom:$rem*25;
         border-radius:$rem*50;
     }
     //砍价团分页
@@ -138,9 +194,9 @@
 .bf-seller{
     background:#ff5247;
     .bf-area-hd{
-        //background-image:url(http://staticontent.ymatou.com/images/black_five/seller-title.png);
-        width:$rem*728;
-        height:$rem*920;
+        //background-image:url(#{$imgPath}seller-title.png);
+        width:$rem*704;
+        height:$rem*347;
         margin:0 auto;
         margin-bottom:$rem*22;
     }
@@ -240,49 +296,21 @@
 //列表
 @include column('.bf-',2,$rem*10);
 @include column('.bf-',3,$rem*10);
-/* .bf-list{
-    overflow: hidden;
-    .bf-item{
-        float:left;
-        &_2col{
-            width:50%;
-            &:nth-child(2n-1){
-                padding-right:$rem*5;
-            }
-            &:nth-child(2n){
-                padding-left:$rem*5;
-            }
-        }
-        &_3col{
-            width:33.333333%;
-            &:nth-child(2n-1){
-                padding-right:$rem*7.5;
-            }
-            &:nth-child(2n){
-                padding-left:$rem*2.5;
-                padding-right:$rem*2.5;
-            }
-            &:nth-child(3n){
-                padding-right:$rem*7.5;
-            }
-        }
-    }
-} */
 
 .usa_seller{
-    //background-image:url(http://staticontent.ymatou.com/images/black_five/usa_seller.png);
+    //background-image:url(#{$imgPath}usa_seller.png);
     width:100%;
     height:$rem*197;
     margin:$rem*50 0 $rem*10;
 }
 .jsk_seller{
-    //background-image:url(http://staticontent.ymatou.com/images/black_five/jsk_seller.png);
+    //background-image:url(#{$imgPath}jsk_seller.png);
 }
 .europe_seller{
-    //background-image:url(http://staticontent.ymatou.com/images/black_five/europe_seller.png);
+    //background-image:url(#{$imgPath}europe_seller.png);
 }
 .australia_seller{
-    //background-image:url(http://staticontent.ymatou.com/images/black_five/australia_seller.png);
+    //background-image:url(#{$imgPath}australia_seller.png);
 }
 
 .jsk_seller,
@@ -295,21 +323,24 @@
 .bf-losing{
     background:#ff5470;
     .bf-area-hd{
-        background-image:url(http://staticontent.ymatou.com/images/black_five/losing-title.png);
-        width:$rem*731;
+        background-image:url(#{$imgPath}losing-title.png);
+        width:100%;
         height:$rem*78;
         margin:0 auto;
         margin-bottom:$rem*22;
+        background-repeat:no-repeat;
+        background-position:center;
     }
 }
 
 .losing-pro-wrapper{
     background: #FFF;
-    padding-bottom:$rem*10;
+    padding-bottom:$rem*18;
     margin-bottom:$rem*10;
     .pic{
-        height:$rem*310;
-          background-size: contain;
+        height:$rem*360;
+        background-size: contain;
+          background-position: top;
     }
     .info{
         padding:0 $rem*22;
@@ -331,8 +362,8 @@
         line-height:$rem*60;
         border:1px solid #ff5247;
         border-radius:$rem*60;
-        box-shadow: 0 4px #a22f27;
-
+        box-shadow: 0 2px #a22f27;
+        background-color: #FF5247;
         &>span{
             display:inline-block;
             height:100%;
@@ -345,6 +376,7 @@
             border-top-left-radius: $rem*60;
             border-bottom-left-radius: $rem*60;
             width:40%;
+            font-weight:bold;
         }
         &>:last-child{
             background:#ff5247;
@@ -405,8 +437,8 @@
 
 }
 .goods-banner{
-    height:$rem*404;
-    border:1px solid #ffd9df;
+    height:$rem*400;
+    //border:1px solid #ffd9df;
     position:relative;
     &:after{
         content:'';
@@ -427,12 +459,13 @@
     }
     &-item{
         background:#fff;
-        margin-left:$rem*8;
+        margin-right:$rem*8;
         display:inline-block;
         text-align:center;
         width:$rem*200;
         font-size:$rem*22;
         color:#3c3c3c;
+        vertical-align: top;
         h4{
            height: $rem*33;
            overflow: hidden;
@@ -441,6 +474,7 @@
         }
         .pic{
             height:$rem*200;
+            line-height:$rem*200;
             margin-bottom:$rem*15;
         }
         .pirce{
@@ -511,7 +545,7 @@
                 height:$rem*68;
                 animation: sign-sway 3s infinite alternate;
                 will-change:transform;
-                background-image:url(http://staticontent.ymatou.com/images/black_five/balloon.png);
+                background-image:url(#{$imgPath}balloon.png);
                 @extend .bg__full;
             }
             &:after{
@@ -520,7 +554,7 @@
                 left:$rem*26;
                 //bottom:$rem*-12;
                 top:$rem*28;
-                background-image:url(http://staticontent.ymatou.com/images/black_five/people.png);
+                background-image:url(#{$imgPath}people.png);
                 width:$rem*70;
                 height:$rem*70;
                  @extend .bg__full;
@@ -529,20 +563,26 @@
 
         &:after{
             content:'';
-            background-image:url(http://staticontent.ymatou.com/images/black_five/tab_bg.png);
+            background-image:url(#{$imgPath}tab_bg.png);
             @extend .bg__full;
             position:absolute;
-            width:$rem*248;
-            height:$rem*86;
+            width:$rem*191;
+            height:$rem*84;
             right:$rem*25;
             bottom:$rem*-10;
         }
     }
     &-bd{
         position:relative;
+        display: -moz-box;
+            display: -webkit-box;
+            display: box;
         &>ul{
             position:relative;
             bottom:0;
+            -moz-box-flex: 1;
+            -webkit-box-flex: 2;
+            box-flex: 1;
             &:before{
                 content:'';
                 position:absolute;
@@ -553,7 +593,7 @@
                 left:$rem*10;
                 top:$rem*5;
                  @extend .bg__full;
-                background-image:url(http://staticontent.ymatou.com/images/black_five/tab-left-flag.png);
+                background-image:url(#{$imgPath}tab-left-flag.png);
             }
             height:$rem*94;
             line-height:$rem*94;
@@ -568,15 +608,16 @@
         li{
             float:left;
             overflow:hidden;
-            a{
+            //a{
                 display:block;
-                padding:0 $rem*12;
+
+                //padding:0 $rem*12;
                 height:100%;
-                width:100%;
+                width:20%;
                 color:#fff;
                 position:relative;
                 z-index: 3;
-            }
+           //}
             &:first-child{
                 border-top-left-radius:$rem*94;
                 border-bottom-left-radius:$rem*94;
@@ -604,14 +645,15 @@
         }
     }
     .bear-header{
-        background-image:url(http://staticontent.ymatou.com/images/black_five/bear-header.png);
+        background-image:url(#{$imgPath}bear-header.png);
         width:$rem*101;
         height:$rem*110;
         @extend bg__full;
         z-index: 2;
         right: 0;
-        bottom: $rem*-4;
-        position:absolute;
+        bottom: $rem*10;
+        display:block;
+        position:relative;
     }
 }
 //气球摆动
@@ -627,10 +669,8 @@
   }
 }
 
-
-
 .img-hold{
-    background-image:url(http://staticontent.ymatou.com/images/black_five/loading.jpg);
+    background-image:url(#{$imgPath}loading_cut.jpg);
 }
 
 //
@@ -639,14 +679,27 @@
 }
 //领取礼包
 .receive-package{
+    &.succ{
+        .package-bg{
+            background-image:url(#{$imgPath}bg-dialog-succ.png);
+        }
+        .share-btn{
+            left:50%;
+            transform:translate(-50%);
+              display: block;
+        }
+        .share-tools{
+            display:none;
+        }
+    }
     &-mask{
         @extend .mask;
     }
     &-dialog{
-        background-image:url(http://staticontent.ymatou.com/images/black_five/seller-title.jpg);
+
         @extend .bg__full;
         width:$rem*750;
-        height:$rem*596;
+        height:$rem*520;
         position: fixed;
         top: 50%;
         left: 50%;
@@ -655,6 +708,26 @@
         margin-top:-$rem*298;
         background-position: top;
         display:none;
+        .package-bg{
+            width:$rem*648;
+            height:$rem*393;
+            margin:0 auto;
+            background-image:url(#{$imgPath}bg-dialog.png);
+
+        }
+        .close-flag{
+            position:absolute;
+            width:$rem*50;
+            height:$rem*50;
+            line-height:$rem*50;
+            border:$rem*3 solid #fff;
+            border-radius:50%;
+            color:#fff;
+            background:#000;
+            text-align:center;
+            right:$rem*55;
+            top:$rem*20;
+        }
         &.open{
             display:block;
         }
@@ -662,13 +735,16 @@
             position:relative;
             height: 100%;
         }
+        .succ-btn{
+            display:none;
+        }
         .share-btn,
         .close-btn{
              position:absolute;
              width:$rem*313;
              height:$rem*96;
              line-height:$rem*96;
-             bottom:$rem*40;
+             bottom:0;
              border-radius:$rem*16;
              font-size:$rem*55;
              color:#410005;
@@ -681,8 +757,8 @@
         }
         .close-btn{
             right:$rem*46;
-            background-color:#01efef;
-            box-shadow:0 $rem*14 #00a3a3;
+            background-color:#fdd4da;
+            box-shadow:0 $rem*14 #fba5b3;
         }
         .share-btn{
             color:#fff;
@@ -692,3 +768,8 @@
         }
     }
 }
+
+.lazyload.transition{
+    animation: fadeIn 1s both;
+}
+@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
