@@ -1,22 +1,108 @@
+//图片队列
+var hui = window.hui ? window.hui : window.hui = {};
+hui.fn = function (func, scope) {
+	if (Object.prototype.toString.call(func) === "[object String]") {
+		func = scope[func];
+	}
+	if (Object.prototype.toString.call(func) !== "[object Function]") {
+		throw 'Error "hui.util.fn()": "func" is null';
+	}
+	var xargs = arguments.length > 2 ? [].slice.call(arguments, 2) : null;
+	return function () {
+		var fn = "[object String]" == Object.prototype.toString.call(func) ? scope[func] : func,
+			args = xargs ? xargs.concat([].slice.call(arguments, 0)) : arguments;
+		return fn.apply(scope || fn, args);
+	};
+};
+hui.ImageQue = function (list, opt) {
+	var me = this;
+	me.list = list ? [].slice.call(list, 0) : [];
+	me.stop = opt && opt.maxCount || false;
+	me.maxCount = opt && opt.maxCount || 2;
+	//列表中的阻塞数
+	me.blockSize = opt && opt.blockSize || 1;
+	me.loading = 0;
+	me.lazyClass = opt && opt.lazyClass || "lazy-load";
+	me.loadLeft();
+};
+hui.ImageQue.prototype.loadNext = function () {
+	var me = this;
+	if (me.list.length && !me.stop) {
+		var ele = me.list.shift();
+		if (ele && ele.getAttribute(me.lazyClass)) {
+			ele.onload = hui.fn(me.onloadCallback, me);
+			ele.onerror = hui.fn(me.onloadCallback, me);
+			ele.src = ele.getAttribute(me.lazyClass);
+			ele.removeAttribute(me.lazyClass);
+			me.loading++;
+		}
+		else {
+			me.loadNext();
+		}
+	}
+};
+hui.ImageQue.prototype.loadLeft = function () {
+	var me = this;
+	for (var i = me.maxCount - me.loading; i > 0 && !me.stop; i--) {
+		me.loadNext();
+	}
+};
+hui.ImageQue.prototype.onloadCallback = function (elem) {
+	var me = this;
+	me.loading--;
+	me.loadNext();
+};
+hui.ImageQue.prototype.addImage = function (list) {
+	var me = this;
+	if (Object.prototype.toString.call(list) !== "[object Array]") {
+		if (list && list.length) {
+			list = [].slice.call(list, 0);
+		}
+		else if (list && String(list.tagName).toLowerCase() === "img") {
+			list = [list];
+		}
+	}
+	if (Object.prototype.toString.call(list) === "[object Array]") {
+		if (me.list.length >= me.blockSize) {
+			me.list = list.concat(me.list);
+		}
+		else {
+			me.list = me.list.concat(list);
+		}
+		me.loadLeft();
+	}
+};
+
+var $window = $(window),
+	maxCount = 6,
+	blockSize = 1,
+	throttle = 200;
+//安卓另一种方案
+if (YmtApi && YmtApi.isAndroid) {
+	maxCount = 4;
+	blockSize = 1;
+	throttle = 1000;
+}
+
 //图片懒加载
 var picLazyLoad = (function ($, window) {
-	var uid = 0,
-		$window = $(window),
-		_lazy = '.lazy',
-		_url = 'data-lazy';
+	var _lazy = '.lazy',
+		_url = 'lazy-load',
+		$content = $('body'),
+		$lazyImg = null,
+		poll = null;
 
-	return function (content, effect) {
-		var guid = ++uid,
-			content = content || 'body',
-			effect = effect || 'fadeIn';
+	var imageQue = new hui.ImageQue({
+		maxCount: maxCount,
+		blockSize: blockSize
+	});
 
-		var $content = $(content),
-			$lazyImg = $content.find(_lazy),
-			lazyLength = $lazyImg.not('[data-isLoad]').length;
-		//绑定window的scroll事件
-		$window.on('scroll.lazy' + guid, function () {
-			//如果容器是隐藏，则不加载
-			if ($content.css('display') == 'none') return;
+	//绑定window的scroll事件
+	$window.on('scroll', function () {
+		if (poll) {
+			return;
+		}
+		poll = setTimeout(function () {
 			var _winHeight = $window.height(),
 				_winScrollTop = $window.scrollTop();
 			$lazyImg.each(function () {
@@ -29,19 +115,31 @@ var picLazyLoad = (function ($, window) {
 						//加上标记
 						$self.attr('data-isLoad', 'true');
 						var selfUrl = $self.attr(_url);
-						$self.is('img') ? $self.attr('src', selfUrl) : $self.css('background-image', 'url(' + selfUrl + ')');
-						$self.removeAttr(_url);
-						$self.addClass('animated ' + effect);
-						lazyLength--;
+						//$self.is('img') ? $self.attr('src', selfUrl) : $self.css('background-image', 'url(' + selfUrl + ')');
+						imageQue.addImage($self[0]);
+						$self.removeClass('lazy').addClass('animated short fadeIn');
+
+						//$self.addClass('animated ' + effect);
+						//lazyLength--;
 					}
 				}
 			});
-			if (lazyLength <= 0) {
-				$window.off('scroll.lazy' + guid);
-				$content = null;
-				$lazyImg = null;
-			}
-		}).trigger('scroll');
+
+			clearTimeout(poll);
+			poll = null;
+
+		}, throttle);
+
+	});
+
+	return function (content) {
+
+		$lazyImg = $content.find(_lazy);
+
+		console.log($lazyImg.length);
+
+		$window.trigger('scroll');
+
 	};
 })(window.jQuery || window.Zepto, window);
 
@@ -335,40 +433,40 @@ var picLazyLoad = (function ($, window) {
 			var me = this,
 				contentPage = ContentPage(me.aid, me.pid, function () {
 					me.isLoadNext = !this.isLoadError;
-					me.isHadeTab = false;
+					//me.isHadeTab = false; 
 					me.moveOldScroll();
 				});
 		},
 
 		//页面上的效果
-		pageEffect: function () {
-			var me = this,
-				$banner = $('#banner'),
-				$tabBox = $('#tabBox'),
-				p = 0;
+		// pageEffect: function () {
+		// 	var me = this,
+		// 		$banner = $('#banner'),
+		// 		$tabBox = $('#tabBox'),
+		// 		p = 0;
 
-			$(window).on('scroll', function () {
-				var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-				var bannerHeight = $banner.height(),
-					tabBoxHeight = $tabBox.height();
-				if (scrollTop > (bannerHeight + tabBoxHeight)) {
-					$tabBox[0].className = 'tab-box fixed animated short slideInDown';
+		// 	$(window).on('scroll', function () {
+		// 		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		// 		var bannerHeight = $banner.height(),
+		// 			tabBoxHeight = $tabBox.height();
+		// 		if (scrollTop > (bannerHeight + tabBoxHeight)) {
+		// 			$tabBox[0].className = 'tab-box fixed animated short slideInDown';
 
-					//向下滚动时。隐藏头部tab
-					// if (!(p > scrollTop) && me.isHadeTab) {
-					// 	//console.log('向下滚动');
-					// 	$tabBox[0].className = 'tab-box fixed animated hinge slideOutUp';
-					// }
-					me.isHadeTab = true;
-				}
-				else {
-					me.isHadeTab = false;
-					$tabBox[0].className = 'tab-box animated short fadeIn';
-				}
-				p = scrollTop;
+		// 			//向下滚动时。隐藏头部tab
+		// 			// if (!(p > scrollTop) && me.isHadeTab) {
+		// 			// 	//console.log('向下滚动');
+		// 			// 	$tabBox[0].className = 'tab-box fixed animated hinge slideOutUp';
+		// 			// }
+		// 			me.isHadeTab = true;
+		// 		}
+		// 		else {
+		// 			me.isHadeTab = false;
+		// 			$tabBox[0].className = 'tab-box animated short fadeIn';
+		// 		}
+		// 		p = scrollTop;
 
-			});
-		},
+		// 	});
+		// },
 
 		//获取下一个pid
 		getNextPid: function () {
@@ -388,23 +486,25 @@ var picLazyLoad = (function ($, window) {
 		//自动加载下一页
 		autoLoadNext: function () {
 			var me = this,
-				$window = $(window),
 				$doc = $(document),
 				_windowHeight = $window.height(),
+				$banner = $('#banner'),
+				$tabBox = $('#tabBox'),
 				isWait = false;
-
-			// //500毫秒的延迟
-			// var wait = function () {
-			// 	isWait = true;
-			// 	var _st = setTimeout(function () {
-			// 		isWait = false; 
-			// 		_st = null;
-			// 	}, 500);
-			// }
 
 			$window.on('scroll', function () {
 				var _scrollTop = $window.scrollTop(),
 					_documentHeight = $doc.height();
+
+				var bannerHeight = $banner.height(),
+					tabBoxHeight = $tabBox.height();
+				if (_scrollTop > (bannerHeight + tabBoxHeight)) {
+					$tabBox[0].className = 'tab-box fixed animated short slideInDown';
+				}
+				else {
+					$tabBox[0].className = 'tab-box animated short fadeIn';
+				}
+
 
 				if ((_scrollTop >= _documentHeight - _windowHeight - 200) && !isWait && me.isLoadNext) {
 					isWait = true;
@@ -443,7 +543,7 @@ var picLazyLoad = (function ($, window) {
 		init: function () {
 			this.initTab();
 			this.initDefaultPage();
-			this.pageEffect();
+			//this.pageEffect();
 			this.autoLoadNext();
 			$('#contentList').on('click', '.J_product', function () {
 				var url = $(this).attr('data-url');
