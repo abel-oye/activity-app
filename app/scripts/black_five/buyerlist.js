@@ -1,16 +1,17 @@
+/* global ejs: true,YmtApi:true,lazyLoad:true */
 /**
  *
  * @authors zongzheng zhangzongzheng@ymatou.com
  * @date    2015-11-14 15:48:51
  */
 
-$(function() {
+$(function () {
     'use strict';
 
     ejs.open = '{{';
     ejs.close = '}}';
 
-    ejs.filters.priceRegion = function(price) {
+    ejs.filters.priceRegion = function (price) {
         if (!price) {
             return price;
         }
@@ -18,7 +19,7 @@ $(function() {
         return '<strong>' + num[0] + '</strong>' + (num[1] ? '.' + num[1] : '.00');
     };
 
-     ejs.filters.convertImgUrl = function (str) {
+    ejs.filters.convertImgUrl = function (str) {
         return str.replace(/\/original\//, '/small/').replace(/_o\./, '_s.').replace(/_lb\./, '_ls.');
     };
 
@@ -30,35 +31,36 @@ $(function() {
         $finishTip = $('.finish-tip'),
         $window = $(window);
 
-    var tabMap = new Map();
-    tabMap.set('1', 0);
-    tabMap.set('2', 1);
-    tabMap.set('3', 2);
-    tabMap.set('4', 3);
+    var tabMap = {
+        '1':0,
+        '2':1,
+        '3':2,
+        '4':3
+    };
 
     var Utils = {
         //显示日志
-        showLog: function(msg, callback) {
+        showLog: function (msg, callback) {
             var errElm = $('.sg-error');
             if (!errElm[0]) {
                 errElm = $('<div class="sg-error"></div>').appendTo('body');
             }
             errElm.html(msg).css('opacity', '1');
 
-            setTimeout(function() {
+            setTimeout(function () {
                 $('.sg-error').css('opacity', '0');
                 callback && callback();
             }, 2400);
         },
 
-        reqJsonp: function(url, callback, params) {
+        reqJsonp: function (url, callback, params) {
             $.ajax({
                 url: url,
                 data: params,
                 type: 'GET',
                 timeout: 30000,
                 dataType: 'jsonp',
-                success: function(res) {
+                success: function (res) {
                     callback(res);
                 },
                 error: function () {
@@ -69,8 +71,8 @@ $(function() {
     };
 
     var Buyerlist = {
-        showContent: function(areaCode) {
-            var index = tabMap.get(areaCode);
+        showContent: function (areaCode) {
+            var index = tabMap[areaCode];
 
             $sellerTab.removeClass('active-tab');
             $sellerTab.eq(index).addClass('active-tab')
@@ -84,56 +86,59 @@ $(function() {
                 var sellerTab = document.getElementById('seller-tab-list').children;
                 sellerTab[index].pageIndex = 1;
                 Buyerlist.getBuyer(sellerTab[index].pageIndex, 3, areaCode);
-            } else {
+            }
+            else {
                 $sellerList.eq(index).attr('finish') !== 'true' && $finishTip.hide(); //切换TAB时，如果数据还没全部加载完，隐藏”已显示全部“提示
             }
         },
 
-        getBuyer: function(pageIndex, pageSize, areaCode) {
-            var index = tabMap.get(areaCode);
+        getBuyer: function (pageIndex, pageSize, areaCode) {
+            var index = tabMap[areaCode];
             pageIndex != 1 && $loadMore.show();
             $sellerList.eq(index).attr('res', 'false');
 
             var callback = 'buyer_explosion_list';
-            window[callback] = function(res) {
+            window[callback] = function (res) {
                 $loading.hide();
                 $sellerList.eq(index).attr('res', 'false');
-                    if (res.Data && res.Data.BuyerList[0]) {
-                        pageIndex == 1 && $loading.hide();  //第一页数据返回时隐藏loading
-                        var html = ejs.render($('#seller-item-tpl').html(), res.Data);
+                if (res.Data && res.Data.BuyerList[0]) {
+                    pageIndex == 1 && $loading.hide(); //第一页数据返回时隐藏loading
+                    var html = ejs.render($('#seller-item-tpl').html(), res.Data);
 
-                        $sellerList.eq(index).append(html);
-                        $loadMore.hide();
-                        $sellerList.eq(index).attr('res', 'true');
+                    $sellerList.eq(index).append(html);
+                    $loadMore.hide();
+                    $sellerList.eq(index).attr('res', 'true');
 
-                        pageIndex == 1 && lazyLoad.check();
+                    pageIndex == 1 && lazyLoad.check();
 
-                        if (res.Data.IsNeedBrought) {
-                            var couponIds = [];
-                            for (var i = 0, len = res.Data.BuyerList.length; i < len; i++) {
-                                if (res.Data.BuyerList[i].ProductCount) {
-                                    couponIds.push(res.Data.BuyerList[i].Buyer.CouponId);
-                                }
+                    if (res.Data.IsNeedBrought) {
+                        var couponIds = [];
+                        for (var i = 0, len = res.Data.BuyerList.length; i < len; i++) {
+                            if (res.Data.BuyerList[i].ProductCount) {
+                                couponIds.push(res.Data.BuyerList[i].Buyer.CouponId);
                             }
-                            couponIds = couponIds.join(',');
-                            if (accessToken) {
-                                Buyerlist.getCouponStatus(couponIds);
-                            } else {
-                                var couponNode = $('[data-couponid]');
-                                for (var j = 0, len = couponNode.length; j < len; j++) {
-                                    var couponid = couponNode.eq(i).attr('data-couponid');
-                                    couponNode.eq(j).removeAttr('data-couponid');
-                                    couponNode.eq(j).append('<span class="get-coupon" getstatus="true" couponid=' + couponid + '>领取</span>');
-                                }
+                        }
+                        couponIds = couponIds.join(',');
+                        if (accessToken) {
+                            Buyerlist.getCouponStatus(couponIds);
+                        }
+                        else {
+                            var couponNode = $('[data-couponid]');
+                            for (var j = 0, len = couponNode.length; j < len; j++) {
+                                var couponid = couponNode.eq(i).attr('data-couponid');
+                                couponNode.eq(j).removeAttr('data-couponid');
+                                couponNode.eq(j).append('<span class="get-coupon" getstatus="true" couponid=' + couponid + '>领取</span>');
                             }
-
                         }
 
-                    } else {
-                        $loadMore.hide();
-                        $finishTip.show();
-                        $sellerList.eq(index).attr('finish', 'true');
                     }
+
+                }
+                else {
+                    $loadMore.hide();
+                    $finishTip.show();
+                    $sellerList.eq(index).attr('finish', 'true');
+                }
 
             };
 
@@ -149,7 +154,7 @@ $(function() {
                 timeout: 30000,
                 dataType: 'jsonp',
                 jsonpCallback: callback,
-                error: function() {
+                error: function () {
                     $loading.hide();
                     Utils.showLog('系统挤爆了，请稍后再试');
                 }
@@ -157,8 +162,8 @@ $(function() {
         },
 
         //获取是否领取优惠券状态
-        getCouponStatus: function(couponIds) {
-            Utils.reqJsonp('http://jsapi.bf.ymatou.com/api/FridayMore/BroughtCouponList', function(res) {
+        getCouponStatus: function (couponIds) {
+            Utils.reqJsonp('http://jsapi.bf.ymatou.com/api/FridayMore/BroughtCouponList', function (res) {
                 if (res.Data && res.Data.BroughtCouponList && res.Data.BroughtCouponList[0]) {
                     var couponStatusList = res.Data.BroughtCouponList;
                     var couponNode = $('[data-couponid]');
@@ -167,16 +172,17 @@ $(function() {
                             if (couponNode.eq(i).attr('data-couponid') == couponStatusList[j].CouponId) {
                                 var couponid = couponNode.eq(i).attr('data-couponid');
                                 couponNode.eq(i).removeAttr('data-couponid');
-                                couponStatusList[i].HasBrought ? couponNode.eq(i).append('<span class="hasget">已领取</span>') : couponNode.eq(i).append('<span class="get-coupon" getstatus="true" couponid='+ couponid + '>领取</span>');
+                                couponStatusList[i].HasBrought ? couponNode.eq(i).append('<span class="hasget">已领取</span>') : couponNode.eq(i).append('<span class="get-coupon" getstatus="true" couponid=' + couponid + '>领取</span>');
                             }
                         }
                     }
-                } else {
+                }
+                else {
                     var couponNode = $('[data-couponid]');
                     for (var j = 0, len = couponNode.length; j < len; j++) {
                         var couponid = couponNode.eq(j).attr('data-couponid');
                         couponNode.eq(j).removeAttr('data-couponid');
-                        couponNode.eq(j).append('<span class="get-coupon" getstatus="true" couponid='+ couponid + '>领取</span>');
+                        couponNode.eq(j).append('<span class="get-coupon" getstatus="true" couponid=' + couponid + '>领取</span>');
                     }
                 }
             }, {
@@ -185,18 +191,18 @@ $(function() {
             });
         },
 
-        getCoupon: function(event) {
+        getCoupon: function (event) {
             var $target = $(event.target);
             $target.attr('getstatus', 'false');
             setTimeout(function () {
                 $target.attr('getstatus', 'true');
-            },1000);
+            }, 1000);
             var authInfo = YmtApi.utils.getAuthInfo();
             if (authInfo.UserId && authInfo.AccessToken) {
                 var queryString = YmtApi.utils.getUrlObj(),
                     deviceId = queryString.DeviceId || queryString.DeviceToken || '0000000',
                     couponId = $target.attr('couponid');
-                Utils.reqJsonp('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon', function(res) {
+                Utils.reqJsonp('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon', function (res) {
                     $target.attr('getstatus', 'true');
                     var idx = res.Msg.indexOf(':');
                     if (idx != -1) {
@@ -205,7 +211,8 @@ $(function() {
                     if (res.Data) {
                         $target.removeClass('get-coupon').text('已领取').addClass('hasget');
                         Utils.showLog(res.Msg || '领取成功');
-                    } else {
+                    }
+                    else {
                         Utils.showLog(res.Msg || '操作失败');
                     }
                 }, {
@@ -214,7 +221,8 @@ $(function() {
                     BuyerUserId: authInfo.UserId,
                     AccessToken: authInfo.AccessToken
                 });
-            } else {
+            }
+            else {
                 YmtApi.toLogin();
             }
         }
@@ -237,7 +245,7 @@ $(function() {
             title: '卖家主页',
             backFlag: true
         });
-    }).on('tap', '.all-see', function() {
+    }).on('tap', '.all-see', function () {
         var sellerName = $(this).attr('data-sellerName'),
             sellerId = $(this).attr('data-sellerId');
         YmtApi.open({
@@ -252,7 +260,8 @@ $(function() {
     }).on('tap click', '.get-coupon', function (event) {
         if ($(this).attr('getstatus') == 'true') {
             Buyerlist.getCoupon(event);
-        } else {
+        }
+        else {
             Utils.showLog('请勿重复操作');
         }
     }).on('tap', '.goods-item', function () {
@@ -280,13 +289,14 @@ $(function() {
     });
 
     var tabTop = $('#seller-tab-list').offset().top;
-    $(window).on('scroll touchmove', function() {
+    $(window).on('scroll touchmove', function () {
         if ($(window).scrollTop() > tabTop) {
             $('#seller-tab-list').css({
                 position: 'fixed',
                 top: 0
             });
-        } else {
+        }
+        else {
             $('#seller-tab-list').css({
                 position: 'relative',
             });
@@ -311,7 +321,7 @@ $(function() {
         throttle: 250,
         unload: false,
         offset: 250,
-        callback: function() {
+        callback: function () {
 
         }
     });

@@ -114,12 +114,35 @@
         display:inline-block;
         height:100%;
         width:100%;
+        position:relative;
+    }
+    .before-mask{
+        position:absolute;
+        height:100%;
+        width:100%;
+        z-index:2;
+        top:0;
+        left:0;
+        color:#fff;
+        padding-top:$rem*130;
+        font-size:$rem*40;
+        text-align:center;
+        background:rgba(0,0,0,.5);
+        display:none;
+    }
+    &.before{
+        .before-mask{
+            display:block;
+        }
+    }
+    .seckill-underline{
+        height:$rem*450;
     }
     &-pro{
         height:100%;
     }
     .bf-area-hd{
-        background-image:url(#{$imgPath}seckill.png);
+        background-image:url(#{$imgPath}seckill-title.jpg);
         width:100%;
         height:$rem*84;
         margin:0 auto $rem*20;
@@ -130,6 +153,7 @@
         background:#fff;
         height:$rem*390;
         overflow:hidden;
+        margin-bottom:0;
     }
 }
 //砍价团
