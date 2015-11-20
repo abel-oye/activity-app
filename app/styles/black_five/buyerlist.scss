@@ -107,6 +107,8 @@
                     }
 
                     .info-coupon {
+                        // @include clearfix();
+                        box-sizing: content-box;
                         float: right;
                         // width: $rem*254;
                         height: $rem*58;
@@ -123,11 +125,11 @@
                         }
 
                         .hasget, .get-coupon {
+                            // vertical-align: middle;
                             display: inline-block;
-                            float: right;
                             width: $rem*100;
-                            height: $rem*54;
-                            line-height: $rem*54;
+                            height: $rem*58;
+                            line-height: $rem*58;
                             border-top-right-radius: $rem*10;
                             border-bottom-right-radius: $rem*10;
                         }
