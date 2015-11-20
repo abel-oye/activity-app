@@ -311,8 +311,30 @@
         seckillList:function(){
            jsonpGetData('http://jsapi.ms.ymatou.com/ActivityTemplate/GetPagePartProductListForSecKill', {
                 success: function (data) {
+                    data.Products = [
+                        {
+                           ProductId:'c767b5ff-460b-4bb7-acd4-5e3277b35535',
+                           PicUrl:'http://pm3.img.ymatou.com/G02/M03/FA/A8/CgvUA1ZNoPyAGGBmAACgD53r7wE540_o.jpg',
+                        },{
+                           ProductId:'d2af03c7-ede4-4b35-b145-e3e1392a43c9',
+                           PicUrl:'http://pm4.img.ymatou.com/G02/M03/FA/0D/CgvUBVZNoOmAATf5AACkRz0bTWU507_o.jpg',
+                        },{
+                           ProductId:'b2b8fde3-08ed-4a73-aa3c-3fc4a09d7b37',
+                           PicUrl:'http://pm4.img.ymatou.com/G02/M00/F9/C5/CgvUBFZNoNeAJTzGAACKR-oN_HY433_o.jpg',
+                        },{
+                           ProductId:'85fb4af9-d656-48ce-9cb3-fcce3204933d',
+                           PicUrl:'http://pm3.img.ymatou.com/G02/M0A/FA/09/CgvUBVZNoMSAHTF_AACflCigjnw966_o.jpg',
+                        },{
+                           ProductId:'8bd1c96d-a108-450b-874f-f6a724c5bf98',
+                           PicUrl:'http://pm5.img.ymatou.com/G02/M0A/F9/C2/CgvUBFZNoK-AJ2__AACc6hp18SM443_o.jpg',
+                        },{
+                           ProductId:'d1f498a9-9501-4683-b8ec-8a589ec86c71',
+                           PicUrl:'http://pm3.img.ymatou.com/G02/M08/FA/05/CgvUBVZNoJKARlXtAACfQglGIfU104_o.jpg',
+                        }
+                    ]
                     if(data && data.Products && data.Products.length){
                         var html = ejs.render($('#seckill-tpl').html(), data);
+                        console.log(html)
                         $('#seckill-wrapper').html(html);
 
                         new Swiper('.bf-seckill .bf-area-bd', {
@@ -565,5 +587,13 @@
         }
     });
 
+    new Swiper('.bf-seckill .bf-area-bd', {
+        pagination: '.bf-group-pagination',
+        loop: true,
+        autoplay: 7000,
+        onSlideChangeStart: function() {
+            lazyLoad.check();
+        }
+    });
 
 })();
