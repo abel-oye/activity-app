@@ -12,16 +12,17 @@
      !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
     </script>
     <!-- build:css /styles/hot/Mhot.css-->
-    <link rel="stylesheet" type="text/css" href="/styles/hot/Mhot.css">
+    <link rel="stylesheet" type="text/css" href="http://172.16.1.97:9004/styles/hot/Mhot.css">
     <!-- endbuild-->
   </head>
   <body>
+12
     <div id="ymtLoading" class="click-loading">
         <div class="spinner spinner-white">
             <div class="rect1"></div>
             <div class="rect2"></div>
-            <div class="rect3"></div>
-            <div class="rect4"></div>
+            <div class="rect3"></div>  
+            <div class="rect4"></div>  
             <div class="rect5"></div>
             <div class="rect6"></div>
             <div class="rect7"></div>
@@ -35,37 +36,55 @@
         <div class="loadtxt ">正在加载</div>
     </div>
     <script id="templ_subTab" type="text/tmpl">
-      <ul id="aid{{= it.aid }}" class="sub-tab-list J_subTab">
+      <div  id="aid{{= it.index }}" class="sub-tab-cnt J_subTabCnt swiper-container">
+      <ul class="sub-tab-list J_subTab swiper-wrapper">
         {{ for(var i=0; i<it.subList.length; i++){ }}
-          <li data-pid="{{= it.subList[i].pid }}" class="item">{{= it.subList[i].name }}</li>
-        {{ } }}
-      </ul>
+          <li id="{{= it.subList[i].pid }}" data-pid="{{= it.subList[i].pid }}" class="item swiper-slide">{{= it.subList[i].name }}</li>
+        {{ } }} 
+        <li class="swiper-slide sub-space"></li>    
+      </ul> 
+      </div> 
     </script>
 
-    <script id="templ_product" type="text/tmpl">
-    {{for(var i = 0; i < it.Products.length; i++) {}}
-      <li class="item">
-          <div class="product J_product" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{= it.Products[i].ProductId }}">
-            <div class="hd">
-                <p class="img-cnt lazy" data-lazy="{{=it.Products[i].PicUrl}}"></p>
-            </div>
-            <div class="bd">
-              <p class="country">
-                <img class="country-flag" src="{{=it.Products[i].CountryFlagUrl}}">
-                <span class="country-name">{{=it.Products[i].CountryName}}</span>
-              </p>
+    <script id="templ_product" type="text/tmpl"> 
+    <div id="{{=it.uuid}}" class="content J_cnt">
+      <ul class="product-list J_productList">
+      {{for(var i = 0; i < it.Products.length; i++) {}}
+        <li class="item">
+            <div class="product J_product" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{= it.Products[i].ProductId }}">
+              <div class="hd">
+                  <img class="img-cnt lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" lazy-load="{{=it.Products[i].PicUrl}}" />
+              </div>
+              <div class="bd">
+                <p class="country">
+                  <img class="country-flag" src="{{=it.Products[i].CountryFlagUrl}}">
+                  <span class="country-name">{{=it.Products[i].CountryName}}</span>
+                </p>
 
-              <h3 class="p-title">{{=it.Products[i].Name}}</h3>
-              <p class="p-original">市场价:{{=it.Products[i].MarketPrice}}</p>
-              <p class="p-btn"><span class="price">{{=it.Products[i].Price4Sale}}</span>元</p>
+                <h3 class="p-title">{{=it.Products[i].Name}}</h3>
+                <p class="p-original">市场价:{{=it.Products[i].MarketPrice}}</p>
+                <p class="p-btn"><span class="price">{{=it.Products[i].Price4Sale}}</span>元</p>
+              </div>
             </div>
-          </div>
-        </li>
-      {{ } }}
+          </li> 
+        {{ } }}
+        </ul>
+        <div class="load-more J_loading">
+            <div class="bowlG">
+                <div class="bowl_ringG">
+                    <div class="ball_holderG">
+                        <div class="ballG"></div>
+                    </div>
+                </div>
+            </div>
+            <span>加载中...</span> 
+        </div>
+      </div>
+
     </script>
 
     <div id="ymtWrap">
-      <div class="Mhot-banner  animated bounceIn" id="banner"></div>
+      <div class="Mhot-banner  animated short fadeIn" id="banner"></div>
       <div class="tab-content">
         <div class="tab-box" id="tabBox">
             <div class="tab">
@@ -84,38 +103,18 @@
             </div>
         </div>
       </div>
-      <div id="contentList" class="content-list">
-        <div class="content">
-            <!-- <ul class="product-list J_productList">
-                <li class="item">
-                    <div class="product">
-                      <div class="hd">
-                          <p class="img-cnt"></p>
-                      </div>
-                      <div class="bd">
-                        <p class="country">
-                          <img class="country-flag" src="http://img.ymatou.com/app/flag/circle/Japan.png">
-                          <span class="country-name">日本</span>
-                        </p>
-
-                        <h3 class="p-title">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</h3>
-                        <p class="p-original">市场价:15236</p>
-                        <p class="p-btn"><span class="price">9999</span>元</p>
-                      </div>
-                    </div>
-                </li>
-
-            </ul> -->
-        </div>
-      </div>
+      <div id="contentList" class="content-list"></div>
     </div>
     <script src="http://static.jyh.ymatou.com/commons/js/ymtapi.2015110601.js?wxAutoInit=1"></script>
     <script type="text/javascript" src="http://staticwap.ymatou.com/item.app/build/zepto.2015081801.js"></script>
-
-    <!-- build:js /scripts/hot/doT,Mhot.js -->
-    <script src="/scripts/hot/doT.js"></script>
-
-    <script src="/scripts/hot/Mhot.js"></script>
+    <script src="http://staticwap.ymatou.com/item.app/build/swiper.2015091501.js"></script>
+     
+    <!-- build:js /scripts/hot/setting.js --> 
+    <script src="http://172.16.1.97:9004/scripts/hot/setting.js"></script>
     <!-- endbuild -->
+    <!-- build:js /scripts/hot/Mhot,doTa.js --> 
+    <script src="http://172.16.1.97:9004/scripts/hot/doT.js"></script>   
+    <script src="http://172.16.1.97:9004/scripts/hot/Mhot.js"></script>     
+    <!-- endbuild --> 
   </body>
-</html>
+</html>  
