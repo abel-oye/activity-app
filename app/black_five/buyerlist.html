@@ -118,7 +118,7 @@
                 {{ var products = BuyerList[i].Products}}
                 {{ for (var j = 0, len = Math.min(products.length, 3); j < len; j++) { }}
                 <div class="goods-item" data-productId={{= products[j].ProductId}} data-logo={{= products[j].Logo}} data-seller={{= products[j].Seller}} data-sellerId={{= products[j].SellerId}}>
-                    <div class="goods-pic" style="background-image: url(http://staticontent.ymatou.com/images/buyerlist/placeholder@200x200.png)" lazy-load-background={{= products[j].PicUrl}}></div>
+                    <div class="goods-pic" style="background-image: url(http://staticontent.ymatou.com/images/buyerlist/placeholder@200x200.png)" lazy-load-background={{=: products[j].PicUrl | convertImgUrl }}></div>
                     <div class="goods-info">
                         <div class="goods-desc">
                             {{ if(products[j].FreeShipping && !products[j].TaxFarming){ }}

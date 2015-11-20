@@ -142,9 +142,11 @@
                       <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlagUrl||Products[i].Flag}}"></span>{{=Products[i].CountryName}}
                   </div>
                   <h4>{{=Products[i].Name}}</h4>
+                  {{ if(!Products[i].IsCustomer){ }}
                   <div  class="original-price">
                       <del>市场价:{{=Products[i].MarketPrice||Products[i].Customer.Price}}</del>
                   </div>
+                  {{ } }}
                   <div class="price-wrapper">
                       <span>黑五价</span>
                       <span><strong>{{=Products[i].Price4Sale||Products[i].Price}}</strong>元</span>
@@ -163,50 +165,49 @@
         <div class="bf-coupon-inner J-open-receive"></div>
       </div>
       <!--秒杀-->
-      <div id="seckill-wrapper">
+      <div id="seckill-wrapper" class="before">
           <!-- <div class="J-module-Hold"  style="height:0px;width:1px;" data-module="seckillList" data-sub-module-name="miaosha"
                     lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div> -->
+          <div class="bf-area bf-seckill" >
+            <div class="bf-area-hd"></div>
+            <div class="bf-area-bd">
+               <div class="bf-seckill-list swiper-wrapper"><!--
 
-                    <div class="bf-area bf-seckill" >
-                      <div class="bf-area-hd"></div>
-                      <div class="bf-area-bd">
-                         <div class="bf-seckill-list swiper-wrapper"><!--
-
-                            --><div class="bf-seckill-item swiper-slide"><!--
-                                  --><div class="bf-seckill-pro bg__full img-hold J-open"  data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid=c767b5ff-460b-4bb7-acd4-5e3277b35535" lazy-load-background="http://pm3.img.ymatou.com/G02/M03/FA/A8/CgvUA1ZNoPyAGGBmAACgD53r7wE540_o.jpg">
-                                </div>
-                            </div><!--
-
-                            --><div class="bf-seckill-item swiper-slide"><!--
-                                  --><div class="bf-seckill-pro bg__full img-hold J-open"  data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid=d2af03c7-ede4-4b35-b145-e3e1392a43c9" lazy-load-background="http://pm4.img.ymatou.com/G02/M03/FA/0D/CgvUBVZNoOmAATf5AACkRz0bTWU507_o.jpg">
-                                </div>
-                            </div><!--
-
-                            --><div class="bf-seckill-item swiper-slide"><!--
-                                  --><div class="bf-seckill-pro bg__full img-hold J-open"  data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid=b2b8fde3-08ed-4a73-aa3c-3fc4a09d7b37" lazy-load-background="http://pm4.img.ymatou.com/G02/M00/F9/C5/CgvUBFZNoNeAJTzGAACKR-oN_HY433_o.jpg">
-                                </div>
-                            </div><!--
-
-                            --><div class="bf-seckill-item swiper-slide"><!--
-                                  --><div class="bf-seckill-pro bg__full img-hold J-open"  data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid=85fb4af9-d656-48ce-9cb3-fcce3204933d" lazy-load-background="http://pm3.img.ymatou.com/G02/M0A/FA/09/CgvUBVZNoMSAHTF_AACflCigjnw966_o.jpg">
-                                </div>
-                            </div><!--
-
-                            --><div class="bf-seckill-item swiper-slide"><!--
-                                  --><div class="bf-seckill-pro bg__full img-hold J-open"  data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid=8bd1c96d-a108-450b-874f-f6a724c5bf98" lazy-load-background="http://pm5.img.ymatou.com/G02/M0A/F9/C2/CgvUBFZNoK-AJ2__AACc6hp18SM443_o.jpg">
-                                </div>
-                            </div><!--
-
-                            --><div class="bf-seckill-item swiper-slide"><!--
-                                  --><div class="bf-seckill-pro bg__full img-hold J-open"  data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid=d1f498a9-9501-4683-b8ec-8a589ec86c71" lazy-load-background="http://pm3.img.ymatou.com/G02/M08/FA/05/CgvUBVZNoJKARlXtAACfQglGIfU104_o.jpg">
-                                </div>
-                            </div><!--
-
-                        --></div>
+                  --><div class="bf-seckill-item swiper-slide"><!--
+                        --><div class="bf-seckill-pro bg__full img-hold J-open"  data-url="http://ms.item.app.ymatou.com/forYmatouApp/product/pid?pid=9b04246f-f55c-4245-bfa6-a502344384e9" lazy-load-background="http://pm5.img.ymatou.com/G02/M08/05/86/CgvUA1ZOf4aAUNdoAACJqmhZq20378_o.jpg">
+                        <div class="mask">即将开始了<br>嘿嘿嘿</div>
                       </div>
-                    </div>
-      </div>
+                  </div><!--
 
+                  --><div class="bf-seckill-item swiper-slide"><!--
+                        --><div class="bf-seckill-pro bg__full img-hold J-open"  data-url="http://ms.item.app.ymatou.com/forYmatouApp/product/pid?pid=258d0026-0ecc-429c-b119-f732d92a454b" lazy-load-background="http://pm5.img.ymatou.com/G02/M08/04/A4/CgvUBFZOf3qAdej_AACCWEUvZls007_o.jpg">
+                      </div>
+                  </div><!--
+
+                  --><div class="bf-seckill-item swiper-slide"><!--
+                        --><div class="bf-seckill-pro bg__full img-hold J-open"  data-url="http://ms.item.app.ymatou.com/forYmatouApp/product/pid?pid=60689cbe-b687-4aca-9209-c53234ab9416" lazy-load-background="http://pm1.img.ymatou.com/G02/M09/04/A8/CgvUBFZOf7qASQ4MAACSMVv62Qw575_o.jpg">
+                      </div>
+                  </div><!--
+
+                  --><div class="bf-seckill-item swiper-slide"><!--
+                        --><div class="bf-seckill-pro bg__full img-hold J-open"  data-url="http://ms.item.app.ymatou.com/forYmatouApp/product/pid?pid=c8083f9a-105e-489f-b67e-dd3282ecbce8" lazy-load-background="http://pm2.img.ymatou.com/G02/M08/04/A7/CgvUBFZOf6-AXJejAACLysJ3yDk800_o.jpg">
+                      </div>
+                  </div><!--
+
+                  --><div class="bf-seckill-item swiper-slide"><!--
+                        --><div class="bf-seckill-pro bg__full img-hold J-open"  data-url="http://ms.item.app.ymatou.com/forYmatouApp/product/pid?pid=7b70c909-c148-4078-a165-0999a984bfa5" lazy-load-background="http://pm2.img.ymatou.com/G02/M08/04/EC/CgvUBVZOf6SAOcLaAACKOBShVgE321_o.jpg">
+                      </div>
+                  </div><!--
+
+                  --><div class="bf-seckill-item swiper-slide"><!--
+                        --><div class="bf-seckill-pro bg__full img-hold J-open"  data-url="http://ms.item.app.ymatou.com/forYmatouApp/product/pid?pid=50d3294c-f366-4968-bd4b-a538c0f4a007" lazy-load-background="http://pm5.img.ymatou.com/G02/M08/04/A6/CgvUBFZOf5iAER-MAAB5Y3uccSI257_o.jpg">
+                      </div>
+                  </div><!--
+
+              --></div>
+            </div>
+          </div>
+      </div>
       <!--砍价团-->
       <div class="bf-area bf-group J-bf-axie" id="bf_01" sub_module_name="kanjiatuan">
         <div class="bf-area-hd J-open" data-url="http://evt.ymatou.com/activity_4377_CAPP" onclick=";"></div>
@@ -221,44 +222,51 @@
       <div class="bf-area bf-seller J-bf-axie" id="bf_02"  sub_module_name="saogeguo">
         <div class="J-module-Hold" data-sub-module-name="saogeguo" data-module="noop"
                                             lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
-        <div class="bf-area-hd J-open" data-url="http://evt.ymatou.com/activity_4688_Capp" onclick=";" lazy-load-background="http://staticontent.ymatou.com/images/black_five/seller-title2_cut.png"></div>
+        <div class="bf-area-hd J-open" data-url="http://evt.ymatou.com/activity_4688_Capp" onclick=";" lazy-load-background="http://staticontent.ymatou.com/images/black_five/seller-title2.jpg"></div>
         <div class="bf-area-ft">
-            <div class="usa_seller bg__full J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=1"  lazy-load-background="http://staticontent.ymatou.com/images/black_five/usa_seller_cut.png"></div>
+            <div class="usa_seller bg__full J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=1"  lazy-load-background="http://staticontent.ymatou.com/images/black_five/usa_seller_2.jpg"></div>
             <div class="bf-list bf-item_3col">
               <div class="bf-item ">
-                <div class="jsk_seller bg__full J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=3" lazy-load-background="http://staticontent.ymatou.com/images/black_five/jsk_seller_cut.png"></div>
+                <div class="jsk_seller bg__full J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=3" lazy-load-background="http://staticontent.ymatou.com/images/black_five/jsk_seller_2.jpg"></div>
               </div>
               <div class="bf-item">
-                <div class="europe_seller bg__full J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=4" lazy-load-background="http://staticontent.ymatou.com/images/black_five/europe_seller_cut.png"></div>
+                <div class="europe_seller bg__full J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=4" lazy-load-background="http://staticontent.ymatou.com/images/black_five/europe_seller_2.jpg"></div>
               </div>
               <div class="bf-item">
-                <div class="australia_seller bg__full J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=2" lazy-load-background="http://staticontent.ymatou.com/images/black_five/australia_seller_cut.png"></div>
+                <div class="australia_seller bg__full J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=2" lazy-load-background="http://staticontent.ymatou.com/images/black_five/australia_seller_2.jpg"></div>
               </div>
             </div>
         </div>
       </div>
      <!-- 黑五必败-->
-      <div class="bf-area bf-losing"  sub_module_name="Mshangpin">
+      <div class="bf-area bf-losing J-bf-axie" id="bf_03"  sub_module_name="Mshangpin">
         <div class="bf-area-hd J-open" data-url="http://evt.ymatou.com/activity_4689_capp" onclick=";"></div>
         <div class="bf-area-bd">
-          <div class="bf-list bf-item_2col  J-bf-axie" id="bf_03">
+          <div class="bf-list bf-item_2col ">
            <div class="J-module-Hold MProductsModule" data-sub-module-name="Mshangpin" data-module="MProductsModule" data-arguments="4690,6913"
                                             lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
           </div>
-          <div class="losing-watch J-bf-axie" id="bf_04">
-            <h3> <span>现场直击</span></h3>
-          </div>
-          <div class="bf-list bf-item_2col">
-            <div class="J-module-Hold CProductsModule" data-sub-module-name="Cshangpin" data-module="CProductsModule"
-                                            lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+        </div>
+      </div>
+      <div class="bf-area bf-losing J-bf-axie" id="bf_04"  sub_module_name="Mshangpin">
+        <div class="bf-area-bd">
+          <div class="bf-list bf-item_2col ">
+                <div class="losing-watch" >
+                 <h3> <span>全球扫货直播</span></h3>
+               </div>
+               <div class="bf-list bf-item_2col">
+                 <div class="J-module-Hold CProductsModule" data-sub-module-name="Cshangpin" data-module="CProductsModule"
+                                                 lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+               </div>
           </div>
         </div>
         <div class="bf-area-ft">
-          <div class="see-more J-open" data-url="http://evt.ymatou.com/activity_4695_capp?title=现场直击" onclick=";">
-            查看更多现场直击
+          <div class="see-more J-open" data-url="http://evt.ymatou.com/activity_4695_capp?title=扫货直播" onclick=";">
+            查看更多直播
           </div>
         </div>
       </div>
+
       <!--全球好货-->
       <div class="bf-area bf-goods J-bf-axie" id="bf_05" sub_module_name="yanghuotuan">
         <div class="bf-area-bd">
@@ -287,7 +295,7 @@
                  <li class="active" data-href="bf_01">全民砍价</li>
                  <li data-href="bf_02">买手优惠券</li>
                  <li data-href="bf_03">黑五必败</li>
-                 <li data-href="bf_04">现场直击</li>
+                 <li data-href="bf_04">扫货直播</li>
                  <li data-href="bf_05">全球好货</li>
              </ul>
              <div class="coordinate first"></div>
@@ -309,6 +317,7 @@
     <script type="text/javascript" src="/scripts/commons/fastclick.js"></script>
     <script type="text/javascript" src="/scripts/commons/swiper.3.1.2.js"></script>
     <script type="text/javascript" src="/scripts/commons/imgLazyLoad.js"></script>
+    <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/imgLazyLoad.js"></script>
     <!-- endbuild -->
     <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
     <!-- build:js /scripts/black_five/main.js -->

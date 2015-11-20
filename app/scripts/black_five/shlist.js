@@ -238,7 +238,7 @@
         }
     }).on('scroll touchmove', function () {
         infiniteScroll({
-            offset: 0,
+            offset: 100,
             selector: '.sh-list-wrapper',
             callback: function () {
                 module.productsModule();

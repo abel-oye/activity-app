@@ -33,7 +33,7 @@
     };
 
     ejs.filters.convertImgUrl = function (str) {
-        return str.replace(/\/original\//, '/small/').replace(/_o/, '_s');
+        return str.replace(/\/original\//, '/small/').replace(/_o/, '_s').replace(/_ls/, '_lb');
     }
 
     var isFuntion = function (str) {

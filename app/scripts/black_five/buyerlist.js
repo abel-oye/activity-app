@@ -18,6 +18,10 @@ $(function() {
         return '<strong>' + num[0] + '</strong>' + (num[1] ? '.' + num[1] : '.00');
     };
 
+    ejs.filters.convertImgUrl = function (str) {
+        return str.replace(/\/original\//, '/small/').replace(/_o/, '_s').replace(/_lb/, '_ls');
+    }
+
     var accessToken = YmtApi.utils.getAuthInfo().AccessToken,
         $sellerTab = $('.seller-tab-wrap'),
         $sellerList = $('.seller-list'),
