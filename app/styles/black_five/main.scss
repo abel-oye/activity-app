@@ -16,7 +16,7 @@
 
  $rem: 1rem/32;
 
- //$imgPath:'/images/black_five/';
+ $imgPath:'/images/black_five/';
  $imgPath:'http://staticontent.ymatou.com/images/black_five/';
 
 .mask{
@@ -808,3 +808,7 @@
     animation: fadeIn 1s both;
 }
 @keyframes fadeIn{0%{opacity:0}100%{opacity:1}} */
+.trick-wrapper{
+        background-image:url(#{$imgPath}trick.jpg);
+        height:$rem*248;
+}
