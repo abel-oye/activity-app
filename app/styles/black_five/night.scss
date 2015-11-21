@@ -16,8 +16,8 @@
 
  $rem: 1rem/32;
 
- $imgPath:'/images/black_five/';
- //$imgPath:'http://staticontent.ymatou.com/images/black_five/';
+ // $imgPath:'/images/black_five/';
+ $imgPath:'http://staticontent.ymatou.com/images/black_five/';
 
  //满图背景
 .bg__full{
@@ -28,10 +28,94 @@
 
 @include column('.bf-',2,$rem*9);
 
+.img-hold{
+    background-image:url(#{$imgPath}loading_cut.jpg);
+}
+
+.bf-tab{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:$rem*7;
+    font-size:$rem*25;
+    height:$rem*94;
+    transition: transform 0.25s ease-in-out;
+    will-change:transform;
+    z-index:3;
+    &.fixed-out{
+        transform: translate(0, 100%);
+        bottom:0!important;
+    }
+    &-wrapper{
+        height:$rem*105;
+        position:relative;
+        background-color: #fff;
+        &.show{
+            .bf-tab{
+                transform: translate(0, 100%);
+                bottom:0!important;
+            }
+        }
+    }
+
+    &-bd{
+        position:relative;
+        width:100%;
+        &>ul{
+            position:relative;
+            bottom:0;
+            overflow:hidden;
+            &:before{
+                content:'';
+                position:absolute;
+            }
+            &:before{
+                width:$rem*40;
+                height:$rem*30;
+                left:$rem*10;
+                top:$rem*5;
+                 @extend .bg__full;
+                background-image:url(#{$imgPath}tab-left-flag.png);
+            }
+            height:$rem*94;
+            line-height:$rem*94;
+            color:#fff;
+            text-align:center;
+            background: #363636;
+            border-radius:$rem*94;
+            box-shadow: 0 $rem*6 #6F6F6F;
+        }
+
+        li{
+            float:left;
+            overflow:hidden;
+            //a{
+                display:block;
+
+                //padding:0 $rem*12;
+                height:100%;
+                width:20%;
+                color:#fff;
+                position:relative;
+                z-index: 3;
+           //}
+            &:first-child{
+                border-top-left-radius:$rem*94;
+                border-bottom-left-radius:$rem*94;
+            }
+            &.active{
+                background:#e7392d;
+            }
+        }
+    }
+}
+
+
+
 .bf-night{
     width:100%;
     &-banner{
-        background-image:url(#{$imgPath}night-banner.jpg);
+        background-image:url(#{$imgPath}night-banner3.jpg);
         height:$rem*502;
         width:100%;
         background-color:#171717;
@@ -48,12 +132,13 @@
         overflow:hidden;
         @include clearfix();
         &.bg{
-            background-image:url(#{$imgPath}bibai_title.jpg);
+            background-image:url(#{$imgPath}bibai_title2.jpg);
         }
         &>div{
             float:left;
         }
         .coupon{
+            @include clearfix();
             color:#000;
             font-size:$rem*80;
             font-weight:bold;
@@ -77,7 +162,8 @@
                 line-height:1.1;
                 width:$rem*44;
                 margin-left:$rem*10;
-                 letter-spacing:0;
+                letter-spacing:0;
+                vertical-align: middle;
             }
         }
         .value{
