@@ -89,6 +89,16 @@
         background-repeat: no-repeat;
         background-position: center;
     }
+    &-entrance {
+        background-image: url(#{$imgPath}night_coupon_entrance.jpg);
+        background-size: cover;
+        background-color: #E93D3D;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 100%;
+        min-height: $rem*248;
+        margin: auto;
+    }
 }
 
 .bf-area{

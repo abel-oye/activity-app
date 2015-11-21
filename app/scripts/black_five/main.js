@@ -571,6 +571,11 @@
                 title: '秒杀商品',
                 isNew: true,
             });
+        }).on('click', '.bf-coupon-entrance', function () {
+            var url = $(this).attr('data-url');
+            YmtApi.open({
+                url: url
+            })
         });
 
     lazyLoad.init({
