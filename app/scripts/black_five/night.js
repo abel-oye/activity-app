@@ -212,12 +212,21 @@
             isNew: true,
         });
     }).on('click', '#bf-tab li', function () {
+<<<<<<< HEAD
+            var $this = $(this);
+            $('#bf-tab li').removeClass('active');
+            $this.addClass('active');
+            location.hash = $this.attr('data-href');
+
+        });
+=======
         var $this = $(this);
         $('#bf-tab li').removeClass('active');
         $this.addClass('active');
         location.hash = $this.attr('data-href');
 
     });
+>>>>>>> a7472c1a36bb0d4389f4a072a4b078957abbb202
 
     lazyLoad.init({
         offset: 0,
@@ -234,6 +243,18 @@
 
         }
     });
+
+    try{
+        YmtApi.initWechat({
+            shareConf:{
+                title: 'Double狂购黑五夜 老板放大招 礼包放大再加码！',
+                desc: '914元黑五加码礼包已经发到哈尼账户，百元坐拥世界大牌不是梦',
+                imgUrl: 'http://pm4.img.ymatou.com/G02/M0A/31/CA/CgvUA1ZCPiuAP8Z7AABOfcrqVew149_o.jpg'
+            }
+        })
+    }catch(e){
+
+    }
 
 
 })();
