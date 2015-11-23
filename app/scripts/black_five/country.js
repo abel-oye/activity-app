@@ -333,7 +333,7 @@
                 scrollChackeStatus = true;
 
                 var top = document.documentElement.scrollTop || document.body.scrollTop,
-                    bottom = window.innerHeight;//首屏
+                    bottom = window.innerHeight/2;//首屏
 
                 if (top > bottom) {
                     $('#bf-tab').removeClass('show');

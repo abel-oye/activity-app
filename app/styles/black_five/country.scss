@@ -450,7 +450,7 @@
         bottom:0!important;
     }
     &-wrapper{
-        height:$rem*105;
+        height:$rem*200;
         position:relative;
         background-color: #fff;
         &.show{
@@ -598,7 +598,6 @@
     background-image:url(#{$imgPath}loading.jpg);
     background-color:#fff;
     @extend .bg__full;
-
 }
 //气球摆动
 @keyframes sign-sway {
