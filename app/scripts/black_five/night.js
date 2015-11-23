@@ -212,13 +212,12 @@
             isNew: true,
         });
     }).on('click', '#bf-tab li', function () {
+            var $this = $(this);
+            $('#bf-tab li').removeClass('active');
+            $this.addClass('active');
+            location.hash = $this.attr('data-href');
 
-        var $this = $(this);
-        $('#bf-tab li').removeClass('active');
-        $this.addClass('active');
-        location.hash = $this.attr('data-href');
-
-    });
+        });
 
     lazyLoad.init({
         offset: 0,
