@@ -55,7 +55,8 @@
             r: (root.innerWidth || document.documentElement.clientWidth) + offset.r
         }
         var box = element.getBoundingClientRect();
-        return ((box.top >= view.t && box.top < view.b || box.bottom >= view.t && box.bottom < view.b || box.bottom > view.b && box.top < view.t) && box.left >= view.l && box.left < view.r)
+        return ((box.top >= view.t && box.top < view.b || box.bottom >= view.t && box.bottom < view.b || box.bottom > view.b && box.top < view.t)
+            && (box.left > view.l && box.left < view.r || box.right < view.l && box.right<= view.r || view.l >= box.left && view.r <= box.right))
     };
 
     /**

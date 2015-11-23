@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticontent.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="content-prefetch" href="//staticwap.ymatou.com">
+    <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
+    <script data-js-path="redraw.js">
+     !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
+    </script>
+    <!-- build:css /styles/black_five/country.css-->
+    <link rel="stylesheet" type="text/css" href="/styles/black_five/country.css">
+    <!-- endbuild-->
+  </head>
+  <body>
+  <!--更多好货-->
+    <script id="goods-tpl" type="text-template">
+    {{ for(var i=0,len=PageParts.length;i<len;i++){ }}
+      <div class="goods-item">
+          <div class="goods-banner bg__full img-hold J-open" data-url="{{=PageParts[i].LinkUrl }}" lazy-load-background="{{= PageParts[i].BannerUrl}}"></div>
+          <div class="goods-pic-list swiper-wrapper"><!--
+            {{ for(var j=0,len2=PageParts[i].Products.length;j<len2;j++){ }}
+            --><div class="goods-pic-item swiper-slide J-open " data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=PageParts[i].Products[j].ProductId}}" onclick=";">
+                <div class="pic bg__full img-hold" lazy-load-background="{{= PageParts[i].Products[j].PicUrl}}" ></div>
+                <h4>{{= PageParts[i].Products[j].Name}}</h4>
+                <div class="pirce">
+                  &yen;{{-: PageParts[i].Products[j].Price | pirceRegion }}
+                </div>
+                <div class="original-price">
+                  <del>&yen;{{-: PageParts[i].Products[j].MarketPrice | pirceRegion }}</del>
+                </div>
+            </div><!--
+            {{ } }}-->
+            <div class="goods-pic-item  swiper-slide">
+                <div class="pic bg__full img-hold J-open" data-url="{{=PageParts[i].LinkUrl }}" lazy-load-background="http://static.jyh.ymatou.com/app/images/checkall.1511140138.jpg">
+                更多好货</div>
+            </div>
+            <div class="goods-pic-item swiper-slide"></div>
+          </div>
+      </div>
+      {{ } }}
+    </script>
+    <!--砍价团-->
+    <script id="group-tpl" type="text/template">
+     <div class="bf-group-list swiper-wrapper"><!--
+     {{ for(var i=0,len=Math.min(TopicJoinList.length,6);i<len;i++){ }}
+        --><div class="bf-group-item swiper-slide"><!--
+              --><div class="bf-group-pro bg__full img-hold J-open"  data-url="http://web.app.ymatou.com/Tuan/Render?sign=828&backFlag=1&topicFlag=0&topicid={{=TopicJoinList[i].TopicId}}&templatename=detail" lazy-load-background="{{= TopicJoinList[i].ActivityImageUrl }}">
+              <span class="bf-group-count">已成团{{=TopicJoinList[i].MemberCount}}人</span>
+            </div>
+        </div><!--
+    {{ } }}
+    --></div>
+    <div class="bf-group-pagination">
+        {{ for(var i=0,len=Math.min(TopicJoinList.length,4);i<len;i++){ }}
+            <span class="swiper-pagination-bullet "></span>
+        {{ } }}
+     </div>
+    </script>
+    <!--活动模板-->
+      <script id="active-tpl" type="text/template">
+      {{ for(var i=0,len=Products.length;i<len;i++){ }}
+        <div class="bf-item">
+            <div class="pro-wrapper {{=(Products[i].IsCustomer?'J-open-C-Product':'J-open')}}" {{= (Products[i].IsCustomer?'data-productId='+Products[i].ProductId+' data-logo='+Products[i].Logo+' data-seller='+Products[i].Seller+' data-sellerId='+Products[i].SellerId:'data-url=http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId ) }}   onclick=";">
+                <div class="pic bg__full load-hold img-hold" lazy-load-background="{{-: Products[i].PicUrl | convertImgUrl }}"></div>
+                <div class="info">
+                    <div>
+                        <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlag ||Products[i].Flag}}"></span>{{=Products[i].CountryName}}
+                    </div>
+                    <h4>{{=Products[i].Name}}</h4>
+                    {{ if(!Products[i].IsCustomer){ }}
+                    <div  class="original-price">
+                        <del>市场价:{{=Products[i].MarketPrice}}</del>
+                    </div>
+                    {{ } }}
+                    <div class="price-wrapper">
+                        <span>黑五价</span>
+                        <span><strong>{{=Products[i].Price4Sale||Products[i].Price}}</strong>元</span>
+                    </div>
+                </div>
+            </div>
+          </div>
+         {{ } }}
+      </script>
+       <script id="package-tpl" type="text/template">
+          <div class="package-bg bg__full">
+            <div class="close-flag J-close" data-target="receive-package">X</div>
+          </div>
+          <div class="share-tools">
+            <div class="share-btn J-receive-pk"
+                data-share-url="http://evtc.ymatou.com/evt1120/wxPackage"
+                data-share-content="洋码头黑色星期五全球狂购节来啦！各国洋货低至1折，更有5亿现金红包大派送！人人有份，还不赶快一起来抢！"
+                data-share-title="洋码头黑五狂购节派现金啦！"
+                data-share-pic="http://pm4.img.ymatou.com/G02/M0A/31/CA/CgvUA1ZCPiuAP8Z7AABOfcrqVew149_o.jpg"
+                onclick=";">朕要分享</div>
+            <div class="J-close close-btn" data-target="receive-package" onclick=";">容朕三思</div>
+          </div>
+          <div class="share-btn J-close succ-btn" data-target="receive-package">
+            朕知道了
+          </div>
+    </script>
+    <section class="">
+      <div class="bf-country-banner">
+      <span class="activity-detail J-open" data-url="http://sq0.ymatou.com/forBuyerApp/discover/detail?topic=810&ShareTitle=洋码头黑五狂购节派现金啦&ShareContent=洋码头黑色星期五全球狂购节来啦！各国洋货低至1折，更有5亿现金红包大派送！人人有份，还不赶快一起来抢！&SharePicUrl=http%3A%2F%2Fpm4.img.ymatou.com%2FG02%2FM0A%2F31%2FCA%2FCgvUA1ZCPiuAP8Z7AABOfcrqVew149_o.jpg&ShareLinkUrl=http%3A%2F%2Fsq0.ymatou.com%2FforBuyerApp%2Fdiscover%2Fdetail%3Ftopic%3D810">活动详情</span>
+      </div>
+      <!--优惠券-->
+      <div class="bf-country-coupon J-open-receive"></div>
+      <!--国家馆入口-->
+      <div class="bf-entry-wrapper">
+        <div class="aisa-entry J-open" data-url=""></div>
+      </div>
+      <!--砍价团-->
+      <div class="bf-area bf-group J-bf-axie" id="group">
+        <div class="bf-area-hd J-open" data-url="http://evt.ymatou.com/activity_4377_CAPP" onclick=";"></div>
+        <div class="bf-area-bd">
+          <div class="J-module-Hold module-hold" data-module="groupList"
+                    lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+
+        </div>
+      </div>
+      <!--全球买手-->
+      <div class="bf-area seller-coupon">
+        <div class="bf-area-hd"></div>
+        <div class="bf-area-bd">
+          <div class="seller-coupon-item"></div>
+          <div class="seller-coupon-item"></div>
+          <div class="seller-coupon-item"></div>
+          <div class="seller-coupon-item"></div>
+        </div>
+      </div>
+
+      <!--国家馆 美国馆-->
+      <div class="bf-area country-wrapper J-bf-axie" id="bf_01">
+        <div class="bf-area-hd"></div>
+        <div class="bf-area-bd">
+            <div class="bf-list bf-item_2col" id="mod-1">
+                <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-1"
+                          lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+            </div>
+            <!--现场直击-->
+            <div>
+              <div class="part-title">
+                  <h3> <span>美国最热销</span></h3>
+              </div>
+              <div class="bf-list bf-item_2col" id="mod-list-1">
+                  <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-list-1"
+                            lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <!--国家馆 亚洲馆-->
+      <div class="bf-area country-wrapper Asia-wrapper J-bf-axie" id="bf_02">
+        <div class="bf-area-hd"></div>
+        <div class="bf-area-bd">
+            <div class="bf-list bf-item_2col" id="mod-2">
+                <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-2"
+                          lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+            </div>
+            <!--现场直击-->
+            <div>
+              <div class="part-title">
+                  <h3> <span>全球扫货直播</span></h3>
+              </div>
+               <div class="bf-list bf-item_2col" id="mod-list-1">
+                     <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-list-1"
+                               lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+                 </div>
+            </div>
+        </div>
+      </div>
+      <!--国家馆 欧洲馆-->
+      <div class="bf-area country-wrapper Europe-wrapper J-bf-axie" id="bf_03">
+        <div class="bf-area-hd"></div>
+        <div class="bf-area-bd">
+           <div class="bf-list bf-item_2col" id="mod-list-2">
+                          <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-list-2"
+                                    lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+                      </div>
+            <!--现场直击-->
+            <div>
+                <div class="part-title">
+                    <h3> <span>全球扫货直播</span></h3>
+                </div>
+               <div class="bf-list bf-item_2col" id="mod-list-3">
+                   <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-list-3"
+                             lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+               </div>
+            </div>
+        </div>
+      </div>
+      <!--国家馆 澳新馆-->
+      <div class="bf-area country-wrapper Australia-wrapper J-bf-axie" id="bf_04">
+        <div class="bf-area-hd"></div>
+        <div class="bf-area-bd">
+           <div class="bf-list bf-item_2col" id="mod-4">
+                <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-4"
+                          lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+            </div>
+            <!--现场直击-->
+            <div>
+              <div class="part-title">
+                  <h3> <span>全球扫货直播</span></h3>
+              </div>
+              <div class="bf-list bf-item_2col" id="mod-list-4">
+                       <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-list-4"
+                                 lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+                   </div>
+            </div>
+        </div>
+      </div>
+      <!--更多-->
+      <div class="bf-area-more">
+        <div class="bf-area-ft">
+          <div class="bf-more-list bf-more-item_2col">
+                <div class="bf-more-item">
+                  <button type="button" class="btn btn-full more-live J-open" data-url="http://evt.ymatou.com/activity_4695_capp?title=扫货直播">查看更多直播</button>
+                </div>
+                <div class="bf-more-item">
+                  <button type="button" class="btn btn-full more-hot J-open" data-url="http://evt.ymatou.com/activity_4689_capp?title=黑五爆款">查看更多爆款</button>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <!--全球好货-->
+      <div class="bf-area bf-goods J-bf-axie" id="bf_05">
+        <div class="bf-area-bd">
+            <div class="J-module-Hold" data-module="getGoodsList"
+                             lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+        </div>
+        <div class="bf-area-ft">
+          <div class="see-more J-open" data-url="http://evt.ymatou.com/activity_4422_capp" onclick=";">
+            查看更多全球好货
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+
+    <div class="bf-tab-wrapper show" id="bf-tab">
+        <nav class="bf-tab ">
+            <div class="bf-tab-hd">
+                <span class="ymt-person"></span>
+            </div>
+           <div class="bf-tab-bd">
+             <ul>
+                 <li class="active" data-href="bf_01">美国馆</li>
+                 <li data-href="bf_02">亚洲馆</li>
+                 <li data-href="bf_03">欧洲馆</li>
+                 <li data-href="bf_04">澳新馆</li>
+                 <li data-href="bf_05">洋货团</li>
+             </ul>
+             <div class="coordinate first"></div>
+           </div>
+        </nav>
+    </div>
+
+    <div class="receive-package receive-package-mask"></div>
+    <div class="receive-package receive-package-dialog">
+      <div class="receive-package-dialog-bd" id="receive-package-bd"> </div>
+    </div>
+
+    <!--洋管家-->
+    <div class="ymt-butler bg__full" onclick=";"></div>
+
+  <!-- build:js /scripts/zepto,ejs,swiper,imgLazyLoad.js -->
+  <script type="text/javascript" src="http://staticwap.ymatou.com/item.app/build/jweixin.2015091501.js"></script>
+  <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+  <script type="text/javascript" src="/scripts/commons/swiper.3.1.2.js"></script>
+  <script type="text/javascript" src="/scripts/commons/fastclick.js"></script>
+  <script type="text/javascript" src="/scripts/commons/imgLazyLoad.js"></script>
+  <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/imgLazyLoad.js?v=2"></script>
+  <!-- endbuild -->
+  <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
+  <!-- build:js /scripts/black_five/country.js -->
+  <script src="/scripts/black_five/country.js"></script>
+  <!-- endbuild -->
+  </body>
+  </html>

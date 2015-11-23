@@ -5,9 +5,9 @@
 //基础按钮
 .btn{
   display: inline-block;
-  padding: $rem * 6 .9375em;
+  padding: $rem * 6 $rem*8;
   margin-bottom: 0;
-  font-size: 14px;
+  font-size: $rem*28;
   font-weight: 400;
   line-height: 1rem/16*17;
   text-align: center;
@@ -19,7 +19,7 @@
   -ms-user-select: none;
   background-image: none;
   border: 1px solid transparent;
-  border-radius: 5px;
+  border-radius: $rem*10;
 }
 
 //主色
@@ -34,4 +34,8 @@ $primary-active-color:#960000;
   &:active{
     background-color:$primary-active-color;
   }
+}
+
+.btn-full{
+    width:100%;
 }
