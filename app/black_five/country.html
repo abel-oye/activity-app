@@ -73,9 +73,9 @@
                     </div>
                     <h4>{{=Products[i].Name}}</h4>
                     {{ if(!Products[i].IsCustomer){ }}
-                    <div  class="original-price">
+                    /*<div  class="original-price">
                         <del>市场价:{{=Products[i].MarketPrice}}</del>
-                    </div>
+                    </div>*/
                     {{ } }}
                     <div class="price-wrapper">
                         <span>黑五价</span>
@@ -104,14 +104,14 @@
           </div>
     </script>
     <section class="">
-      <div class="bf-country-banner">
+      <div class="bf-country-banner bg__full">
       <span class="activity-detail J-open" data-url="http://sq0.ymatou.com/forBuyerApp/discover/detail?topic=810&ShareTitle=洋码头黑五狂购节派现金啦&ShareContent=洋码头黑色星期五全球狂购节来啦！各国洋货低至1折，更有5亿现金红包大派送！人人有份，还不赶快一起来抢！&SharePicUrl=http%3A%2F%2Fpm4.img.ymatou.com%2FG02%2FM0A%2F31%2FCA%2FCgvUA1ZCPiuAP8Z7AABOfcrqVew149_o.jpg&ShareLinkUrl=http%3A%2F%2Fsq0.ymatou.com%2FforBuyerApp%2Fdiscover%2Fdetail%3Ftopic%3D810">活动详情</span>
       </div>
       <!--优惠券-->
-      <div class="bf-country-coupon J-open-receive"></div>
+      <div class="bf-country-coupon J-open-receive bg__full"></div>
       <!--国家馆入口-->
-      <div class="bf-entry-wrapper">
-        <div class="aisa-entry J-open" data-url=""></div>
+      <div class="bf-entry-wrapper bg__full">
+        <div class="aisa-entry J-open bg__full" data-url=""></div>
       </div>
       <!--砍价团-->
       <div class="bf-area bf-group J-bf-axie" id="group">
@@ -124,18 +124,18 @@
       </div>
       <!--全球买手-->
       <div class="bf-area seller-coupon">
-        <div class="bf-area-hd"></div>
+        <div class="bf-area-hd bg__full"></div>
         <div class="bf-area-bd">
-          <div class="seller-coupon-item"></div>
-          <div class="seller-coupon-item"></div>
-          <div class="seller-coupon-item"></div>
-          <div class="seller-coupon-item"></div>
+          <div class="seller-coupon-item bg__full"></div>
+          <div class="seller-coupon-item bg__full"></div>
+          <div class="seller-coupon-item bg__full"></div>
+          <div class="seller-coupon-item bg__full"></div>
         </div>
       </div>
 
       <!--国家馆 美国馆-->
       <div class="bf-area country-wrapper J-bf-axie" id="bf_01">
-        <div class="bf-area-hd"></div>
+        <div class="bf-area-hd bg__full"></div>
         <div class="bf-area-bd">
             <div class="bf-list bf-item_2col" id="mod-1">
                 <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-1"
@@ -147,7 +147,7 @@
                   <h3> <span>美国最热销</span></h3>
               </div>
               <div class="bf-list bf-item_2col" id="mod-list-1">
-                  <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-list-1"
+                  <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4715,7062,mod-list-1"
                             lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
               </div>
             </div>
@@ -155,7 +155,7 @@
       </div>
       <!--国家馆 亚洲馆-->
       <div class="bf-area country-wrapper Asia-wrapper J-bf-axie" id="bf_02">
-        <div class="bf-area-hd"></div>
+        <div class="bf-area-hd bg__full"></div>
         <div class="bf-area-bd">
             <div class="bf-list bf-item_2col" id="mod-2">
                 <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-2"
@@ -167,7 +167,7 @@
                   <h3> <span>全球扫货直播</span></h3>
               </div>
                <div class="bf-list bf-item_2col" id="mod-list-1">
-                     <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-list-1"
+                     <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4715,7065,mod-list-1"
                                lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
                  </div>
             </div>
@@ -175,7 +175,7 @@
       </div>
       <!--国家馆 欧洲馆-->
       <div class="bf-area country-wrapper Europe-wrapper J-bf-axie" id="bf_03">
-        <div class="bf-area-hd"></div>
+        <div class="bf-area-hd bg__full"></div>
         <div class="bf-area-bd">
            <div class="bf-list bf-item_2col" id="mod-list-2">
                           <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-list-2"
@@ -187,7 +187,7 @@
                     <h3> <span>全球扫货直播</span></h3>
                 </div>
                <div class="bf-list bf-item_2col" id="mod-list-3">
-                   <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-list-3"
+                   <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4715,7063,mod-list-3"
                              lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
                </div>
             </div>
@@ -195,7 +195,7 @@
       </div>
       <!--国家馆 澳新馆-->
       <div class="bf-area country-wrapper Australia-wrapper J-bf-axie" id="bf_04">
-        <div class="bf-area-hd"></div>
+        <div class="bf-area-hd bg__full"></div>
         <div class="bf-area-bd">
            <div class="bf-list bf-item_2col" id="mod-4">
                 <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-4"
@@ -207,7 +207,7 @@
                   <h3> <span>全球扫货直播</span></h3>
               </div>
               <div class="bf-list bf-item_2col" id="mod-list-4">
-                       <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,1,mod-list-4"
+                       <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4715,7064,mod-list-4"
                                  lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
                    </div>
             </div>
