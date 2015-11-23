@@ -212,21 +212,13 @@
             isNew: true,
         });
     }).on('click', '#bf-tab li', function () {
-<<<<<<< HEAD
             var $this = $(this);
             $('#bf-tab li').removeClass('active');
             $this.addClass('active');
             location.hash = $this.attr('data-href');
 
         });
-=======
-        var $this = $(this);
-        $('#bf-tab li').removeClass('active');
-        $this.addClass('active');
-        location.hash = $this.attr('data-href');
 
-    });
->>>>>>> a7472c1a36bb0d4389f4a072a4b078957abbb202
 
     lazyLoad.init({
         offset: 0,

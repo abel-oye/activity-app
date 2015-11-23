@@ -574,7 +574,8 @@
         }).on('click', '.bf-coupon-entrance', function () {
             var url = $(this).attr('data-url');
             YmtApi.open({
-                url: url
+                url: url,
+                isNew: true
             })
         });
 
