@@ -88,7 +88,7 @@
         bottom:0!important;
     }
     &-wrapper{
-        height:$rem*105;
+        height:$rem*200;
         position:relative;
         background-color: #fff;
         &.show{
@@ -288,6 +288,7 @@
         border-radius:$rem*60;
         box-shadow: 0 2px #a22f27;
         background-color: $color;
+        margin-top:$rem*10;
         &>span{
             display:inline-block;
             height:100%;
@@ -330,4 +331,12 @@
     background-color:#fff;
     height:$rem*600;
     @extend .bg__full;
+}
+
+.load-over{
+    font-size:$rem*24;
+    text-align:center;
+    color:#969696;
+    height:$rem*80;
+    line-height:$rem*80;
 }

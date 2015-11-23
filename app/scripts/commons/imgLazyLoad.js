@@ -5,7 +5,7 @@
     'use strict';
 
     var lazyLoad = {
-        version: '1.1.2'
+        version: '1.1.3'
     };
 
     var callback = function () {};
@@ -56,7 +56,7 @@
         }
         var box = element.getBoundingClientRect();
         return ((box.top >= view.t && box.top < view.b || box.bottom >= view.t && box.bottom < view.b || box.bottom > view.b && box.top < view.t)
-            && (box.left > view.l && box.left < view.r || box.right < view.l && box.right<= view.r || view.l >= box.left && view.r <= box.right))
+            && (box.left >= view.l && box.left < view.r || box.right < view.l && box.right<= view.r || view.l >= box.left && view.r <= box.right))
     };
 
     /**
