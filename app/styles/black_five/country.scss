@@ -46,6 +46,8 @@
     height:$rem*496;
     background-image:url(#{$imgPath}/country/banner.jpg);
     position:relative;
+    background-color:#ffd801;
+    background-size:100% 100%;
     .activity-detail{
         font-size:$rem*24;
         color:#fff;
@@ -73,24 +75,37 @@
 .bf-country-coupon{
     height:$rem*297;
     background-image:url(#{$imgPath}/country/coupon.jpg);
+    background-color:#ffd801;
 }
 
 .bf-entry-wrapper{
     //亚洲
     .aisa-entry{
-        height:$rem*546;
-        background-image:url(#{$imgPath}/country/Asia_entry.jpg);
+        height:$rem*321;
+        background-image:url(#{$imgPath}/country/asia_entry.jpg?v=2);
+          background-size: 100% 100%;
+    }
+    .aisa-other-entry{
+        height:$rem*230;
+        background-image:url(#{$imgPath}/country/asia_other_entry.jpg?v=2);
+          background-size: 100% 100%;
     }
 }
 
 //砍价团
 .bf-group{
     background-color:#f13826;
-    position:relative;
+
     width: 100%;
      overflow: hidden;
      box-sizing: border-box;
     padding:$rem*7 0 $rem*30;
+    .bf-area-bd{
+            position:relative;
+    }
+    .bf-area-ft{
+        padding:$rem*10;
+    }
     &-list{
         white-space: nowrap;
     }
@@ -600,7 +615,6 @@
     background-image:url(#{$imgPath}loading.jpg);
     background-color:#fff;
     @extend .bg__full;
-
 }
 //气球摆动
 @keyframes sign-sway {
