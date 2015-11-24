@@ -72,6 +72,8 @@
         }
     };
 
+    console.log('update');
+
     /**
      * 通过jsonp获得数据
      * @param  {String}   url      请求的地址
