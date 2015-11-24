@@ -207,7 +207,7 @@
     &.Asia-wrapper{
         $bg-color:#39b2f7;
         .bf-area-hd{
-            background-image:url(#{$imgPath}country/asia-title.jpg);
+            background-image:url(#{$imgPath}country/asia-title.jpg?v=1);
         }
         background-color:$bg-color;
         .part-title{
@@ -259,6 +259,7 @@
     font-size:$rem*44;
     text-align:center;
     padding:$rem*18 0;
+    height: $rem*80;
 }
 .more-live{
     color:#fff;
@@ -291,10 +292,11 @@
         &>h4{
             color:#333;
             height:$rem*66;
+            margin-top: $rem*10;
             @include textOverFlow(2);
         }
         .original-price{
-            margin:$rem*10 0;
+            margin:$rem*10 0 0;
         }
     }
     .price-wrapper{
@@ -450,7 +452,7 @@
         bottom:0!important;
     }
     &-wrapper{
-        height:$rem*105;
+        height:$rem*200;
         position:relative;
         background-color: #fff;
         &.show{
