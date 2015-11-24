@@ -82,12 +82,12 @@
     //亚洲
     .aisa-entry{
         height:$rem*321;
-        background-image:url(#{$imgPath}/country/asia_entry.jpg?v=2);
+        background-image:url(#{$imgPath}/country/europe_entry.gif?v=3);
           background-size: 100% 100%;
     }
     .aisa-other-entry{
         height:$rem*230;
-        background-image:url(#{$imgPath}/country/asia_other_entry.jpg?v=2);
+        background-image:url(#{$imgPath}/country/europe_other_entry.jpg);
           background-size: 100% 100%;
     }
 }

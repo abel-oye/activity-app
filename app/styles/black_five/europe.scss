@@ -1,6 +1,6 @@
 @charset'UTF-8';
  /**
- * 亚洲馆
+ * 欧洲馆
  * @Author river
  * @email lijiang@ymatou.com
  * @Date 2015/11/23
@@ -16,8 +16,8 @@
 
  $rem: 1rem/32;
 
- $imgPath:'/images/black_five/';
- // $imgPath:'http://staticontent.ymatou.com/images/black_five/';
+ // $imgPath:'/images/black_five/';
+ $imgPath:'http://staticontent.ymatou.com/images/black_five/';
 
 .bg__full{
     background-size:contain;
@@ -26,7 +26,7 @@
 }
 
 .bf-country-banner{
-    background-image:url(#{$imgPath}country/asia-master-title.jpg);
+    background-image:url(#{$imgPath}country/europe_banner.jpg);
     height:$rem*325;
     background-color:#ff4362;
     background-size: 100% 100%;
@@ -34,7 +34,7 @@
 }
 
 .bf-area-hd{
-    background-image:url(#{$imgPath}country/asia_title_bg.jpg);
+    background-image:url(#{$imgPath}country/europe_title.jpg);
     height:$rem*130;
     @extend .bg_full;
 }

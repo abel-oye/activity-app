@@ -1,7 +1,7 @@
 /* global ejs: true,YmtApi:true */
 
 /**
- * 国家馆
+ * 澳新馆
  * @author river
  * @email lijiang@ymaotu.com
  * @create-date 20151123
