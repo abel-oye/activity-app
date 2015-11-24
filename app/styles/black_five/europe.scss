@@ -26,7 +26,7 @@
 }
 
 .bf-country-banner{
-    background-image:url(#{$imgPath}country/europe_banner.jpg);
+    background-image:url(#{$imgPath}country/europe_entry.jpg);
     height:$rem*325;
     background-color:#ff4362;
     background-size: 100% 100%;
@@ -34,7 +34,7 @@
 }
 
 .bf-area-hd{
-    background-image:url(#{$imgPath}country/europe_title.jpg);
+    background-image:url(#{$imgPath}country/europe_title.jpg?v=4);
     height:$rem*130;
     @extend .bg_full;
 }

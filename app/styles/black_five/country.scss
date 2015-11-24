@@ -87,8 +87,17 @@
     }
     .aisa-other-entry{
         height:$rem*230;
-        background-image:url(#{$imgPath}/country/europe_other_entry.jpg);
-          background-size: 100% 100%;
+        background-image:url(#{$imgPath}/country/europe_other_entry.jpg?v=4);
+        background-size: 100% 100%;
+        position: relative;
+
+        .asia-come {
+            width: $rem*230;
+            height: $rem*200;
+            position: absolute;
+            left: $rem*18;
+            top: $rem*4;
+        }
     }
 }
 
