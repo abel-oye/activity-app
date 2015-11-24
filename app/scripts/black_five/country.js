@@ -271,9 +271,9 @@
                 width: width,
                 left: left
             });
-        $('.ymt-person').css({
+/*        $('.ymt-person').css({
             left: left
-        })
+        })*/
 
         if (active.index() === 0) {
             coor.addClass('first');
