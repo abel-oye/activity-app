@@ -1,0 +1,150 @@
+@charset'UTF-8';
+ /**
+ * 黑五页
+ * @Author river
+ * @email lijiang@ymatou.com
+ * @Date 2015/11/12
+ */
+ @import'../_components/variables.scss';
+ @import'../_components/_mixin.scss';
+ @import'../_components/reset.scss';
+
+ @import'../_components/column.scss';
+
+ @import'../assets/ymtUI.scss';
+ @import'../assets/ymt_components.scss';
+
+ $rem: 1rem/32;
+
+ $imgPath:'/images/black_five/';
+ //$imgPath:'http://staticontent.ymatou.com/images/black_five/';
+
+.mask{
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+
+    background: rgba(0,0,0,.7);
+    &.open
+    {
+        display: block;
+    }
+}
+
+
+.bg__full{
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+
+.bf-banner{
+    background-image:url(#{$imgPath}bf/bf_banner.jpg);
+    height:$rem*500;
+    background-color:#d42a51;
+    .activity-detail{
+        font-size:$rem*24;
+        color:#fff;
+        padding:$rem*10 $rem*25;
+        border-top-right-radius:$rem*44;
+        border-bottom-right-radius:$rem*44;
+        background-color:rgba(0,0,0,.4);
+        position:absolute;
+        top:$rem*415;
+        left:0;
+        &:after{
+            content:'?';
+            display:inline-block;
+            font-size:$rem*17;
+            width:$rem*25;
+            height:$rem*25;
+            border:1px solid #fff;
+            border-radius:50%;
+            text-align:center;
+            margin-left:$rem*5;
+        }
+    }
+}
+
+.bf-coupon{
+    background-image:url(#{$imgPath}bf/bf_coupon.jpg);
+    height:$rem*136;
+    background-color:#faec4b;
+}
+
+//秒杀
+.bf-seckill{
+    &-wrapper{
+        background-color:#cf2541;
+        .bf-area-hd{
+            background-image:url(#{$imgPath}bf/bf_seckill.jpg);
+            height:$rem*120;
+            color:#fff;
+            font-size:$rem*26;
+            position:relative;
+            span{
+                position: absolute;
+                bottom:$rem*12;
+                right:$rem*15;
+            }
+            i{
+                background-color:#fff;
+                border-radius:50%;
+                display:inline-block;
+                width:$rem*20;
+                height:$rem*20;
+                line-height:$rem*20;
+                text-align:center;
+                margin-left:$rem*3;
+                color:#cf2541;
+                font-size:$rem*25;
+            }
+        }
+        .bf-area-bd{
+            padding:0 $rem*10;
+            height:$rem*390;
+        }
+        .before-mask{
+            position:absolute;
+            height:100%;
+            width:100%;
+            z-index:2;
+            top:0;
+            left:0;
+            color:#fff;
+            padding-top:$rem*130;
+            font-size:$rem*40;
+            text-align:center;
+            background:rgba(0,0,0,.5);
+            display:none;
+        }
+        &.before{
+            .before-mask{
+                display:block;
+            }
+        }
+        .seckill-underline{
+            height:$rem*450;
+        }
+    }
+
+    &-list{
+        height:100%;
+          white-space: nowrap;
+          width:100%;
+    }
+    &-item{
+        display:inline-block;
+        height:100%;
+        width:100%;
+        position:relative;
+    }
+
+    &-pro{
+        height:100%;
+    }
+}
