@@ -17,7 +17,7 @@
 
  $rem: 1rem/32;
 
-  //$imgPath:'/images/black_five/';
+  // $imgPath:'/images/black_five/';
  $imgPath:'http://staticontent.ymatou.com/images/black_five/';
 
  .bf-area{
@@ -43,10 +43,10 @@
 }
 
 .bf-country-banner{
-    height:$rem*496;
-    background-image:url(#{$imgPath}/country/banner.jpg);
+    height:$rem*498;
+    background-image:url(#{$imgPath}/country/banner.jpg?v=1);
     position:relative;
-    background-color:#ffd801;
+    background-color:#F1372B;
     background-size:100% 100%;
     .activity-detail{
         font-size:$rem*24;
@@ -73,21 +73,21 @@
 }
 
 .bf-country-coupon{
-    height:$rem*297;
-    background-image:url(#{$imgPath}/country/coupon.jpg);
-    background-color:#ffd801;
+    height:$rem*292;
+    background-image:url(#{$imgPath}/country/coupon.jpg?v=2);
+    background-color:#fff;
 }
 
 .bf-entry-wrapper{
     //亚洲
     .aisa-entry{
-        height:$rem*321;
-        background-image:url(#{$imgPath}/country/europe_entry.gif?v=3);
+        height:$rem*320;
+        background-image:url(#{$imgPath}/country/aoxin_entry.gif);
           background-size: 100% 100%;
     }
     .aisa-other-entry{
-        height:$rem*230;
-        background-image:url(#{$imgPath}/country/europe_other_entry.jpg?v=4);
+        height:$rem*233;
+        background-image:url(#{$imgPath}/country/aoxin_other_entry.jpg);
         background-size: 100% 100%;
         position: relative;
 
@@ -95,8 +95,16 @@
             width: $rem*230;
             height: $rem*200;
             position: absolute;
-            left: $rem*18;
-            top: $rem*4;
+            left: $rem*20;
+            top: $rem*6;
+        }
+
+        .europe-come {
+            width: $rem*230;
+            height: $rem*200;
+            position: absolute;
+            left: $rem*250;
+            top: $rem*6;
         }
     }
 }
@@ -467,7 +475,7 @@
     right:0;
     bottom:$rem*7;
     font-size:$rem*25;
-    height:$rem*200;
+    height:$rem*250;
     transition: transform 0.25s ease-in-out;
     will-change:transform;
     z-index:3;
@@ -489,19 +497,20 @@
     }
   &-hd{
         position:relative;
-        height:$rem*94;
+        height:$rem*144;
         z-index:2;
         left:0;
         .ymt-person{
             z-index:2;
             position:relative;
-            transition: transform 0.55s ease-in-out;
+            transition: transform 0.8s ease-in-out;
             will-change:transform;
             background-image:url(#{$imgPath}person.png);
+            background-size: contain;
             width:$rem*101;
             height:$rem*144;
             display:block;
-            top:$rem*-35;
+            top:$rem*10;
             left:$rem*10;
         }
         span{//小洋人
