@@ -119,99 +119,23 @@
             return YmtApi.utils.getAuthInfo()
         };
 
-    var module = {
-        /**
-         * 获得活动商品
-         * @param  {string} aid 活动编号
-         * @param  {string} pid 模块编号
-         * @param  {string} modId 模块编号
-         */
-        activityList: function (aid, pid,modId) {
-            console.log(aid,pid,modId)
-            if(aid === '0'){
-                console.log(productData[pid])
-                var html = ejs.render($('#active-tpl').html(), productData[pid]);
-                $('#'+modId).html(html);
-            }else{
-                getActivityJsonP(aid, pid, 50, function (data) {
-                    if (data && data.Products) {
-                        var html = ejs.render($('#active-tpl').html(), data);
-                         $('#'+modId).html(html);
-                    }
-                });
+    var dataStatus,
+        dataOver = false;
+    var getProduct = function (pageIndex, pageSize, areaCode) {
+        dataStatus = false;
+        jsonpGetData('http://jsapi.bf.ymatou.com/api/Friday/ExplosionAreaIndex?PageIndex=' + pageIndex + '&PageSize=' + pageSize + '&AreaCode=' + areaCode, function (data) {
+            if (data.Products && data.Products[0]) {
+                dataStatus = true;
+                var html = ejs.render($('#active-tpl').html(), data);
+                $('#bf-prolist').append(html);
+            } else {
+                dataOver = true;
+                $('#load-over').show();
             }
 
-        },
-        //模块打点空方法
-        noop: function () {
-
-        }
-    }
-
-    var getActivityJsonP = function (aid, pid, pageSize, callback) {
-        var callbackName = 'ymatou_at_' + aid + '_' + pid;
-        pageSize = pageSize || 10;
-        jsonpGetData('http://api.evt.ymatou.com/ActivityTemplate/Products/aid_' + aid + '/pid_' + pid + '/ps_' + pageSize, callback, callbackName);
-    }
-
-    /**
-     * 检查坐标变更tab的active 位置
-     */
-    var checkCoordinate = function () {
-        var li = $('#bf-tab ul li'),
-            active = li.filter('.active'),
-            coor = $('.coordinate');
-        if(!active[0]){
-            return;
-        }
-        var left = active.offset().left,
-            width = active.width();
-        //这里注意去写分离 减少重绘
-        coor.removeClass('first')
-            .removeClass('last')
-            .css({
-                width: width,
-                left: left
-            });
-        $('.ymt-person').css({
-            left: left
-        })
-
-        if (active.index() === 0) {
-            coor.addClass('first');
-        }
-
-        if (active.index() === li.size()-1) {
-            coor.addClass('last');
-        }
-    }
-
-    var checkAxis = function () {
-        if (stopCheck) {
-            return;
-        }
-        var $axle = $('.J-bf-axie'),
-            doc = document.documentElement,
-            view = {
-                l: (window.pageXOffset || doc.scrollLeft),
-                t: 0,
-                b: window.innerHeight,
-                r: (window.innerWidth || doc.clientWidth)
-            } //视口位置
-
-        $axle.each(function (index, el) {
-            var box = el.getBoundingClientRect();
-            if ((box.top >= view.t && box.top < view.b || box.bottom >= view.t && box.bottom < view.b || box.bottom > view.b && box.top < view.t) && box.left >= view.l && box.left < view.r) {
-                $('#bf-tab li').removeClass('active')
-                    .filter('[data-href="' + el.id + '"]')
-                    .addClass('active');
-                checkCoordinate();
-                return false;
-            }
         });
-    }
-    var stopCheck = false;
-    var scrollChackeStatus = false; //scroll 检查频率控制
+    };
+
     $(document).on('click', '.J-open', function () {
             var $this = $(this);
 
@@ -220,15 +144,6 @@
                 title: $this.attr('data-title'),
                 isNew: true,
             });
-        }).on('click', '#bf-tab li', function () {
-            var $this = $(this);
-            $('#bf-tab li').removeClass('active');
-            $this.addClass('active');
-            location.hash = $this.attr('data-href');
-
-            stopCheck = true;
-
-
         }).on('click', '.J-open-C-Product', function () {
             var url = "",
                 $this = $(this),
@@ -260,57 +175,29 @@
                 title: '全球好货',
                 url: url
             });
-        }).on('scroll', function () {
-            if (!scrollChackeStatus) {
-                scrollChackeStatus = true;
-
-                var top = document.documentElement.scrollTop || document.body.scrollTop,
-                    bottom = window.innerHeight/2;//首屏
-
-                if (top > bottom) {
-                    $('#bf-tab').removeClass('show');
-                    $('.ymt-butler').addClass('show')
-                }
-                else {
-                    $('#bf-tab').addClass('show');
-                    $('.ymt-butler').removeClass('show')
-                }
-
-                checkAxis();
-                setTimeout(function () {
-                    scrollChackeStatus = false;
-                }, 250);
-            }
-
-        }).on('click', '#bf-tab li', function () {
-            var $this = $(this);
-            $('#bf-tab li').removeClass('active');
-            $this.addClass('active');
-            location.hash = $this.attr('data-href');
-
-            stopCheck = true;
-            setTimeout(function () {
-                checkCoordinate();
-            });
-
         });
 
     lazyLoad.init({
         offset: 200,
-        callback: function (elem) {
-            //注册模块懒加载
-            var $this = $(elem);
-            if ($this.hasClass('J-module-Hold')) {
-                var moduleName = $this.attr('data-module'),
-                    args = ($this.attr('data-arguments') || '').split(',');
-
-                console.log(moduleName)
-
-                moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
-                $this.removeClass('J-module-Hold').addClass('module-load-end');
-            }
-
+        throttle: 250,
+        callback: function () {
         }
     });
 
+    var pageIndex = 1,
+        pageSize = 10,
+        areaCode = 1;
+    getProduct(pageIndex, pageSize, areaCode);
+
+    var $window = $(window),
+        $proList = $('#bf-prolist');
+    $window.on('scroll toumove', function() {
+        if (!dataStatus || dataOver) {
+            return;
+        }
+
+        if ($window.scrollTop() + $window.height() + 200 > $proList.height() + $proList.offset().top) {
+            getProduct(++pageIndex, pageSize, areaCode);
+        }
+    });
 })();
