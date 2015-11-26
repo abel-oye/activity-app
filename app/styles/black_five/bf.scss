@@ -14,11 +14,13 @@
  @import'../assets/ymtUI.scss';
  @import'../assets/ymt_components.scss';
 
+ @import'./_proList.scss';
+
  $rem: 1rem/32;
 
  $imgPath:'/images/black_five/';
  //$imgPath:'http://staticontent.ymatou.com/images/black_five/';
-
+@include column('.bf-',2,$rem*8);
 .mask{
     position: fixed;
     z-index: 99;
@@ -281,5 +283,12 @@
                 font-size:$rem*15;
             }
          }
+    }
+}
+
+.bf-mall{
+    background-color:#cf2541;
+    .bf-area-bd{
+        padding:$rem*10 $rem*8;
     }
 }
