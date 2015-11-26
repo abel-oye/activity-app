@@ -1,7 +1,7 @@
 /* global ejs: true,YmtApi:true */
 
 /**
- * 梅西百货
+ * 诺德斯特龙
  * @author river
  * @email lijiang@ymaotu.com
  * @create-date 20151123

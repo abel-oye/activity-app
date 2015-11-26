@@ -23,7 +23,7 @@
 }
 
 .bf-department-banner{
-    background-image:url(#{$imgPath}department/macy_banner.jpg);
+    background-image:url(#{$imgPath}department/nordstrom_banner.jpg);
     height:$rem*456;
     @extend .bg__full;
     position: relative;
@@ -42,32 +42,26 @@
 
 
 .bf-area {
-    background-color: #eb0000;
+    background-color: #2f3170;
     .bf-area-hd {
         .bf-area-title {
             color: #fff;
-            padding: $rem*14 $rem*24 $rem*20;
+            padding: $rem*20 $rem*12;
             .title-main {
                 display: block;
                 text-align: left;
-                font-size: $rem*50;
+                font-size: $rem*45;
                 font-weight: 900;
             }
             .title-sub {
                 display: block;
-                font-size: $rem*10;
+                font-size: $rem*24;
                 text-align: left;
-                strong {
-                    font-weight: 700;
-                }
             }
         }
     }
     .bf-area-bd {
         padding: 0 $rem*10;
-        .bf-list {
-
-        }
     }
 }
 
@@ -80,4 +74,4 @@
 }
 
 
-@include productList(#cc3333);
+@include productList(#d1213d);

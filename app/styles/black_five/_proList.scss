@@ -27,13 +27,13 @@
     .pro-wrapper{
         background: #FFF;
         padding-bottom:$rem*18;
-        margin-bottom:$rem*10;
+        margin-bottom:$rem*8;
         border-radius:$rem*10;
         overflow:hidden;
         .pic{
             height:$rem*360;
-            background-size: contain;
-              background-position: top;
+            background-size: cover;
+            background-position: top;
         }
         .info{
             padding:0 $rem*22;
