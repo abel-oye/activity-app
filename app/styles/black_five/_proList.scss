@@ -1,0 +1,97 @@
+@charset'UTF-8';
+ /**
+ * 国家馆
+ * @Author river
+ * @email lijiang@ymatou.com
+ * @Date 2015/11/23
+ */
+ @import'../_components/variables.scss';
+ @import'../_components/_mixin.scss';
+
+
+ @import'../_components/column.scss';
+
+
+ $rem: 1rem/32;
+
+.pro-wrapper{
+    background: #FFF;
+    padding-bottom:$rem*18;
+    margin-bottom:$rem*10;
+    border-radius:$rem*10;
+    overflow:hidden;
+    .pic{
+        height:$rem*360;
+        background-size: contain;
+          background-position: top;
+    }
+    .info{
+        padding:0 $rem*22;
+        font-size:$rem*22;
+        color:#a3a3a3;
+        margin-top:$rem*10;
+        &>h4{
+            color:#333;
+            height:$rem*66;
+            margin-top: $rem*10;
+            @include textOverFlow(2);
+        }
+        .original-price{
+            margin:$rem*10 0 0;
+        }
+    }
+    .price-wrapper{
+        width:100%;
+        height:$rem*60;
+        line-height:$rem*60;
+        border:1px solid #ff5247;
+        border-radius:$rem*60;
+        box-shadow: 0 2px #a22f27;
+        background-color: #FF5247;
+        &>span{
+            display:inline-block;
+            height:100%;
+            text-align:center;
+            float:left;
+        }
+        &>:first-child{
+            background:#fff;
+            color:#ff524b;
+            border-top-left-radius: $rem*60;
+            border-bottom-left-radius: $rem*60;
+            width:40%;
+            font-weight:bold;
+        }
+        &>:last-child{
+            background:#ff5247;
+            color:#fff;
+            border-top-right-radius: $rem*60;
+            border-bottom-right-radius: $rem*60;
+            width:60%;
+            &>strong{
+                font-size:$rem*35;
+                font-weight:bold;
+            }
+        }
+    }
+    .national-flag{
+        display:inline-block;
+        width:$rem*25;
+        height:$rem*25;
+        background-size:contain;
+        background-repeat:no-repeat;
+        vertical-align: middle;
+        margin-right:$rem*10;
+    }
+}
+
+//查看更多
+.see-more{
+    height:$rem*63;
+    line-height:$rem*63;
+    border:1px dashed #fff;
+    border-radius:$rem*63;
+    text-align:center;
+    font-size:$rem*30;
+    color:#fff;
+}

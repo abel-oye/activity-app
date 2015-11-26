@@ -1,0 +1,294 @@
+@charset'UTF-8';
+ /**
+ * 黑五页
+ * @Author river
+ * @email lijiang@ymatou.com
+ * @Date 2015/11/12
+ */
+ @import'../_components/variables.scss';
+ @import'../_components/_mixin.scss';
+ @import'../_components/reset.scss';
+
+ @import'../_components/column.scss';
+
+ @import'../assets/ymtUI.scss';
+ @import'../assets/ymt_components.scss';
+
+ @import'./_proList.scss';
+
+ $rem: 1rem/32;
+
+ $imgPath:'/images/black_five/';
+ //$imgPath:'http://staticontent.ymatou.com/images/black_five/';
+@include column('.bf-',2,$rem*8);
+.mask{
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+
+    background: rgba(0,0,0,.7);
+    &.open
+    {
+        display: block;
+    }
+}
+
+
+.bg__full{
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+
+.bf-container{
+    background:#e7e7e7;
+}
+
+.bf-banner{
+    background-image:url(#{$imgPath}bf/bf_banner.jpg);
+    height:$rem*500;
+    background-color:#d42a51;
+    .activity-detail{
+        font-size:$rem*24;
+        color:#fff;
+        padding:$rem*10 $rem*25;
+        border-top-right-radius:$rem*44;
+        border-bottom-right-radius:$rem*44;
+        background-color:rgba(0,0,0,.4);
+        position:absolute;
+        top:$rem*415;
+        left:0;
+        &:after{
+            content:'?';
+            display:inline-block;
+            font-size:$rem*17;
+            width:$rem*25;
+            height:$rem*25;
+            border:1px solid #fff;
+            border-radius:50%;
+            text-align:center;
+            margin-left:$rem*5;
+        }
+    }
+}
+
+.bf-coupon{
+    background-image:url(#{$imgPath}bf/bf_coupon.jpg);
+    height:$rem*136;
+    background-color:#faec4b;
+}
+
+//秒杀
+.bf-seckill{
+    &-wrapper{
+        background-color:#cf2541;
+        padding-bottom:$rem*40;
+        margin-bottom:$rem*5;
+        .bf-area-hd{
+            background-image:url(#{$imgPath}bf/bf_seckill.jpg);
+            height:$rem*120;
+            color:#fff;
+            font-size:$rem*26;
+            position:relative;
+            span{
+                position: absolute;
+                bottom:$rem*12;
+                right:$rem*15;
+            }
+            i{
+                background-color:#fff;
+                border-radius:50%;
+                display:inline-block;
+                width:$rem*20;
+                height:$rem*20;
+                line-height:$rem*20;
+                text-align:center;
+                margin-left:$rem*3;
+                color:#cf2541;
+                font-size:$rem*25;
+            }
+        }
+        .bf-area-bd{
+            padding:0 $rem*10;
+            height:$rem*390;
+        }
+        .before-mask{
+            position:absolute;
+            height:100%;
+            width:100%;
+            z-index:2;
+            top:0;
+            left:0;
+            color:#fff;
+            padding-top:$rem*130;
+            font-size:$rem*40;
+            text-align:center;
+            background:rgba(0,0,0,.5);
+            display:none;
+        }
+        &.before{
+            .before-mask{
+                display:block;
+            }
+        }
+        .seckill-underline{
+            height:$rem*450;
+        }
+    }
+
+    &-list{
+        height:100%;
+          white-space: nowrap;
+          width:100%;
+    }
+    &-item{
+        display:inline-block;
+        height:100%;
+        width:100%;
+        position:relative;
+    }
+
+    &-pro{
+        height:100%;
+    }
+}
+//美国来了
+.bf-coming{
+    margin-bottom:$rem*5;
+    .pic{
+        background-image:url(#{$imgPath}bf/bf_coming.jpg);
+        height:$rem*372;
+    }
+    .text{
+        background:#1f1f20;
+        color:#fff;
+        height:$rem*50;
+        line-height:$rem*50;
+        text-align:center;
+        font-size:$rem*24;
+    }
+}
+
+.seller-coupon{
+    background-color:#ffd801;
+    padding:$rem*34 $rem*10;
+    .bf-area-hd{
+         background-image:url(#{$imgPath}country/seller-title.jpg);
+         height:$rem*131;
+    }
+    .bf-area-bd{
+        @include clearfix();
+        &>div{
+            width:$rem*175;
+            height:$rem*302;
+            float:left;
+            margin-right:$rem*10;
+            &:nth-child(1){
+                background-image:url(#{$imgPath}country/seller-coupon1.jpg);
+            }
+            &:nth-child(2){
+                background-image:url(#{$imgPath}country/seller-coupon2.jpg);
+            }
+            &:nth-child(3){
+                background-image:url(#{$imgPath}country/seller-coupon3.jpg);
+            }
+            &:nth-child(4){
+                background-image:url(#{$imgPath}country/seller-coupon4.jpg);
+                margin-right:0;
+            }
+        }
+    }
+}
+
+
+//全球好货
+.bf-goods{
+    background:#fff;
+    padding:0;
+    overflow:hidden;
+    .module-hold{
+        height:$rem*600;
+    }
+    .see-more{
+        color:#000;
+        border-color:#6a6a6a;
+
+    }
+    .bf-area-ft{
+        background:#eeeeee;
+        padding:$rem*18 $rem*10 $rem*35;
+    }
+}
+
+//1配7 全球好货
+.goods-item{
+
+}
+.goods-banner{
+    height:$rem*400;
+    //border:1px solid #ffd9df;
+    position:relative;
+    &:after{
+        content:'';
+        border:$rem*12 solid transparent;
+        margin-left:$rem*-6;
+        position:absolute;
+        left:50%;
+        bottom:0;
+        border-bottom-color:#fff;
+    }
+}
+
+.goods-pic{
+    &-list{
+        background:#f8f8f8;
+        padding:$rem*18 0;
+        white-space: nowrap;
+    }
+    &-item{
+        background:#fff;
+        margin-right:$rem*8;
+        display:inline-block;
+        text-align:center;
+        width:$rem*200;
+        font-size:$rem*22;
+        color:#3c3c3c;
+        vertical-align: top;
+        h4{
+           height: $rem*33;
+           overflow: hidden;
+           white-space: nowrap;
+           text-overflow: ellipsis;
+        }
+        .pic{
+            height:$rem*200;
+            line-height:$rem*200;
+            margin-bottom:$rem*15;
+        }
+        .pirce{
+            color:#c33;
+            font-size:$rem*14;
+            strong{
+                font-size:$rem*20;
+            }
+        }
+         .original-price{
+            font-size:$rem*12;
+            color:#999;
+            strong{
+                font-size:$rem*15;
+            }
+         }
+    }
+}
+
+.bf-mall{
+    background-color:#cf2541;
+    .bf-area-bd{
+        padding:$rem*10 $rem*8;
+    }
+}
