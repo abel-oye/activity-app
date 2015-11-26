@@ -20,7 +20,7 @@
  * @param  {Numner} $colNum:2                  列数
  * @param  {[type]} $gap                       间隙
  */
- @mixin productList($priceWrapperColor:#cf2541,$colNum:2,$gap:$rem*8){
+ @mixin productList($priceWrapperColor:#cf2541,$priceBoxShadow:#a22f27,$colNum:2,$gap:$rem*8){
 
     @include column('.bf-',$colNum,$gap);
 
@@ -56,7 +56,7 @@
             line-height:$rem*60;
             border:1px solid $priceWrapperColor;
             border-radius:$rem*60;
-            box-shadow: 0 2px #a22f27;
+            box-shadow: 0 1px $priceBoxShadow;
             background-color: $priceWrapperColor;
             margin-top:$rem*10;
             &>span{

@@ -300,6 +300,9 @@
     .bf-area-bd{
         padding:$rem*10 $rem*8;
     }
+    .bf-area-ft{
+        padding-bottom:$rem*30;
+    }
 
 }
 
@@ -315,7 +318,7 @@
         margin-bottom:$rem*15;
     }
     .bf-area-bd{
-        padding:0 $rem*20;
+        padding:0 $rem*10;
     }
     .bf-area-ft{
         color:#fff;
@@ -339,7 +342,7 @@
 }
 
 //
-@include productList();
+@include productList(#cf2541,#2d2d2d);
 
 
 .bf-tab{
@@ -624,5 +627,91 @@
     &.open
     {
         display: block;
+    }
+}
+
+.ios{
+    .bf-catalog-tab{
+        top:$rem*150;
+    }
+}
+.bf-catalog-tab{
+    background:#3d3d3d;
+    width:100%;
+    position:fixed;
+    top:0;
+    color:#fff;
+    left:0;
+    text-align:center;
+    font-size:$rem*20;
+   // display:none;
+    height:$rem*76;
+    transition: transform 0.25s ease-in-out;
+    transform: translate(100%, 0);
+    z-index: 99;
+    box-shadow:$rem*3 0 $rem*5 rgba(0,0,0,.6);
+    &.show{
+        display:block;
+        transform: translate(0, 0);
+    }
+    ul{
+        overflow: hidden;
+    }
+    &.col6{
+      li,
+      .coordinate{
+        width:16.66%;
+      }
+    }
+    &.col4{
+      li,
+      .coordinate{
+        width:25%;
+      }
+    }
+    li{
+      float:left;
+      line-height:$rem*76;
+      &>span{
+        position:relative;
+        z-index:101;
+      }
+      &.row2{
+          line-height: 1.5;
+          padding-top: $rem*7;
+      }
+    }
+    .bf-catalog-wrapper{
+        position:relative;
+    }
+    .coordinate{
+       background:#d1213d;
+        position:absolute;
+        width:25%;
+        height:$rem*76;
+        top:0;
+        left:0;
+        z-index:100;
+        transition: all 0.25s ease-in-out;
+    }
+}
+.ios-bartools{
+    height:$rem*150;
+    &-wrapper{
+        background: rgba(255, 255, 255, 0.92);
+        height:$rem*150;
+        z-index:9999;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        border-bottom:$rem*2 solid rgba(0,0,0,.5);
+        padding-top:$rem*70;
+        h2{
+            font-size:$rem*38;
+            text-align:center;
+            color:#333;
+            font-weight:bold;
+        }
     }
 }
