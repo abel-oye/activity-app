@@ -16,8 +16,8 @@
 
  $rem: 1rem/32;
 
- $imgPath:'/images/black_five/';
- // $imgPath:'http://staticontent.ymatou.com/images/black_five/';
+ // $imgPath:'/images/black_five/';
+ $imgPath:'http://staticontent.ymatou.com/images/black_five/';
 
 .bg__full{
     background-size:contain;
@@ -43,7 +43,7 @@
      &-hd{
          background-size: 100%;
          @extend .bg__full;
-         padding-top:$rem*26;
+         padding:$rem*40 0;
      }
      &-title{
         padding-left:$rem*20;

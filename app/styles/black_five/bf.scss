@@ -42,6 +42,10 @@
     background-position: center;
 }
 
+.bf-container{
+    background:#e7e7e7;
+}
+
 .bf-banner{
     background-image:url(#{$imgPath}bf/bf_banner.jpg);
     height:$rem*500;
@@ -80,6 +84,8 @@
 .bf-seckill{
     &-wrapper{
         background-color:#cf2541;
+        padding-bottom:$rem*40;
+        margin-bottom:$rem*5;
         .bf-area-hd{
             background-image:url(#{$imgPath}bf/bf_seckill.jpg);
             height:$rem*120;
@@ -146,5 +152,134 @@
 
     &-pro{
         height:100%;
+    }
+}
+//美国来了
+.bf-coming{
+    margin-bottom:$rem*5;
+    .pic{
+        background-image:url(#{$imgPath}bf/bf_coming.jpg);
+        height:$rem*372;
+    }
+    .text{
+        background:#1f1f20;
+        color:#fff;
+        height:$rem*50;
+        line-height:$rem*50;
+        text-align:center;
+        font-size:$rem*24;
+    }
+}
+
+.seller-coupon{
+    background-color:#ffd801;
+    padding:$rem*34 $rem*10;
+    .bf-area-hd{
+         background-image:url(#{$imgPath}country/seller-title.jpg);
+         height:$rem*131;
+    }
+    .bf-area-bd{
+        @include clearfix();
+        &>div{
+            width:$rem*175;
+            height:$rem*302;
+            float:left;
+            margin-right:$rem*10;
+            &:nth-child(1){
+                background-image:url(#{$imgPath}country/seller-coupon1.jpg);
+            }
+            &:nth-child(2){
+                background-image:url(#{$imgPath}country/seller-coupon2.jpg);
+            }
+            &:nth-child(3){
+                background-image:url(#{$imgPath}country/seller-coupon3.jpg);
+            }
+            &:nth-child(4){
+                background-image:url(#{$imgPath}country/seller-coupon4.jpg);
+                margin-right:0;
+            }
+        }
+    }
+}
+
+
+//全球好货
+.bf-goods{
+    background:#fff;
+    padding:0;
+    overflow:hidden;
+    .module-hold{
+        height:$rem*600;
+    }
+    .see-more{
+        color:#000;
+        border-color:#6a6a6a;
+
+    }
+    .bf-area-ft{
+        background:#eeeeee;
+        padding:$rem*18 $rem*10 $rem*35;
+    }
+}
+
+//1配7 全球好货
+.goods-item{
+
+}
+.goods-banner{
+    height:$rem*400;
+    //border:1px solid #ffd9df;
+    position:relative;
+    &:after{
+        content:'';
+        border:$rem*12 solid transparent;
+        margin-left:$rem*-6;
+        position:absolute;
+        left:50%;
+        bottom:0;
+        border-bottom-color:#fff;
+    }
+}
+
+.goods-pic{
+    &-list{
+        background:#f8f8f8;
+        padding:$rem*18 0;
+        white-space: nowrap;
+    }
+    &-item{
+        background:#fff;
+        margin-right:$rem*8;
+        display:inline-block;
+        text-align:center;
+        width:$rem*200;
+        font-size:$rem*22;
+        color:#3c3c3c;
+        vertical-align: top;
+        h4{
+           height: $rem*33;
+           overflow: hidden;
+           white-space: nowrap;
+           text-overflow: ellipsis;
+        }
+        .pic{
+            height:$rem*200;
+            line-height:$rem*200;
+            margin-bottom:$rem*15;
+        }
+        .pirce{
+            color:#c33;
+            font-size:$rem*14;
+            strong{
+                font-size:$rem*20;
+            }
+        }
+         .original-price{
+            font-size:$rem*12;
+            color:#999;
+            strong{
+                font-size:$rem*15;
+            }
+         }
     }
 }

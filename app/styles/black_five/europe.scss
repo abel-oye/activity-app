@@ -43,7 +43,7 @@
      &-hd{
          background-size: 100%;
          @extend .bg__full;
-         padding-top:$rem*26;
+         padding: $rem*40 0;
      }
      &-title{
         padding-left:$rem*20;
