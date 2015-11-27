@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <title>黑色星期五</title>
+    <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//static.jyh.ymatou.com">
+    <link rel="dns-prefetch" href="//jyh.ymatou.com">
+    <link rel="dns-prefetch" href="//item.app.ymatou.com">
+    <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
+    <script data-js-path="redraw.js">
+     !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
+    </script>
+    <!-- build:css /styles/black_five/monday.css-->
+    <link rel="stylesheet" type="text/css" href="/styles/black_five/monday.css">
+    <!-- endbuild-->
+  </head>
+  <body>
+  <script id="group-tpl" type="text/template">
+    {{ for(var i=0,len=Math.min(TopicJoinList.length,4);i<len;i++){ }}
+      <div class="bf-group-item">
+          <div class="group-pic bg__full J-open" style="background-image:url(http://staticontent.ymatou.com/images/black_five/loading_cut.jpg)" data-url="http://web.app.ymatou.com/Tuan/Render?sign=828&backFlag=1&topicFlag=0&topicid={{=TopicJoinList[i].TopicId}}&templatename=detail" lazy-load-background="{{= TopicJoinList[i].ActivityImageUrl }}" onclick=";">
+            <div class="group-count">
+                <i class="img-person"></i>
+                已成团{{=TopicJoinList[i].MemberCount}}人
+            </div>
+          </div>
+      </div>
+    {{ } }}
+  </script>
+  <script id="active-tpl" type="text/template">
+      {{ for(var i=0,len=Products.length;i<len;i++){ }}
+        <div class="bf-item J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=Products[i].ProductId}}" onclick=";">
+            <div class="pro-wrapper">
+              <div class="pic bg__full img-hold" lazy-load-background="{{-: Products[i].PicUrl | convertImgUrl }}" ></div>
+              <div class="info">
+                  <div>
+                      <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlagUrl}}" ></span>{{=Products[i].CountryName}}
+                  </div>
+                  <h4>{{=Products[i].Name}}</h4>
+                  <div>
+                      <del>市场价:{{=Products[i].MarketPrice}}</del>
+                  </div>
+                  <div class="price-wrapper">
+                      <span>黑五价</span>
+                      <span><strong>{{=Products[i].Price4Sale}}</strong>元</span>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+      {{ } }}
+  </script>
+         <script id="package-tpl" type="text/template">
+        <div class="package-bg bg__full">
+          <div class="close-flag J-close" data-target="receive-package">X</div>
+        </div>
+        <div class="share-tools">
+          <div class="share-btn J-receive-pk"
+              data-share-url="http://evtc.ymatou.com/evt1120/wxPackage"
+              data-share-content="洋码头黑色星期五全球狂购节来啦！各国洋货低至1折，更有5亿现金红包大派送！人人有份，还不赶快一起来抢！"
+              data-share-title="洋码头黑五狂购节派现金啦！"
+              data-share-pic="http://pm4.img.ymatou.com/G02/M0A/31/CA/CgvUA1ZCPiuAP8Z7AABOfcrqVew149_o.jpg"
+              onclick=";">朕要分享</div>
+          <div class="J-close close-btn" data-target="receive-package" onclick=";">容朕三思</div>
+        </div>
+        <div class="share-btn J-close succ-btn" data-target="receive-package">
+          朕知道了
+        </div>
+  </script>
+    <section>
+      <div class="md-banner bg__full"></div>
+
+      <div class="md-coupon bg__full J-open-receive"></div>
+      <!--黑五捡漏-->
+      <div class="md-area bf-miss J-bf-axie" id="bf_01">
+        <div class="md-area-hd bg__full"></div>
+        <div class="md-area-bd">
+            <div class="bf-list bf-item_2col">
+                <div class="J-module-Hold module-hold" data-module="activeModule" data-arguments="4690,7428"
+                     lazy-load-background="http://staticontent.ymatou.com/images/black_five/loading_cut.jpg"></div>
+            </div>
+        </div>
+      </div>
+      <!--砍价团-->
+      <div class="bf-group J-bf-axie" id="bf_02">
+          <div class="bf-group-hd J-open" onclick=";" data-url="http://evt.ymatou.com/activity_4377_CAPP"></div>
+          <div class="bf-group-bd">
+              <div class="bf-group-list">
+                   <div class="J-module-Hold module-hold" data-module="groupList"
+                           lazy-load-background="http://staticontent.ymatou.com/images/black_five/loading_cut.jpg"></div>
+              </div>
+          </div>
+      </div>
+      <!--分类-->
+      <!--面膜-->
+      <div class="bf-classify J-bf-axie" id="bf_03">
+          <div class="bf-classify-hd">
+              <h3><span class="title">全球美食</span></h3>
+          </div>
+          <div class="bf-classify-bd">
+              <div class="bf-collect-list bf-item_2col">
+                  <div class="J-module-Hold module-hold" data-module="activeModule" data-arguments="4690,7429"
+                           lazy-load-background="http://staticontent.ymatou.com/images/black_five/loading_cut.jpg"></div>
+              </div>
+          </div>
+      </div>
+      <!--营养保健-->
+      <div class="bf-classify body-color">
+          <div class="bf-classify-hd">
+              <h3><span class="title">营养保健</span></h3>
+          </div>
+          <div class="bf-classify-bd">
+              <div class="bf-collect-list bf-item_2col">
+                   <div class="J-module-Hold module-hold" data-module="activeModule" data-arguments="4690,7430"
+                           lazy-load-background="http://staticontent.ymatou.com/images/black_five/loading_cut.jpg"></div>
+              </div>
+          </div>
+      </div>
+      <!--个人护理-->
+      <div class="bf-classify beauty-color">
+          <div class="bf-classify-hd">
+              <h3><span class="title">个人护理</span></h3>
+          </div>
+          <div class="bf-classify-bd">
+              <div class="bf-collect-list bf-item_2col">
+                   <div class="J-module-Hold module-hold" data-module="activeModule" data-arguments="4690,7431"
+                           lazy-load-background="http://staticontent.ymatou.com/images/black_five/loading_cut.jpg"></div>
+              </div>
+          </div>
+      </div>
+      <!--家具生活-->
+      <div class="bf-classify home-color">
+          <div class="bf-classify-hd">
+              <h3><span class="title">家具生活</span></h3>
+          </div>
+          <div class="bf-classify-bd">
+              <div class="bf-collect-list bf-item_2col">
+                  <div class="J-module-Hold module-hold" data-module="activeModule" data-arguments="4690,7432"
+                                                  lazy-load-background="http://staticontent.ymatou.com/images/black_five/loading_cut.jpg"></div>
+              </div>
+          </div>
+      </div>
+      <!--服饰鞋帽-->
+      <div class="bf-classify shoes-color">
+          <div class="bf-classify-hd">
+              <h3><span class="title">服饰鞋帽</span></h3>
+          </div>
+          <div class="bf-classify-bd">
+              <div class="bf-collect-list bf-item_2col">
+                  <div class="J-module-Hold module-hold" data-module="activeModule" data-arguments="4690,7433"
+                           lazy-load-background="http://staticontent.ymatou.com/images/black_five/loading_cut.jpg"></div>
+              </div>
+          </div>
+          <div class="bf-classify-ft">
+            <div class="see-more J-open" data-url="http://evt.ymatou.com/activity_4689_capp?title=%E9%BB%91%E4%BA%94%E7%88%86%E6%AC%BE" onclick=";">
+              查看更多全球好货
+            </div>
+
+          </div>
+      </div>
+
+      <!--全球买手-->
+      <div class="bf-area seller-coupon J-bf-axie" id="bf_04">
+        <div class="bf-area-hd bg__full J-open" lazy-load-background="http://staticontent.ymatou.com/images/black_five/country/seller-title.jpg" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=1&title=全球买手" onclick=";"></div>
+        <div class="bf-area-bd">
+          <div class="seller-coupon-item bg__full J-open" lazy-load-background="http://staticontent.ymatou.com/images/black_five/country/seller-coupon1.jpg" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=1&title=全球买手" onclick=";"></div>
+          <div class="seller-coupon-item bg__full J-open" lazy-load-background="http://staticontent.ymatou.com/images/black_five/country/seller-coupon2.jpg" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=3&title=全球买手" onclick=";"></div>
+          <div class="seller-coupon-item bg__full J-open" lazy-load-background="http://staticontent.ymatou.com/images/black_five/country/seller-coupon3.jpg" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=4&title=全球买手" onclick=";"></div>
+          <div class="seller-coupon-item bg__full J-open" lazy-load-background="http://staticontent.ymatou.com/images/black_five/country/seller-coupon4.jpg" data-url="http://evt.ymatou.com/activity_4688_Capp?AreaCode=2&title=全球买手" onclick=";"></div>
+        </div>
+      </div>
+
+      <div class="receive-package receive-package-mask"></div>
+      <div class="receive-package receive-package-dialog">
+        <div class="receive-package-dialog-bd" id="receive-package-bd"> </div>
+      </div>
+
+      <div class="bf-tab-wrapper show" id="bf-tab">
+        <nav class="bf-tab ">
+            <div class="bf-tab-hd">
+                <span class="ymt-person J-go-top"></span>
+            </div>
+           <div class="bf-tab-bd">
+             <ul>
+                 <li class="active" data-href="bf_01">黑五捡漏</li>
+                 <li data-href="bf_02">全民砍价</li>
+                 <li data-href="bf_03">全球好货</li>
+                 <li data-href="bf_04">买手优惠券</li>
+             </ul>
+             <div class="coordinate first"></div>
+           </div>
+        </nav>
+    </div>
+
+    </section>
+
+      <!--洋管家-->
+   <div class="ymt-butler bg__full" onclick=";"></div>
+
+  <!-- build:js /scripts/zepto,ejs,swiper,imgLazyLoad.js -->
+  <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+  <script type="text/javascript" src="/scripts/commons/swiper.3.1.2.js"></script>
+  <script type="text/javascript" src="/scripts/commons/fastclick.js"></script>
+  <script type="text/javascript" src="/scripts/commons/imgLazyLoad.js"></script>
+  <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/imgLazyLoad.js?v=2"></script>
+  <!-- endbuild -->
+  <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
+  <!-- build:js /scripts/black_five/monday.js -->
+  <script src="/scripts/black_five/monday.js"></script>
+  <!-- endbuild -->
+  </body>
+  </html>
