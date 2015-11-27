@@ -186,7 +186,7 @@
 
     var pageIndex = 1,
         pageSize = 10,
-        areaCode = 1;
+        areaCode = 6;
     getProduct(pageIndex, pageSize, areaCode);
 
     var $window = $(window),
@@ -196,7 +196,7 @@
             return;
         }
 
-        if ($window.scrollTop() + $window.height() + 200 > $proList.height() + $proList.offset().top) {
+        if ($window.scrollTop() + $window.height() + 400 > $proList.height() + $proList.offset().top) {
             getProduct(++pageIndex, pageSize, areaCode);
         }
     });

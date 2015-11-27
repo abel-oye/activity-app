@@ -65,8 +65,11 @@
     }
     .bf-area-bd {
         padding: 0 $rem*10;
-        .bf-list {
 
+        .bf-item {
+            .img-hold {
+                background-image:url(#{$imgPath}loading_cut.jpg);
+            }
         }
     }
 }
