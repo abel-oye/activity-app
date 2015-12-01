@@ -128,12 +128,14 @@
                 console.log(productData[pid])
                 var html = ejs.render($('#active-tpl').html(), productData[pid]);
                 $('#' + pid).html(html);
+                lazyLoad.check();
             }
             else {
                 getActivityJsonP(aid, pid, 50, function (data) {
                     if (data && data.Products) {
                         var html = ejs.render($('#active-tpl').html(), data);
                         $('#' + pid).html(html);
+                        lazyLoad.check();
                     }
                 });
             }
@@ -348,7 +350,6 @@
                     bottom = window.innerHeight / 2; //首屏
 
                 var brandTop = $('#bf_03').offset().top,
-                    mallTop = $('#bf_02').offset().top,
                     tabScope =  $('.bf-catalog-tab'),
                     sellerTop = $('#bf_04').offset().top;
 
