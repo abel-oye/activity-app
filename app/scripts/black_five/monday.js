@@ -6,6 +6,12 @@
  * @email lijiang@ymaotu.com
  * @create-date 20151123
  */
+ (function (w, o) {
+     w['YmatouAnalyticsobject'] = w['YmatouAnalyticsobject'] || o;
+     w[o] = w[o] || function () {
+         (w[o].q = w[o].q || []).push(arguments)
+     }
+ })(window, '_dc_');
 ;
 (function () {
 
@@ -180,6 +186,7 @@
                 if(data && data.Products){
                     var html = ejs.render($('#active-tpl').html(), data);
                     $('[data-arguments="'+aid+','+pid+'"]').parent().html(html);
+                    lazyLoad.check();
                 }
 
             });
@@ -343,8 +350,8 @@
                 isNew: true,
             });
         }).on('scroll', function () {
-            if (!scrollChackeStatus) {
-                scrollChackeStatus = true;
+           if (!scrollChackeStatus) {
+          /*       scrollChackeStatus = true;
 
                 var top = document.documentElement.scrollTop || document.body.scrollTop,
                     bottom = window.innerHeight / 2; //首屏
@@ -363,7 +370,7 @@
                 else {
                     $('#bf-tab').addClass('show');
                     $('.ymt-butler').removeClass('show');
-                }
+                }*/
 
                 /*if(top >= sellerTop){
                     tabScope.eq(0).removeClass('show');
@@ -383,7 +390,7 @@
                 }
 
 */
-                checkAxis();
+                //checkAxis();
 
                 setTimeout(function () {
                     scrollChackeStatus = false;
@@ -502,6 +509,10 @@
                         var moduleName = $this.attr('data-module'),
                             args = ($this.attr('data-arguments') || '').split(',');
 
+                        (window['_dc_'] || function () {})('exec', 'load_more_fn', {
+                            module_name: 'activity_4776_capp',
+                            sub_module_name: $this.attr('data-sub-module-name')
+                        });
                          console.log(moduleName,args)
 
                         moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
