@@ -1,0 +1,18 @@
+@charset'UTF-8';
+ /**
+ * 黑五页
+ * @Author river
+ * @email lijiang@ymatou.com
+ * @Date 2015/12/04
+ */
+ @import'../_components/variables.scss';
+ @import'../_components/_mixin.scss';
+ @import'../_components/reset.scss';
+
+ @import'../_components/column.scss';
+
+ @import'../assets/ymtUI.scss';
+ @import'../assets/ymt_components.scss';
+
+ $imgPath:'/images/black_five/';
+ $imgPath:'http://staticontent.ymatou.com/images/black_five/';
