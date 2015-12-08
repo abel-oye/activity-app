@@ -1,0 +1,40 @@
+
+@charset'UTF-8';
+/**
+* 活动公共
+* @Author river
+* @email lijiang@ymatou.com
+* @Date 2015/12/04
+*/
+@import'../_components/variables.scss';
+
+$imgPath:'http://staticontent.ymatou.com/images/';
+
+.fr{
+    float:right;
+}
+
+.fl{
+    float:left;
+}
+
+//
+.bg__full{
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+
+
+
+.module-hold{
+    background-image:url(#{$imgPath}activity/placeholder@300x300.png);
+    background-color:#fff;
+    height:$rem*300;
+    @extend .bg__full;
+}
+
+
+.img-hold{
+    background-image:url(#{$imgPath}activity/placeholder@300x300.png);
+}

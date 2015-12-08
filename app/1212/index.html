@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <title>黑色星期五</title>
+    <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//static.jyh.ymatou.com">
+    <link rel="dns-prefetch" href="//jyh.ymatou.com">
+    <link rel="dns-prefetch" href="//item.app.ymatou.com">
+    <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
+    <script data-js-path="redraw.js">
+     !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
+    </script>
+    <!-- build:css /styles/1212/index.css-->
+    <link rel="stylesheet" type="text/css" href="/styles/1212/index.css">
+    <!-- endbuild-->
+  </head>
+  <body module_name="activity_4776_capp">
+  <script id="group-tpl" type="text/template">
+    {{ for(var i=0,len=Math.min(TopicJoinList.length,4);i<len;i++){ }}
+      <div class="bf-group-item">
+          <div class="group-pic bg__full J-open" style="background-image:url(http://staticontent.ymatou.com/images/black_five/loading_cut.jpg)" data-url="http://web.app.ymatou.com/Tuan/Render?sign=828&backFlag=1&topicFlag=0&topicid={{=TopicJoinList[i].TopicId}}&templatename=detail" lazy-load-background="{{= TopicJoinList[i].ActivityImageUrl }}" onclick=";">
+            <div class="group-count">
+                <i class="img-person"></i>
+                已成团{{=TopicJoinList[i].MemberCount}}人
+            </div>
+          </div>
+      </div>
+    {{ } }}
+  </script>
+  <script id="active-tpl" type="text/template">
+      {{ for(var i=0,len=Products.length;i<len;i++){ }}
+        <div class="bf-item J-open" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=Products[i].ProductId}}" onclick=";">
+            <div class="pro-wrapper">
+              <div class="pic bg__full img-hold" lazy-load-background="{{-: Products[i].PicUrl | convertImgUrl }}" ></div>
+              <div class="info">
+                  <div>
+                      <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlagUrl}}" ></span>{{=Products[i].CountryName}}
+                  </div>
+                  <h4>{{=Products[i].Name}}</h4>
+                  <div>
+                      <del>市场价:{{=Products[i].MarketPrice}}</del>
+                  </div>
+                  <div class="price-wrapper">
+                      <span>码头价</span>
+                      <span><strong>{{=Products[i].Price4Sale}}</strong>元</span>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+      {{ } }}
+  </script>
+         <script id="package-tpl" type="text/template">
+        <div class="package-bg bg__full">
+          <div class="close-flag J-close" data-target="receive-package">X</div>
+        </div>
+        <div class="share-tools">
+          <div class="share-btn J-receive-pk"
+              data-share-url="http://evtc.ymatou.com/evt1120/wxPackage"
+              data-share-content="洋码头黑色星期五全球狂购节来啦！各国洋货低至1折，更有5亿现金红包大派送！人人有份，还不赶快一起来抢！"
+              data-share-title="洋码头黑五狂购节派现金啦！"
+              data-share-pic="http://pm4.img.ymatou.com/G02/M0A/31/CA/CgvUA1ZCPiuAP8Z7AABOfcrqVew149_o.jpg"
+              onclick=";">朕要分享</div>
+          <div class="J-close close-btn" data-target="receive-package" onclick=";">容朕三思</div>
+        </div>
+        <div class="share-btn J-close succ-btn" data-target="receive-package">
+          朕知道了
+        </div>
+  </script>
+
+  <script id="goods-tpl" type="text-template">
+  {{ for(var i=0,len=PageParts.length;i<len;i++){ }}
+    <div class="goods-item">
+        <div class="goods-banner bg__full img-hold J-open" data-url="{{=PageParts[i].LinkUrl }}" lazy-load-background="{{= PageParts[i].BannerUrl}}"></div>
+        <div class="goods-pic-list swiper-wrapper"><!--
+          {{ for(var j=0,len2=PageParts[i].Products.length;j<len2;j++){ }}
+          --><div class="goods-pic-item swiper-slide J-open " data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=PageParts[i].Products[j].ProductId}}" onclick=";">
+              <div class="pic bg__full img-hold" lazy-load-background="{{= PageParts[i].Products[j].PicUrl}}" ></div>
+              <h4>{{= PageParts[i].Products[j].Name}}</h4>
+              <div class="pirce">
+                &yen;{{-: PageParts[i].Products[j].Price | pirceRegion }}
+              </div>
+              <div class="original-price">
+                <del>&yen;{{-: PageParts[i].Products[j].MarketPrice | pirceRegion }}</del>
+              </div>
+          </div><!--
+          {{ } }}-->
+          <div class="goods-pic-item  swiper-slide">
+              <div class="pic bg__full img-hold J-open" data-url="{{=PageParts[i].LinkUrl }}" lazy-load-background="http://static.jyh.ymatou.com/app/images/checkall.1511140138.jpg">
+              更多好货</div>
+          </div>
+          <div class="goods-pic-item swiper-slide"></div>
+        </div>
+    </div>
+    {{ } }}
+  </script>
+    <section>
+      <div class="dt-banner"></div>
+
+      <div class="dt-top-bar"></div>
+
+      <div class="dt-area dt-bk J-bf-axie"  id="dt-01">
+        <div class="dt-bk-title"></div>
+        <div class="dt-area-bd">
+             <div class="bf-list bf-item_2col">
+                <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4812,7600"
+                     lazy-load-background="http://staticontent.ymatou.com/images/black_five/loading_cut.jpg"></div>
+             </div>
+        </div>
+      </div>
+      <!--现场直击-->
+      <!-- <div class="dt-area  dt-bk">
+        <div class="dt-area-hd"></div>
+        <div class="dt-area-bd">
+             <div class="bf-list bf-item_2col">
+                <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4690,7428"
+                     lazy-load-background="http://staticontent.ymatou.com/images/black_five/loading_cut.jpg"></div>
+             </div>
+        </div>
+      </div> -->
+
+      <!--1212专享礼包-->
+      <div class="dt-package dt-area">
+            <div class="dt-area-hd">
+                <div class="inner"></div>
+            </div>
+            <div class="dt-area-bd">
+                <ul class="pk-list pk-item_3col">
+                    <li class="pk-item">
+                        <div class="bg__full img-hold J-open-receive" data-pkid="12121" onclick=";" lazy-load-background="http://staticontent.ymatou.com/images/1212/pk_12.jpg"></div>
+                    </li>
+                    <li class="pk-item">
+                        <div class="bg__full img-hold J-open-receive" data-pkid="12122" onclick=";" lazy-load-background="http://staticontent.ymatou.com/images/1212/pk_50.jpg"></div>
+                    </li>
+                    <li class="pk-item">
+                        <div class="bg__full img-hold J-open-receive" data-pkid="12123" onclick=";" lazy-load-background="http://staticontent.ymatou.com/images/1212/pk_120.jpg"></div>
+                    </li>
+                </ul>
+                <div class="line"></div>
+            </div>
+            <div class="dt-area-ft"></div>
+      </div>
+    <!--12-->
+      <div class="dt-area dt-discount-list J-bf-axie"  id="dt-02">
+        <div class="dt-area-hd">
+            <h2>12元券<small>买这些最划算</small><span class="fr">仅限12月12日使用</span></h2>
+        </div>
+        <div class="dt-area-bd">
+            <div class="bf-list bf-item_2col">
+                <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4812,7601"
+                     lazy-load-background="http://staticontent.ymatou.com/images/black_five/loading_cut.jpg"></div>
+             </div>
+        </div>
+      </div>
+      <!--50-->
+      <div class="dt-area dt-discount-list J-bf-axie"  id="dt-03">
+        <div class="dt-area-hd">
+            <h2>50元券<small>买这些最划算</small><span class="fr">仅限12月12日使用</span></h2>
+        </div>
+        <div class="dt-area-bd">
+            <div class="bf-list bf-item_2col">
+                <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4812,7602"
+                     lazy-load-background="http://staticontent.ymatou.com/images/black_five/loading_cut.jpg"></div>
+             </div>
+        </div>
+      </div>
+      <!--120-->
+      <div class="dt-area dt-discount-list J-bf-axie" id="dt-04">
+        <div class="dt-area-hd">
+            <h2>120元券<small>买这些最划算</small><span class="fr">仅限12月12日使用</span></h2>
+        </div>
+        <div class="dt-area-bd">
+            <div class="bf-list bf-item_2col">
+                <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4812,7603"
+                     lazy-load-background="http://staticontent.ymatou.com/images/black_five/loading_cut.jpg"></div>
+             </div>
+        </div>
+      </div>
+
+      <!--全球好货-->
+       <div class="bf-area bf-goods J-bf-axie" id="dt-05" sub_module_name="yanghuotuan">
+         <div class="bf-area-bd" id="getGoodsList">
+             <div class="J-module-Hold" data-module="getGoodsList" data-sub-module-name="yanghuotuan"
+                              lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+         </div>
+         <div class="bf-area-ft">
+           <div class="see-more J-open" data-url="http://evt.ymatou.com/activity_4422_capp" onclick=";">
+             查看更多全球好货
+           </div>
+         </div>
+       </div>
+
+    <div class="dt-tab-wrapper">
+        <nav class="dt-tab" id="bf-tab">
+            <ul>
+                <li data-href="dt-01">全球爆款</li>
+                <li data-href="dt-02">12元券</li>
+                <li data-href="dt-03">50元券</li>
+                <li data-href="dt-04">120元券</li>
+                <li data-href="dt-05">全球好货</li>
+            </ul>
+        </nav>
+    </div>
+
+    </section>
+
+      <!--洋管家-->
+   <div class="ymt-butler bg__full" onclick=";"></div>
+
+  <!-- build:js /scripts/zepto,ejs,swiper,imgLazyLoad.js -->
+  <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+  <script type="text/javascript" src="/scripts/commons/swiper.3.1.2.js"></script>
+  <script type="text/javascript" src="/scripts/commons/fastclick.js"></script>
+  <script type="text/javascript" src="/scripts/commons/imgLazyLoad.js"></script>
+  <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/imgLazyLoad.js?v=2"></script>
+  <!-- endbuild -->
+  <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
+  <!-- build:js /scripts/1212/index.js -->
+  <script src="/scripts/1212/index.js"></script>
+  <!-- endbuild -->
+
+  <script>
+        (function (w, d, s, l, i, o) {
+            w['YmatouAnalyticsobject'] = o;
+            w[o] = w[o] || function () {
+                (w[o].q = w[o].q || []).push(arguments)
+            }
+
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TXC7VJ', '_dc_');
+    </script>
+
+  </body>
+  </html>

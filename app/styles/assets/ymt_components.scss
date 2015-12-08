@@ -18,6 +18,7 @@
     transform:translate(100%,0);
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
     border-radius: $rem*50;
+    z-index:88;
     &.show{
         transform:translate(0,0);
     }
