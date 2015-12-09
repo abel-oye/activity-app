@@ -71,9 +71,59 @@
           朕知道了
         </div>
   </script>
+
+  <script id="goods-tpl" type="text-template">
+    {{ for(var i=0,len=PageParts.length;i<len;i++){ }}
+      <div class="goods-item">
+          <div class="goods-banner bg__full img-hold J-open" data-url="{{=PageParts[i].LinkUrl }}" lazy-load-background="{{= PageParts[i].BannerUrl}}"></div>
+          <div class="goods-pic-list swiper-wrapper"><!--
+            {{ for(var j=0,len2=PageParts[i].Products.length;j<len2;j++){ }}
+            --><div class="goods-pic-item swiper-slide J-open " data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=PageParts[i].Products[j].ProductId}}" onclick=";">
+                <div class="pic bg__full img-hold" lazy-load-background="{{= PageParts[i].Products[j].PicUrl}}" ></div>
+                <h4>{{= PageParts[i].Products[j].Name}}</h4>
+                <div class="pirce">
+                  &yen;{{-: PageParts[i].Products[j].Price | pirceRegion }}
+                </div>
+                <div class="original-price">
+                  <del>&yen;{{-: PageParts[i].Products[j].MarketPrice | pirceRegion }}</del>
+                </div>
+            </div><!--
+            {{ } }}-->
+            <div class="goods-pic-item  swiper-slide">
+                <div class="pic bg__full img-hold J-open" data-url="{{=PageParts[i].LinkUrl }}" lazy-load-background="http://static.jyh.ymatou.com/app/images/checkall.1511140138.jpg">
+                更多好货</div>
+            </div>
+            <div class="goods-pic-item swiper-slide"></div>
+          </div>
+      </div>
+      {{ } }}
+    </script>
     <section>
       <div class="md-banner bg__full"></div>
       <!--黑五捡漏-->
+      <!--全球好货-->
+      <div class="activity-intro clearfix" style="
+                height: 2.0833333333rem;line-height:2.0833333333rem;padding:0 .5rem;background-color:#fff;
+            ">
+                                    <span class="activity-title" style="
+                color: #646464;font-size:.7916666667rem;float:left;
+            ">洋货团</span>
+                                    <span class="activity-more ga_bind J-open" data-url="http://evt.ymatou.com/activity_4422_capp" onclick=";" style="
+                color: #c33;font-size:.7083333333rem;float:right;width:1.875rem;margin-right:.2083333333rem;position:relative;
+            ">更多</span>
+                                </div>
+      <div class="bf-area bf-goods J-bf-axie" id="bf_05" sub_module_name="yanghuotuan">
+        <div class="bf-area-bd">
+
+            <div class="J-module-Hold" data-module="getGoodsList" data-sub-module-name="yanghuotuan"
+                             lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
+        </div>
+        <div class="bf-area-ft">
+          <div class="see-more J-open" data-url="http://evt.ymatou.com/activity_4422_capp" onclick=";">
+            查看更多全球好货
+          </div>
+        </div>
+      </div>
       <div class="md-area bf-miss J-bf-axie" id="bf_01" sub_module_name="qcbk">
         <div class="md-area-hd bg__full">
             <h3><span>全场爆款</span></h3>
