@@ -37,11 +37,11 @@
             <div class="pro-wrapper">
               <div class="pic bg__full img-hold" lazy-load-background="{{-: Products[i].PicUrl | convertImgUrl }}" ></div>
               <div class="info">
-                   {{if(!Products[i].PackageId){ }}
-                  <div>
+                  <div class="country">
+                    {{if(!Products[i].PackageId){ }}
                       <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlagUrl}}" ></span>{{=Products[i].CountryName}}
+                    {{ } }}
                   </div>
-                {{ } }}
                   <h4>{{=Products[i].Name}}</h4>
                   <div>
                       <del>市场价:{{=Products[i].MarketPrice}}</del>

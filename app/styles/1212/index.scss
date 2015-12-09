@@ -130,7 +130,7 @@
     }
 }
 
-@include column('.pk-',3,$rem*5)
+@include column('.pk-',3,$rem*5);
 
 .pk-list{
     padding:0 $rem*12;
@@ -275,6 +275,14 @@
                 font-size:$rem*15;
             }
          }
+    }
+}
+
+.bf-item {
+    height: $rem*608;
+
+    .info .country {
+        height: $rem*33;
     }
 }
 
