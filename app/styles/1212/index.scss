@@ -14,5 +14,277 @@
  @import'../assets/ymtUI.scss';
  @import'../assets/ymt_components.scss';
 
- $imgPath:'/images/black_five/';
- $imgPath:'http://staticontent.ymatou.com/images/black_five/';
+ @import'../assets/common.scss';
+
+
+@import'../black_five/_proList.scss';
+
+ $imgPath:'/images/1212/';
+ $imgPath:'http://staticontent.ymatou.com/images/1212/';
+
+ @include productList(#d1213d,#a6152c);
+
+
+
+.dt-banner{
+    height:$rem*456;
+    background-image:url(#{$imgPath}/banner.jpg);
+    background-color:#db2718;
+    @extend .bg__full;
+}
+
+.dt-top-bar{
+    height:$rem*118;
+    background-image:url(#{$imgPath}/top50.jpg);
+    background-color:#ffba15;
+    @extend .bg__full;
+}
+
+//爆款
+.dt-bk{
+    background-color:#ff9c00;
+    .dt-area-hd{
+        height:$rem*100;
+        background-image:url(#{$imgPath}/scene.jpg);
+        background-color:#ffba15;
+        @extend .bg__full;
+    }
+    .dt-area-bd{
+        padding:0 $rem*10;
+    }
+    &-title{
+        height:$rem*35;
+        background: -webkit-gradient(linear, left top, left bottom, from(#bd1a14),to(#fd9501));
+    }
+}
+
+//优惠券商品
+.dt-discount-list{
+    background-color:#e21b30;
+    .dt-area-hd{
+        font-size:$rem*53;
+        color:#fff;
+        padding:$rem*20 $rem*10;
+        h2{
+            height:$rem*53;
+            line-height:1;
+            border-left:$rem*4 solid #fff;
+            padding-left:$rem*8;
+            position:relative;
+            &:before{
+                content:' ';
+                height:0;
+                width:0;
+                border:$rem*6 solid rgba(0, 0, 0, 0);
+                border-left-color:#fff;
+                  display: block;
+                  position:absolute;
+                  left:0;
+                  top:50%;
+                  transform: translate(0,-50%);
+            }
+        }
+        small{
+            font-size:60%;
+        }
+        span{
+            font-size:40%;
+            margin-top: $rem*30;
+            text-align: right;
+        }
+    }
+    .dt-area-bd{
+        padding:0 $rem*10 $rem*10;
+    }
+}
+
+//专享礼包
+.dt-package{
+    .dt-area-hd{
+        background:#ed1710;
+        .inner{
+            height:$rem*68;
+            background-image:url(#{$imgPath}/package_title.jpg);
+            background-color:#db2718;
+            @extend .bg__full;
+        }
+        padding:$rem*36 0;
+    }
+    .dt-area-bd{
+        background:#9f0f0d;
+        padding:$rem*20 $rem*5;
+        //height:$rem*118;
+        .line{
+            background-color:#4a0807;
+            height:$rem*16;
+            border-radius:$rem*16;
+            border-bottom:1px solid #d3140f;
+            box-shadow:0 1px 3px rgba(255,255,255,.5);
+            margin-top:$rem*-13;
+        }
+    }
+    .dt-area-ft{
+        height:$rem*20;
+        background: -webkit-linear-gradient(top,#9f0f0d,#e21b30);
+        background: -webkit-gradient(top,#9f0f0d,#e21b30);
+    }
+}
+
+@include column('.pk-',3,$rem*5)
+
+.pk-list{
+    padding:0 $rem*12;
+    position:relative;
+    z-index:2;
+    .pk-item{
+        &>div{
+            height:$rem*112;
+        }
+
+    }
+}
+
+.dt-tab{
+    &-wrapper{
+        height:$rem*100;
+        background-color:#282333;
+    }
+    position:fixed;
+    width:100%;
+    bottom:0;
+    left:0;
+
+    li{
+        float: left;
+        width:20%;
+        font-size:$rem*27;
+        line-height:$rem*50;
+        height:$rem*60;
+        //border-bottom:$rem*10 solid #1230B9;
+        background-color:#2e4ee0;
+        color:#fff;
+        text-align:center;
+        position:relative;
+          overflow: hidden;
+        &:before{
+            content:'';
+            height:$rem*60;
+            width:$rem*60;
+            background:#233db1;
+            display: block;
+            position:absolute;
+            left:$rem*-50;
+            top:0;
+            z-index:3;
+            transform: rotate(-15deg);
+        }
+        &:after{
+            content:'';
+            height:$rem*10;
+            width:100%;
+            background:#1230B9;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index:2;
+        }
+        &.active{
+            background:#ffd634;
+            color:#000;
+            &:before{
+                background:#ef9800;
+            }
+            &:after{
+                background:#ffa800;
+            }
+        }
+    }
+}
+
+//全球好货
+.bf-goods{
+    background:#fff;
+    padding:0;
+    overflow:hidden;
+    .see-more{
+        color:#000;
+        border-color:#6a6a6a;
+    }
+    .bf-area-ft{
+        background:#eeeeee;
+        padding:$rem*18 $rem*10 $rem*35;
+    }
+}
+
+//1配7 全球好货
+.goods-item{
+
+}
+.goods-banner{
+    height:$rem*400;
+    //border:1px solid #ffd9df;
+    position:relative;
+    &:after{
+        content:'';
+        border:$rem*12 solid transparent;
+        margin-left:$rem*-6;
+        position:absolute;
+        left:50%;
+        bottom:0;
+        border-bottom-color:#fff;
+    }
+}
+
+.goods-pic{
+    &-list{
+        background:#f8f8f8;
+        padding:$rem*18 0;
+        white-space: nowrap;
+    }
+    &-item{
+        background:#fff;
+        margin-right:$rem*8;
+        display:inline-block;
+        text-align:center;
+        width:$rem*200;
+        font-size:$rem*22;
+        color:#3c3c3c;
+        vertical-align: top;
+        h4{
+           height: $rem*33;
+           overflow: hidden;
+           white-space: nowrap;
+           text-overflow: ellipsis;
+        }
+        .pic{
+            height:$rem*200;
+            line-height:$rem*200;
+            margin-bottom:$rem*15;
+        }
+        .pirce{
+            color:#c33;
+            font-size:$rem*14;
+            strong{
+                font-size:$rem*20;
+            }
+        }
+         .original-price{
+            font-size:$rem*12;
+            color:#999;
+            strong{
+                font-size:$rem*15;
+            }
+         }
+    }
+}
+
+//查看更多
+.see-more{
+    height:$rem*63;
+    line-height:$rem*63;
+    border:1px dashed #fff;
+    border-radius:$rem*63;
+    text-align:center;
+    font-size:$rem*30;
+    color:#fff;
+}

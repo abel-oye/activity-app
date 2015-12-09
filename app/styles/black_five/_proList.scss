@@ -85,6 +85,40 @@
                 }
             }
         }
+        //圣诞价格
+        .price-wrapper2{
+            width:100%;
+            height:$rem*60;
+            line-height:$rem*60;
+            border:1px solid $priceWrapperColor;
+            border-radius:$rem*12;
+            background-color: $priceWrapperColor;
+            margin-top:$rem*10;
+            &>span{
+                display:inline-block;
+                height:100%;
+                text-align:center;
+                float:left;
+            }
+            &>:first-child{
+                background:#ef3b3b;
+                color:#fff;
+                border-radius: $rem*12;
+                width:40%;
+                font-weight:bold;
+            }
+            &>:last-child{
+                background:#fff;
+                color:#ef3b3b;
+                border-top-right-radius: $rem*12;
+                border-bottom-right-radius: $rem*12;
+                width:60%;
+                &>strong{
+                    font-size:$rem*35;
+                    font-weight:bold;
+                }
+            }
+        }
         .national-flag{
             display:inline-block;
             width:$rem*25;
