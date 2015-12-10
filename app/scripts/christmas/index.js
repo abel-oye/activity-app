@@ -244,6 +244,7 @@
     }
     stopCheck = false;
     var checkAxis = function () {
+        console.log(stopCheck)
         if (stopCheck) {
             return;
         }
@@ -416,11 +417,15 @@
         });
 
 
+        //tab切换公共脚本
         $(document).on('click','.J-tab li',function(){
             var $this = $(this);
             $this.closest('.J-tab').find('li').removeClass('active');
             $this.addClass('active');
-            location.hash = $this.attr('data-href');
+            //location.hash = $this.attr('data-href');
+            window.scrollTo(0,$('#'+$this.attr('data-href')).offset().top);
+            stopCheck = true;
+            console.log(11)
         });
 
 

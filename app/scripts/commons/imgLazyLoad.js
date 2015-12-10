@@ -5,7 +5,7 @@
     'use strict';
 
     var lazyLoad = {
-        version: '1.1.3'
+        version: '1.2.0'
     };
 
     var callback = function () {};
@@ -13,7 +13,7 @@
     var offset, poll, throttle, unload,
         queues = [], //加载队列
         loading = 0,
-        maxParallel; //最大并行数
+        maxParallel = 5; //最大并行数
 
     /**
      * 加载下一张图片
@@ -23,12 +23,15 @@
             //判断是否可以加载下一张图片
         if (loading <= maxParallel) {
             var waitObj = queues.shift();
-
             //判断是否在可视窗口中，否则优先加载可视图片
             //if(inView(waitObj.elem)){
-            loading++;
-            waitObj.elem = waitObj.src;
-            console.log(waitObj.elem, waitObj.src)
+            console.log(waitObj)
+            if(waitObj){
+                loading++;
+                waitObj.elem.src = waitObj.src;
+                loadNextImg();
+            }
+
                 //}else{
                 //  loadNextImg();
                 //}
@@ -144,8 +147,7 @@
             elem.addEventListener('load', function () {
                 //sucFn(targetElem || this,'load');
                 loading--;
-                console.log(1)
-                    (targetElem || this).removeAttribute('lazy-load-way')
+                (targetElem || this).removeAttribute('lazy-load-way')
                 sucFn.call(targetElem || this, elem.src);
             }, false);
 
@@ -218,7 +220,7 @@
                 /* queues.push({
                      elem:new Image()
                  })*/
-                queues.push({
+                queues.unshift({
                     elem: waitElem,
                     src: src
                 });
