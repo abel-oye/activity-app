@@ -64,8 +64,6 @@
         }
     };
 
-    console.log('update');
-
     /**
      * 通过jsonp获得数据
      * @param  {String}   url      请求的地址
@@ -130,7 +128,6 @@
          */
         activityList: function (aid, pid) {
             if (aid === '0') {
-                // console.log(productData[pid])
                 console.log(productData[pid])
                 var html = ejs.render($('#active-tpl').html(), productData[pid]);
                 $('#' + pid).html(html);
@@ -191,7 +188,7 @@
 
             });
         },
-        /*//全球好货
+        //全球好货
         getGoodsList: function () {
             jsonpGetData(YmtApi.utils.addParam('http://jsapi.app.ymatou.com/api/Polymeric/ForeignIndex', {
                 pagepartIndex: 1,
@@ -215,7 +212,7 @@
 
                 }
             });
-        },*/
+        },
         receivePk: function (packageId) { //领取大礼包
             var authInfo = YmtApi.utils.getAuthInfo(),
                 deviceId = search.DeviceId || search.DeviceToken || '0000000';
