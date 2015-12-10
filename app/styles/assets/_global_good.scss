@@ -1,0 +1,99 @@
+ @charset'UTF-8';
+ /**
+  * 全球好货
+  *
+  * 1配7 布局
+  * @Author river
+  * @email lijiang@ymatou.com
+  * @Date 2015/12/10
+  */
+ @import'../_components/variables.scss';
+
+
+//全球好货
+.bf-goods{
+    background:#fff;
+    padding:0;
+    overflow:hidden;
+    .see-more{
+        color:#000;
+        border-color:#6a6a6a;
+    }
+    .bf-area-ft{
+        background:#eeeeee;
+        padding:$rem*18 $rem*10 $rem*35;
+    }
+}
+
+//1配7 全球好货
+.goods-item{
+
+}
+.goods-banner{
+    height:$rem*400;
+    //border:1px solid #ffd9df;
+    position:relative;
+    &:after{
+        content:'';
+        border:$rem*12 solid transparent;
+        margin-left:$rem*-6;
+        position:absolute;
+        left:50%;
+        bottom:0;
+        border-bottom-color:#fff;
+    }
+}
+
+.goods-pic{
+    &-list{
+        background:#f8f8f8;
+        padding:$rem*18 0;
+        white-space: nowrap;
+    }
+    &-item{
+        background:#fff;
+        margin-right:$rem*8;
+        display:inline-block;
+        text-align:center;
+        width:$rem*200;
+        font-size:$rem*22;
+        color:#3c3c3c;
+        vertical-align: top;
+        h4{
+           height: $rem*33;
+           overflow: hidden;
+           white-space: nowrap;
+           text-overflow: ellipsis;
+        }
+        .pic{
+            height:$rem*200;
+            line-height:$rem*200;
+            margin-bottom:$rem*15;
+        }
+        .pirce{
+            color:#c33;
+            font-size:$rem*14;
+            strong{
+                font-size:$rem*20;
+            }
+        }
+         .original-price{
+            font-size:$rem*12;
+            color:#999;
+            strong{
+                font-size:$rem*15;
+            }
+         }
+    }
+}
+
+//查看更多
+.see-more{
+    height:$rem*63;
+    line-height:$rem*63;
+    border:1px dashed #fff;
+    border-radius:$rem*63;
+    text-align:center;
+    font-size:$rem*30;
+    color:#fff;
+}
