@@ -4,6 +4,7 @@
 项目统一放置在app目录下，以活动名称为目录，只存放html。而其他的静态资源统一和html结构保持一致。以项目名称构建。
 
 ## 例如：
+```javascript 
 app
  |-/black_five
  	|-index.html
@@ -14,6 +15,7 @@ app
  	|-xxx.png
  |-styles
  	|-index.scss
+```
 
 ## 开发
 ```javascript 
