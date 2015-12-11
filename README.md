@@ -15,12 +15,12 @@ app
  |-styles
  	|-index.scss
 
- ## 开发
- ```javascript 
- 	gulp serve
- ```
+## 开发
+```javascript 
+	gulp serve
+```
 
- ## 发布
- 	```javascript 
- 		gulp
- 	```
+## 发布
+```javascript 
+	gulp
+```
