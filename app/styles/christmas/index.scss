@@ -137,10 +137,12 @@
                 &:before{
                     border-left-color:  $color;
                     float:left;
+                    margin-left: -1px;
                 }
                 &:after{
                     border-right-color:  $color;
                     float:right;
+                    margin-right: -1px;
                 }
             }
         }
@@ -260,6 +262,7 @@
         height:$rem*187;
         margin-right:$rem*3;
         margin-bottom:$rem*3;
+        @extend .bg__full;
     }
 }
 
