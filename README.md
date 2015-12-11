@@ -6,14 +6,14 @@
 ## 例如：
 ```javascript 
 app
- |-/black_five
+ |-\black_five
  	|-index.html
- |-scripts
+ |-\scripts
  	|-black_five
  		|-index.js
- |-images
+ |-\images
  	|-xxx.png
- |-styles
+ |-\styles
  	|-index.scss
 ```
 
