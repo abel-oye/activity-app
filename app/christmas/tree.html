@@ -19,96 +19,83 @@
     <!-- endbuild-->
   </head>
   <body module_name="activity_4776_capp">
-  <script id="goods-tpl" type="text-template">
-  {{ for(var i=0,len=PageParts.length;i<len;i++){ }}
-    <div class="goods-item">
-        <div class="goods-banner bg__full img-hold J-open" data-url="{{=PageParts[i].LinkUrl }}" lazy-load-background="{{= PageParts[i].BannerUrl}}"></div>
-        <div class="goods-pic-list swiper-wrapper"><!--
-          {{ for(var j=0,len2=PageParts[i].Products.length;j<len2;j++){ }}
-          --><div class="goods-pic-item swiper-slide J-open " data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=PageParts[i].Products[j].ProductId}}" onclick=";">
-              <div class="pic bg__full img-hold" lazy-load-background="{{= PageParts[i].Products[j].PicUrl}}" ></div>
-              <h4>{{= PageParts[i].Products[j].Name}}</h4>
-              <div class="pirce">
-                &yen;{{-: PageParts[i].Products[j].Price | pirceRegion }}
-              </div>
-              <div class="original-price">
-                <del>&yen;{{-: PageParts[i].Products[j].MarketPrice | pirceRegion }}</del>
-              </div>
-          </div><!--
-          {{ } }}-->
-          <div class="goods-pic-item  swiper-slide">
-              <div class="pic bg__full img-hold J-open" data-url="{{=PageParts[i].LinkUrl }}" lazy-load-background="http://static.jyh.ymatou.com/app/images/checkall.1511140138.jpg">
-              更多好货</div>
-          </div>
-          <div class="goods-pic-item swiper-slide"></div>
-        </div>
-    </div>
-    {{ } }}
+  <script id="wish-tpl" type="text-template">
+	 <div class="wish-wrapper">
+		<div class="wish-inner">
+			<div class="wish-title">
+				{{= IsSelf ?'我':NickName}}的圣诞愿望
+			</div>
+			<div class="wish-content">
+				<div class="text-bg">
+					<div class="text">{{=WishContent}}</div>
+				</div>
+				{{ if(IsSelf){ }}
+				<button class="btn btn-full tree-btn J-toLike" data-wishId="{{=WishTreeId}}">给TA点赞 <i class="icon-praise"></i></button>
+				{{ }else{ }}
+				<button class="btn btn-full tree-btn J-share" 
+					data-share-content="圣诞快来给我点赞吧" 
+					data-share-title="圣诞快来给我点赞吧"
+					data-share-pic="">呼朋唤友来点赞 <i class="icon-praise"></i></button>
+				{{ } }}
+			</div>
+			<div class="wish-detail">
+				{{ var len = LikesList?LikesList.length:0 }}
+				<div class="hd">
+					<h4><span>{{= len ?'已收到'+len+'个赞':'你还没有收到赞'}}</span></h4>
+				</div>
+				<div class="bd">
+					{{ if(len){ }}
+					<ul class="wish-list">
+						{{ for(var i =0;i<len;i++){ }}
+						<li>
+							<span class="pic" style="background-image:url({{=LikesList[i].LogoUrl}})"></span>
+							<div class="txt">
+								<h3>{{=LikesList[i].UserName}}</h3>
+								<small>{{=LikesList[i].CreateDate}}</small>
+							</div>
+							<span>给你点了赞</span>
+						</li>
+						{{ } }}
+					</ul>
+					{{ }else{ }}
+					<div class="no-result">
+						<div class="pic"></div>
+						<div>还没有人赞过！555~~</div>
+					</div>
+					{{ } }}
+				</div>
+
+				
+			</div>
+		</div>
+	</div>
   </script>
     <section class="tree-container">
     	<div class="snow-wrapper"> 
 	    	<!--弹幕-->
 	    	<div class="battlefield-wrapper">
 	    		<div class="battlefield-hd">
-	    			<span class="close"></span>
+	    			<span class="close-btn J-close-bf">关闭弹幕</span>
 	    		</div>
 	    		<div class="battlefield-bd" id="battlefield"></div>				
 	    	</div>	
 	    	<div class="tree-wrapper">
-	    		<div class="tree-kind tree-kinds-01"></div>
-	    		<div class="wish">共3244人许下愿望</div>
+	    		<div class="tree-kind J-joinLottery"></div>
+	    		<div class="wish">共<span id="wishCount">xx</span>人许下愿望</div>
 	    	</div>
     	</div>
     
     	<!--愿望-->	
-    	<div class="wish-wrapper">
-    		<div class="wish-inner">
-    			<div class="wish-title">
-    				xxxx 的圣诞愿望
-    			</div>
-    			<div class="wish-content">
-    				<div class="text-bg">
-    					<div class="text">希望明年可以拥有二十只狗五只猫死三栋洋房</div>
-    				</div>
-    				<button class="btn btn-full tree-btn">给TA点赞 <i class="icon-praise"></i></button>
-    			</div>
-    			<div class="wish-detail">
-    				<div class="hd">
-    					<h4><span>已收到12个赞</span></h4>
-    				</div>
-    				<div class="bd">
-    					<div class="no-result">
-    						<div class="pic"></div>
-    						<div>还没有人赞过！555~~</div>
-    					</div>
-    					<ul class="wish-list">
-    						<li>
-    							<span class="pic" style="background-image:url(http://pc4.img.ymatou.com/G02/shangou/M06/03/03/CgvUA1ZmckOAPWpqAAFXzIhADMk199-listb_lb.jpg)"></span>
-    							<div class="txt">
-    								<h3>布拉大王</h3>
-    								<small>2015-12-01 12:12:12</small>
-    							</div>
-    							<span>给你点了赞</span>
-    						</li>
-    						<li>
-    							<span class="pic" style="background-image:url(http://pc4.img.ymatou.com/G02/shangou/M06/03/03/CgvUA1ZmckOAPWpqAAFXzIhADMk199-listb_lb.jpg)"></span>
-    							<div class="txt">
-    								<h3>布拉大王</h3>
-    								<small>2015-12-01 12:12:12</small>
-    							</div>
-    							<span>给你点了赞</span>
-    						</li>
-    					</ul>
-    				</div>
-    				
-    			</div>
-    		</div>
-    	</div>
+    	<wish></wish>
+
     	<!--规则-->
     	<div class="rule-wrapper">
-    		<p class="text">
-    			活动规则活动规则活动规则活动规则活动规则活动活动规则活动规则活动规则活动规则活动规则活动活动规则活动规则活动规则活动规则活动规则活动活动规则活动规则活动规则活动规则活动规则活动活动规则活动规则活动规则活动规则活动规则活动活动规则活动规则活动规则活动规则活动规则活动活动规则活动规则活动规则活动规则活动规则活动活动规则活动规则活动规则活动规则活动规则活动
-    		</p>    		
+    		<div class="text">
+    			<p>2．活动期间用户所得分数可以随时兑换优惠券或实物奖品，同一优惠券或奖品仅限兑换一次。（数量有限兑完即止）</p>
+	    		<p>3．如在活动期间发现违规行为，洋码头有权取消违规账号所得奖品，封闭帐号。</p>
+	    		<p>4．本活动与苹果公司无关。在法律允许范围内，洋码头保留最终解释权。</p>	
+    		</div>    	
+    		
     	</div>
 
     </section>

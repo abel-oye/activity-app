@@ -20,26 +20,26 @@
 
 	var search = YmtApi.utils.getUrlObj(),
 		authInfo = YmtApi.utils.getAuthInfo();
-	var showLogStatus = true;
+	var toastStatus = true;
 
 	/**
 	 * 显示日志
 	 */
 	var showLog = function(msg, callback) {
-		if (showLogStatus) {
-			showLogStatus = false;
-			var errElm = $('.pk-error');
+		if (toastStatus) {
+			toastStatus = false;
+			var errElm = $('.ymtui-toast');
 			if (!errElm[0]) {
-				errElm = $('<div class="pk-error"></div>')
+				errElm = $('<div class="ymtui-toast"></div>')
 					.appendTo('body');
 			}
-			errElm.html(msg).css('opacity', '1');
+			errElm.html(msg).addClass('show');
 
 			setTimeout(function() {
-				$('.pk-error').css('opacity', '0');
-				showLogStatus = true;
+				errElm.removeClass('show');
+				toastStatus = true;
 				callback && callback();
-			}, 1800);
+			}, 2400);
 		}
 	};
 
@@ -99,6 +99,12 @@
 			28,
 			24,
 			20
+		],
+		SPEED_LIST = [
+			1,
+			0.9,
+			1.1,
+			1.2
 		];
 
 	var bulletList = [
@@ -133,6 +139,11 @@
 	Battlefield.prototype = {
 		init: function() {
 			//this.timer = setInterval(this.flight.bind(this),50);
+			var rqf = function() {
+				return requestAnimationFrame || function(fn) {
+					setTimeout(fn, 300);
+				}
+			}
 			var run = function() {
 				this.flight();
 				requestAnimationFrame(run.bind(this))
@@ -160,6 +171,9 @@
 				},
 				getFontSize = function() {
 					return 1 / 32 * FONT_LIST[getRandom(4)] + 'rem'
+				},
+				getSpeed = function() {
+					return SPEED_LIST[getRandom(4)];
 				};
 			//当前小于最大显示数才追加子弹
 			if (this.runBattles <= opts.battleRow) {
@@ -169,8 +183,8 @@
 
 				this.rowMap[runBattles] = Math.min(this.rowMap[runBattles] + 1 || 1, opts.battleCell);
 
-				var next = bulletList.shift(),
-					$next = $('<span class="bullet" data-bulletrow="' + runBattles + '">' + next + '</span>');
+				var next = opts.bulletList.shift(),
+					$next = $('<span class="bullet" data-bulletrow="' + runBattles + '" data-speed="' + getSpeed() + '">' + next + '</span>');
 				$next.css({
 					top: runBattles * opts.distance,
 					left: $(window).width(),
@@ -178,22 +192,26 @@
 					opacity: getOpacity(),
 					fontSize: getFontSize()
 				});
-				bulletList.push(next);
+				opts.bulletList.push(next);
 				this.container.append($next);
 
 				//this.shot();
 			}
 		},
 		/**
-		 * @return {[type]}
+		 * 让子弹飞
 		 */
 		flight: function() {
+			//是否暂停
+			if (this.pauseStatus) {
+				return;
+			}
 			var that = this,
 				opts = this.opts;
 			this.container.find('.bullet').each(function() {
 				var $this = $(this),
 					opts = that.opts,
-					left = $this.offset().left - opts.speed,
+					left = $this.offset().left - opts.speed * ($this.attr('data-speed') || 1),
 					dataBulletrow = $this.attr('data-bulletrow');
 
 				$this.css({
@@ -213,15 +231,152 @@
 								}*/
 			});
 		},
+		//暂停子弹飞
+		pause: function() {
+			this.pauseStatus = true;
+		},
+		//切换暂停状态
+		swithPause: function() {
+			this.pauseStatus = !this.pauseStatus;
+		}
 	}
 
-	new Battlefield({
-		container: '#battlefield',
-		speed: 1,
-		battleRow: 5,
-		distance: 40,
-		battleCell: 2
+	var jsApiHost = 'http://172.16.2.97:8001/';
+	//var jsApiHost = 'http://jsapi.pk.ymatou.com/';
+
+	var bfield;
+	//获得首页活动数据
+	jsonpGetData(YmtApi.utils.addParam(jsApiHost + 'api/Christmas/ChristmasGift', {
+		AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
+		wishUserId: search.wishUserId
+	}), function(data) {
+		console.log(data)
+		$('#wishCount').text(data.WishCount);
+		//初始化弹幕
+		bfield = new Battlefield({
+			container: '#battlefield',
+			speed: 1,
+			battleRow: 5,
+			distance: 40,
+			battleCell: 2,
+			bulletList: data.WishContents
+		});
+
+		//判断是否存在许愿信息
+		if (data.HasWish) {
+			/*data.WishDetail = {
+				WishName:'lunchzhao',
+				WishTreeId:'',
+				WishContent:'希望明年可以拥有二十只狗五只猫死三栋洋房',
+				LikesList:[
+					{
+						UserName:'布拉大王',
+						LogoUrl:'http://pc4.img.ymatou.com/G02/shangou/M06/03/03/CgvUA1ZmckOAPWpqAAFXzIhADMk199-listb_lb.jpg',
+						CreateDate:'2015-12-01 12:12:12'
+					},
+					{
+						UserName:'布拉大王',
+						LogoUrl:'http://pc4.img.ymatou.com/G02/shangou/M06/03/03/CgvUA1ZmckOAPWpqAAFXzIhADMk199-listb_lb.jpg',
+						CreateDate:'2015-12-01 12:12:12'
+					},
+				]
+			}*/
+			if (data.WishDetail) {
+				data.WishDetail.IsSelf = data.IsSelf;
+				$('.tree-kind').addClass('tree-kinds-' + (data.WishDetail.WishTreeId || 1));
+				var html = ejs.render($('#wish-tpl').html(), data.WishDetail);
+				$('wish').html(html);
+			}
+		} else {
+			$('.tree-kind').addClass('tree-kinds-1');
+		}
 	});
+
+	//抽奖
+	var joinLottery = function() {
+		if (!YmtApi.isWechat) {
+			if (YmtApi.utils.hasLogin()) {
+				jsonpGetData(YmtApi.utils.addParam(jsApiHost + 'api/Christmas/JoinLottery', {
+					AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
+					DeviceId: search.DeviceId || search.DeviceToken || '111'
+				}), function(data) {
+
+				});
+			} else {
+				YmtApi.toLogin();
+			}
+		} else {
+
+		}
+
+
+	}
+
+
+	$(document).on('click', '.J-close-bf', function() {
+		bfield.swithPause();
+		$('#battlefield').toggleClass('close');
+
+		var $this = $(this);
+
+		$this.text($this.text() === '关闭弹幕' ? '打开弹幕' : '关闭弹幕');
+
+		//点赞
+	}).on('click', '.J-toLike', function() {
+		if (YmtApi.utils.hasLogin()) {
+			jsonpGetData(YmtApi.utils.addParam(jsApiHost + 'api/Christmas/WishLikes', {
+				AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
+				WishId: $(this).attr('data-wishId')
+			}), function(data) {
+				if (data.HasSuccess) {
+					window.location.reload();
+				} else {
+					showLog('哈尼，您已经给他点过赞啦！')
+				}
+			});
+		} else {
+			YmtApi.toLogin();
+		}
+		//增加抽奖次数
+	}).on('click', '.J-add-joinLottery', function() {
+		jsonpGetData(YmtApi.utils.addParam(jsApiHost + 'api/Christmas/LotteryShare', {
+			AccessToken: YmtApi.utils.getAuthInfo().AccessToken
+		}), function(data) {
+
+		})
+	}).on('click', '.J-joinLottery', function() {
+		joinLottery();
+	});
+
+
+
+	$(document).on('click', '.J-share', function() { //分享
+		var $this = $(this),
+			url = $this.attr('data-share-url') || YmtApi.utils.addParam(window.location.href,{
+				wishUserId:YmtApi.utils.getAuthInfo.UserId
+			}),
+			content = $this.attr('data-share-content'),
+			title = $this.attr('data-share-title'),
+			pic = $this.attr('data-share-pic');
+
+		YmtApi.openShare({
+			shareTitle: title,
+			shareUrl: url,
+			sharePicUrl: pic,
+			shareContent: content,
+			showWeiboBtn: 1
+		});
+	}).on('click', '.J-open', function() {
+		var $this = $(this);
+
+		YmtApi.open({
+			url: $this.attr('data-url'),
+			title: $this.attr('data-title'),
+			isNew: true,
+		});
+	})
+
+
 
 	///172.16.2.97:8001
 })();

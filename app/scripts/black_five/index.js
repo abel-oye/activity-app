@@ -39,7 +39,7 @@
             errElm.html(msg).addClass('show');
 
             setTimeout(function () {
-                errElm.removeClass('show');1
+                errElm.removeClass('show');
                 toastStatus = true;
                 callback && callback();
             }, 2400);

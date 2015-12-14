@@ -48,13 +48,29 @@
     <section class="tree-container">
         <div class="tree-options">
             <div class="hd"><i class="icon-start"></i> 选择我的圣诞树</div>
-            <div class="bd"></div>
+            <div class="bd" id="tree-options">
+                <ul class="tree-kind-list swiper-wrapper">
+                    <li class="selected swiper-slide tree-kind-item" >
+                        <div class="tree-sm tree-sm-1"></div>
+                    </li>
+                    <li class="swiper-slide tree-kind-item">
+                        <div class="tree-sm tree-sm-2"></div>
+                    </li>
+                    <li class="swiper-slide tree-kind-item">
+                        <div class="tree-sm tree-sm-3"></div>
+                    </li>
+                    <li class="swiper-slide tree-kind-item">
+                        <div class="tree-sm tree-sm-4"></div>
+                    </li>
+                    <li class="swiper-slide "></li>
+                </ul>
+            </div>
         </div>
         <div class="wish-form">
             <div class="hd"><i class="icon-deer"></i> 说出你心中的愿望</div>
             <div class="bd">
-                <textarea maxlength="20">最多输入20个字哦~</textarea>
-                <button class="btn btn-full tree-btn">许愿</button>
+                <textarea class="content" maxlength="20" id="content" placeholder="最多输入20个字哦~" height="250px"></textarea>  
+                <button class="btn btn-full tree-btn" id="submit">许愿</button>
             </div>
         </div>
 
