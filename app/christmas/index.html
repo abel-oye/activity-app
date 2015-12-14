@@ -31,6 +31,27 @@
       </div>
     {{ } }}
   </script>
+  <script id="active-tpl2" type="text/template">
+      {{ for(var i=0,len=Products.length;i<len;i++){ }}
+        <div class="bf-item J-open" data-url="{{= Products[i].PackageId ? 'http://evt.ymatou.com/activity_4694_capp?TC='+Products[i].PackageId : 'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId }}" onclick=";">
+            <div class="pro-wrapper">
+              <div class="pic bg__full img-hold" lazy-load-background="{{-: Products[i].PicUrl | convertImgUrl }}" ></div>
+              <div class="info">
+                  <div class="national-wrapper">
+                    {{ if(!Products[i].PackageId){ }}  <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlagUrl}}" ></span>{{=Products[i].CountryName}} {{ } }}
+                  </div>
+                  <h4>{{=Products[i].Name}}</h4>
+
+                  <div class="price-wrapper2">
+                      <span>圣诞价</span>
+                      <span><strong>{{=Products[i].Price}}</strong>元</span>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+      {{ } }}
+  </script>
   <script id="active-tpl" type="text/template">
       {{ for(var i=0,len=Products.length;i<len;i++){ }}
         <div class="bf-item J-open" data-url="{{= Products[i].PackageId ? 'http://evt.ymatou.com/activity_4694_capp?TC='+Products[i].PackageId : 'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId }}" onclick=";">
@@ -107,8 +128,8 @@
       <div class="evt-area chr-pro chr-pro-01 J-bf-axie" id="evt-02">
         <div class="evt-area-hd"></div>
         <div class="evt-area-bd">
-          <div class="bf-list bf-item_2col">
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4848,7912"
+          <div class="bf-list bf-item_2col" id='1'>
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,1"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -122,7 +143,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4848,7902"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4853,7902"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -134,8 +155,8 @@
       <div class="evt-area chr-pro chr-pro-02 chr-pro-green" id="bm-02">
         <div class="evt-area-hd"></div>
         <div class="evt-area-bd">
-          <div class="bf-list bf-item_2col">
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4848,7913"
+          <div class="bf-list bf-item_2col" id='2'>
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,2"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
          <!--全球热卖-->
@@ -149,7 +170,7 @@
              </div>
              <div class="hot-bd">
                <div class="bf-list bf-item_2col">
-                  <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4848,7903"
+                  <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4853,7903"
                        lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                </div>
              </div>
@@ -160,8 +181,8 @@
       <div class="evt-area chr-pro chr-pro-03 chr-pro-yellow" id="bm-03">
         <div class="evt-area-hd"></div>
         <div class="evt-area-bd">
-          <div class="bf-list bf-item_2col">
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4848,7917"
+          <div class="bf-list bf-item_2col" id='3'>
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,3"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -175,7 +196,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4848,7904"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4853,7904"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -187,8 +208,8 @@
       <div class="evt-area chr-pro chr-pro-04 chr-pro-blue" id="bm-04">
         <div class="evt-area-hd"></div>
         <div class="evt-area-bd">
-          <div class="bf-list bf-item_2col">
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4848,7918"
+          <div class="bf-list bf-item_2col" id='4'>
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,4"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -202,7 +223,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4848,7906"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4853,7906"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -213,8 +234,8 @@
       <div class="evt-area chr-pro chr-pro-05" id="bm-05">
         <div class="evt-area-hd"></div>
         <div class="evt-area-bd">
-          <div class="bf-list bf-item_2col">
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4848,7919"
+          <div class="bf-list bf-item_2col" id='5'>
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,5"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -228,7 +249,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4848,7910"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4853,7910"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -239,8 +260,8 @@
       <div class="evt-area chr-pro chr-pro-06 chr-pro-green J-bf-axie" id="evt-03">
         <div class="evt-area-hd"></div>
         <div class="evt-area-bd">
-          <div class="bf-list bf-item_2col">
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4848,7920"
+          <div class="bf-list bf-item_2col" id='6'>
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,6"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -254,7 +275,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4848,7911"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4853,7911"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -269,12 +290,12 @@
         </div>
         <div class="seller-area-wrapper">
           <div>
-            <div class="seller-area J-open img-hold" data-url="" lazy-load-background="/images/christmas/seller_area_01.jpg"></div>
-            <div class="seller-area J-open img-hold" data-url="" lazy-load-background="/images/christmas/seller_area_02.jpg"></div>
+            <div class="seller-area J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_capp?AreaCode=1" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_area_01.jpg"></div>
+            <div class="seller-area J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_capp?AreaCode=3" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_area_02.jpg"></div>
           </div>
           <div>
-            <div class="seller-area J-open img-hold" data-url="" lazy-load-background="/images/christmas/seller_area_03.jpg"></div>
-            <div class="seller-area J-open img-hold" data-url="" lazy-load-background="/images/christmas/seller_area_04.jpg"></div>
+            <div class="seller-area J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_capp?AreaCode=4" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_area_03.jpg"></div>
+            <div class="seller-area J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_capp?AreaCode=2" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_area_04.jpg"></div>
           </div>
         </div>
       </div>
