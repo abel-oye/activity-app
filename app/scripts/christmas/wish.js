@@ -57,20 +57,24 @@
 			dataType: 'jsonp',
 			success: function(res) {
 				if (res && (res.Code === 200 || res.Code === '200')) {
-					isFuntion(callback) && callback(res.Data);
+					if(res.Data && res.Data.HasSuccess){
+						isFuntion(callback) && callback(res.Data);
+					}else{
+						showLog(res.Msg)
+					}					
 				} else {
-					//showLog(res.Msg || '操作错误.');
+					showLog(res.Msg || '操作错误.');
 				}
 			},
 			error: function() {
-				showLog('操作错误.');
+				showLog('操作错误..');
 			}
 		});
 	};
 
 	new Swiper('#tree-options', {
 		freeMode: true,
-		slidesPerView: 2.1,
+		slidesPerView: 2.2,
 		onSlideChangeEnd: function() {
 			lazyLoad.check();
 		}
@@ -81,18 +85,38 @@
 		$(this).addClass('selected');
 	});
 
-	var jsApiHost = 'http://172.16.2.97:8001/';
-	//var jsApiHost = 'http://jsapi.pk.ymatou.com/';
+	//打开弹层
+	var openDialog = function (data) {
+        $('#christmas-dialog').addClass('open');
+        $('.ymtui-dialog-mask').addClass('open');
+    }
+
+
+    $(document).on('click','.J-close-dialog',function(){
+    	$('#christmas-dialog').removeClass('open');
+    	$('.ymtui-dialog-mask').removeClass('open');
+    })
+
+	//var jsApiHost = 'http://172.16.2.97:8001/';
+	var jsApiHost = 'http://jsapi.pk.ymatou.com/';
+	
+	$('#content').change(function(){
+		$('#submit')[$(this).val()?'removeClass':'addClass']('invalid');
+	});
 
 	$('#submit').click(function() {
+		
 		if(YmtApi.utils.hasLogin()){
+			if($(this).hasClass('invalid')){
+				return;
+			}
 			jsonpGetData(YmtApi.utils.addParam(jsApiHost + 'api/Christmas/Wishing', {
 				AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
 				TreeId: $('.tree-kind-list li.selected').index(),
-				Content: $('#content').text()
+				Content: $('#content').val()
 			}), function(data) {
 				if(data.HasSuccess){
-
+					openDialog();
 				}else{
 					showLog('许愿失败');
 				}
@@ -102,4 +126,22 @@
 		}
 		
 	});
+
+	$(document).on('click', '.J-share', function() { //分享
+		var $this = $(this),
+			url = $this.attr('data-share-url') || YmtApi.utils.addParam(window.location.href,{
+				wishUserId:YmtApi.utils.getAuthInfo.UserId
+			}),
+			content = $this.attr('data-share-content'),
+			title = $this.attr('data-share-title'),
+			pic = $this.attr('data-share-pic');
+
+		YmtApi.openShare({
+			shareTitle: title,
+			shareUrl: url,
+			sharePicUrl: pic,
+			shareContent: content,
+			showWeiboBtn: 1
+		});
+	})
 })();

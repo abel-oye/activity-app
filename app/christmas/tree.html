@@ -19,7 +19,7 @@
     <!-- endbuild-->
   </head>
   <body module_name="activity_4776_capp">
-  <script id="wish-tpl" type="text-template">
+  <script id="wish-tpl" type="text/template">
 	 <div class="wish-wrapper">
 		<div class="wish-inner">
 			<div class="wish-title">
@@ -29,13 +29,13 @@
 				<div class="text-bg">
 					<div class="text">{{=WishContent}}</div>
 				</div>
-				{{ if(IsSelf){ }}
+				{{ if(!IsSelf){ }}
 				<button class="btn btn-full tree-btn J-toLike" data-wishId="{{=WishTreeId}}">给TA点赞 <i class="icon-praise"></i></button>
 				{{ }else{ }}
 				<button class="btn btn-full tree-btn J-share" 
 					data-share-content="圣诞快来给我点赞吧" 
 					data-share-title="圣诞快来给我点赞吧"
-					data-share-pic="">呼朋唤友来点赞 <i class="icon-praise"></i></button>
+					data-share-pic="" onclick=";">呼朋唤友来点赞 <i class="icon-praise"></i></button>
 				{{ } }}
 			</div>
 			<div class="wish-detail">
@@ -70,6 +70,77 @@
 		</div>
 	</div>
   </script>
+  <script id="dialog-tpl" type="text/template">
+  	    	
+  	    	<!--中奖-->
+  	    	{{ if(BCode == 100){ }}
+  	    	    {{ if(ProductId){ }}
+  	    	        <div class="content package-content-bg1">
+  	    	            <h4 class="bg"></h4>
+  	    	            <div class="coupon-bg" style="background-image:url({{=ProductPic}})"></div>
+  	    	            <div class="txt">
+  	    	               少年我看你骨骼惊奇，赏你一个换购机会吧<br>加1元，立即换购商品
+  	    	            </div>
+  	    	        </div>
+  	    	        <div class="J-close close-btn J-open center-btn" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductId}}">
+  	    	        朕要1元换购
+  	    	        </div>
+  	    	    {{ }else{ }}
+  	    	        <div class="content package-content-bg1">
+  	    	            <h4 class="bg"></h4>
+  	    	            <div class="coupon-bg">
+  	    	                <div>
+  	    	                   <sub>&yen;</sub><strong>{{= CouponDetailInfo.CouponValue }}</strong>元
+  	    	                </div>
+  	    	                <div>
+  	    	                    现金优惠券
+  	    	                </div>
+  	    	            </div>
+  	    	            <div class="txt">
+  	    	                优惠券已发放到您的个人账户<br/>
+  	    	                请在“我-钱包-优惠券”里查看
+  	    	            </div>
+  	    	            <div class="txt">
+  	    	                <strong>满{{= CouponDetailInfo.CouponOrderValue }}元使用，有效期中奖起24小时之内</strong>
+  	    	            </div>
+  	    	        </div>
+  	    	        <div class="J-close close-btn center-btn" data-target="receive-package" onclick=";">朕知道了</div>
+  	    	    {{ } }}
+  	    	<!--没中奖-->
+  	    	{{ }else if(BCode == 101){ }}
+
+  	    	<!--没中奖-->
+  	    	{{ }else if(BCode == 103){ }}
+
+  	    	 <!--设备已达最大次数-->
+  	    	{{ }else if(BCode == 104){ }}
+  	    	    <div class="ymtui-commirm-bd">
+      	    		幸运要珍惜，您的抽奖次数真的用完咯~
+      	    	</div>
+    	    	<div class="ymtui-commirm-ft">
+    	    		<button class="btn btn-primary-border J-close-dialog btn-full" onclick=";">请明日再来</h4>
+    	    	</div>
+  	    	{{ }else{ }}
+  	    	    <div class="ymtui-commirm-bd">
+  	    	    	{{ if(HasUseCount > 2){ }}
+      	    		哈尼，您今天的抽奖次数真的用完咯
+      	    		{{ }else{ }}
+      	    		今天的抽奖次数已用完，分享后可再获得2次机会哦~
+      	    		{{ } }}
+      	    	</div>
+    	    	<div class="ymtui-commirm-ft">
+    	    		{{ if(HasUseCount > 2){ }}
+    	    		    <button class="btn btn-primary-border J-close-dialog btn-full" onclick=";">请明日再来</h4>
+    	    		{{ }else{ }}
+    	    		   <button class="btn btn-primary-border J-close-dialog" onclick=";">知道了</button>
+    	    		   <button class="btn btn-primary J-share J-add-joinLottery" 
+    	    		        data-share-content="圣诞快来给我点赞吧" 
+    						data-share-title="圣诞快来给我点赞吧"
+    						data-share-pic=""  onclick=";">我要分享</button>
+    	    		{{ } }}
+    	    	</div>
+  	    	{{ } }}
+  </script>
     <section class="tree-container">
     	<div class="snow-wrapper"> 
 	    	<!--弹幕-->
@@ -81,7 +152,7 @@
 	    	</div>	
 	    	<div class="tree-wrapper">
 	    		<div class="tree-kind J-joinLottery"></div>
-	    		<div class="wish">共<span id="wishCount">xx</span>人许下愿望</div>
+	    		
 	    	</div>
     	</div>
     
@@ -99,6 +170,11 @@
     	</div>
 
     </section>
+
+    <div class="ymtui-dialog-mask"></div>
+    <div class="ymtui-dialog christmas-dialog" id="christmas-dialog">
+
+    </div>
 
   <!-- build:js /scripts/zepto,ejs,swiper,imgLazyLoad.js -->
   <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>

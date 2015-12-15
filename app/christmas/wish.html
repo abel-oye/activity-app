@@ -69,11 +69,23 @@
         <div class="wish-form">
             <div class="hd"><i class="icon-deer"></i> 说出你心中的愿望</div>
             <div class="bd">
-                <textarea class="content" maxlength="20" id="content" placeholder="最多输入20个字哦~" height="250px"></textarea>  
-                <button class="btn btn-full tree-btn" id="submit">许愿</button>
+                <textarea class="content" maxlength="20" id="content" placeholder="最多输入20个字哦~"></textarea>  
+                <button class="btn btn-full tree-btn invalid" id="submit">许愿</button>
             </div>
         </div>
-
+        <div class="ymtui-dialog-mask"></div>
+        <div class="ymtui-dialog christmas-dialog" id="christmas-dialog">
+            <div class="ymtui-commirm-bd">
+              您的愿望洋码头听到了，分享后集齐X个赞就有机会实现哟~
+            </div>
+            <div class="ymtui-commirm-ft">
+                   <button class="btn btn-primary-border J-close-dialog" onclick=";">知道了</button>
+                   <button class="btn btn-primary J-share J-add-joinLottery" 
+                        data-share-content="圣诞快来给我点赞吧" 
+                        data-share-title="圣诞快来给我点赞吧"
+                        data-share-pic=""  onclick=";">我要分享</button>
+            </div>
+        </div>
     </section>
 
   <!-- build:js /scripts/zepto,ejs,swiper,imgLazyLoad.js -->

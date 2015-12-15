@@ -16,7 +16,7 @@
  @import'../assets/common.scss';
 
  $imgPath:'/images/christmas/';
- //$imgPath:'http://staticontent.ymatou.com/images/christmas/';
+ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/';
 
  .tree-container{
    background: #5f1211;
@@ -25,11 +25,13 @@
  .tree-wrapper{
     //height:$rem*725;
     background-image:url(#{$imgPath}tree_bg.png);
+        background-position: top;
     @extend .bg__full;
  }
 
  .snow-wrapper{
    background: -webkit-radial-gradient(circle, rgba(255, 48, 0,.4) , rgba(95, 18, 17,1));
+    overflow: hidden;
  }
 
 .battlefield{
@@ -65,7 +67,7 @@
     top:0;
     width:100%;
     height:$rem*350;
-    overflow: hidden;
+   
     transition: opacity 0.25s ease-in-out;
     opacity: 1;
     .bullet{
@@ -90,10 +92,16 @@
     text-align: center;
     padding-top:$rem*45;
   }
+  .wish-txt{
+    text-align: center;
+    font-size:$rem*20;
+    color:#fdedad;
+  }
 }
 .tree-kind{
   position:relative;
   z-index:3;
+  height:$rem*719;
   @extend .bg__full;
   margin: 0 auto;
 }
@@ -272,9 +280,10 @@
    background: -webkit-gradient(radial, 105 105, 100, 112 220, 500, from(rgba(255, 48, 0,.3)),to(rgba(95, 18, 17,1))),;
    height:$rem*446;
        background-size: cover;
-       padding:$rem*20 $rem*24;
+     
   .hd{
     color:#fff2cf;
+    padding:$rem*20 $rem*24;
     font-size:$rem*24;
   }
 }
@@ -306,13 +315,12 @@
 }
 
 .tree-kind-list{
-  margin-top:$rem*18;
   white-space: nowrap;
   .tree-kind-item{
     width:$rem*300;
     height:$rem*300;
     border:1px solid #d68f72;
-    margin-right:$rem*20;
+    margin-right:$rem*10;
     padding:$rem*15;
     position:relative;
     /* float: left; */
@@ -360,4 +368,19 @@
     .tree-sm-#{$i}{
         background-image::url(#{$imgPath}tree_0#{$i}.png);
     }
+}
+
+.ymtui-toast{
+  font-size:$rem*24;
+}
+
+//弹层
+.christmas-dialog{
+  .ymtui-commirm-bd{
+    font-size:$rem*33;
+  }
+  .btn{
+    width:$rem*240;
+    height: $rem*70;
+  }
 }

@@ -68,7 +68,7 @@
 				if (res && (res.Code === 200 || res.Code === '200')) {
 					isFuntion(callback) && callback(res.Data);
 				} else {
-					//showLog(res.Msg || '操作错误.');
+					showLog(res.Msg || '操作错误.');
 				}
 			},
 			error: function() {
@@ -152,7 +152,10 @@
 
 			this.shot();
 
-			for (var i = 0; i < this.opts.battleRow; i++) {
+			var opts = this.opts,
+				len = Math.min(opts.bulletList.length,this.opts.battleRow);
+
+			for (var i = 0; i < len; i++) {
 				setTimeout(this.shot.bind(this), getRandom(3842));
 			}
 
@@ -242,7 +245,7 @@
 	}
 
 	var jsApiHost = 'http://172.16.2.97:8001/';
-	//var jsApiHost = 'http://jsapi.pk.ymatou.com/';
+	var jsApiHost = 'http://jsapi.pk.ymatou.com/';
 
 	var bfield;
 	//获得首页活动数据
@@ -251,19 +254,24 @@
 		wishUserId: search.wishUserId
 	}), function(data) {
 		console.log(data)
-		$('#wishCount').text(data.WishCount);
-		//初始化弹幕
-		bfield = new Battlefield({
-			container: '#battlefield',
-			speed: 1,
-			battleRow: 5,
-			distance: 40,
-			battleCell: 2,
-			bulletList: data.WishContents
-		});
+		if(data.WishContents && data.WishContents.length){
+			//初始化弹幕
+			bfield = new Battlefield({
+				container: '#battlefield',
+				speed: 1,
+				battleRow: 5,
+				distance: 40,
+				battleCell: 2,
+				bulletList: data.WishContents
+			});
+
+		}
+		
+		var wishHtml='';
 
 		//判断是否存在许愿信息
 		if (data.HasWish) {
+			wishHtml= '<div class="wish">共'+data.WishCount+'人许下愿望</div>'
 			/*data.WishDetail = {
 				WishName:'lunchzhao',
 				WishTreeId:'',
@@ -289,8 +297,16 @@
 			}
 		} else {
 			$('.tree-kind').addClass('tree-kinds-1');
+			wishHtml= '<div class="wish J-open" onclick=";" data-url="http://evt.ymatou.com/activity_16076_Mapp?title=圣诞许愿">许下我的圣诞愿望</div><div class="wish-txt">共'+data.WishCount+'人许下愿望</div>'
 		}
+		$('.tree-wrapper').append(wishHtml)
 	});
+
+	var openDialog = function (data) {
+        var html = ejs.render($('#dialog-tpl').html(), data);
+        $('#christmas-dialog').html(html).addClass('open');
+        $('.ymtui-dialog-mask').addClass('open');
+    }
 
 	//抽奖
 	var joinLottery = function() {
@@ -300,7 +316,7 @@
 					AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
 					DeviceId: search.DeviceId || search.DeviceToken || '111'
 				}), function(data) {
-
+					openDialog(data);
 				});
 			} else {
 				YmtApi.toLogin();
@@ -312,17 +328,16 @@
 
 	}
 
-
-	$(document).on('click', '.J-close-bf', function() {
+	$('.J-close-bf').click(function(){
 		bfield.swithPause();
 		$('#battlefield').toggleClass('close');
 
 		var $this = $(this);
 
 		$this.text($this.text() === '关闭弹幕' ? '打开弹幕' : '关闭弹幕');
+	});
 
-		//点赞
-	}).on('click', '.J-toLike', function() {
+	$('.J-toLike').click(function(){
 		if (YmtApi.utils.hasLogin()) {
 			jsonpGetData(YmtApi.utils.addParam(jsApiHost + 'api/Christmas/WishLikes', {
 				AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
@@ -337,17 +352,23 @@
 		} else {
 			YmtApi.toLogin();
 		}
-		//增加抽奖次数
-	}).on('click', '.J-add-joinLottery', function() {
-		jsonpGetData(YmtApi.utils.addParam(jsApiHost + 'api/Christmas/LotteryShare', {
-			AccessToken: YmtApi.utils.getAuthInfo().AccessToken
-		}), function(data) {
-
-		})
-	}).on('click', '.J-joinLottery', function() {
-		joinLottery();
 	});
 
+	//抽奖
+	$('.J-joinLottery').click(joinLottery);
+
+	//关闭弹层
+	$(document).on('click','.J-close-dialog',function(){
+		$('#christmas-dialog').removeClass('open');
+		$('.ymtui-dialog-mask').removeClass('open');
+	}).on('click','.J-add-joinLottery',function() {
+		console.log(this)
+		jsonpGetData(YmtApi.utils.addParam(jsApiHost + 'api/Christmas/LotteryShare', {
+			AccessToken: YmtApi.utils.getAuthInfo().AccessToken
+		}),function(){
+
+		});
+	});
 
 
 	$(document).on('click', '.J-share', function() { //分享
