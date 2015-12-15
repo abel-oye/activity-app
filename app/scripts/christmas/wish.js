@@ -100,7 +100,7 @@
 	//var jsApiHost = 'http://172.16.2.97:8001/';
 	var jsApiHost = 'http://jsapi.pk.ymatou.com/';
 	
-	$('#content').change(function(){
+	$('#content').on('input',function(){
 		$('#submit')[$(this).val()?'removeClass':'addClass']('invalid');
 	});
 
@@ -112,7 +112,7 @@
 			}
 			jsonpGetData(YmtApi.utils.addParam(jsApiHost + 'api/Christmas/Wishing', {
 				AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
-				TreeId: $('.tree-kind-list li.selected').index(),
+				TreeId: $('.tree-kind-list li.selected').index()+1,
 				Content: $('#content').val()
 			}), function(data) {
 				if(data.HasSuccess){

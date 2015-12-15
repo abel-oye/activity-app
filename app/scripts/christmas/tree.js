@@ -101,10 +101,10 @@
 			20
 		],
 		SPEED_LIST = [
-			1,
-			0.9,
-			1.1,
-			1.2
+			1.3,
+			1.4,
+			1.5,
+			1.6
 		];
 
 	var bulletList = [
@@ -244,7 +244,7 @@
 		}
 	}
 
-	var jsApiHost = 'http://172.16.2.97:8001/';
+	//var jsApiHost = 'http://172.16.2.97:8001/';
 	var jsApiHost = 'http://jsapi.pk.ymatou.com/';
 
 	var bfield;
@@ -297,7 +297,7 @@
 			}
 		} else {
 			$('.tree-kind').addClass('tree-kinds-1');
-			wishHtml= '<div class="wish J-open" onclick=";" data-url="http://evt.ymatou.com/activity_16076_Mapp?title=圣诞许愿">许下我的圣诞愿望</div><div class="wish-txt">共'+data.WishCount+'人许下愿望</div>'
+			wishHtml= '<div class="wish J-open" onclick=";" data-url="http://evt.ymatou.com/activity_16076_Mapp?title=圣诞许愿">我要许愿</div><div class="wish-txt">共'+data.WishCount+'人许下愿望</div>'
 		}
 		$('.tree-wrapper').append(wishHtml)
 	});
@@ -322,10 +322,10 @@
 				YmtApi.toLogin();
 			}
 		} else {
-
+			openDialog({
+				BCode:99
+			});
 		}
-
-
 	}
 
 	$('.J-close-bf').click(function(){
