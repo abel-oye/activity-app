@@ -30,12 +30,14 @@
 					<div class="text">{{=WishContent}}</div>
 				</div>
 				{{ if(!IsSelf){ }}
-				<button class="btn btn-full tree-btn J-toLike" data-wishId="{{=WishTreeId}}">给TA点赞 <i class="icon-praise"></i></button>
+				<button class="btn btn-full tree-btn J-toLike" data-wishId="{{=WishId}}" {{=HasLiked?'data-liked="true"':''}}>
+					{{-HasLiked?'已赞，我也要许愿':'给TA点赞 <i class="icon-praise"></i>'}}
+					</button>
 				{{ }else{ }}
 				<button class="btn btn-full tree-btn J-share" 
-					data-share-content="圣诞快来给我点赞吧" 
-					data-share-title="圣诞快来给我点赞吧"
-					data-share-pic="" onclick=";">呼朋唤友来点赞 <i class="icon-praise"></i></button>
+					data-share-content="那个熟悉的白胡子老头又忙起来啦!你有没有收到礼物呢?不要着急,属于你的“圣诞老人”正在赶来的路上呢!快来看看" 
+					data-share-title="实现我愿望的圣诞老人正在鹿不停蹄赶来的路上！"
+					data-share-pic="http://staticontent.ymatou.com/images/activity/christmas/christmas_wish_share.jpg" onclick=";">分享求点赞 <i class="icon-praise"></i></button>
 				{{ } }}
 			</div>
 			<div class="wish-detail">
@@ -48,10 +50,10 @@
 					<ul class="wish-list">
 						{{ for(var i =0;i<len;i++){ }}
 						<li>
-							<span class="pic" style="background-image:url({{=LikesList[i].LogoUrl}})"></span>
+							<span class="pic" style="background-image:url({{=LikesList[i].LogoUrl=='http://img.ymatou.com/portal/images/null.png'?'http://staticontent.ymatou.com/images/activity/christmas/portrait.png':LikesList[i].LogoUrl}})"></span>
 							<div class="txt">
 								<h3>{{=LikesList[i].UserName}}</h3>
-								<small>{{=LikesList[i].CreateDate}}</small>
+								<small>{{=(LikesList[i].CreateDate||'').replace('T',' ').replace(/\.\d*/,'')}}</small>
 							</div>
 							<span>给你点了赞</span>
 						</li>
@@ -70,8 +72,7 @@
 		</div>
 	</div>
   </script>
-  <script id="dialog-tpl" type="text/template">
-  	    	
+  <script id="dialog-tpl" type="text/template">  	    	
   	    	<!--中奖-->
   	    	{{ if(BCode == 100){ }}
   	    	    {{ if(ProductId){ }}
@@ -82,44 +83,50 @@
   	    	               少年我看你骨骼惊奇，赏你一个换购机会吧<br>加1元，立即换购商品
   	    	            </div>
   	    	        </div>
-  	    	        <div class="J-close close-btn J-open center-btn" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductId}}">
+  	    	        <div class="close-btn J-open center-btn" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductId}}">
   	    	        朕要1元换购
   	    	        </div>
+    	    	    <div class="ymtui-commirm-bd">
+        	    		恭喜抽中<strong>{{= CouponDetailInfo.CouponValue }}</strong>元现金优惠券
+        	    	</div>
+        	    	<button class="btn btn-primary J-close-dialog btn-full J-open" onclick=";" data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=ProductId}}" >我要1元换购</button>
   	    	    {{ }else{ }}
-  	    	        <div class="content package-content-bg1">
-  	    	            <h4 class="bg"></h4>
-  	    	            <div class="coupon-bg">
-  	    	                <div>
-  	    	                   <sub>&yen;</sub><strong>{{= CouponDetailInfo.CouponValue }}</strong>元
-  	    	                </div>
-  	    	                <div>
-  	    	                    现金优惠券
-  	    	                </div>
-  	    	            </div>
-  	    	            <div class="txt">
-  	    	                优惠券已发放到您的个人账户<br/>
-  	    	                请在“我-钱包-优惠券”里查看
-  	    	            </div>
-  	    	            <div class="txt">
-  	    	                <strong>满{{= CouponDetailInfo.CouponOrderValue }}元使用，有效期中奖起24小时之内</strong>
-  	    	            </div>
-  	    	        </div>
-  	    	        <div class="J-close close-btn center-btn" data-target="receive-package" onclick=";">朕知道了</div>
+    	    	    <div class="ymtui-commirm-bd">
+        	    		恭喜抽中<strong>{{= CouponDetailInfo.CouponValue }}</strong>元现金优惠券
+        	    		<div>
+        	    			<small>优惠券已发放到您的个人账户,请在“我-钱包-优惠券”里查看</small>
+        	    		</div>
+        	    	</div>
+        	    	<button class="btn btn-primary-border J-close-dialog " onclick=";">知道了</button>
+        	    	<button class="btn btn-primary J-share J-close-dialog {{=HasUseCount<2?'J-add-joinLottery':''}}" 
+    						data-share-title="听说，洋星球有一棵圣诞树"
+    	    		        data-share-content="圣诞树上的礼物正在被邪恶的洋星人瓜分，正义的你快去拯救这些礼物吧…" 
+    						data-share-pic="http://staticontent.ymatou.com/images/activity/christmas/christmas_coupon_wish.jpg"  onclick=";">我要分享</button>
   	    	    {{ } }}
   	    	<!--没中奖-->
   	    	{{ }else if(BCode == 101){ }}
-
+	    	    <div class="ymtui-commirm-bd">
+    	    		没抽到好可惜哦，再来一次~
+    	    	</div>
+    	    	<button class="btn btn-primary J-close-dialog" onclick=";">知道了</button>
   	    	<!--没中奖-->
   	    	{{ }else if(BCode == 103){ }}
 
   	    	 <!--设备已达最大次数-->
   	    	{{ }else if(BCode == 104){ }}
   	    	    <div class="ymtui-commirm-bd">
-      	    		幸运要珍惜，您的抽奖次数真的用完咯~
+      	    		谢谢您~
       	    	</div>
     	    	<div class="ymtui-commirm-ft">
-    	    		<button class="btn btn-primary-border J-close-dialog btn-full" onclick=";">请明日再来</h4>
+    	    		<button class="btn btn-primary-border J-close-dialog btn-full" onclick=";" >知道了</h4>
     	    	</div>
+	    	{{ }else if(BCode == 99){ }}
+	    	    <div class="ymtui-commirm-bd">
+    	    		恭喜你！幸运的洋星人！出现一份圣诞礼物等着你，赶紧去下载洋码头app查收吧！
+    	    	</div>
+	  	    	<div class="ymtui-commirm-ft">
+	  	    		<button class="btn btn-primary J-close-dialog btn-full J-open" onclick=";" data-url="http://download.app.ymatou.com/index.aspx?from=inapp25">下载洋码头APP去领取</h4>
+	  	    	</div>
   	    	{{ }else{ }}
   	    	    <div class="ymtui-commirm-bd">
   	    	    	{{ if(HasUseCount > 2){ }}
@@ -130,13 +137,13 @@
       	    	</div>
     	    	<div class="ymtui-commirm-ft">
     	    		{{ if(HasUseCount > 2){ }}
-    	    		    <button class="btn btn-primary-border J-close-dialog btn-full" onclick=";">请明日再来</h4>
+    	    		    <button class="btn btn-primary J-close-dialog btn-full" onclick=";">请明日再来</h4>
     	    		{{ }else{ }}
     	    		   <button class="btn btn-primary-border J-close-dialog" onclick=";">知道了</button>
     	    		   <button class="btn btn-primary J-share J-add-joinLottery" 
-    	    		        data-share-content="圣诞快来给我点赞吧" 
-    						data-share-title="圣诞快来给我点赞吧"
-    						data-share-pic=""  onclick=";">我要分享</button>
+    						data-share-title="听说，洋星球有一棵圣诞树"
+    	    		        data-share-content="圣诞树上的礼物正在被邪恶的洋星人瓜分，正义的你快去拯救这些礼物吧…" 
+    						data-share-pic="http://staticontent.ymatou.com/images/activity/christmas/christmas_coupon_wish.jpg"  onclick=";">我要分享</button>
     	    		{{ } }}
     	    	</div>
   	    	{{ } }}
@@ -162,19 +169,23 @@
     	<!--规则-->
     	<div class="rule-wrapper">
     		<div class="text">
-    			<p>2．活动期间用户所得分数可以随时兑换优惠券或实物奖品，同一优惠券或奖品仅限兑换一次。（数量有限兑完即止）</p>
-	    		<p>3．如在活动期间发现违规行为，洋码头有权取消违规账号所得奖品，封闭帐号。</p>
-	    		<p>4．本活动与苹果公司无关。在法律允许范围内，洋码头保留最终解释权。</p>	
-    		</div>    	
-    		
+    			<p>	怎样才能实现我的圣诞愿望呢？ </p>
+    			<p>	集合10位以上好友的力量，就有机会让洋码头为你实现圣诞愿望哦！</p>
+    			<p>	12月30日17:00 洋码头将在所有符合条件的用户中随意抽取5位用户，并实现他们许下的圣诞愿望。届时会在社区公布幸运用户的名单，我们的圣诞使者会通过电话与幸运儿联系. </p>
+    			<h2>圣诞树礼品规则</h2>
+    			<p>	. 12月15日至12月30日，每人每天有1次抽奖机会，分享后可再获得2次抽奖机会</p>
+    			<p>	. 中奖后，优惠券直接发放到个人帐户，在“我-钱包-优惠券”里查看.</p>
+    			<p>	. 抽到实物奖品后，使用1元兑换购买指定商品，后续客服会与您联系</p>
+    			<p>	. 优惠券不累计，不置换现金。优惠券使用有效期至2015年12月31日;</p>
+    			<p>	. 如在活动期间发现有违规行为，洋码头有权取消违规账号所得奖品</p>
+    			<p>	. 本活动最终解释权归洋码头所有</p>
+    		</div>
     	</div>
 
     </section>
 
-    <div class="ymtui-dialog-mask"></div>
-    <div class="ymtui-dialog christmas-dialog" id="christmas-dialog">
-
-    </div>
+    <div class="ymtui-dialog-mask J-close-dialog" onclick=";"></div>
+    <div class="ymtui-dialog christmas-dialog" id="christmas-dialog"></div>
 
   <!-- build:js /scripts/zepto,ejs,swiper,imgLazyLoad.js -->
   <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>

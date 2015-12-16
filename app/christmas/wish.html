@@ -14,37 +14,12 @@
     <script data-js-path="redraw.js">
      !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(320,16);
     </script>
-    <!-- build:css /styles/christmas/tree.css-->
-    <link rel="stylesheet" type="text/css" href="/styles/christmas/tree.css">
+    <!-- build:css /styles/christmas/wish.css-->
+    <link rel="stylesheet" type="text/css" href="/styles/christmas/wish.css">
     <!-- endbuild-->
   </head>
   <body module_name="activity_4776_capp">
-  <script id="goods-tpl" type="text-template">
-  {{ for(var i=0,len=PageParts.length;i<len;i++){ }}
-    <div class="goods-item">
-        <div class="goods-banner bg__full img-hold J-open" data-url="{{=PageParts[i].LinkUrl }}" lazy-load-background="{{= PageParts[i].BannerUrl}}"></div>
-        <div class="goods-pic-list swiper-wrapper"><!--
-          {{ for(var j=0,len2=PageParts[i].Products.length;j<len2;j++){ }}
-          --><div class="goods-pic-item swiper-slide J-open " data-url="http://item.app.ymatou.com/forYmatouApp/product/pid?pid={{=PageParts[i].Products[j].ProductId}}" onclick=";">
-              <div class="pic bg__full img-hold" lazy-load-background="{{= PageParts[i].Products[j].PicUrl}}" ></div>
-              <h4>{{= PageParts[i].Products[j].Name}}</h4>
-              <div class="pirce">
-                &yen;{{-: PageParts[i].Products[j].Price | pirceRegion }}
-              </div>
-              <div class="original-price">
-                <del>&yen;{{-: PageParts[i].Products[j].MarketPrice | pirceRegion }}</del>
-              </div>
-          </div><!--
-          {{ } }}-->
-          <div class="goods-pic-item  swiper-slide">
-              <div class="pic bg__full img-hold J-open" data-url="{{=PageParts[i].LinkUrl }}" lazy-load-background="http://static.jyh.ymatou.com/app/images/checkall.1511140138.jpg">
-              更多好货</div>
-          </div>
-          <div class="goods-pic-item swiper-slide"></div>
-        </div>
-    </div>
-    {{ } }}
-  </script>
+  
     <section class="tree-container">
         <div class="tree-options">
             <div class="hd"><i class="icon-start"></i> 选择我的圣诞树</div>
@@ -69,21 +44,21 @@
         <div class="wish-form">
             <div class="hd"><i class="icon-deer"></i> 说出你心中的愿望</div>
             <div class="bd">
-                <textarea class="content" maxlength="20" id="content" placeholder="最多输入20个字哦~"></textarea>  
+                <textarea class="content" maxlength="40" id="content" placeholder="最多输入20个字哦~"></textarea>  
                 <button class="btn btn-full tree-btn invalid" id="submit">许愿</button>
             </div>
         </div>
-        <div class="ymtui-dialog-mask"></div>
+        <div class="ymtui-dialog-mask J-close-dialog"></div>
         <div class="ymtui-dialog christmas-dialog" id="christmas-dialog">
             <div class="ymtui-commirm-bd">
-              您的愿望洋码头听到了，分享后集齐X个赞就有机会实现哟~
+              您的愿望洋码头听到了，分享后集齐10个赞就有机会实现哟~
             </div>
             <div class="ymtui-commirm-ft">
-                   <button class="btn btn-primary-border J-close-dialog" onclick=";">知道了</button>
-                   <button class="btn btn-primary J-share J-add-joinLottery" 
-                        data-share-content="圣诞快来给我点赞吧" 
-                        data-share-title="圣诞快来给我点赞吧"
-                        data-share-pic=""  onclick=";">我要分享</button>
+                   <button class="btn btn-primary-border J-close-dialog" onclick=";">任性拒绝</button>
+                   <button class="btn btn-primary J-share J-add-joinLottery J-close-dialog" 
+                        data-share-title="实现我愿望的圣诞老人正在鹿不停蹄赶来的路上！~"
+                        data-share-content="那个熟悉的白胡子老头又忙起来啦!你有没有收到礼物呢?不要着急,属于你的“圣诞老人”正在赶来的路上呢!快来看看" 
+                        data-share-pic="http://staticontent.ymatou.com/images/activity/christmas/christmas_wish_share.jpg"  onclick=";">分享求点赞</button>
             </div>
         </div>
     </section>
