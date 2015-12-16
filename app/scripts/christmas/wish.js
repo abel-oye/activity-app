@@ -85,6 +85,25 @@
 		$(this).addClass('selected');
 	});
 
+	/**
+	 * 计算字节长度
+	 * @return {[type]} [description]
+	 */
+	var strChatLength = function(str){
+		var i = 0,len=str.length,n=0;
+		while(i<len){
+			n += str.charCodeAt(i++)<128 ? 1 : 2;
+		}
+		return n;
+	},cutString = function(str,len){
+		var i = 0,len1=str.length,n=0;
+		while(i<Math.min(len,len1)){
+			n += str.charCodeAt(i++)<128 ? 1 : 2;
+			if(n === len)break;
+		}
+		return str.substr(0,i);
+	}
+
 	//打开弹层
 	var openDialog = function (data) {
         $('#christmas-dialog').addClass('open');
@@ -95,13 +114,17 @@
     $(document).on('click','.J-close-dialog',function(){
     	$('#christmas-dialog').removeClass('open');
     	$('.ymtui-dialog-mask').removeClass('open');
-    })
+    });
 
 	//var jsApiHost = 'http://172.16.2.97:8001/';
 	var jsApiHost = 'http://jsapi.pk.ymatou.com/';
 	
 	$('#content').on('input',function(){
-		$('#submit')[$(this).val()?'removeClass':'addClass']('invalid');
+		var val = $(this).val();
+		if(strChatLength(val) > 40){
+			$(this).val(cutString(val,40));
+		}
+		$('#submit')[val?'removeClass':'addClass']('invalid');
 	});
 
 	$('#submit').click(function() {
@@ -129,9 +152,9 @@
 
 	$(document).on('click', '.J-share', function() { //分享
 		var $this = $(this),
-			url = $this.attr('data-share-url') || YmtApi.utils.addParam(window.location.href,{
-				wishUserId:YmtApi.utils.getAuthInfo.UserId
-			}),
+			url = $this.attr('data-share-url') || YmtApi.utils.addParam('http://evt.ymatou.com/activity_4861_capp',{
+				wishUserId:YmtApi.utils.getAuthInfo().UserId
+			}), 
 			content = $this.attr('data-share-content'),
 			title = $this.attr('data-share-title'),
 			pic = $this.attr('data-share-pic');
@@ -141,7 +164,8 @@
 			shareUrl: url,
 			sharePicUrl: pic,
 			shareContent: content,
-			showWeiboBtn: 1
+			showWeiboBtn: 0
 		});
-	})
+	});
+
 })();

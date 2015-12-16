@@ -72,7 +72,7 @@
 				}
 			},
 			error: function() {
-				showLog('操作错误.');
+				//showLog('操作错误.');
 			}
 		});
 	};
@@ -215,23 +215,28 @@
 				var $this = $(this),
 					opts = that.opts,
 					left = $this.offset().left - opts.speed * ($this.attr('data-speed') || 1),
-					dataBulletrow = $this.attr('data-bulletrow');
+					dataBulletrow = $this.attr('data-bulletrow'),
+					width  = $this.attr('width');
+
+				if(!width){
+					$this.attr('width',width  = $this.width())
+				}
 
 				$this.css({
 					left: left
 				});
 
-				if (left < -$this.width()) {
+				if (left < -width){
 					$this.remove();
 					that.runBattles--;
 					that.shot($this.attr('data-bulletrow'));
 				}
 				/*else if(left < $(window).width()/opts.battleCell 
-									&& that.rowMap[dataBulletrow] < opts.battleCell){
-									that.runBattles--;
-									that.shot(dataBulletrow);
-									console.log(dataBulletrow)
-								}*/
+					&& that.rowMap[dataBulletrow] < opts.battleCell){
+					that.runBattles--;
+					that.shot(dataBulletrow);
+					console.log(dataBulletrow)
+				}*/
 			});
 		},
 		//暂停子弹飞
@@ -253,6 +258,11 @@
 		AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
 		wishUserId: search.wishUserId
 	}), function(data) {
+		var renderTree = function(data){
+			$('.tree-kind').addClass('tree-kinds-' + (data.WishDetail.WishTreeId || 1));
+			var html = ejs.render($('#wish-tpl').html(), data.WishDetail);
+			$('wish').html(html);
+		}
 		console.log(data)
 		if(data.WishContents && data.WishContents.length){
 			//初始化弹幕
@@ -268,36 +278,18 @@
 		}
 		
 		var wishHtml='';
-
+		if(data.HasWish || YmtApi.isWechat){
+			wishHtml= '<div class="wish">共'+data.WishCount*13+'人许下愿望</div>'
+		}else{
+			wishHtml= '<div class="wish J-open" onclick=";" data-url="http://evt.ymatou.com/activity_4862_Mapp?title=我的圣诞愿望">我要许愿</div><div class="wish-txt">共'+data.WishCount*13+'人许下愿望</div>'
+		}
 		//判断是否存在许愿信息
-		if (data.HasWish) {
-			wishHtml= '<div class="wish">共'+data.WishCount+'人许下愿望</div>'
-			/*data.WishDetail = {
-				WishName:'lunchzhao',
-				WishTreeId:'',
-				WishContent:'希望明年可以拥有二十只狗五只猫死三栋洋房',
-				LikesList:[
-					{
-						UserName:'布拉大王',
-						LogoUrl:'http://pc4.img.ymatou.com/G02/shangou/M06/03/03/CgvUA1ZmckOAPWpqAAFXzIhADMk199-listb_lb.jpg',
-						CreateDate:'2015-12-01 12:12:12'
-					},
-					{
-						UserName:'布拉大王',
-						LogoUrl:'http://pc4.img.ymatou.com/G02/shangou/M06/03/03/CgvUA1ZmckOAPWpqAAFXzIhADMk199-listb_lb.jpg',
-						CreateDate:'2015-12-01 12:12:12'
-					},
-				]
-			}*/
-			if (data.WishDetail) {
-				data.WishDetail.IsSelf = data.IsSelf;
-				$('.tree-kind').addClass('tree-kinds-' + (data.WishDetail.WishTreeId || 1));
-				var html = ejs.render($('#wish-tpl').html(), data.WishDetail);
-				$('wish').html(html);
-			}
+		if (data.HasWish && data.WishDetail) {			
+			data.WishDetail.IsSelf = data.IsSelf;
+			renderTree(data);
 		} else {
 			$('.tree-kind').addClass('tree-kinds-1');
-			wishHtml= '<div class="wish J-open" onclick=";" data-url="http://evt.ymatou.com/activity_16076_Mapp?title=圣诞许愿">我要许愿</div><div class="wish-txt">共'+data.WishCount+'人许下愿望</div>'
+			
 		}
 		$('.tree-wrapper').append(wishHtml)
 	});
@@ -315,7 +307,7 @@
 				jsonpGetData(YmtApi.utils.addParam(jsApiHost + 'api/Christmas/JoinLottery', {
 					AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
 					DeviceId: search.DeviceId || search.DeviceToken || '111'
-				}), function(data) {
+				}), function(data) {					
 					openDialog(data);
 				});
 			} else {
@@ -337,22 +329,6 @@
 		$this.text($this.text() === '关闭弹幕' ? '打开弹幕' : '关闭弹幕');
 	});
 
-	$('.J-toLike').click(function(){
-		if (YmtApi.utils.hasLogin()) {
-			jsonpGetData(YmtApi.utils.addParam(jsApiHost + 'api/Christmas/WishLikes', {
-				AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
-				WishId: $(this).attr('data-wishId')
-			}), function(data) {
-				if (data.HasSuccess) {
-					window.location.reload();
-				} else {
-					showLog('哈尼，您已经给他点过赞啦！')
-				}
-			});
-		} else {
-			YmtApi.toLogin();
-		}
-	});
 
 	//抽奖
 	$('.J-joinLottery').click(joinLottery);
@@ -368,13 +344,34 @@
 		}),function(){
 
 		});
+	}).on('click','.J-toLike',function(){
+		var $this = $(this);
+		if (YmtApi.utils.hasLogin()) {
+			if($this.attr('data-liked')){
+				location.href="http://download.app.ymatou.com/index.aspx?from=inapp25";
+				return;
+			}
+			jsonpGetData(YmtApi.utils.addParam(jsApiHost + 'api/Christmas/WishLikes', {
+				AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
+				WishId: $(this).attr('data-wishId')
+			}), function(data) {
+				if (data.HasSuccess) {
+					window.location.reload();
+					$this.text('已赞，我也要许愿').attr('data-liked',true);
+				} else {
+					showLog('哈尼，您已经给他点过赞啦！')
+				}
+			});
+		} else {
+			YmtApi.toLogin();
+		}
 	});
 
 
 	$(document).on('click', '.J-share', function() { //分享
 		var $this = $(this),
-			url = $this.attr('data-share-url') || YmtApi.utils.addParam(window.location.href,{
-				wishUserId:YmtApi.utils.getAuthInfo.UserId
+			url = $this.attr('data-share-url') || YmtApi.utils.addParam('http://'+location.host+location.pathname,{
+				wishUserId:YmtApi.utils.getAuthInfo().UserId
 			}),
 			content = $this.attr('data-share-content'),
 			title = $this.attr('data-share-title'),
@@ -385,7 +382,7 @@
 			shareUrl: url,
 			sharePicUrl: pic,
 			shareContent: content,
-			showWeiboBtn: 1
+			showWeiboBtn: 0
 		});
 	}).on('click', '.J-open', function() {
 		var $this = $(this);
@@ -398,6 +395,15 @@
 	})
 
 
+	if(YmtApi.isWechat){
+		YmtApi.initWechat({
+			shareConf: {
+		        title: '实现我愿望的圣诞老人正在鹿不停蹄赶来的路上！',
+		        desc: '那个熟悉的白胡子老头又忙起来啦!你有没有收到礼物呢?不要着急,属于你的”圣诞老人“正在赶来的路上呢!快来看看',
+		        imgUrl: 'http://staticontent.ymatou.com/images/activity/christmas/christmas_wish_share.jpg'
+		      }
+		});
+	}
 
 	///172.16.2.97:8001
 })();
