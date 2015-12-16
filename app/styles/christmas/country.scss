@@ -1,9 +1,9 @@
 @charset'UTF-8';
  /**
- * 圣诞节
- * @Author river
- * @email lijiang@ymatou.com
- * @Date 2015/12/09
+ * 圣诞国家馆
+ * @Author zzz
+ * @email zhangzongzheng@ymatou.com
+ * @Date 2015/12/16
  */
  @import'../_components/variables.scss';
  @import'../_components/_mixin.scss';
@@ -20,25 +20,34 @@
 @import'../black_five/_proList.scss';
 @import'../assets/_global_good.scss';
 
- // $imgPath:'/images/christmas/';
- $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/';
+ $imgPath:'/images/christmas/country/';
+ // $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/';
 
- @include productList(#ef3b3b,#fff);
+ @include productList(#9b121b,#fff);
 
-.evt-continer{
-    background:#ef3b3b;
+.evt-container{
+    background:#9b121b;
 }
 
 .evt-banner{
-    height:$rem*394;
+    height:$rem*457;
     background-image:url(#{$imgPath}banner.jpg);
     @extend .bg__full;
 }
 
-.evt-christmas{
-    height:$rem*286;
-    background-image:url(#{$imgPath}christmas.jpg);
+.evt-christmas-gift{
+    height:$rem*190;
+    background-image:url(#{$imgPath}christmas_gift.jpg);
+    position: relative;
     @extend .bg__full;
+
+    .get-gift {
+        width: $rem*180;
+        height: $rem*56;
+        position: absolute;
+        bottom: $rem*16;
+        right: $rem*112;
+    }
 }
 
 //重置全球热卖标题样式
@@ -60,6 +69,10 @@
 
 .chr-pro{
     padding-top:$rem*5;
+    &-red {
+        background-color: #9b121b;
+        @include resetHotStyle(#9b121b);
+    }
     &-blue{
         background:#0072ff;
         @include resetHotStyle(#0072ff);
@@ -74,11 +87,11 @@
     }
 
     .evt-area-hd{
-        height:$rem*98;
+        height:$rem*131;
         @extend .bg__full;
     }
     .evt-area-bd{
-        padding:$rem*10;
+        padding: 0 $rem*10 0;
     }
     .evt-area-ft{
         padding:0 $rem*10 $rem*10;
@@ -151,7 +164,7 @@
 
 
 
-@for $i from 1 to 7 {
+@for $i from 1 to 4 {
     .chr-pro-0#{$i}{
         .evt-area-hd{
             background-image:url(#{$imgPath}/title0#{$i}.jpg);
@@ -159,150 +172,87 @@
     }
 }
 
-
-//丝带页签
-.ribbon-tab{
-    height:$rem*88;
-    position:fixed;
-    // bottom:$rem*175;
-    top: 0;
-    left:0;
-    width:100%;
-    transition: transform 0.25s ease-in-out;
-    will-change:transform;
-    transform: translate(-100%, 0);
-    &.show{
-        transform: translate(0, 0);
-    }
-    .tab-wrapper{
-        height:$rem*80;
-        position: relative;
-    }
-    .tab-inner{
-        height:100%;
-        width:$rem*712;
-        margin:0 auto;
-        background:#1e814b;
-        position:relative;
-        z-index:2;
-        padding-top:$rem*3;
-    }
-    .tab-after,
-    .tab-before{
-        background:#136638;
-        width:$rem*27;
-        height:100%;
-        position: absolute;
-        top:$rem*10;
-        padding-top:$rem*3;
-    }
-    .tab-after{
-        right:0;
-        &:before{
-            content:'';
-            position:absolute;
-            border:$rem*9 solid rgba(0,0,0,0);
-              border-right-color: #010000;
-              transform: rotate(45deg);
-               bottom: 1px;
-               left: -$rem*9;
-
-        }
-    }
-    .tab-before{
-        left:0;
-        &:before{
-            content:'';
-            position:absolute;
-            border:$rem*9 solid rgba(0,0,0,0);
-              border-left-color: #010000;
-              transform: rotate(-45deg);
-               bottom: 1px;
-               right: -$rem*9;
-
-        }
-    }
-    .tab-border{
-        height:$rem*70;
-        border-top:1px dashed #559b76;
-        border-bottom:1px dashed #559b76;
-    }
-    .tab-list{
-        font-size:$rem*30;
-        color:#fcf69e;
-        padding:0 $rem*20;
-        &>li{
-            width:20%;
-            text-align:center;
-            float:left;
-            line-height:$rem*70;
-            &.active{
-                background:#fcf69e;
-                color:#1e814b;
-            }
-        }
-    }
-}
-
 //全球买手
 .seller-seeding{
-    padding:$rem*10;
-    padding-right:0;
-    background:#fff;
+    padding-bottom: $rem*18;
+    background:#9b121b;
     @include clearfix();
     .seller-title{
-        height:$rem*376;
-        width:$rem*79;
-        float: left;
-        margin-right:$rem*3;
+        height: $rem*122;
+        width: 100%;
         @extend .bg__full;
     }
     .seller-area{
         float:left;
-        width:$rem*322;
-        height:$rem*187;
-        margin-right:$rem*3;
-        margin-bottom:$rem*3;
+        width:25%;
+        height:$rem*250;
         @extend .bg__full;
     }
 }
 
 .tab{
-    height:$rem*173;
+    height:$rem*155;
     nav{
         transition: transform 0.25s ease-in-out;
-        will-change:transform;
-        transform: translate(0, 100%);
+        // will-change:transform;
+        // transform: translate(0, 100%);
         position:fixed;
         bottom:0;
         left:0;
         width:100%;
-        height:$rem*173;
+        height:$rem*155;
         @extend .bg__full;
-        padding:0 $rem*50;
-        background-image:url(#{$imgPath}tab_bg.png);
-          background-position: bottom;
-        padding-top:$rem*115;
+        padding:$rem*56 $rem*25 $rem*36;
+        background-image:url(#{$imgPath}tab_bg.jpg);
+        // background-position: bottom;
         &.show{
             transform: translate(0, 0);
         }
         ul{
-            width:100%;
-             @include clearfix();
+            width: 100%;
+            height: 100%;
+            @include clearfix();
         }
         li{
             float:left;
-            width:25%;
+            width:20%;
+            height: $rem*63;
+            padding-right: $rem*25;
             text-align:center;
-            color:#1e814b;
-            font-size:$rem*30;
+            color:#fff;
+            font-size:$rem*36;
             font-weight:bold;
+            position: relative;
+            z-index: 9;
             &.active{
-                color:#ef3b3b;
                 &>span{
-                    border-bottom:$rem*2 solid #ef3b3b;
-                    padding-bottom:$rem*5;
+                    display: block;
                 }
+            }
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+        .slide-block {
+            width: $rem*120;
+            height: $rem*143;
+            position: absolute;
+            top: -$rem*24;
+            left: $rem*25;
+            transition: all 0.25s ease-in-out;
+            .santa-claus {
+                display: block;
+                height: $rem*80;
+                background-image: url(#{$imgPath}santa_claus.png);
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            .block {
+                display: block;
+                height: $rem*63;
+                background-color: #900e0e;
+                z-index: 0;
             }
         }
     }
@@ -310,7 +260,6 @@
 
 .ymt-butler{
     bottom:$rem*300;
-    background-image: url(http://pm4.img.ymatou.com/G02/M03/99/8D/CgvUBVZxShKAPR9dAAAky5AzCb8635_o.png);
 }
 
 .module-hold{
@@ -337,3 +286,48 @@
         }
     }
 }
+.pro-wrapper{
+    background: #fff;
+    padding-bottom:$rem*18;
+    margin-bottom:$rem*8;
+    border-radius:$rem*10;
+    overflow:hidden;
+   .price-wrapper{
+       box-sizing: content-box;
+       width:100%;
+       height:$rem*60;
+       line-height:$rem*60;
+       border:$rem*6 solid #f0dade;
+       border-radius: $rem*10;
+       margin-top:$rem*10;
+       background-color: #fff;
+       &>span{
+           display:inline-block;
+           height:100%;
+           text-align:center;
+           float:left;
+       }
+       &>:first-child{
+           background-color:#fff;
+           color:#cf2541;
+           width:40%;
+           font-size: $rem*24;
+           font-weight:bold;
+           border-radius: 0;
+           border-top-left-radius: $rem*6;
+           border-bottom-left-radius: $rem*6;
+       }
+       &>:last-child{
+           background-color:#cf2541;
+           color:#fff;
+           border-top-right-radius: $rem*6;
+           border-bottom-right-radius: $rem*6;
+           width:60%;
+           &>strong{
+               font-size:$rem*40;
+               font-weight:bold;
+           }
+       }
+   }
+
+ }
