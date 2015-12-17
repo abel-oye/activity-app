@@ -153,7 +153,7 @@
 	$(document).on('click', '.J-share', function() { //分享
 		var $this = $(this),
 			url = $this.attr('data-share-url') || YmtApi.utils.addParam('http://evt.ymatou.com/activity_4861_capp',{
-				wishUserId:YmtApi.utils.getAuthInfo().UserId
+				wishUid:YmtApi.utils.getAuthInfo().UserId
 			}), 
 			content = $this.attr('data-share-content'),
 			title = $this.attr('data-share-title'),
