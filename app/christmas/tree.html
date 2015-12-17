@@ -19,6 +19,7 @@
     <!-- endbuild-->
   </head>
   <body module_name="activity_4776_capp">
+
   <script id="wish-tpl" type="text/template">
 	 <div class="wish-wrapper">
 		<div class="wish-inner">
@@ -55,7 +56,7 @@
 								<h3>{{=LikesList[i].UserName}}</h3>
 								<small>{{=(LikesList[i].CreateDate||'').replace('T',' ').replace(/\.\d*/,'')}}</small>
 							</div>
-							<span>给你点了赞</span>
+							<span>给{{-IsSelf?'你':'TA'}}点了赞</span>
 						</li>
 						{{ } }}
 					</ul>
