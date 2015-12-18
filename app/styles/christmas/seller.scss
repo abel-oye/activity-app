@@ -156,7 +156,8 @@ $image_online_path: 'http://staticontent.ymatou.com/images/buyerlist/';
                     margin-top: $rem*22;
 
                     .tag-item {
-                        display: inline-block;
+                        // display: inline-block;
+                        float: left;
                         width: 50%;
                         text-align: center;
                         font-size: $rem*26;
@@ -164,6 +165,7 @@ $image_online_path: 'http://staticontent.ymatou.com/images/buyerlist/';
                     }
 
                     .live {
+                        // width: 49%;
                         border-right: $rem*3 solid #dedede;
                     }
                 }

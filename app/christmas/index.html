@@ -45,7 +45,7 @@
               <div class="pic bg__full img-hold" lazy-load-background="{{-: Products[i].PicUrl | convertImgUrl }}" ></div>
               <div class="info">
                   <div class="national-wrapper">
-                    {{ if(!Products[i].PackageId){ }}  <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlagUrl}}" ></span>{{=Products[i].CountryName}} {{ } }}
+                    {{ if(!Products[i].PackageId){ }}  <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlag}}" ></span>{{=Products[i].CountryName}} {{ } }}
                   </div>
                   <h4>{{=Products[i].Name}}</h4>
 
@@ -129,7 +129,7 @@
     <section class="evt-continer">
 
       <div class="evt-banner"></div>
-      <!-- <div class="evt-christmas J-open-confirm" id="evt-01"></div> -->
+      <div class="evt-christmas J-open-confirm" id="evt-01"></div>
 
       <!--越高冷越爱-->
       <div class="evt-area chr-pro chr-pro-01 J-bf-axie" id="evt-02">

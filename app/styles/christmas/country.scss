@@ -20,8 +20,8 @@
 @import'../black_five/_proList.scss';
 @import'../assets/_global_good.scss';
 
- $imgPath:'/images/christmas/country/';
- // $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/';
+ // $imgPath:'/images/christmas/country/';
+ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/';
 
  @include productList(#9b121b,#fff);
 
@@ -164,7 +164,7 @@
 
 
 
-@for $i from 1 to 4 {
+@for $i from 1 to 5 {
     .chr-pro-0#{$i}{
         .evt-area-hd{
             background-image:url(#{$imgPath}/title0#{$i}.jpg);
@@ -194,7 +194,7 @@
     height:$rem*155;
     nav{
         transition: transform 0.25s ease-in-out;
-        // will-change:transform;
+        will-change:transform;
         // transform: translate(0, 100%);
         position:fixed;
         bottom:0;
@@ -247,6 +247,7 @@
                 background-size: contain;
                 background-repeat: no-repeat;
                 background-position: center;
+                animation: santa-animation 1s linear 0s infinite alternate;
             }
             .block {
                 display: block;
@@ -258,12 +259,24 @@
     }
 }
 
+@keyframes santa-animation {
+    0% {
+        transform: rotate(-5deg);
+        transform-origin: 5% 80%;
+    }
+
+    100% {
+        transform: rotate(-15deg);
+        transform-origin: 30% 80%;
+    }
+}
+
 .ymt-butler{
     bottom:$rem*300;
 }
 
 .module-hold{
-    background-image:url(http://staticontent.ymatou.com/images/activity/christmas/christmas-load.png);
+    background-image:url(http://staticontent.ymatou.com/images/activity/christmas/christmas-loading.gif);
 }
 
 .ios-bartools{

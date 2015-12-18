@@ -1,0 +1,119 @@
+@import './secondary.scss';
+@import'../black_five/_proList.scss';
+
+// $imgPath:'/images/christmas/country/aoxin/';
+$imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin/';
+
+@include productList(#ef3b3b,#fff);
+
+.bf-country-banner {
+    height: $rem*390;
+    background-image: url(#{$imgPath}banner_sec.jpg);
+}
+
+.bf-area-hd {
+    background-image: url(#{$imgPath}title_bg_sec.jpg);
+    .bf-area-title {
+        & > h3 {
+            color: #df3549;
+        }
+        div {
+            color: #df3549;
+        }
+    }
+}
+
+//重置全球热卖标题样式
+@mixin resetHotStyle($color){
+    .hot-wrapper{
+        .hot-hd{
+            .title{
+                color:$color !important;
+                &:before{
+                    border-left-color:  $color !important;
+                }
+                &:after{
+                    border-right-color:  $color !important;
+                }
+            }
+        }
+    }
+}
+
+.chr-pro{
+    padding-top:$rem*5;
+    background-color:#df3549;
+    @include resetHotStyle(#df3549);
+
+    .evt-area-hd{
+        margin: 0 $rem*10;
+        height:$rem*98;
+        line-height: $rem*98;
+        background-image: url(#{$imgPath}title_bg.jpg);
+        @extend .bg__full;
+        background-size: cover;
+        text-align: center;
+        font-size: $rem*36;
+        color: #fff;
+    }
+    .evt-area-bd{
+        padding:$rem*10;
+    }
+    .evt-area-ft{
+        padding:0 $rem*10 $rem*10;
+    }
+    .hot-wrapper{
+        .hot-hd{
+            padding:$rem*20 0;
+            margin-bottom:$rem*20;
+            $color:#fff;
+            .inner{
+                width:100%;
+                border-bottom:1px solid #fff;
+                height:$rem*25;
+            }
+            .title{
+                height:$rem*50;
+                line-height:$rem*50;
+                width:$rem*330;
+                background:#fff;
+                color:$color;
+                font-size:$rem*35;
+                text-align:center;
+                font-weight:bold;
+                margin:0 auto;
+                &:before,
+                &:after{
+                    content:'';
+                    border:$rem*25 solid rgba(0,0,0,0);
+                    display: inline-block;
+                }
+                &:before{
+                    border-left-color:  $color;
+                    float:left;
+                    margin-left: -1px;
+                }
+                &:after{
+                    border-right-color:  $color;
+                    float:right;
+                    margin-right: -1px;
+                }
+            }
+        }
+    }
+}
+
+.load-over {
+    color: #fff;
+}
+
+.load-over, .bf-tab-wrapper {
+    background-color: #df3549;
+}
+
+.bf-tab-wrapper {
+    .bf-tab-bd li {
+        width: 33.3%;
+    }
+}
+
