@@ -1,34 +1,24 @@
 @import './secondary.scss';
 @import'../black_five/_proList.scss';
 
-// $imgPath:'/images/christmas/country/aoxin/';
-$imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin/';
+// $imgPath:'/images/christmas/country/america/';
+$imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/america/';
 
 @include productList(#ef3b3b,#fff);
 
 .bf-country-banner {
-    height: $rem*390;
+    height: $rem*518;
     background-image: url(#{$imgPath}banner_sec.jpg);
 }
 
 .bf-area-hd {
-    // background-image: url(#{$imgPath}title_bg_sec.jpg);
-    @extend .bg__full;
+    background-image: url(#{$imgPath}title_bg_sec.jpg);
     .bf-area-title {
         & > h3 {
             color: #df3549;
         }
         div {
             color: #df3549;
-        }
-    }
-}
-
-@for $i from 1 through 3 {
-    .chr-pro-#{$i} {
-        .bf-area-hd {
-            background-image: url(#{$imgPath}title_bg_#{$i}.png);
-            background-color: #fff;
         }
     }
 }
@@ -52,8 +42,8 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin
 
 .chr-pro{
     padding-top:$rem*5;
-    background-color:#df3549;
-    @include resetHotStyle(#df3549);
+    background-color:#dc212b;
+    @include resetHotStyle(#fff);
 
     .evt-area-hd{
         margin: 0 $rem*10;
@@ -79,20 +69,20 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin
             $color:#fff;
             .inner{
                 width:100%;
-                border-bottom:1px solid #fff;
+                border-bottom:1px dashed #fff;
                 height:$rem*25;
             }
             .title{
                 height:$rem*50;
                 line-height:$rem*50;
-                width:$rem*330;
-                background:#fff;
+                width:$rem*120;
+                background-color: #DC212B;
                 color:$color;
-                font-size:$rem*35;
+                font-size:$rem*24;
                 text-align:center;
-                font-weight:bold;
+                // font-weight:bold;
                 margin:0 auto;
-                &:before,
+                /* &:before,
                 &:after{
                     content:'';
                     border:$rem*25 solid rgba(0,0,0,0);
@@ -107,7 +97,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin
                     border-right-color:  $color;
                     float:right;
                     margin-right: -1px;
-                }
+                } */
             }
         }
     }
@@ -126,7 +116,6 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin
         width: 33.3%;
     }
 }
-
 .bf-tab-bd {
     & > ul {
         background-image: url(#{$imgPath}nav_sec_bg.png);

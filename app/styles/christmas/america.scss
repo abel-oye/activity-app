@@ -20,8 +20,8 @@
 @import'../black_five/_proList.scss';
 @import'../assets/_global_good.scss';
 
-// $imgPath:'/images/christmas/country/aoxin/';
-$imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin/';
+// $imgPath:'/images/christmas/country/america/';
+$imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/america/';
 
  @include productList(#ef3b3b,#fff);
 
@@ -30,19 +30,13 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin
 }
 
 .evt-banner{
-    height:$rem*340;
+    height:$rem*464;
     background-image:url(#{$imgPath}banner.jpg);
     @extend .bg__full;
 }
 
-.evt-christmas{
-    height:$rem*286;
-    background-image:url(#{$imgPath}christmas.jpg);
-    @extend .bg__full;
-}
-
 .evt-christmas-gift{
-    height:$rem*190;
+    height:$rem*286;
     background-image:url(#{$imgPath}christmas_gift.jpg);
     position: relative;
     @extend .bg__full;
@@ -63,32 +57,36 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin
     width: 100%;
     overflow: hidden;
     box-sizing: border-box;
-    // padding:$rem*7 0 $rem*30;
-    .bf-area-hd {
+    /* .bf-area-hd {
         height: $rem*110;
         background-image: url(#{$imgPath}kjt.jpg);
         @extend .bg__full;
-    }
+    } */
     .bf-area-bd{
         position: relative;
-        height: $rem*420;
+        height: $rem*552;
+        background-image: url(#{$imgPath}kjt_bg.png);
+        background-size: 100% 100%;
     }
     &-list{
         white-space: nowrap;
+        font-size: 0;
     }
     &-item{
+        height: $rem*552;
         padding: $rem*10;
         display:inline-block;
-        background-size: $rem*40 $rem*40; /* 控制条纹的大小 */
+        /* background-size: $rem*40 $rem*40; 控制条纹的大小
         background-image: -webkit-gradient(linear, 0 0, 100% 100%,
+        from(rgba(156, 17, 51,1)),
         color-stop(.25, rgba(156, 17, 51,1)), color-stop(.25, rgba(255,255,255,1)),
-        color-stop(.5, rgba(255,255,255,1)), color-stop(.5, rgba(156, 17, 51,1)),
-        color-stop(.75, rgba(156, 17, 51,1)), color-stop(.75, rgba(255,255,255,1)),
-        to(rgba(255,255,255,1)));
+        color-stop(.5, rgba(255,255,255,1)), color-stop(.5, rgba(120, 163, 56,1)),
+        color-stop(.75, rgba(120, 163, 56,1)), color-stop(.75, rgba(255,255,255,1)),
+        to(rgba(255,255,255,1))); */
     }
     &-pro{
         width:100%;
-        height:$rem*400;
+        height:$rem*532;
         position:relative;
         background-size: cover;
     }
@@ -122,15 +120,14 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin
         }
     }
     .module-hold{
-        height:$rem*400;
+        // height:$rem*400;
     }
 }
 
 //优惠券
 .coupon-area {
-    height: $rem*300;
-    padding-top: $rem*220;
-    background-image: url(#{$imgPath}coupon_banner.jpg?v=1);
+    height: $rem*282;
+    background-color: #fff;
     @extend .bg__full;
 
     .coupon-list {
@@ -172,6 +169,24 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin
     }
 }
 
+//批量设置标题背景图片
+@for $i from 1 through 6 {
+    .chr-pro-0#{$i}{
+        .evt-area-hd{
+            background-image:url(#{$imgPath}/title_#{$i}.jpg);
+        }
+    }
+}
+
+@for $i from 1 through 3 {
+    .chr-pro.chr-country-0#{$i}{
+        .evt-area-hd{
+            background-image:url(#{$imgPath}/title_country_#{$i}.jpg);
+            height: $rem*294;
+        }
+    }
+}
+
 //重置全球热卖标题样式
 @mixin resetHotStyle($color){
     .hot-wrapper{
@@ -198,12 +213,39 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin
         margin: 0 $rem*10;
         height:$rem*98;
         line-height: $rem*98;
-        background-image: url(#{$imgPath}title_bg.jpg);
         @extend .bg__full;
         background-size: cover;
         text-align: center;
         font-size: $rem*36;
         color: #fff;
+
+        .title {
+            display: inline-block;
+            padding: 0 $rem*24;
+            position: relative;
+
+            &:before {
+                content: '';
+                display: inline-block;
+                width: $rem*100;
+                height: $rem*4;
+                background-color: #fff;
+                position: absolute;
+                left: -$rem*100;
+                top: 50%;
+            }
+
+            &:after {
+                content: '';
+                display: inline-block;
+                width: $rem*100;
+                height: $rem*4;
+                background-color: #fff;
+                position: absolute;
+                right: -$rem*100;
+                top: 50%;
+            }
+        }
     }
     .evt-area-bd{
         padding:$rem*10;
@@ -325,19 +367,30 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin
         background:#e53a35;
         position:relative;
         z-index:2;
-        font-size:$rem*30;
+        font-size:$rem*22;
         color:#fff;
         border: 1px solid #f29d9a;
 
         @include clearfix();
         &>li{
-            padding: 0 $rem*18;
-            text-align:center;
+            padding: 0 $rem*11;
+            // width: 14.28%;
+            height: 100%;
             float:left;
-            line-height:$rem*62;
+            text-align: center;
+            // line-height:$rem*62;
             &.active{
                 background:#43a047;
                 color:#fff;
+            }
+            >span {
+                display: inline-block;
+                vertical-align: middle;
+                line-height: $rem*62;
+
+                &.two-line {
+                    line-height: 1.4;
+                }
             }
         }
     }
@@ -345,23 +398,18 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin
 
 //全球买手
 .seller-seeding{
-    padding:$rem*10;
-    padding-right:0;
-    background:#fff;
+    padding-bottom: $rem*18;
+    background:#9b121b;
     @include clearfix();
     .seller-title{
-        height:$rem*376;
-        width:$rem*79;
-        float: left;
-        margin-right:$rem*3;
+        height: $rem*122;
+        width: 100%;
         @extend .bg__full;
     }
     .seller-area{
         float:left;
-        width:$rem*322;
-        height:$rem*187;
-        margin-right:$rem*3;
-        margin-bottom:$rem*3;
+        width:25%;
+        height:$rem*250;
         @extend .bg__full;
     }
 }
@@ -414,6 +462,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/aoxin
 }
 
 .module-hold{
+    background-color: #fff;
     background-image:url(http://staticontent.ymatou.com/images/activity/christmas/christmas-loading.gif);
 }
 

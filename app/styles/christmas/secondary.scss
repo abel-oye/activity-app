@@ -97,52 +97,52 @@
         }
 
     }
-  &-hd{
-        position:relative;
-        height:$rem*94;
-        z-index:2;
-        left:0;
-        span{//小洋人
-            z-index:2;
-            position:relative;
-            transition: left 0.25s ease-in-out;
-            will-change:transform;
-            &:before{
-                content:'';
-                position:absolute;
-                left:0;
-                top:0;
-                width:$rem*38;
-                height:$rem*68;
-                animation: sign-sway 3s infinite alternate;
-                will-change:transform;
-                background-image:url(#{$imgPath}balloon.png);
-                @extend .bg__full;
-            }
-            &:after{
-                content:'';
-                position:absolute;
-                left:$rem*26;
-                //bottom:$rem*-12;
-                top:$rem*28;
-                background-image:url(#{$imgPath}people.png);
-                width:$rem*70;
-                height:$rem*70;
-                 @extend .bg__full;
-            }
-        }
+/*   &-hd{
+      position:relative;
+      height:$rem*94;
+      z-index:2;
+      left:0;
+      span{//小洋人
+          z-index:2;
+          position:relative;
+          transition: left 0.25s ease-in-out;
+          will-change:transform;
+          &:before{
+              content:'';
+              position:absolute;
+              left:0;
+              top:0;
+              width:$rem*38;
+              height:$rem*68;
+              animation: sign-sway 3s infinite alternate;
+              will-change:transform;
+              background-image:url(#{$imgPath}balloon.png);
+              @extend .bg__full;
+          }
+          &:after{
+              content:'';
+              position:absolute;
+              left:$rem*26;
+              //bottom:$rem*-12;
+              top:$rem*28;
+              background-image:url(#{$imgPath}people.png);
+              width:$rem*70;
+              height:$rem*70;
+               @extend .bg__full;
+          }
+      }
 
-        &:after{
-            content:'';
-            background-image:url(#{$imgPath}tab_bg.png);
-            @extend .bg__full;
-            position:absolute;
-            width:$rem*191;
-            height:$rem*84;
-            right:$rem*25;
-            bottom:$rem*-10;
-        }
-    }
+      &:after{
+          content:'';
+          background-image:url(#{$imgPath}tab_bg.png);
+          @extend .bg__full;
+          position:absolute;
+          width:$rem*191;
+          height:$rem*84;
+          right:$rem*25;
+          bottom:$rem*-10;
+      }
+  } */
     &-bd{
         position:relative;
         display: -moz-box;
@@ -154,7 +154,7 @@
             -moz-box-flex: 1;
             -webkit-box-flex: 2;
             box-flex: 1;
-            &:before{
+            /* &:before{
                 content:'';
                 position:absolute;
             }
@@ -165,29 +165,27 @@
                 top:$rem*5;
                  @extend .bg__full;
                 background-image:url(#{$imgPath}tab-left-flag.png);
-            }
+            } */
             height:$rem*94;
             line-height:$rem*94;
             color:#fff;
             text-align:center;
-            background: #363636;
+            // background: #363636;
             border-radius:$rem*94;
-            box-shadow: 0 $rem*6 #6F6F6F;
+            // box-shadow: 0 $rem*6 #6F6F6F;
         }
 
         li{
             float:left;
             overflow:hidden;
-            //a{
-                display:block;
+            display:block;
 
-                //padding:0 $rem*12;
-                height:100%;
-                width:25%;
-                color:#fff;
-                position:relative;
-                z-index: 3;
-           //}
+            //padding:0 $rem*12;
+            height:100%;
+            width:25%;
+            color:#fff;
+            position:relative;
+            z-index: 3;
             &:first-child{
                 border-top-left-radius:$rem*94;
                 border-bottom-left-radius:$rem*94;
@@ -229,12 +227,6 @@
         display:block;
         position:relative;
     }
-}
-.module-hold{
-    background-image:url(#{$imgPath}loading.jpg);
-    background-color:#fff;
-    @extend .bg__full;
-
 }
 
 .pro-wrapper{
@@ -309,7 +301,7 @@
 }
 
 .module-hold{
-    background-image:url(#{$imgPath}loading_cut.jpg);
+    background-image:url(http://staticontent.ymatou.com/images/activity/christmas/christmas-loading.gif);
     background-color:#fff;
     height:$rem*600;
     @extend .bg__full;

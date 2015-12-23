@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
     <meta name="format-detection" content="telephone=no" />
-    <title>圣诞澳新日</title>
+    <title>圣诞欧洲日</title>
     <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
     <link rel="dns-prefetch" href="//static.jyh.ymatou.com">
     <link rel="dns-prefetch" href="//jyh.ymatou.com">
@@ -14,8 +14,8 @@
     <script data-js-path="redraw.js">
      !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
     </script>
-    <!-- build:css /styles/christmas/aoxin.css-->
-    <link rel="stylesheet" type="text/css" href="/styles/christmas/aoxin.css">
+    <!-- build:css /styles/christmas/europe.css-->
+    <link rel="stylesheet" type="text/css" href="/styles/christmas/europe.css">
     <!-- endbuild-->
   </head>
   <body>
@@ -129,19 +129,22 @@
     <section class="evt-continer">
 
       <div class="evt-banner"></div>
-      <div class="evt-christmas-gift" onclick=";"></div>
+
 
       <!--砍价团-->
       <div class="bf-area bf-group" id="group">
-        <div class="bf-area-hd J-open" data-url="http://evt.ymatou.com/activity_4377_CAPP" onclick=";"></div>
+        <!-- <div class="bf-area-hd J-open" data-url="http://evt.ymatou.com/activity_4377_CAPP" onclick=";"></div> -->
         <div class="bf-area-bd">
-          <div class="J-module-Hold module-hold" data-module="groupList" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/christmas-load.png"></div>
+          <div class="J-module-Hold module-hold" data-module="groupList" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/christmas-loading.gif"></div>
         </div>
       </div>
 
+      <div class="evt-christmas-gift" onclick=";"></div>
+
       <!--优惠券-->
-      <div class="coupon-area J-bf-axie J-open" evt-id="evt-00" country-id="aozhou" onclick=";" data-url="http://evt.ymatou.com/activity_4874_capp" data-title="澳新折扣无极限">
-            <div class="coupon-list">
+      <div class="coupon-area J-bf-axie J-open" evt-id="evt-00" country-id="country-01" onclick=";" data-url="http://evt.ymatou.com/activity_4898_capp" data-title="欧洲折扣无极限"
+      style="background-image: url(http://staticontent.ymatou.com/images/activity/christmas/christmas-loading.gif)" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/country/europe/coupon.jpg">
+            <!-- <div class="coupon-list">
                 <div class="coupon-item-wrap">
                     <div class="coupon-item">
                         下单输入XAU55<br><em>499</em>减<em>55</em>
@@ -157,18 +160,17 @@
                         下单输入XAU10<br><em>11</em>减<em>10</em>
                     </div>
                 </div>
-            </div>
+            </div> -->
       </div>
 
       <!--越高冷越爱-->
       <div class="evt-area chr-pro chr-pro-01 J-bf-axie" evt-id="evt-01">
-        <div class="evt-area-hd">————&nbsp;澳洲保健品的断货王&nbsp;————</div>
+        <div class="evt-area-hd">————&nbsp;LOUIS VUITTON <strong>7</strong>折起&nbsp;————</div>
         <div class="evt-area-bd">
-          <div class="bf-list bf-item_2col">
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4864,7983"
+          <div class="bf-list bf-item_2col" id='1'>
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,1"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
-
           <!--全球热卖-->
           <div class="hot-wrapper">
             <div class="hot-hd">
@@ -179,8 +181,8 @@
               </div>
             </div>
             <div class="hot-bd">
-              <div class="bf-list bf-item_2col" id='1'>
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,1"
+              <div class="bf-list bf-item_2col">
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8124"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -189,7 +191,7 @@
       </div>
       <!--越高冷越爱-->
       <div class="evt-area chr-pro chr-pro-02 J-bf-axie" evt-id="evt-02">
-        <div class="evt-area-hd">————&nbsp;过年宅家必备的零食清单&nbsp;————</div>
+        <div class="evt-area-hd">————&nbsp;PRADA <strong>3</strong>折起&nbsp;————</div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='2'>
              <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,2"
@@ -206,7 +208,7 @@
              </div>
              <div class="hot-bd">
                <div class="bf-list bf-item_2col">
-                  <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4864,7980"
+                  <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8125"
                        lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                </div>
              </div>
@@ -215,7 +217,7 @@
       </div>
       <!--越高冷越爱-->
       <div class="evt-area chr-pro chr-pro-03 J-bf-axie" evt-id="evt-03">
-        <div class="evt-area-hd">————&nbsp;你的鞋柜少双UGG雪地靴&nbsp;————</div>
+        <div class="evt-area-hd">————&nbsp;BOTTEGA VENETA <strong>3</strong>折起&nbsp;————</div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='3'>
              <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,3"
@@ -232,7 +234,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4864,7981"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8126"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -241,8 +243,8 @@
         </div>
       </div>
       <!--越高冷越爱-->
-      <div class="evt-area chr-pro chr-pro-05 J-bf-axie" evt-id="evt-04">
-        <div class="evt-area-hd">————&nbsp;PANDORA串起幸福时刻&nbsp;————</div>
+      <div class="evt-area chr-pro chr-pro-04 J-bf-axie" evt-id="evt-04">
+        <div class="evt-area-hd">————&nbsp;BURBERRY <strong>5</strong>折起&nbsp;————</div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='5'>
              <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,4"
@@ -259,7 +261,57 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4864,7982"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8127"
+                      lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="evt-area chr-pro chr-pro-05 J-bf-axie" evt-id="evt-05">
+        <div class="evt-area-hd">————&nbsp;TOD'S <strong>3</strong>折起&nbsp;————</div>
+        <div class="evt-area-bd">
+          <div class="bf-list bf-item_2col" id='5'>
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,4"
+                  lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+          </div>
+          <!--全球热卖-->
+          <div class="hot-wrapper">
+            <div class="hot-hd">
+              <div class="inner">
+                <div class="title">
+                   全球热卖
+                </div>
+              </div>
+            </div>
+            <div class="hot-bd">
+              <div class="bf-list bf-item_2col">
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8128"
+                      lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="evt-area chr-pro chr-pro-06 J-bf-axie" evt-id="evt-06">
+        <div class="evt-area-hd">————&nbsp;ROLEX <strong>7</strong>折起&nbsp;————</div>
+        <div class="evt-area-bd">
+          <div class="bf-list bf-item_2col" id='5'>
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,4"
+                  lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+          </div>
+          <!--全球热卖-->
+          <div class="hot-wrapper">
+            <div class="hot-hd">
+              <div class="inner">
+                <div class="title">
+                   全球热卖
+                </div>
+              </div>
+            </div>
+            <div class="hot-bd">
+              <div class="bf-list bf-item_2col">
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8129"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -267,8 +319,8 @@
         </div>
       </div>
       <!--越高冷越爱-->
-      <div class="evt-area chr-pro chr-pro-06 J-bf-axie" country-id="country-02">
-        <div class="evt-area-hd">————&nbsp;美国high圣诞夜&nbsp;————</div>
+      <div class="evt-area chr-pro chr-country-01 J-bf-axie" country-id="country-02">
+        <div class="evt-area-hd"></div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='6'>
              <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,5"
@@ -285,7 +337,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4864,7984"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8130"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -294,8 +346,8 @@
       </div>
 
       <!--越高冷越爱-->
-      <div class="evt-area chr-pro chr-pro-06 J-bf-axie" country-id="country-03">
-        <div class="evt-area-hd">————&nbsp;亚洲圣诞 福袋来袭&nbsp;————</div>
+      <div class="evt-area chr-pro chr-country-02 J-bf-axie" country-id="country-03">
+        <div class="evt-area-hd"></div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='6'>
              <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,6"
@@ -312,7 +364,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4864,7985"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8131"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -321,8 +373,8 @@
       </div>
 
       <!--越高冷越爱-->
-      <div class="evt-area chr-pro chr-pro-06 J-bf-axie" country-id="country-04">
-        <div class="evt-area-hd">————&nbsp;欧洲圣诞 大牌终极折扣&nbsp;————</div>
+      <div class="evt-area chr-pro chr-country-03 J-bf-axie" country-id="country-04">
+        <div class="evt-area-hd"></div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='6'>
              <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,7"
@@ -339,7 +391,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4864,7986"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8132"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -349,20 +401,20 @@
 
       <!--买手直播-->
       <div class="seller-seeding J-bf-axie" country-id="seller-live">
-        <div class="seller-title" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_title.jpg">
+          <div class="seller-title" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_title.jpg">
 
-        </div>
-        <div class="seller-area-wrapper">
-          <div>
-            <div class="seller-area J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_capp?AreaCode=1" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_area_01.jpg"></div>
-            <div class="seller-area J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_capp?AreaCode=3" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_area_02.jpg"></div>
           </div>
-          <div>
-            <div class="seller-area J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_capp?AreaCode=4" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_area_03.jpg"></div>
-            <div class="seller-area J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_capp?AreaCode=2" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_area_04.jpg"></div>
+          <div class="seller-area-wrapper">
+            <div>
+              <div class="seller-area J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_capp?AreaCode=1" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_area_01.jpg"></div>
+              <div class="seller-area J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_capp?AreaCode=3" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_area_02.jpg"></div>
+            </div>
+            <div>
+              <div class="seller-area J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_capp?AreaCode=4" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_area_03.jpg"></div>
+              <div class="seller-area J-open img-hold" data-url="http://evt.ymatou.com/activity_4688_capp?AreaCode=2" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/seller_area_04.jpg"></div>
+            </div>
           </div>
         </div>
-      </div>
 
       <!--全球好货-->
        <div class="bf-area bf-goods J-bf-axie" sub_module_name="yanghuotuan">
@@ -380,11 +432,13 @@
         <div class="ribbon-tab">
             <div class="tab-wrapper">
                 <ul class="tab-list J-tab">
-                  <li data-href="evt-00">澳新馆</li>
-                  <li data-href="evt-01">保健品</li>
-                  <li data-href="evt-02">零食</li>
-                  <li data-href="evt-03">UGG</li>
-                  <li data-href="evt-04">PANDORA</li>
+                  <li data-href="evt-00"><span>欧洲馆</span></li>
+                  <li data-href="evt-01"><span>LV</span></li>
+                  <li data-href="evt-02"><span>PRADA</span></li>
+                  <li data-href="evt-03"><span class="two-line">BOTTEGA<br>VENETA</span></li>
+                  <li data-href="evt-04"><span>BURBERRY</span></li>
+                  <li data-href="evt-05"><span>TOD'S</span></li>
+                  <li data-href="evt-06"><span>ROLEX</span></li>
                 </ul>
               </div>
             </div>
@@ -392,10 +446,10 @@
         <div class="bottom-tab">
           <nav id="bf-tab">
             <ul class="J-tab">
-              <li data-href="aozhou"><span>澳洲</span></li>
+              <li data-href="country-01"><span>欧洲</span></li>
               <li data-href="country-02"><span>美国</span></li>
-              <li data-href="country-03"><span>亚洲</span></li>
-              <li data-href="country-04"><span>欧洲</span></li>
+              <li data-href="country-03"><span>澳洲</span></li>
+              <li data-href="country-04"><span>亚洲</span></li>
               <li data-href="seller-live"><span>现场直播</span></li>
             </ul>
           </nav>
@@ -405,15 +459,13 @@
       <!--洋管家-->
    <div class="ymt-butler bg__full" onclick=";"></div>
 
-  <!-- build:js /scripts/zepto,ejs,swiper,imgLazyLoad.js -->
-  <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
-  <script type="text/javascript" src="/scripts/commons/swiper.3.1.2.js"></script>
-  <script type="text/javascript" src="/scripts/commons/fastclick.js"></script>
-  <script type="text/javascript" src="/scripts/commons/imgLazyLoad.js"></script>
-  <!-- endbuild -->
+  <script type="text/javascript" src="http://static.pk.ymatou.com/scripts/zepto,ejs-aee82b3102.js?v=1"></script>
+  <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/swiper.3.1.2.js"></script>
+  <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/fastclick.js"></script>
+  <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/imgLazyLoad.js?v=4"></script>
   <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
-  <!-- build:js /scripts/christmas/aoxin.js -->
-  <script src="/scripts/christmas/aoxin.js"></script>
+  <!-- build:js /scripts/christmas/europe.js -->
+  <script src="/scripts/christmas/europe.js"></script>
   <!-- endbuild -->
 
   <script>
