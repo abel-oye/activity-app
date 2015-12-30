@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticontent.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
+    <script data-js-path="redraw.js">
+        !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
+    </script>
+    <style type="text/css">
+    *{
+        margin:0;
+        padding:0;
+    }
+    .bg{
+        position:absolute;
+        width:100%;
+        min-height:35.53125rem;
+        height:100%;
+       
+        background-size:content;
+    }
+    .info{
+        position:absolute;
+        top:5.3125rem;
+        left:50%;
+        transform: translate(-50%,0);
+        text-align:center;
+    }
+    .info .pic{
+        width:3.875rem;
+        height:3.875rem;
+        border-radius:50%;
+        background-size:contain;
+        margin-bottom:0.6875rem;
+    }
+    .info h3{
+        color:#ffebaf;
+        font-size:0.9375rem;
+    }
+    </style>
+</head>
+
+<body>
+    <a href="http://download.app.ymatou.com/index.aspx?from=inapp25" class="bg">
+       <img src="http://staticontent.ymatou.com/images/activity/new_year/new_year_share_bg.jpg" alt="" height="100%" width="100%">
+    </a>         
+    <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+   <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?006"></script>
+   <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
+   <script type="text/javascript" src="/scripts/commons/swiper.3.1.2.js"></script>
+    <script>
+       YmtApi.isWechat && YmtApi.initWechat({
+           shareConf:{
+               title:'洋码头发红包啦，大家快去抢啊',
+               desc:'我在洋码头抽奖获得16元现金红包，大家快来，人人有份哦~',
+               imgUrl:'http://staticontent.ymatou.com/images/activity/new_year/red_packet.png'
+           }
+       });
+       var search = YmtApi.utils.getUrlObj();
+       $.ajax({
+           url: YmtApi.utils.addParam('http://ja.m.ymatou.com/api/User/GetUserNickById',{
+            userId:search.uid
+           }),
+           type: 'GET',
+           dataType: 'jsonp',
+           timeout: 30000, //1分钟过期
+           cache: true,
+           success: function (res) {
+               if (res && (res.Code === 200 || res.Code === '200')) {
+                    var data = res.Data;
+                    var html = [
+                        '<div class="info">',
+                            '<div class="pic" style="background-image:url('+ (data.Avatar || 'http://staticontent.ymatou.com/images/activity/christmas/portrait.png') +')"></div>',
+                            '<h3>'+data.NickName+'</h3>',
+                        '</div>'
+                    ]
+                    $('.bg').append(html.join(''));
+               }
+           },
+           error: function () {
+               showLog('系统挤爆了，请稍后再试!');
+           }
+       });
+   </script>
+</body>
+
+</html>

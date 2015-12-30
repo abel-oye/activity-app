@@ -184,16 +184,17 @@
 		init: function() {
 			//this.timer = setInterval(this.flight.bind(this),50);
 			var rqf = function() {
-				return requestAnimationFrame || function(fn) {
+				return window.requestAnimationFrame || function(fn) {
 					setTimeout(fn, 300);
 				}
 			}
 			var run = function() {
 				this.flight();
-				requestAnimationFrame(run.bind(this))
+				rqf(run.bind(this))
 			}
 
-			requestAnimationFrame(run.bind(this))
+			//rqf(run.bind(this))
+			//
 
 			this.shot();
 
@@ -204,9 +205,11 @@
 				setTimeout(this.shot.bind(this), getRandom(3842));
 			}
 
+			//this.flight();
+
 		},
 		/**
-		 *
+		 * 装弹
 		 *
 		 */
 		shot: function(runBattles) {
@@ -257,6 +260,7 @@
 				this.container.append($next);
 
 				//this.shot();
+				this.flight();
 			}
 		},
 		/**

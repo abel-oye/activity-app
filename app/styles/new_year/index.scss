@@ -1,0 +1,259 @@
+@charset'UTF-8';
+ /**
+ * 元旦
+ * @Author river
+ * @email lijiang@ymatou.com
+ * @Date 2015/12/29
+ */
+ @import'../_components/variables.scss';
+ @import'../_components/_mixin.scss';
+ @import'../_components/reset.scss';
+ @import'../_components/button.scss';
+
+ @import '../assets/ymtUI.scss';
+ @import '../assets/ymt_components.scss';
+
+ @import '../assets/common.scss';
+
+ @import '../assets/animation/poker.scss';
+
+ $imgPath:'/images/new_year/';
+ $imgPath:'http://staticontent.ymatou.com/images/activity/new_year/';
+
+// .poker{
+//     &-container{
+//         position: relative;
+//     }
+
+//     &-box{
+//         position: relative;
+//         background: #8e050c;
+//         @include clearfix();
+//         padding-bottom:3.0%;
+//         .card{
+//             float: left;
+//             position: relative;
+//             margin: 3.0% 0 0 2.16%;
+//             padding-bottom: 31.48%;
+//             width: 30.8%;
+//             height: 0;
+//             &-item{
+//                 position: absolute;
+//                 top: 0;
+//                 width: 100%;
+//                 height: 100%;
+//                  bottom: 0;
+//                  left: 0;
+//                 transform-style: preserve-3d;
+//                  transform-origin: 50% 50% 0;
+//                 .face{
+//                     position: absolute;
+//                     width: 100%;
+//                     height: 100%;
+//                     background-image: url(#{$imgPath}/poker_back.jpg);
+//                     background-repeat: no-repeat;
+//                     background-size: cover;
+//                     background-position:center;
+//                     -webkit-backface-visibility: hidden;
+//                     backface-visibility: hidden;
+//                 }
+//                 .back{
+//                     position:absolute;
+//                     width: 100%;
+//                     height: 100%;
+//                     background-image: url(#{$imgPath}/poker_face.jpg);
+//                     background-repeat: no-repeat;
+//                     background-size: cover;
+//                     background-position: top center;
+//                     -webkit-transform: rotateY(180deg);
+//                     transform: rotateY(180deg);
+//                     -webkit-backface-visibility: hidden;
+//                     backface-visibility: hidden;
+                    
+//                     &>b{
+//                         position:absolute;
+//                         font-size:$rem*45;
+//                         color:#fff;
+//                         left: 50%;
+//                         bottom: 45px;
+//                         transform: translate(-25%,0);
+//                     }
+//                 }
+//             }
+//     }
+//     }
+
+// }
+
+
+.packet{
+    position:fixed;
+    left:0;
+    right: 0;
+    top:0;
+    bottom:0;
+    z-index:5;
+    background:rgba(0,0,0,.6);
+    display: none;
+    z-index:5;
+    &.show{
+        display: block;
+    }
+    &-box{
+        position:relative;
+        width: 100%;
+        height: 100%;
+        .red-packet{
+            position:absolute;
+            left:0;
+            top:0;
+            will-change: transform;
+            transition: transform 2.5s ease-in-out;
+            background-image:url(#{$imgPath}packet.png);
+            width:$rem*185;
+            height: $rem*122;
+            background-size: cover;
+            background-position: left center;
+            font-size: 0;
+            z-index:3;
+            &.bg-right{
+                background-position: right center;
+            }
+            &.away{
+                transition: transform .7s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+                transform: translate(20%,-30%);
+                background:rgba(0,0,0,0);
+                font-size:$rem*24;
+                color:#fff;
+            }
+        }
+    }
+    &-countdown{
+        color:#e13154;
+        font-size:$rem*45;
+        position:absolute;
+        right: $rem*40;
+        top:$rem*40;
+    }
+    //红包开始
+    &-start{
+        background-color: #ff3939;
+        width: 66.66%;
+        padding:$rem*160 0 $rem*45 0;
+        position:absolute;
+        left:50%;
+        top:50%;
+        z-index:6;
+        overflow: hidden;
+        text-align:center;
+        color:#fff;
+        line-height: 1;
+        transform: translate(-50%,-50%) ;        
+        strong{
+            font-size:$rem*75;
+            display: block;
+            margin-bottom:$rem*15;
+        }
+        small{
+            font-size:$rem*24;
+        }
+        .btn{
+            width:$rem*390;
+            color:#ff3939;
+            background-color:#fff;
+            border:$rem*2 solid #860000;
+            border-radius:$rem*4;
+            font-size:$rem*70;
+            padding:$rem*15 0;
+            margin:$rem*20 0;
+            animation: scale 1s linear infinite alternate;
+        }
+        .cover{
+            position:absolute;
+            top:0;
+            left:0;
+            border-radius:50%;
+           width: 100%; 
+           background:#ff4343;
+           box-shadow:0 0 $rem*5 $rem*5 rgba(0,0,0,.4);
+           transform: translate(0,-50%);
+           height: $rem*200;
+        }
+    }
+}
+
+@keyframes scale {
+    from{
+        transform: scale(.8);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+
+//弹窗
+.packet-dialog{
+    //position:fixed;
+    left: 0;
+    right: 0;
+    top:0;
+    bottom:0;
+    background:rgba(0,0,0,.6);
+    //display: none;
+    &.show{
+        display: block;
+        .packet-dialog-box{
+            transform: translate(-50%,-50%) scale(1);
+        }
+    }
+    &-box{
+        border:$rem*6 solid #e13154;
+        border-radius: $rem*8;
+        background: #fff;
+        position:absolute;
+        left:50%;
+        top:50%;
+        transform: translate(-50%,-50%) scale(0);
+        padding:$rem*65 $rem*20;
+        min-width: $rem*520;
+        transition: transform 1.3s ease-in-out;
+        z-index:8;
+    }
+    &-hd{
+        position:relative;
+        .close-btn{
+            position:absolute;
+            height:$rem*50;
+            width:$rem*50;
+            background:#e13154;
+            color: #fff;
+            line-height: $rem*50;
+            text-align: center;
+            font-size:$rem*28;
+            top:$rem*-85;
+            right:$rem*-40;
+            border-radius:50%;
+        }
+    }
+    &-bd{
+        h3{
+            font-size:$rem*30;
+            color:#e22c50;
+        }
+        text-align: center;
+        .btn{
+            border-radius:$rem*8;
+            padding:$rem*10 $rem*32;
+            min-width: $rem*150;
+            margin-top: $rem*40;
+            border:$rem*3 solid #e13154;
+            background:#fff;
+            color:#e13154;
+        }
+        .comfirm-btn{
+            margin-right:$rem*40;
+            background:#e13154;
+            color:#fff;
+        }
+    }
+}

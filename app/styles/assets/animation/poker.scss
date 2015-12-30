@@ -1,0 +1,275 @@
+@charset "utf-8";
+/**
+ * 翻牌扑克功能
+ */
+
+.rolling {
+    /* -webkit-animation: rolling 1s linear forwards; */
+    animation: rolling 1s linear forwards;
+}
+
+.rollback {
+    -webkit-animation: rollback 1s linear forwards;
+    animation: rollback 1s linear forwards
+}
+ @for $i from 1 to 10 {
+    .shuffle#{$i} {
+        animation: shuffle#{$i} 2s ease forwards;
+    }
+}
+
+
+//翻牌
+@keyframes rolling {
+    0% {
+        transform: rotateY(180deg)
+    }
+
+    100% {
+        transform: rotateY(0deg)
+    }
+}
+
+@keyframes rollback {
+    0% {
+        transform: rotateY(0deg)
+    }
+
+    100% {
+        transform: rotateY(180deg)
+    }
+}
+
+//洗牌
+@keyframes shuffle1{
+    6.25%,93.75% {
+        -webkit-transform: translateX(111%) translateY(110%);
+        transform: translateX(111%) translateY(110%)
+    }
+
+    100% {
+        -webkit-transform: translateX(0) translateY(0);
+        transform: translateX(0) translateY(0)
+    }
+}
+
+@keyframes shuffle2 {
+    12.5% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+
+    18.75%,87.5% {
+        -webkit-transform: translateY(110%);
+        transform: translateY(110%)
+    }
+
+    100%,93.75% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+}
+
+@keyframes shuffle3 {
+    18.75% {
+        -webkit-transform: translateX(0) translateY(0);
+        transform: translateX(0) translateY(0)
+    }
+
+    25%,81.25% {
+        -webkit-transform: translateX(-107%) translateY(110%);
+        transform: translateX(-107%) translateY(110%)
+    }
+
+    100%,87.5% {
+        -webkit-transform: translateX(0) translateY(0);
+        transform: translateX(0) translateY(0)
+    }
+}
+
+@-webkit-keyframes shuffle3 {
+    18.75% {
+        -webkit-transform: translateX(0) translateY(0);
+        transform: translateX(0) translateY(0)
+    }
+
+    25%,81.25% {
+        -webkit-transform: translateX(-107%) translateY(110%);
+        transform: translateX(-107%) translateY(110%)
+    }
+
+    100%,87.5% {
+        -webkit-transform: translateX(0) translateY(0);
+        transform: translateX(0) translateY(0)
+    }
+}
+
+@keyframes shuffle4 {
+    25% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    31.25%,75% {
+        -webkit-transform: translateX(111%);
+        transform: translateX(111%)
+    }
+
+    100%,81.25% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+}
+
+@-webkit-keyframes shuffle4 {
+    25% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    31.25%,75% {
+        -webkit-transform: translateX(111%);
+        transform: translateX(111%)
+    }
+
+    100%,81.25% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+}
+
+@keyframes shuffle6 {
+    31.25% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    37.5%,68.75% {
+        -webkit-transform: translateX(-107%);
+        transform: translateX(-107%)
+    }
+
+    100%,75% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+}
+
+@-webkit-keyframes shuffle6 {
+    31.25% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    37.5%,68.75% {
+        -webkit-transform: translateX(-107%);
+        transform: translateX(-107%)
+    }
+
+    100%,75% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+}
+
+@keyframes shuffle7 {
+    37.5% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    43.75%,62.5% {
+        -webkit-transform: translateX(111%) translateY(-116%);
+        transform: translateX(111%) translateY(-116%)
+    }
+
+    100%,68.75% {
+        -webkit-transform: translateX(0) translateY(0);
+        transform: translateX(0) translateY(0)
+    }
+}
+
+@-webkit-keyframes shuffle7 {
+    37.5% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    43.75%,62.5% {
+        -webkit-transform: translateX(111%) translateY(-116%);
+        transform: translateX(111%) translateY(-116%)
+    }
+
+    100%,68.75% {
+        -webkit-transform: translateX(0) translateY(0);
+        transform: translateX(0) translateY(0)
+    }
+}
+
+@keyframes shuffle8 {
+    43.75% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    50%,56.25% {
+        -webkit-transform: translateY(-116%);
+        transform: translateY(-116%)
+    }
+
+    100%,62.5% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+}
+
+@-webkit-keyframes shuffle8 {
+    43.75% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    50%,56.25% {
+        -webkit-transform: translateY(-116%);
+        transform: translateY(-116%)
+    }
+
+    100%,62.5% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+}
+
+@keyframes shuffle9 {
+    50% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    56.25% {
+        -webkit-transform: translateX(-107%) translateY(-116%);
+        transform: translateX(-107%) translateY(-116%)
+    }
+
+    100%,62.5% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+}
+
+@-webkit-keyframes shuffle9 {
+    50% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    56.25% {
+        -webkit-transform: translateX(-107%) translateY(-116%);
+        transform: translateX(-107%) translateY(-116%)
+    }
+
+    100%,62.5% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+}

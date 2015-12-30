@@ -34,10 +34,30 @@
 }
  .tree-wrapper{
     //height:$rem*725;
-    background-image:url(#{$imgPath}tree_bg2.png);
+    background-image:url(#{$imgPath}tree_bg3.png);
         background-position: top;
     @extend .bg__full;
+    &:after{
+      content: '';
+      position:absolute;
+      background-image:url(#{$imgPath}prompt.png);
+       @extend .bg__full;
+      width:$rem*193;
+      height: $rem*164;
+      top:$rem*230;
+      right:$rem*15;
+      animation: page_shake 2.2s ease 2s 2;
+    }
  }
+
+ @-webkit-keyframes page_shake {
+    from{
+      transform: scale(1.2);
+    }
+    to{
+      transform: scale(.8);
+    }
+}
 
  .snow-wrapper{
    background: -webkit-radial-gradient(circle, rgba(255, 48, 0,.4) , rgba(95, 18, 17,1));
@@ -130,6 +150,7 @@
   @extend .bg__full;
   margin: 0 auto;
   width:$rem*500;
+  
 }
 .tree-kinds-1{
   height:$rem*719;
