@@ -1,0 +1,348 @@
+@charset'UTF-8';
+
+/**
+ * 新年
+ * @Author zzz
+ * @email zhangzongzheng@ymatou.com
+ * @Date 2015/12/30
+ */
+
+@import'../_components/variables.scss';
+@import'../_components/_mixin.scss';
+@import'../_components/reset.scss';
+@import'../_components/column.scss';
+@import'../assets/ymtUI.scss';
+@import'../assets/ymt_components.scss';
+@import'../assets/common.scss';
+@import'../black_five/_proList.scss';
+@import'../assets/_global_good.scss';
+
+// $imgPath:'/images/christmas/newyear/';
+$imgPath:'http://staticontent.ymatou.com/images/activity/christmas/newyear/';
+@include productList(#ef3b3b, #fff);
+.evt-continer {
+    background: #300000;
+}
+
+.evt-banner {
+    height: $rem*357;
+    background-image:url(#{$imgPath}banner.jpg);
+    @extend .bg__full;
+}
+
+
+
+.chr-pro-00 {
+    @include column('.bf-', 3, $rem*8);
+    .bf-item {
+        .pro-wrapper {
+            .pic {
+                height: $rem*236;
+                margin: $rem*10;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            .info {
+                margin-top: 0;
+                h6 {
+                    font-size: $rem*24;
+                    color: #2c2c2c;
+                    height: $rem*30;
+                    line-height: $rem*30;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                .price {
+                    text-align: center;
+                    height: $rem*36;
+                    line-height: $rem*36;
+                    font-size: $rem*26;
+                    margin-top: $rem*10;
+                    color: #ef3b3b;
+                    strong {
+                        font-size: $rem*36;
+                        margin-left: $rem*4;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//砍价团
+/* .bf-group {
+    background-color: #f13826;
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    .bf-area-hd {
+        height: $rem*110;
+        background-image: url(#{$imgPath}kjt.jpg);
+        @extend .bg__full;
+    }
+    .bf-area-bd {
+        position: relative;
+        height: $rem*552;
+        background-size: contain;
+    }
+    &-list {
+        white-space: nowrap;
+        font-size: 0;
+    }
+    &-item {
+        height: $rem*552;
+        padding: $rem*10;
+        display: inline-block;
+        background-size: $rem*40 $rem*40; //控制条纹的大小
+        background-image: -webkit-gradient(linear, 0 0, 100% 100%,
+                color-stop(.25, rgba(156, 17, 51,1)), color-stop(.25, rgba(255,255,255,1)),
+                color-stop(.5, rgba(255,255,255,1)), color-stop(.5, rgba(156, 17, 51,1)),
+                color-stop(.75, rgba(156, 17, 51,1)), color-stop(.75, rgba(255,255,255,1)),
+                to(rgba(255,255,255,1)));
+    }
+    &-pro {
+        width: 100%;
+        height: $rem*532;
+        position: relative;
+        background-size: cover;
+    }
+    &-count {
+        font-size: $rem*24;
+        color: #fff;
+        padding: $rem*4 $rem*22;
+        background: #c33;
+        position: absolute;
+        left: $rem*40;
+        bottom: $rem*25;
+        border-radius: $rem*50;
+    }
+    //砍价团分页
+    &-pagination {
+        position: absolute;
+        bottom: $rem*40;
+        left: 0;
+        text-align: center;
+        width: 100%;
+        .swiper-pagination-bullet {
+            width: $rem*15;
+            height: $rem*15;
+            border-radius: 50%;
+            background: #ffa8a3;
+            margin-right: $rem*15;
+            display: inline-block;
+        }
+        .swiper-pagination-bullet-active {
+            background: #ff5247;
+        }
+    }
+    .module-hold {
+        // height:$rem*400;
+    }
+} */
+
+@for $i from 0 through 4 {
+    .chr-pro-0#{$i} {
+        .evt-area-hd {
+            background-image:url(#{$imgPath}/title_bg#{$i}.jpg);
+        }
+    }
+}
+
+//重置全球热卖标题样式
+@mixin resetHotStyle($color) {
+    .hot-hd {
+        .title {
+            color: $color !important;
+            &:before {
+                border-left-color: $color !important;
+            }
+            &:after {
+                border-right-color: $color !important;
+            }
+        }
+    }
+}
+
+.chr-pro {
+    padding-top: $rem*5;
+    background: #300000;
+    @include resetHotStyle(#300000);
+    .evt-area-hd{
+        margin: 0 $rem*10;
+        height:$rem*105;
+        @extend .bg__full;
+        background-size: cover;
+        text-align: center;
+        font-size: $rem*36;
+        color: #fff;
+
+        .title {
+            display: inline-block;
+            padding: 0 $rem*24;
+            position: relative;
+            strong {
+                font-size: $rem*60;
+                margin-left: $rem*20;
+            }
+            &:before {
+                content: '';
+                display: inline-block;
+                width: $rem*100;
+                height: $rem*4;
+                background-color: #fff;
+                position: absolute;
+                left: -$rem*100;
+                top: 50%;
+            }
+
+            &:after {
+                content: '';
+                display: inline-block;
+                width: $rem*100;
+                height: $rem*4;
+                background-color: #fff;
+                position: absolute;
+                right: -$rem*100;
+                top: 50%;
+            }
+        }
+    }
+    .evt-area-bd {
+        padding: $rem*10;
+    }
+    .evt-area-ft {
+        padding: 0 $rem*10 $rem*10;
+    }
+    /* //查看更多
+    .see-more{
+        width:100%;
+        border:2px solid #fff;
+        border-radius:$rem*6;
+        text-align:center;
+        color:#fff;
+        font-size:$rem*34;
+        height:$rem*70;
+        line-height:$rem*70;
+        //横线
+        i{
+            width:$rem*40;
+            height:$rem*4;
+            background:#fff;
+            display:inline-block;
+            vertical-align: middle;
+
+        }
+        span{
+            margin:0 $rem*25;
+        }
+    } */
+    .hot-hd {
+        padding: $rem*20 0;
+        margin-bottom: $rem*20;
+        $color: #fff;
+        .inner {
+            width: 100%;
+            border-bottom: 1px solid #fff;
+            height: $rem*25;
+        }
+        .title {
+            height: $rem*50;
+            line-height: $rem*50;
+            width: $rem*330;
+            background: #fff;
+            color: $color;
+            font-size: $rem*35;
+            text-align: center;
+            font-weight: bold;
+            margin: 0 auto;
+            &:before,
+            &:after {
+                content: '';
+                border: $rem*25 solid rgba(0, 0, 0, 0);
+                display: inline-block;
+            }
+            &:before {
+                border-left-color: $color;
+                float: left;
+                margin-left: -1px;
+            }
+            &:after {
+                border-right-color: $color;
+                float: right;
+                margin-right: -1px;
+            }
+        }
+    }
+}
+
+
+
+.bottom-tab {
+    height: $rem*173;
+    nav {
+        transition: transform 0.25s ease-in-out;
+        will-change: transform;
+        transform: translate(0, 100%);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: $rem*173;
+        @extend .bg__full;
+        padding: $rem*93 $rem*60 $rem*8;
+        background-image:url(#{$imgPath}nav_bg.png);
+        background-position: bottom;
+        &.show {
+            transform: translate(0, 0);
+        }
+        ul {
+            width: 100%;
+            height: $rem*72;
+            line-height: $rem*72;
+            @include clearfix();
+        }
+        li {
+            float: left;
+            text-align: center;
+            color: #ffedb7;
+            font-size: $rem*30;
+            font-weight: bold;
+            margin-right: $rem*30;
+            &:last-child {
+                margin-right: 0;
+            }
+            &.active {
+                color: #340101;
+                background-color: #ffedb7;
+            }
+        }
+    }
+}
+
+.module-hold {
+    background-color: #fff;
+    background-image: url(http://staticontent.ymatou.com/images/activity/christmas/christmas-loading.gif);
+}
+
+.ios-bartools {
+    height: $rem*150;
+    &-wrapper {
+        background: rgba(255, 255, 255, 0.92);
+        height: $rem*150;
+        z-index: 9999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        border-bottom: $rem*2 solid rgba(0, 0, 0, .5);
+        padding-top: $rem*70;
+        h2 {
+            font-size: $rem*38;
+            text-align: center;
+            color: #333;
+            font-weight: bold;
+        }
+    }
+}

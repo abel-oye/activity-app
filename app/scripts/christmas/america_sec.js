@@ -305,7 +305,25 @@
                 }, 250);
             }
 
-        })
+        }).on('click', '.ymt-butler', function () { //洋管家
+            if (YmtApi.utils.hasLogin()) {
+                var auth = YmtApi.utils.getAuthInfo();;
+                var UserId = auth.UserId || 0;
+                var index = UserId % 10;
+                //客服组
+                var customServiceIdList = ["5771600", "5771700", "5771737", "5771792", "5771899", "5771996", "5772067", "5772141", "5772204", "5772284"];
+
+                YmtApi.openChatDetail({
+                    SessionId: UserId + '_' + customServiceIdList[index],
+                    ToId: customServiceIdList[index],
+                    ToLoginId: '洋管家' //auth.UserId
+                        // ToLogoUrl:''
+                });
+            }
+            else {
+                YmtApi.toLogin();
+            }
+        });
 
     lazyLoad.init({
         offset: 200,

@@ -141,11 +141,12 @@
             else {
                 getActivityJsonP(aid, pid, 50, function (data) {
                     if (data && data.Products) {
-                        var html = ejs.render($('#active-tpl').html(), data);
-                        $('#' + pid).html(html);
+                        data.Products.length % 2 == 1 && data.Products.pop();  //商品数量为单数时去掉最后一个
+                        var html = ejs.render($('#active-tpl2').html(), data);
+                        $('[data-arguments="'+aid+','+pid+'"]').parent().html(html);
                         lazyLoad.check();
                     }else{
-                        $('[data-arguments="'+aid+','+pid+'"]').parents(".hot-wrapper").hide();
+                        $('[data-arguments="'+aid+','+pid+'"]').parents(".bf-list").hide();
                     }
                 });
             }
@@ -316,6 +317,24 @@
                 checkCoordinate();
             });
 
+        }).on('click', '.ymt-butler', function () { //洋管家
+            if (YmtApi.utils.hasLogin()) {
+                var auth = YmtApi.utils.getAuthInfo();;
+                var UserId = auth.UserId || 0;
+                var index = UserId % 10;
+                //客服组
+                var customServiceIdList = ["5771600", "5771700", "5771737", "5771792", "5771899", "5771996", "5772067", "5772141", "5772204", "5772284"];
+
+                YmtApi.openChatDetail({
+                    SessionId: UserId + '_' + customServiceIdList[index],
+                    ToId: customServiceIdList[index],
+                    ToLoginId: '洋管家' //auth.UserId
+                        // ToLogoUrl:''
+                });
+            }
+            else {
+                YmtApi.toLogin();
+            }
         });
 
     lazyLoad.init({

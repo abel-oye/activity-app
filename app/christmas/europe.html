@@ -29,14 +29,16 @@
   </script>
 
   <script id="group-tpl" type="text/template">
-    <div class="bf-group-list swiper-wrapper"><!--
-     {{ for(var i=0,len=Math.min(TopicJoinList.length,6);i<len;i++){ }}
-        --><div class="bf-group-item swiper-slide"><!--
-              --><div class="bf-group-pro bg__full img-hold J-open"  data-url="http://web.app.ymatou.com/Tuan/Render?sign=828&backFlag=1&topicFlag=0&topicid={{=TopicJoinList[i].TopicId}}&templatename=detail" lazy-load-background="{{= TopicJoinList[i].ActivityImageUrl }}">
-            </div>
-        </div><!--
-    {{ } }}
-    --></div>
+    <div class="bf-group-list swiper-wrapper">
+         {{ for(var i=0; i<Math.min(TopicJoinList.length, 3); i++){ }}
+            {{  if(TopicJoinList[i].Status=="A" && (TopicJoinList[i].Stock - TopicJoinList[i].LockStock != TopicJoinList[i].SoldStock)){ }}
+                <div class="bf-group-item swiper-slide">
+                    <div class="bf-group-pro bg__full img-hold J-open"  data-url="http://web.app.ymatou.com/Tuan/Render?sign=828&backFlag=1&topicFlag=0&topicid={{=TopicJoinList[i].TopicId}}&templatename=detail" lazy-load-background="{{= TopicJoinList[i].ActivityImageUrl }}">
+                    </div>
+                </div>
+            {{ } }}
+        {{ } }}
+    </div>
   </script>
   <script id="active-tpl2" type="text/template">
       {{ for(var i=0,len=Products.length;i<len;i++){ }}
@@ -45,13 +47,13 @@
               <div class="pic bg__full img-hold" lazy-load-background="{{-: Products[i].PicUrl | convertImgUrl }}" ></div>
               <div class="info">
                   <div class="national-wrapper">
-                    {{ if(!Products[i].PackageId){ }}  <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlag}}" ></span>{{=Products[i].CountryName}} {{ } }}
+                    {{ if(!Products[i].PackageId){ }}  <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlagUrl}}" ></span>{{=Products[i].CountryName}} {{ } }}
                   </div>
                   <h4>{{=Products[i].Name}}</h4>
 
                   <div class="price-wrapper2">
                       <span>圣诞价</span>
-                      <span><strong>{{=Products[i].Price}}</strong>元</span>
+                      <span><strong>{{=Products[i].Price4Sale}}</strong>元</span>
                   </div>
               </div>
             </div>
@@ -142,33 +144,35 @@
       <div class="evt-christmas-gift" onclick=";"></div>
 
       <!--优惠券-->
-      <div class="coupon-area J-bf-axie J-open" evt-id="evt-00" country-id="country-01" onclick=";" data-url="http://evt.ymatou.com/activity_4898_capp" data-title="欧洲折扣无极限"
-      style="background-image: url(http://staticontent.ymatou.com/images/activity/christmas/christmas-loading.gif)" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/country/europe/coupon.jpg">
-            <!-- <div class="coupon-list">
+      <div class="coupon-area J-bf-axie J-open" evt-id="evt-00" country-id="country-01" onclick=";" data-url="http://evt.ymatou.com/activity_4914_capp" data-title="欧洲折扣无极限"
+      style="background-image: url(http://staticontent.ymatou.com/images/activity/christmas/christmas-loading.gif)" lazy-load-background="http://staticontent.ymatou.com/images/activity/christmas/country/europe/coupon_bg.jpg">
+            <div class="coupon-list">
                 <div class="coupon-item-wrap">
                     <div class="coupon-item">
-                        下单输入XAU55<br><em>499</em>减<em>55</em>
+                        下单输入AE155<br><em>1599</em>减<em>155</em>
                     </div>
                 </div>
                 <div class="coupon-item-wrap">
                     <div class="coupon-item">
-                        下单输入XAU35<br><em>288</em>减<em>35</em>
+                        下单输入AEU60<br><em>555</em>减<em>60</em>
                     </div>
                 </div>
                 <div class="coupon-item-wrap">
                     <div class="coupon-item">
-                        下单输入XAU10<br><em>11</em>减<em>10</em>
+                        下单输入AEU15<br><em>16</em>减<em>15</em>
                     </div>
                 </div>
-            </div> -->
+            </div>
       </div>
 
       <!--越高冷越爱-->
       <div class="evt-area chr-pro chr-pro-01 J-bf-axie" evt-id="evt-01">
-        <div class="evt-area-hd">————&nbsp;LOUIS VUITTON <strong>7</strong>折起&nbsp;————</div>
+        <div class="evt-area-hd">
+            <div class="title">LOUIS VUITTON<strong>7</strong>折起</div>
+        </div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='1'>
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,1"
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="4915,8299"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -182,7 +186,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8124"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4915,8219"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -191,10 +195,12 @@
       </div>
       <!--越高冷越爱-->
       <div class="evt-area chr-pro chr-pro-02 J-bf-axie" evt-id="evt-02">
-        <div class="evt-area-hd">————&nbsp;PRADA <strong>3</strong>折起&nbsp;————</div>
+        <div class="evt-area-hd">
+            <div class="title">PRADA<strong>3</strong>折起</div>
+        </div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='2'>
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,2"
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="4915,8300"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
          <!--全球热卖-->
@@ -208,7 +214,7 @@
              </div>
              <div class="hot-bd">
                <div class="bf-list bf-item_2col">
-                  <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8125"
+                  <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4915,8220"
                        lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                </div>
              </div>
@@ -217,10 +223,12 @@
       </div>
       <!--越高冷越爱-->
       <div class="evt-area chr-pro chr-pro-03 J-bf-axie" evt-id="evt-03">
-        <div class="evt-area-hd">————&nbsp;BOTTEGA VENETA <strong>3</strong>折起&nbsp;————</div>
+        <div class="evt-area-hd">
+            <div class="title">BOTTEGA VENETA<strong>3</strong>折起</div>
+        </div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='3'>
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,3"
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="4915,8301"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -234,7 +242,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8126"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4915,8222"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -244,10 +252,12 @@
       </div>
       <!--越高冷越爱-->
       <div class="evt-area chr-pro chr-pro-04 J-bf-axie" evt-id="evt-04">
-        <div class="evt-area-hd">————&nbsp;BURBERRY <strong>5</strong>折起&nbsp;————</div>
+        <div class="evt-area-hd">
+            <div class="title">BURBERRY<strong>5</strong>折起</div>
+        </div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='5'>
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,4"
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="4915,8302"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -261,7 +271,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8127"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4915,8221"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -269,10 +279,12 @@
         </div>
       </div>
       <div class="evt-area chr-pro chr-pro-05 J-bf-axie" evt-id="evt-05">
-        <div class="evt-area-hd">————&nbsp;TOD'S <strong>3</strong>折起&nbsp;————</div>
+        <div class="evt-area-hd">
+            <div class="title">TOD'S<strong>3</strong>折起</div>
+        </div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='5'>
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,4"
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="4915,8303"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -286,7 +298,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8128"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4915,8223"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -294,10 +306,12 @@
         </div>
       </div>
       <div class="evt-area chr-pro chr-pro-06 J-bf-axie" evt-id="evt-06">
-        <div class="evt-area-hd">————&nbsp;ROLEX <strong>7</strong>折起&nbsp;————</div>
+        <div class="evt-area-hd">
+            <div class="title">ROLEX<strong>7</strong>折起</div>
+        </div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='5'>
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,4"
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="4915,8304"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -311,7 +325,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8129"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4915,8224"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -323,7 +337,7 @@
         <div class="evt-area-hd"></div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='6'>
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,5"
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="4915,8305"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -337,7 +351,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8130"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4915,8225"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -347,10 +361,10 @@
 
       <!--越高冷越爱-->
       <div class="evt-area chr-pro chr-country-02 J-bf-axie" country-id="country-03">
-        <div class="evt-area-hd"></div>
+        <div class="evt-area-hd J-open" data-url="http://evt.ymatou.com/activity_4874_capp" data-title="澳新折扣无极限"></div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='6'>
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,6"
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="4915,8306"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -364,7 +378,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8131"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4915,8226"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -377,7 +391,7 @@
         <div class="evt-area-hd"></div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='6'>
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,7"
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="4915,8307"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -391,7 +405,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8132"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4915,8227"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 @charset'UTF-8';
  /**
- * 圣诞澳新日
+ * 圣诞美国日
  * @Author zzz
  * @email zhangzongzheng@ymatou.com
  * @Date 2015/12/17
@@ -36,18 +36,10 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/ameri
 }
 
 .evt-christmas-gift{
-    height:$rem*286;
-    background-image:url(#{$imgPath}christmas_gift.jpg);
+    height:$rem*290;
+    background-image:url(#{$imgPath}christmas_gift.jpg?v=1);
     position: relative;
     @extend .bg__full;
-
-    .get-gift {
-        width: $rem*180;
-        height: $rem*56;
-        position: absolute;
-        bottom: $rem*16;
-        right: $rem*112;
-    }
 }
 
 

@@ -1,8 +1,8 @@
 @import './secondary.scss';
 @import'../black_five/_proList.scss';
 
-$imgPath:'/images/christmas/country/europe/';
-// $imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/europe/';
+// $imgPath:'/images/christmas/country/europe/';
+$imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/europe/';
 
 @include productList(#ef3b3b,#fff);
 
@@ -11,17 +11,22 @@ $imgPath:'/images/christmas/country/europe/';
     background-image: url(#{$imgPath}banner_sec.jpg);
 }
 
-.bf-area-hd {
-    background-image: url(#{$imgPath}title_bg_sec.jpg);
-    .bf-area-title {
-        & > h3 {
-            color: #df3549;
-        }
-        div {
-            color: #df3549;
+@for $i from 1 through 3 {
+    .chr-pro-0#{$i} {
+        .bf-area-hd {
+            background-image: url(#{$imgPath}title_bg_sec#{$i}.jpg?v=1);
+            .bf-area-title {
+                & > h3 {
+                    color: #df3549;
+                }
+                div {
+                    color: #df3549;
+                }
+            }
         }
     }
 }
+
 
 //重置全球热卖标题样式
 @mixin resetHotStyle($color){
@@ -75,8 +80,8 @@ $imgPath:'/images/christmas/country/europe/';
             .title{
                 height:$rem*50;
                 line-height:$rem*50;
-                width:$rem*330;
-                // background:#fff;
+                width:$rem*120;
+                background-color: #DC212B;
                 color:$color;
                 font-size:$rem*24;
                 text-align:center;

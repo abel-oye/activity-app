@@ -27,7 +27,8 @@
     "main-bower-files": "^2.5.0",
     "opn": "^1.0.1",
     "wiredep": "^2.2.2",
-    "browser-sync": "^2.2.1"
+    "browser-sync": "^2.2.1",
+    "gulp-uncss": "^1.0.4"
   },
   "devDependencies": {
 

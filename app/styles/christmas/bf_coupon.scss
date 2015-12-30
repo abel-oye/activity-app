@@ -1,0 +1,309 @@
+@import'../black_five/_proList.scss';
+@import'../_components/variables.scss';
+@import'../_components/_mixin.scss';
+@import'../_components/reset.scss';
+
+@import'../_components/column.scss';
+
+@import'../assets/ymtUI.scss';
+@import'../assets/ymt_components.scss';
+
+// $imgPath:'/images/christmas/country/bf_coupon/';
+$imgPath:'http://staticontent.ymatou.com/images/activity/christmas/country/bf_coupon/';
+
+@include productList(#ef3b3b,#fff);
+
+.bf-country-banner {
+    height: $rem*534;
+    padding-top: $rem*350;
+    background-image: url(#{$imgPath}banner.jpg);
+    @extend .bg__full;
+    .intro {
+        width: $rem*670;
+        height: $rem*154;
+        margin: 0 auto;
+        padding: $rem*20 0 0 $rem*16;
+        color: #fffbb4;
+        font-size: $rem*20;
+        text-align: left;
+        background-image: url(#{$imgPath}intro_bg.jpg);
+    }
+}
+
+.bf-area-hd {
+    height: $rem*133;
+    background-image: url(#{$imgPath}title_bg.jpg);
+    @extend .bg__full;
+    .bf-area-title {
+        color: #fff;
+        text-align: center;
+        padding-top: $rem*10;
+        h1 {
+            font-size: $rem*60;
+            font-weight: bold;
+            line-height: 1;
+        }
+        div {
+            font-size: $rem*32;
+        }
+    }
+}
+
+//重置全球热卖标题样式
+@mixin resetHotStyle($color){
+    .hot-wrapper{
+        .hot-hd{
+            .title{
+                color:$color !important;
+                &:before{
+                    border-left-color:  $color !important;
+                }
+                &:after{
+                    border-right-color:  $color !important;
+                }
+            }
+        }
+    }
+}
+
+.chr-pro{
+    padding-top:$rem*5;
+    background-color:#dc212b;
+    @include resetHotStyle(#fff);
+
+    .evt-area-hd{
+        margin: 0 $rem*10;
+        height:$rem*133;
+        line-height: $rem*98;
+        background-image: url(#{$imgPath}title_bg.jpg);
+        @extend .bg__full;
+        background-size: cover;
+        text-align: center;
+        font-size: $rem*36;
+        color: #fff;
+    }
+    .evt-area-bd{
+        padding:$rem*10;
+        background-color: #250c03;
+    }
+    .evt-area-ft{
+        padding:0 $rem*10 $rem*10;
+    }
+    .hot-wrapper{
+        .hot-hd{
+            padding:$rem*20 0;
+            margin-bottom:$rem*20;
+            $color:#fff;
+            .inner{
+                width:100%;
+                border-bottom:1px dashed #fff;
+                height:$rem*25;
+            }
+            .title{
+                height:$rem*50;
+                line-height:$rem*50;
+                width:$rem*120;
+                background-color: #250c03;
+                color:$color;
+                font-size:$rem*24;
+                text-align:center;
+                // font-weight:bold;
+                margin:0 auto;
+                /* &:before,
+                &:after{
+                    content:'';
+                    border:$rem*25 solid rgba(0,0,0,0);
+                    display: inline-block;
+                }
+                &:before{
+                    border-left-color:  $color;
+                    float:left;
+                    margin-left: -1px;
+                }
+                &:after{
+                    border-right-color:  $color;
+                    float:right;
+                    margin-right: -1px;
+                } */
+            }
+        }
+    }
+}
+
+.bf-tab-wrapper {
+    background-color: #df3549;
+}
+
+.bg__full{
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+
+
+@include column('.bf-',2,$rem*10);
+
+.bf-list{
+    // background-color:#ececec;
+    padding:0 $rem*10;
+    padding-top:$rem*10;
+}
+
+.bf-tab{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    font-size:$rem*25;
+    height:$rem*118;
+    background-image: url(#{$imgPath}tab_bg.jpg);
+    @extend .bg__full;
+    transition: transform 0.25s ease-in-out;
+    will-change:transform;
+    z-index:3;
+    &.fixed-out{
+        transform: translate(0, 100%);
+        bottom:0!important;
+    }
+    &-wrapper{
+        height:$rem*100;
+        position:relative;
+        background-color: #fff;
+        &.show{
+            .bf-tab{
+                transform: translate(0, 100%);
+                bottom:0!important;
+            }
+        }
+
+    }
+
+    .bf-tab-bd {
+        height: 100%;
+        padding: $rem*20 $rem*24;
+        & > ul {
+            height: 100%;
+            @include clearfix();
+            li {
+                float: left;
+                font-size: $rem*36;
+                font-weight: bold;
+                width: 20%;
+                height: $rem*78;
+                line-height: $rem*78;
+                text-align: center;
+                color: #fffaa9;
+
+                &.active {
+                    color: #fff551;
+                    background-color: #b50000;
+                    position:relative;
+                      overflow: hidden;
+                    &:before,
+                    &:after{
+                        content:'';
+                        position:absolute;
+                        height:100%;
+                        width:0;
+                        top:0;
+                        box-shadow: 0 0 $rem*2 $rem*3 rgba(0,0,0,.3)
+                    }
+                    &:before{
+                         left:0;
+                    }
+                    &:after{
+                        right:0;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.pro-wrapper{
+    background: #FFF;
+    padding-bottom:$rem*18;
+    margin-bottom:$rem*10;
+    .pic{
+        height:$rem*360;
+        background-size: contain;
+          background-position: top;
+    }
+    .info{
+        padding:0 $rem*22;
+        font-size:$rem*22;
+        color:#a3a3a3;
+        margin-top:$rem*10;
+        &>h4{
+            color:#333;
+            height:$rem*66;
+            @include textOverFlow(2);
+        }
+        .original-price{
+            margin:$rem*10 0;
+        }
+    }
+    .price-wrapper{
+        //价格容器
+        $color:#f73a59;
+        width:100%;
+        height:$rem*60;
+        line-height:$rem*60;
+        border:1px solid $color;
+        border-radius:$rem*60;
+        box-shadow: 0 2px #a22f27;
+        background-color: $color;
+        margin-top:$rem*10;
+        &>span{
+            display:inline-block;
+            height:100%;
+            text-align:center;
+            float:left;
+        }
+        &>:first-child{
+            background:#fff;
+            color:$color;
+            border-top-left-radius: $rem*60;
+            border-bottom-left-radius: $rem*60;
+            width:40%;
+            font-weight:bold;
+        }
+        &>:last-child{
+            background:$color;
+            color:#fff;
+            border-top-right-radius: $rem*60;
+            border-bottom-right-radius: $rem*60;
+            width:60%;
+            &>strong{
+                font-size:$rem*35;
+                font-weight:bold;
+            }
+        }
+    }
+    .national-flag{
+        display:inline-block;
+        width:$rem*25;
+        height:$rem*25;
+        background-size:contain;
+        background-repeat:no-repeat;
+        vertical-align: middle;
+        margin-right:$rem*10;
+    }
+}
+
+.module-hold{
+    background-image:url(http://staticontent.ymatou.com/images/activity/christmas/christmas-loading.gif);
+    background-color:#fff;
+    height:$rem*600;
+    @extend .bg__full;
+}
+
+.load-over{
+    font-size:$rem*24;
+    text-align:center;
+    color:#fff;
+    height:$rem*80;
+    line-height:$rem*80;
+    background-color: #250C03;
+}

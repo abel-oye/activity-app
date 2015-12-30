@@ -31,7 +31,8 @@
         border-radius:$rem*10;
         overflow:hidden;
         .pic{
-            height:$rem*360;
+            height:$rem*300;
+            margin: $rem*20;
             background-size: cover;
             background-position: top;
         }

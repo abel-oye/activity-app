@@ -21,24 +21,24 @@
     <!--活动模板-->
     <script id="active-tpl2" type="text/template">
         {{ for(var i=0,len=Products.length;i<len;i++){ }}
-          <div class="bf-item J-open-C-Product" {{= true?'data-productId='+Products[i].ProductId+' data-logo='+Products[i].Logo+' data-seller='+Products[i].Seller+' data-sellerId='+Products[i].SellerId:'data-url='+(Products[i].PackageId ? 'http://evt.ymatou.com/activity_4694_capp?TC='+Products[i].PackageId : 'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId)}} onclick=";">
-              <div class="pro-wrapper">
-                <div class="pic bg__full img-hold" lazy-load-background="{{-: Products[i].PicUrl | convertImgUrl }}" ></div>
-                <div class="info">
-                    <div class="national-wrapper">
-                      {{ if(!Products[i].PackageId){ }}  <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlag}}" ></span>{{=Products[i].CountryName}} {{ } }}
-                    </div>
-                    <h4>{{=Products[i].Name}}</h4>
+        <div class="bf-item J-open-C-Product" {{= true?'data-productId='+Products[i].ProductId+' data-logo='+Products[i].Logo+' data-seller='+Products[i].Seller+' data-sellerId='+Products[i].SellerId:'data-url='+(Products[i].PackageId ? 'http://evt.ymatou.com/activity_4694_capp?TC='+Products[i].PackageId : 'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId)}} onclick=";">
+            <div class="pro-wrapper">
+              <div class="pic bg__full img-hold" lazy-load-background="{{-: Products[i].PicUrl | convertImgUrl }}" ></div>
+              <div class="info">
+                  <div class="national-wrapper">
+                    {{ if(!Products[i].PackageId){ }}  <span class="national-flag" lazy-load-background="{{=Products[i].CountryFlagUrl}}" ></span>{{=Products[i].CountryName}} {{ } }}
+                  </div>
+                  <h4>{{=Products[i].Name}}</h4>
 
-                    <div class="price-wrapper2">
-                        <span>圣诞价</span>
-                        <span><strong>{{=Products[i].Price}}</strong>元</span>
-                    </div>
-                </div>
+                  <div class="price-wrapper2">
+                      <span>圣诞价</span>
+                      <span><strong>{{=Products[i].Price4Sale}}</strong>元</span>
+                  </div>
               </div>
-          </div>
-      </div>
-        {{ } }}
+            </div>
+        </div>
+    </div>
+      {{ } }}
     </script>
     <script id="active-tpl" type="text/template">
         {{ for(var i=0,len=Products.length;i<len;i++){ }}
@@ -67,18 +67,18 @@
     <section class="">
       <div class="bf-country-banner"></div>
       <!--1599-->
-      <div class="bf-area J-bf-axie chr-pro"  id="bf_01">
+      <div class="bf-area J-bf-axie chr-pro chr-pro-01"  id="bf_01">
         <div class="bf-area-hd">
-            <div class="bf-area-title">
+            <!-- <div class="bf-area-title">
                 <h3>下单输入优惠码:AE155</h3>
                 <div>
                   既享满1599减155优惠<small>(仅限12.26至12.28欧洲专享)</small>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="evt-area-bd">
           <div class="bf-list bf-item_2col" id='1'>
-             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,1"
+             <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="4915,8308"
                   lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
           </div>
           <!--全球热卖-->
@@ -92,7 +92,7 @@
             </div>
             <div class="hot-bd">
               <div class="bf-list bf-item_2col">
-                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8133"
+                 <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4915,8228"
                       lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
               </div>
             </div>
@@ -100,18 +100,18 @@
         </div>
       </div>
       <!--555-->
-      <div class="bf-area J-bf-axie chr-pro"  id="bf_02">
+      <div class="bf-area J-bf-axie chr-pro chr-pro-02"  id="bf_02">
           <div class="bf-area-hd">
-              <div class="bf-area-title">
+              <!-- <div class="bf-area-title">
                   <h3>下单输入优惠码:AEU60</h3>
                   <div>
                     既享满555减60优惠<small>(仅限12.26至12.28欧洲专享)</small>
                   </div>
-              </div>
+              </div> -->
           </div>
           <div class="evt-area-bd">
             <div class="bf-list bf-item_2col" id='2'>
-               <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,2"
+               <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="4915,8309"
                     lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
             </div>
             <!--全球热卖-->
@@ -125,7 +125,7 @@
               </div>
               <div class="hot-bd">
                 <div class="bf-list bf-item_2col">
-                   <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8134"
+                   <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4915,8229"
                         lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                 </div>
               </div>
@@ -133,18 +133,18 @@
           </div>
       </div>
       <!--11-->
-      <div class="bf-area J-bf-axie chr-pro"  id="bf_03">
+      <div class="bf-area J-bf-axie chr-pro chr-pro-03"  id="bf_03">
           <div class="bf-area-hd">
-              <div class="bf-area-title">
+              <!-- <div class="bf-area-title">
                   <h3>下单输入优惠码:AEU15</h3>
                   <div>
                     既享满16减15优惠<small>(仅限12.26至12.28欧洲专享)</small>
                   </div>
-              </div>
+              </div> -->
           </div>
           <div class="evt-area-bd">
             <div class="bf-list bf-item_2col" id='3'>
-               <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="0,3"
+               <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activityList" data-arguments="4915,8310"
                     lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
             </div>
             <!--全球热卖-->
@@ -158,7 +158,7 @@
               </div>
               <div class="hot-bd">
                 <div class="bf-list bf-item_2col">
-                   <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4900,8135"
+                   <div class="J-module-Hold module-hold" data-sub-module-name="qcbk" data-module="activeModule" data-arguments="4915,8230"
                         lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                 </div>
               </div>
@@ -176,9 +176,9 @@
         <nav class="bf-tab ">
            <div class="bf-tab-bd">
              <ul>
-                 <li class="active" data-href="bf_01">155券必买</li>
-                 <li data-href="bf_02">60券必买</li>
-                 <li data-href="bf_03">15券必买</li>
+                 <li class="active" data-href="bf_01">328券必买</li>
+                 <li data-href="bf_02">258券必买</li>
+                 <li data-href="bf_03">10券必买</li>
              </ul>
              <!-- <div class="coordinate first"></div> -->
            </div>
