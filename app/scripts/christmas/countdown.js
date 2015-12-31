@@ -168,27 +168,9 @@
         msTime = [t0, t1, t2, t3, t4, t5, t6];
 
     var $msPro = $('.bf-seckill-item');
-
-    //倒计时
-    var getRTime = function(){
-        var nowTime = new Date().getTime();
-        var t = endTime - nowTime;
-
-        if (t > 0) {
-            var d = Math.floor(t/1000/60/60/24),
-                h = addZero(Math.floor(t/1000/60/60%24)),
-                m = addZero(Math.floor(t/1000/60%60)),
-                s = addZero(Math.floor(t/1000%60));
-
-            $td.html(d);
-            $th.html(h);
-            $tm.html(m);
-            $ts.html(s);
-        } else {
-            clearInterval(countDown);
-            $('#count-down-wrap').hide();
-        }
-
+    var nowTime = new Date().getTime();
+    
+    while(msTime[0] && msProducts.length > 1){
         if (msTime[0] && msProducts[0]) {
             if (nowTime - msTime[0] > 0) {
                 var pro1 = msProducts[0][0],
@@ -210,6 +192,31 @@
                 msTime.shift();
             }
         }
+    }
+    
+    
+
+
+    //倒计时
+    var getRTime = function(){
+        var nowTime = new Date().getTime();
+        var t = endTime - nowTime;
+
+        if (t > 0) {
+            var d = Math.floor(t/1000/60/60/24),
+                h = addZero(Math.floor(t/1000/60/60%24)),
+                m = addZero(Math.floor(t/1000/60%60)),
+                s = addZero(Math.floor(t/1000%60));
+
+            $td.html(d);
+            $th.html(h);
+            $tm.html(m);
+            $ts.html(s);
+        } else {
+            clearInterval(countDown);
+            $('#count-down-wrap').hide();
+        }
+        
     }
 
     var countDown = setInterval(getRTime,1000);

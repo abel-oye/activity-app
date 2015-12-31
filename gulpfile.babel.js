@@ -20,6 +20,9 @@ const config = {
     ]
 }
 
+//排除非当前项目的编译
+let excludeFile = 'black_five,1212,hot,pk,gwj';
+
 gulp.task('styles', () => {
     return gulp.src(config.cssSrc)
         .pipe($.plumber())
@@ -65,7 +68,7 @@ gulp.task('html', ['styles'], () => {
         searchPath: ['.tmp', 'app', '.']
     });
 
-    return gulp.src('app/{,*/}*.html')
+    return gulp.src(['app/{,*/}*.html','!app/{'+excludeFile+'}/*.html'])
         .pipe(assets)
         .pipe($.rev())
         .pipe($.if('*.js', $.uglify()))
@@ -177,7 +180,7 @@ gulp.task('serve:test', () => {
 
 // inject bower components
 gulp.task('wiredep', () => {
-    gulp.src('app/styles/{**,*}.scss')
+    gulp.src(['app/styles/{**,*}.scss','!app/{'+excludeFile+'}/*.scss'])
         .pipe(wiredep({
             ignorePath: /^(\.\.\/)+/
         }))

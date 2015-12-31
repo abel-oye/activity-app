@@ -30,6 +30,8 @@ var config = {
     cssSrc: ['app/{styles,css}/{,*/}*.scss', '!app/{styles,css}/_*/*']
 };
 
+var excludeFile = 'black_five,1212,hot,pk,gwj';
+
 _gulp2['default'].task('styles', function () {
     return _gulp2['default'].src(config.cssSrc).pipe($.plumber()).pipe($.sourcemaps.init()).pipe($.sass.sync({
         outputStyle: 'expanded',
@@ -67,7 +69,7 @@ _gulp2['default'].task('html', ['styles'], function () {
         searchPath: ['.tmp', 'app', '.']
     });
 
-    return _gulp2['default'].src('app/{,*/}*.html').pipe(assets).pipe($.rev()).pipe($['if']('*.js', $.uglify())).pipe($['if']('*.css', $.minifyCss({
+    return _gulp2['default'].src(['app/{,*/}*.html', '!app/{' + excludeFile + '}/*.html']).pipe(assets).pipe($.rev()).pipe($['if']('*.js', $.uglify())).pipe($['if']('*.css', $.minifyCss({
         compatibility: '*'
     }))).pipe(assets.restore()).pipe($.useref()).pipe($.revReplace()).pipe($['if']('*.html', $.minifyHtml({
         conditionals: true,
@@ -151,7 +153,7 @@ _gulp2['default'].task('serve:test', function () {
 
 // inject bower components
 _gulp2['default'].task('wiredep', function () {
-    _gulp2['default'].src('app/styles/{**,*}.scss').pipe((0, _wiredep.stream)({
+    _gulp2['default'].src(['app/styles/{**,*}.scss', '!app/{' + excludeFile + '}/*.scss']).pipe((0, _wiredep.stream)({
         ignorePath: /^(\.\.\/)+/
     })).pipe(_gulp2['default'].dest('app/styles'));
 
