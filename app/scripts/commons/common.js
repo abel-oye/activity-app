@@ -9,7 +9,7 @@
 	var isFuntion = function(str) {
 		return 'function' === typeof str;
 	};
-	
+
 	ejs.filters.pirceRegion = function (price) {
 	    if (!price) {
 	        return price;
@@ -110,12 +110,14 @@
 		 *                 aid不为0，则按照活动接口请求方式
 		 *                 
 		 * @param  {string} pid 模块编号
+		 *
+		 * @param  {string} tplId 模板编号
 		 */
-		activityList: function(aid, pid) {
-
+		activityList: function(aid, pid , tplId) {
 			var render = function(data) {
-				var html = ejs.render($('#active-tpl').html(),data);
-				$('[data-arguments="' + aid + ',' + pid + '"]').parent().html(html);
+				var html = ejs.render($( '#'+(tplId || 'active-tpl') ).html(),data);
+				console.log('[data-arguments="' + aid + ',' + pid +(tplId?','+tplId:'')+ '"]')
+				$('[data-arguments="' + aid + ',' + pid +(tplId?','+tplId:'')+ '"]').parent().html(html);
 				lazyLoad.check();
 			}
 
@@ -366,6 +368,8 @@
 				} else {
 					YmtApi.toLogin();
 				}
+			}).on('click','.J-show',function(){
+				$($(this).attr('data-target')).addClass('open');
 			});
 
 		lazyLoad.init({
@@ -381,6 +385,8 @@
 		            //     module_name: 'activity_4864_capp',
 		            //     sub_module_name: $this.attr('data-sub-module-name')
 		            // });
+		            // 
+		            console.log(module)
 
 		            moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
 		            $this.removeClass('J-module-Hold').addClass('module-load-end');

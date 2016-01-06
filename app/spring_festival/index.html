@@ -23,21 +23,38 @@
             <div class="content">
                 恭喜大王<br>
                 获得{%= CouponDetailInfo.CouponValue %}元现金优惠券<br>
-                <small>优惠券已发放到您的个人账户<br>
-                    请在”我-钱包-优惠券“里查看<br>
-                    满{%-CouponDetailInfo.CouponOrderValue%}元使用</small>
+                {% if(HasUseCount > 1){ %}
+                    今天的抽奖次数已用完,明天继续！
+                {% }else{ %}
+                    分享后还能再抽一次哦！
+                {% } %}
             </div>
             <div>
-                <button class="btn btn-outline btn-w-full J-close-dialog">去逛逛</button>
+                <button class="btn btn-outline J-close-dialog">去逛逛</button>
+                <button class="btn btn-primary J-close-dialog J-share J-add-lottery" 
+                        data-url="http://ymatou.com/?uid=${userid}"
+                        data-content=""
+                        data-pic=""
+                        data-title="">分享到朋友圈</button>
             </div>
         <!--没中-->
          {% }else if(BCode == 101){ %}
              <div class="content">
-                 好遗憾！<br>
-                什么都没有抽到                 
+                 报告大王！<br>
+                什么都没有抽到<br>
+                {% if(HasUseCount > 1){ %}
+                今天的抽奖次数已用完,明天继续！
+                {% }else{ %}
+                分享后还能再抽一次哦！
+                {% } %}                 
              </div>
              <div>
-                 <button class="btn btn-outline btn-w-full J-close-dialog">去逛逛</button>
+                 <button class="btn btn-outline J-close-dialog">去逛逛</button>
+                 <button class="btn btn-primary J-close-dialog J-share J-add-lottery" 
+                         data-url="http://ymatou.com/?uid=${userid}"
+                         data-content=""
+                         data-pic=""
+                         data-title="">分享到朋友圈</button>
              </div>
         <!--系统错误-->
          {% }else if(BCode == 103){ %}
@@ -52,7 +69,8 @@
          {% }else if(BCode == 104){ %}
              <div class="content">
                  报告大王<br>
-                 当前设备超出最大抽奖次数咯
+                 今天抽奖次数已用完<br>
+                 明天再来！
              </div>
              <div>
                  <button class="btn btn-outline btn-w-full J-close-dialog">知道了</button>
@@ -62,15 +80,11 @@
             {%if(HasUseCount > 1){%}
                 报告大王<br>
                 今天抽奖次数已用完<br>
-                明天继续
+                明天再来
             {% }else{ %}
-                {% if(BCode == 102){ %}
-                    哎呦， <br/>
-                    分享之后还可以再翻一次，<br>
-                    这种事我会随便说嘛
-                {% }else{ %}
-                    哎呦<br/>抽奖次数用完 <br/>
-                {% } %}
+                哎呦， <br/>
+                分享之后还可以再翻一次，<br>
+                这种事我会随便说嘛
             {% } %}
             </div>
            <div>
@@ -79,7 +93,10 @@
                 {% }else{ %}
                     <button class="btn btn-outline J-close-dialog">去逛逛</button>
                     <button class="btn btn-primary J-close-dialog J-share J-add-lottery" 
-                        data-url="http://ymatou.com/?uid=${userid}">分享到朋友圈</button>
+                        data-url="http://ymatou.com/?uid=${userid}"
+                        data-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
+                        data-pic=""
+                        data-title="2016元随机送，这种事情会随便说！">分享到朋友圈</button>
                 {% } %}
               
            </div>
@@ -107,6 +124,62 @@
           </div>
       </div>
         {% } %}
+    </script>
+    <script id="int-point-tpl" type="text/template">
+        <div class="sf-area-hd"></div>
+        <div class="sf-area-bd">
+            <div class="special-title"><span></span>10点专场</div>
+            <div class="special-bd sf-swiper sf-swiper-intPoint">
+                <div class="swiper-wrapper">
+                    {% for(var i=0,len=Products.length;i<len;i++){ %}
+                        <div class="swiper-slide special-product-area {%=(Products[i].ProductType == 1 ? 'J-open-C-Product':'J-open')%}" {%= Products[i].ProductType == 1 ? 'data-productId='+Products[i].ProductId+' data-logo='+Products[i].Logo+' data-seller='+Products[i].Seller+' data-sellerId='+Products[i].SellerId :'data-url='+(Products[i].PackageId ? 'http://evt.ymatou.com/activity_4694_capp?TC='+Products[i].PackageId : 'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId)%} onclick=";">
+                            <div class="pic" lazy-load-background="{%-: Products[i].PicUrl | convertImgUrl %}" ></div>
+                            <div class="info">
+                                <h3>{%=Products[i].Name%}</h3>
+                                {% if(!Products[i].PackageId){ %} 
+                                <p class="country"><i class="flag" lazy-load-background="{%=Products[i].CountryFlagUrl%}"></i>{%=Products[i].CountryName%}</p>
+                                {% } %}
+                                <div class="price">
+                                    &yen;<strong>{%=Products[i].Price4Sale%}</strong><small>市场价<br/>&yen;{%=Products[i].MarketPrice%}</small>
+                                </div>
+                                <div>
+                                    <span class="stock">还剩{%=Products[i].ProductStock%}件</span> <span class="see-live">立即购买</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% } %}
+                </div>                    
+                <div class="int-point-area-slide-triggers swiper-pagination"></div>
+            </div>
+        </div>
+    </script>
+    <script id="mixture-product-tpl"  type="text/template">
+        {% for(var i=0,len =products.length;i<len;i++){ %}
+            <li class="goods-group-item">
+                <div class="pic" style="background-image:url(http://i4.tietuku.com/c6548a53d7ec838b.jpg)"></div>
+                <div class="info">
+                    <p class="country"><i class="flag" lazy-load-background="{%= products[i].countryFlagUrl%}"></i>{%- products[i].countryName %}</p>
+                    <h3>{%- products[i].name %}</h3>
+                    <div class="catalogs">
+                        <div class="options">
+                            {% for(var j=0,len2=products[i].catalogs.length;j<len2;j++){%}
+                                <div>
+                                    <input type="radio" name="disguise-radio-{%= i %}" 
+                                        id="disguise-radio-{%= i %}-{%= j %}"
+                                        data-is-group="{%=products[i].catalogs[j].isGroup %}"
+                                        data-pid="{%=products[i].catalogs[j].id %}"
+                                        {%= j+1==len2?'checked':''%}>
+                                    <label class="options-radio" for="disguise-radio-{%= i %}-{%=j%}">
+                                        <span class="disguise-radio"></span>{%=products[i].catalogs[j].stock%}件: <span class="price">&yen;<strong>{%=products[i].catalogs[j].price%}</strong></span></label>
+                                </div>
+                            {% } %}
+                        </div>
+                        <button class="btn buy-now J-mixture-buyNow">立即购买</button>
+                    </div>
+                </div>
+            </li>
+        {% } %}
+       
     </script>
     <section class="sf-container">
         <header class="sf-hd"></header>
@@ -149,13 +222,13 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="start-btn J-start-poker"></div>
+                        <div class="start-btn J-start-poker" onclick=";"></div>
                     </div>
                     <div class="card">
                         <div class="card-item rollback" data-inx="4">
                             <span class="face"></span>
                             <span class="back">
-                                &yen;<strong>2016</strong>
+                                <img src="http://staticontent.ymatou.com/images/activity/spring_festival/2016.jpg" >
                             </span>
                         </div>
                     </div>
@@ -171,7 +244,7 @@
                         <div class="card-item rollback" data-inx="6">
                             <span class="face"></span>
                             <span class="back">
-                                <img src="http://i4.tietuku.com/4c3285c7a7d1d30d.png" style="width:100%;height:100%;">
+                                <img src="http://i4.tietuku.com/4c3285c7a7d1d30d.png" >
                             </span>
                         </div>
                     </div>
@@ -186,20 +259,22 @@
                 </div>
             </div>
             <div class="sf-area-ft poker-rule">
+                <div class="J-show" data-target=".poker-rule-more">规则</div>
                 <p>奖品：全站通用优惠券，2016元无门槛优惠券，coach包(价值2800）。</p>
-                <p>. 活动期间，每人每天有1次机会，分享后可再获得1次机会</p>
-                <p>. 中奖后，优惠券直接发放到个人帐户，在“我-钱包-优惠券”里查看.</p>
-                <p>. 抽到实物奖品，客服会与您联系</p>
-                <p>. 优惠券不累计，不置换现金。使用有效期至2015年1月24日;</p>
-                <p>. 如在活动期间发现有违规行为，洋码头有权取消违规账号所得奖品</p>
-                <p>. 本活动最终解释权归洋码头所有</p>
-
+                <div class="poker-rule-more">
+                    <p>. 活动期间，每人每天有1次机会，分享后可再获得1次机会</p>
+                    <p>. 中奖后，优惠券直接发放到个人帐户，在“我-钱包-优惠券”里查看.</p>
+                    <p>. 抽到实物奖品，客服会与您联系</p>
+                    <p>. 优惠券不累计，不置换现金。使用有效期至2015年1月24日;</p>
+                    <p>. 如在活动期间发现有违规行为，洋码头有权取消违规账号所得奖品</p>
+                    <p>. 本活动最终解释权归洋码头所有</p>
+                </div>
             </div>
         </div>
-        <div class="poker-dialog-mask"></div>
+        <div class="poker-dialog-mask J-close-dialog" onclick=";"></div>
         <div class="poker-dialog">
             <div class="poker-dialog-hd">
-                <span class="close-btn J-close-dialog">X</span>
+                <span class="close-btn J-close-dialog" onclick=";">X</span>
             </div>
             <div class="poker-dialog-bd">
                 
@@ -207,153 +282,32 @@
         </div>
         <!--整点抢-->
         <div class="sf-area int-point-area">
-            <div class="sf-area-hd"></div>
-            <div class="sf-area-bd">
-                <div class="special-title"><span></span>10 专场<div class="fr btn-switch"><span class="invalid"></span><span></span></div></div>
-                <div class="special-bd">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide special-product-area">
-                            <div class="pic" style="background-image:url(http://i4.tietuku.com/c6548a53d7ec838b.jpg)"></div>
-                            <div class="info">
-                                <h3>品名品名品名品名品名品名品名品名</h3>
-                                <p class="country"><i class="flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/American_Samoa.png)"></i>美国</p>
-                                <div class="price">
-                                    &yen;<strong>555</strong><small>市场价<br/>&yen;189999</small>
-                                </div>
-                                <div>
-                                    <span class="stock">还剩22件</span> <span class="see-live">立即购买</span>
-                                </div>
-                            </div>
-                        </div>
-                       <ol class="int-point-area-slide-triggers swiper-pagination">
-                         <li class="int-point-area-slide-pagination actived"></li>
-                         <li class="int-point-area-slide-pagination"></li>
-                       </ol>
-                    </div>                    
-                </div>
-            </div>
+            <div class="J-module-Hold module-hold" data-module="intPoint" data-arguments="16275,6108,int-point-tpl"
+                 lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+        </div>
+        <!--分类入口-->
+        <div class="classify-entry">
+            <div class="classify-entry-item J-open" 
+                lazy-load-background="http://staticontent.ymatou.com/images/activity/spring_festival/food-entry.jpg"
+                data-url=""></div>
+            <div class="classify-entry-item J-open" 
+                lazy-load-background="http://staticontent.ymatou.com/images/activity/spring_festival/facial-entry.jpg"
+                data-url=""></div>
+            <div class="classify-entry-item J-open" 
+                lazy-load-background="http://staticontent.ymatou.com/images/activity/spring_festival/house-entry.jpg"
+                data-url=""></div>
         </div>
 
-        <!--年货美食-->
-        <div class="sf-goods">
-            <div class="sf-goods-banner" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf-tab01.jpg)"></div>
-            <div class="sf-goods-tab">
-                <ul class="sf-goods-tab-hd">
-                    <li class="sf-goods-tab-hd-item selected">年货美食</li>
-                    <li class="sf-goods-tab-hd-item">美容护理</li>
-                    <li class="sf-goods-tab-hd-item">家居日用</li>
-                </ul>
-            </div>
-            <div class="sf-goods-sub-tag">
-                <ul class="sf-goods-sub-tab-list sf-goods-sub-tab-item_3col">
-                    <li class="sf-goods-sub-tab-item selected">
-                        <div>糖果巧克力</div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            坚果蜜饯
-                        </div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            饼干零食
-                        </div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            美颜纤体
-                        </div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            保健养生
-                        </div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            年货礼盒
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <!--年货必买清单-->
-            <div class="sf-area buy-detail-area">
-                <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf_tab01_list.jpg)"></div>
-                <div class="sf-area-bd swiper-wrapper">
-                    <div class="swiper-slide ">
-                        <div class="buy-detail-list buy-detail-item_3col">
-                            <div class="buy-detail-item">
-                                <div class="pro-detail">
-                                    <div class="pic" style="background-image:url(http://i4.tietuku.com/c6548a53d7ec838b.jpg)"></div>
-                                    <h4>是哪个阿萨德合法士大夫撒的</h4>
-                                    <div class="price">&yen;<strong>7777</strong></div>
-                                </div>
-                            </div>
-                            <div class="buy-detail-item">
-                                <div class="pro-detail">
-                                    <div class="pic" style="background-image:url(http://i4.tietuku.com/c6548a53d7ec838b.jpg)"></div>
-                                    <h4>是哪个阿萨德合法士大夫撒的</h4>
-                                    <div class="price">&yen;<strong>7777</strong></div>
-                                </div>
-                            </div>
-                            <div class="buy-detail-item">
-                                <div class="pro-detail">
-                                    <div class="pic" style="background-image:url(http://i4.tietuku.com/c6548a53d7ec838b.jpg)"></div>
-                                    <h4>是哪个阿萨德合法士大夫撒的</h4>
-                                    <div class="price">&yen;<strong>7777</strong></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination-wrapper">
-                      <ol class="swiper-pagination">
-                          <li class="actived"></li>
-                          <li></li>
-                          <li></li>
-                      </ol>  
-                    </div>
-                </div>
-            </div>
-            <!--糖果巧克力-->
-            <div class="sf-area class-joint">
-                <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf_tab01_list_01.jpg)"></div>
-                <div class="sf-area-bd">
-                    <!--组合商品-->
-                    <div class="goods-group-area">
-                        <ul class="goods-group-list">
-                            <li class="goods-group-item">
-                                <div class="pic" style="background-image:url(http://i4.tietuku.com/c6548a53d7ec838b.jpg)"></div>
-                                <div class="info">
-                                    <p class="country"><i class="flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/American_Samoa.png)"></i>美国</p>
-                                    <h3>品名品名品名品名品名品名品名品名</h3>
-                                    <div>
-                                        <div class="options">
-                                            <div>
-                                                <input type="radio" name="disguise-radio-01" id="disguise-radio-01" checked>
-                                                <label class="options-radio" for="disguise-radio-01"><span class="disguise-radio"></span>1件: <span class="price">&yen;<strong>222</strong></span></label>
-                                            </div>
-                                            <div>
-                                                <input type="radio" name="disguise-radio-01" id="disguise-radio-02">
-                                                <label  class="options-radio" for="disguise-radio-02"><span class="disguise-radio"></span>1件: <span class="price">&yen;<strong>222</strong></span></label>
-                                            </div>
-                                        </div>
-                                        <button class="btn buy-now">立即购买</button>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--两列商品模式-->
-                    <div class="bf-list bf-item_2col">
-                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="16275,6108"
-                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
-                    </div>
-                </div>
-            </div>
-            <!--糖果巧克力-->
-            <div class="sf-area class-joint">
-                <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf_tab01_list_02.jpg)"></div>
-                <div class="sf-area-bd">
+        <!--囤货节-->
+        <div class="sf-area stockists-area">
+            <div class="sf-area-hd" lazy-load-background="http://staticontent.ymatou.com/images/activity/spring_festival/sf-title.jpg"></div>
+            <div class="sf-area-bd">
+                <!--组合商品-->
+                <div class="goods-group-area">
+                    <ul class="goods-group-list">
+                       <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="0,mixture,mixture-product-tpl"
+                            lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                    </ul>
                 </div>
             </div>
         </div>

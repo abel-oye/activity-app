@@ -45,6 +45,12 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
         color:#fff;
         padding:0 $rem*30;
         font-size:$rem*20;
+        &-more{
+            display: none;
+            .open{
+                display: block;
+            }
+        }
     }
 
     &-box{
@@ -114,6 +120,13 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
                     strong{
                         font-size: $rem*56;
                     }
+                    img{
+                        position:absolute;
+                        left:0;
+                        top:0;
+                        width: 100%;
+                        height: 100%;
+                    }
                 }
             }
         }
@@ -182,7 +195,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
         .btn-outline{
             background:#fff;
             color:#c31c21;
-            border:$rem*2 solid #c31c21;
+            border:1px solid #c31c21;
         }
         .btn-w-full{
             width: 100%;
@@ -245,79 +258,77 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
                 left:0;
                 bottom:0;
             }
-            .btn-switch{
-                background:#f04528;
-                height: $rem*46;
-                &>span{
-                    background:#f3f877;
-                    width: $rem*46;
-                    height: 100%;
-                    line-height: $rem*46;
-                    display: inline-block;
-                    margin-left: $rem*5;
+            // .btn-switch{
+            //     background:#f04528;
+            //     height: $rem*46;
+            //     &>span{
+            //         background:#f3f877;
+            //         width: $rem*46;
+            //         height: 100%;
+            //         line-height: $rem*46;
+            //         display: inline-block;
+            //         margin-left: $rem*5;
                     
-                    &:before{
-                        content: ' ';
-                        display: block;
-                        width: 0;
-                        height: 0;
-                        border:$rem*14 solid rgba(0,0,0,0);
-                        margin:0 auto;
-                        margin-top: $rem*9;
-                    }
-                    &:first-child{
-                        &:before{
-                           border-right-color:#f04528; 
-                           margin-left:0;
-                        }
-                    }
-                    &:last-child{
-                        &:before{
-                           border-left-color:#f04528; 
-                           margin-right:0;
-                        }
-                    }
-                    &.invalid{
-                        &:first-child{
-                            &:before{
-                               border-right-color:#eacc64; 
-                            }
-                        }
-                        &:last-child{
-                            &:before{
-                               border-left-color:#eacc64; 
-                            }
-                        }
-                    }
+            //         &:before{
+            //             content: ' ';
+            //             display: block;
+            //             width: 0;
+            //             height: 0;
+            //             border:$rem*14 solid rgba(0,0,0,0);
+            //             margin:0 auto;
+            //             margin-top: $rem*9;
+            //         }
+            //         &:first-child{
+            //             &:before{
+            //                border-right-color:#f04528; 
+            //                margin-left:0;
+            //             }
+            //         }
+            //         &:last-child{
+            //             &:before{
+            //                border-left-color:#f04528; 
+            //                margin-right:0;
+            //             }
+            //         }
+            //         &.invalid{
+            //             &:first-child{
+            //                 &:before{
+            //                    border-right-color:#eacc64; 
+            //                 }
+            //             }
+            //             &:last-child{
+            //                 &:before{
+            //                    border-left-color:#eacc64; 
+            //                 }
+            //             }
+            //         }
                     
-                }
-            }
-        }
-        &-bd{
-            background: #fff;
+            //     }
+            // }
         }
     }
 
     .int-point-area-slide{
         &-triggers{
             position:absolute;
-            bottom:$rem*15;
+            bottom:$rem*30;
             left:0;
             width:100%;
             text-align: center;
-           
-        }
-        &-pagination{
-            width: $rem*16;
-            height: $rem*16;
-            border-radius:50%;
-            background:#a0a0a0;
-            margin-right:$rem*30;
-            display: inline-block;
-            &.actived{
-                background: #f04528;
+            z-index:3;
+            &>span{
+                width: $rem*16;
+                height: $rem*16;
+                border-radius:50%;
+                background:#a0a0a0;
+                margin-right:$rem*30;
+                display: inline-block;
+                &.swiper-pagination-bullet-active{
+                    background: #f04528;
+                }
             }
         }
+       
     }
 }
 
@@ -337,6 +348,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
     }
     .info{
         flex:1;
+        text-align:left;
         h3{
             font-size: $rem*25;
             color:#333;
@@ -479,6 +491,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
                 }
             }
         }
+        
         .swiper-pagination{
             &-wrapper{
                 text-align: center;
@@ -489,7 +502,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
             margin-top: $rem*17;
             display: inline-block;
             overflow: hidden;
-            &>li{
+            &>span{
                height: $rem*16;
                width:$rem*16;
                border-radius:50%;
@@ -499,11 +512,14 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
                &:last-child{
                 margin:0;
                }
-               &.actived{
+               &.swiper-pagination-bullet-active{
                 background:#fff;
                }
             }
         }
+    }
+    &-item{
+        background:#f04528;
     }
 }
 
@@ -545,6 +561,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
             h3{
                 font-size: $rem*25;
                 color:#333;
+                height: $rem*74;
             }
             .country{
                 margin-top: $rem*40;
@@ -610,5 +627,57 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
                 margin-top: $rem*10;
             }
         }
+    }
+}
+
+.sf-swiper{
+    overflow: hidden;
+    .swiper-wrapper{
+        position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            display: flex;            
+            transition-property: transform;
+            box-sizing: content-box;
+    }
+   
+    .swiper-slide{
+       text-align: center;
+       font-size: 18px;
+       background: #fff;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+           flex-shrink: 0;
+           width: 100%;
+           height: 100%;
+           position: relative;
+    }
+}
+
+//分类入口
+.classify-entry{
+    @include clearfix();
+    border-top:$rem*6 solid #fff;
+    padding:$rem*20 0 $rem*30 $rem*10;
+    &-item{
+        margin-right: $rem*10;
+        width: $rem*237;
+        height:$rem*358;
+        background-size:contain;
+        background-repeat:no-repeat;
+        float: left;
+        &:last-child{
+            margin-right:0;
+        }
+    }
+}
+
+.stockists-area{
+    padding-bottom:$rem*10;
+    .sf-area-hd{
+        height:$rem*100;
+        margin-bottom: $rem*20;
     }
 }
