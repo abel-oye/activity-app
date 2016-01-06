@@ -3,12 +3,25 @@
 /**
  * 公共脚本
  */
-+(function() {
-	'use strict';
+//+(function() {
+	//'use strict';
 
 	var isFuntion = function(str) {
 		return 'function' === typeof str;
 	};
+	
+	ejs.filters.pirceRegion = function (price) {
+	    if (!price) {
+	        return price;
+	    }
+	    var num = ((+price || 0).toFixed(2) + '').split('.');
+	    return '<strong>' + num[0] + '</strong>' + (num[1] ? '.' + num[1] : '');
+	};
+
+	ejs.filters.convertImgUrl = function (str) {
+	    return str.replace(/\/original\//, '/small/').replace(/_o/, '_s').replace(/_ls/, '_lb');
+	}
+
 	/**
 	 * 显示日志
 	 */
@@ -38,36 +51,49 @@
 	 * @param  {String}   fnName   [description]
 	 * @return {[type]}            [description]
 	 */
-	var jsonpGetData = function(url, callback) {
-		/*if(fnName){
-		    if(!(typeof window[fnName] === 'function')){
-		        window[fnName] = function(data){
-		            callback && callback(data);
-		            delete window[fnName];
-		        }
-		    }
-		}*/
-		$.ajax({
-			url: url,
-			type: 'GET',
-			//jsonpCallback:undefined,
-			dataType: 'jsonp',
-			success: function(res) {
-				if (res && (res.Code === 200 || res.Code === '200')) {
-					if (res.Data && res.Data.HasSuccess) {
-						isFuntion(callback) && callback(res.Data);
-					} else {
-						showLog(res.Msg)
-					}
-				} else {
-					showLog(res.Msg || '操作错误.');
-				}
-			},
-			error: function() {
-				showLog('操作错误..');
-			}
-		});
-	};
+	var jsonpGetData = function (url, callback, callbackName) {
+        /*if(fnName){
+            if(!(typeof window[fnName] === 'function')){
+                window[fnName] = function(data){
+                    callback && callback(data);
+                    delete window[fnName];
+                }
+            }
+        }*/
+        var cbFn = {};
+
+        if (typeof callback === 'function') {
+            cbFn.success = callback;
+        }
+
+        if (typeof callback === 'object') {
+            cbFn = callback;
+        }
+
+        cbFn.error = cbFn.error || function (res) {
+            showLog(res.Msg);
+        }
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            jsonpCallback: callbackName,
+            dataType: 'jsonp',
+            timeout: 30000, //1分钟过期
+            cache: true,
+            success: function (res) {
+                if (res && (res.Code === 200 || res.Code === '200')) {
+                    isFuntion(cbFn.success) && cbFn.success(res.Data);
+                }
+                else {
+                    isFuntion(cbFn.error) && cbFn.error(res);
+                }
+            },
+            error: function () {
+                showLog('系统挤爆了，请稍后再试!');
+            }
+        });
+    };
 
 	//针对活动接口请求方式
 	var getActivityJsonP = function(aid, pid, pageSize, callback) {
@@ -86,8 +112,9 @@
 		 * @param  {string} pid 模块编号
 		 */
 		activityList: function(aid, pid) {
+
 			var render = function(data) {
-				var html = ejs.render($('#active-tpl').html(), productData[pid]);
+				var html = ejs.render($('#active-tpl').html(),data);
 				$('[data-arguments="' + aid + ',' + pid + '"]').parent().html(html);
 				lazyLoad.check();
 			}
@@ -185,6 +212,17 @@
 			content = $this.attr('data-share-content'),
 			title = $this.attr('data-share-title'),
 			pic = $this.attr('data-share-pic');
+
+		var magicReg = /\${(.+?)\}/,
+			magicParam = url.match(magicReg),
+			paramKey;
+			//@TODO 暂时只支持userId
+		if(magicParam && (paramKey = magicParam.pop())){
+			if(paramKey==='userid'){
+				url = url.replace(magicReg,YmtApi.utils.getAuthInfo().UserId)
+			}
+			
+		}
 
 		YmtApi.openShare({
 			shareTitle: title,
@@ -330,4 +368,25 @@
 				}
 			});
 
-})();
+		lazyLoad.init({
+		    offset: 100,
+		    callback: function (elem) {
+		        //注册模块懒加载
+		        var $this = $(elem);
+		        if ($this.hasClass('J-module-Hold')) {
+		            var moduleName = $this.attr('data-module'),
+		                args = ($this.attr('data-arguments') || '').split(',');
+
+		            // (window['_dc_'] || function () {})('exec', 'load_more_fn', {
+		            //     module_name: 'activity_4864_capp',
+		            //     sub_module_name: $this.attr('data-sub-module-name')
+		            // });
+
+		            moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
+		            $this.removeClass('J-module-Hold').addClass('module-load-end');
+		        }
+
+		    }
+		});
+
+//})();
