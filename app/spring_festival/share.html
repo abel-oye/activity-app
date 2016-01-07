@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticontent.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
+    <script data-js-path="redraw.js">
+        !(function(f,p){var c=navigator.userAgent,d=/iphone|ipad|ipod/i.test(c),b=/android/ig.test(c),a=/Mobile/i.test(c)||d||b;var o=document.querySelector("[name=viewport]")||(function(){var q=document.createElement("meta");q.name="viewport"})(),k=o.content||"",j=k.match(/initial\-scale=([\d\.]+)/),i=k.match(/width=([\d\.]+)/),m=d?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,e=document.documentElement,n=m*(e.dataset.mw||750),g=1/m,h;f=f||320;p=p||16;if(o){if(j){k=k.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+g)}else{k+=",initial-scale="+g}o.content=k.replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+g).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+g)}else{o=doc.createElement("meta");o.name="viewport";o.content=k;e.firstElementChild.appendChild(o)}var l=function(){var r=e.getBoundingClientRect().width;var q=Math.min(r,n)/f*p;e.style.fontSize=q+"px"};if(a){window.addEventListener("resize",function(){clearTimeout(h);h=setTimeout(l,300)},false);l()}else{e.style.fontSize="16px"}})(375,16);
+    </script>
+    <style type="text/css">
+    *{
+        margin:0;
+        padding:0;
+    }
+    .bg{
+        position:absolute;
+        width:100%;
+        min-height:35.53125rem;
+        height:100%;
+       
+        background-size:content;
+    }
+    .info{
+        position:absolute;
+        top:5.3125rem;
+        left:50%;
+        transform: translate(-50%,0);
+        text-align:center;
+    }
+    .info .pic{
+        width:3.875rem;
+        height:3.875rem;
+        border-radius:50%;
+        background-size:contain;
+        margin-bottom:0.6875rem;
+    }
+    .info h3{
+        color:#ffebaf;
+        font-size:0.9375rem;
+    }
+    </style>
+</head>
+
+<body>
+    <a href="http://download.app.ymatou.com/index.aspx?from=inapp25" class="bg">
+       <img src="http://p5.img.ymatou.com/upload/staticcontent/2fb01687ec324e33af6e14819923b829.jpg" alt="" height="100%" width="100%">
+    </a>         
+    <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
+   <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?006"></script>
+   <script type="text/javascript" src="http://static.jyh.ymatou.com/js/ymtApi.2015110601.js?wxAutoInit=1"></script>
+   <script type="text/javascript" src="/scripts/commons/swiper.3.1.2.js"></script>
+    <script>
+       YmtApi.isWechat && YmtApi.initWechat({
+           shareConf:{
+               title:'2016元随机送，这种事情会随便说！',
+               desc:'洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！~',
+               imgUrl:'http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg'
+           }
+       });
+       var search = YmtApi.utils.getUrlObj();
+       $.ajax({
+           url: YmtApi.utils.addParam('http://ja.m.ymatou.com/api/User/GetUserNickById',{
+            userId:search.uid
+           }),
+           type: 'GET',
+           dataType: 'jsonp',
+           timeout: 30000, //1分钟过期
+           cache: true,
+           success: function (res) {
+               if (res && (res.Code === 200 || res.Code === '200')) {
+                    var data = res.Data;
+                    var html = [
+                        '<div class="info">',
+                            '<div class="pic" style="background-image:url('+ (data.Avatar || 'http://staticontent.ymatou.com/images/activity/christmas/portrait.png') +')"></div>',
+                            '<h3>'+data.NickName+'</h3>',
+                        '</div>'
+                    ]
+                    $('.bg').append(html.join(''));
+               }
+           },
+           error: function () {
+               showLog('系统挤爆了，请稍后再试!');
+           }
+       });
+   </script>
+</body>
+
+</html>
