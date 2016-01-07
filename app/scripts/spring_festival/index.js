@@ -39,6 +39,8 @@ Poker.prototype = {
             if (!that.startIng || that.endNum < 8) {
                 return;
             }
+
+            that.$container.find('.start-btn').text('再来一发');
             that.startIng = false;
             if (that.drawNum++ < that.opts.maxDraw) {
                 that.opts.clickFn && that.opts.clickFn.call(that, this);
@@ -122,11 +124,17 @@ var _poker = new Poker({
                     _inx = _inx >= 7 ? 0 : _inx + 1;
                 }
 
-                $elem.addClass('rollback');
+                $elem.addClass('rollback').one('webkitAnimationEnd animationend',function(){
+                     
+                     that.showdown();
 
-                renderDialog(data);
+                     setTimeout(function(){
+                        renderDialog(data);
+                     }, 16E2);
+                });
 
-                setTimeout(that.showdown.bind(that), 15E2);
+                //setTimeout(that.showdown.bind(that), 15E2);
+                
             },
             error:function(data){
                 console.log(data)
@@ -161,9 +169,8 @@ on('click','.J-mixture-buyNow',function(){
         isGroup = radio.attr('data-is-group'),
         pid = radio.attr('data-pid'),
         url = "http://item.app.ymatou.com/forYmatouApp/product/pid?pid="+pid;
-        console.log(isGroup == "true")
     if(isGroup == "true"){
-        url = "http://evt.ymatou.com/"+pid;
+        url = "http://evt.ymatou.com/activity_4694_capp?TC="+pid;
     }
     YmtApi.open({
         url:url,

@@ -27,9 +27,11 @@
                           {% if(!Products[i].PackageId){ %}  <span class="national-flag" lazy-load-background="{%=Products[i].CountryFlagUrl%}" ></span>{%=Products[i].CountryName%} {% } %}
                         </div>
                         <h4>{%=Products[i].Name%}</h4>
+                        {% if(Products[i].ProductType != 1){ %}
                         <div>
                             <del>市场价:{%=Products[i].MarketPrice%}</del>
                         </div>
+                        {% } %}
                         <div class="price-wrapper2">
                             <span>狂欢价</span>
                             <span><strong>{%=Products[i].Price4Sale%}</strong>元</span>

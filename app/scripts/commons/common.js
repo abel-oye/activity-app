@@ -381,9 +381,9 @@
 		//悬浮nav
 		$(window).on('scroll',function(){
 			var $this = $('.J-fixed-nav'),
-				winTop = $(window).scrollTop(),
-				_top = $this.attr('data-top') || $this.parent().offset().top;
+				winTop = $(window).scrollTop();
 			if($this[0]){
+				var _top = $this.attr('data-top') || $this.parent().offset().top;
 				if(winTop > _top){
 					$this.addClass('fixed')
 				}else{
