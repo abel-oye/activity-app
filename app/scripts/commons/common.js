@@ -250,11 +250,14 @@
 			 * 事例结构如上，每次点击li会自动变更且增加active className 
 			 */
 			function() {
-				var $this = $(this);
-				$this.closest('.J-tab').find('li').removeClass('active');
+				var $this = $(this),
+					$target = $('#'+$this.attr('data-href')),
+					$parent = $this.closest('.J-tab');
+				$parent.find('li').removeClass('active');
 				$this.addClass('active');
+
+				$target[0] &&  window.scrollTo(0, $target.offset().top + $parent.height())
 				//location.hash = $this.attr('data-href');
-				window.scrollTo(0, $('#' + $this.attr('data-href')).offset().top);
 				stopCheck = true;
 
 			}).on('click', '.J-go-top',
@@ -375,6 +378,21 @@
 				console.log($(selector))
 				$(selector).toggleClass(toggleClass);
 			});
+		//悬浮nav
+		$(window).on('scroll',function(){
+			var $this = $('.J-fixed-nav'),
+				winTop = $(window).scrollTop(),
+				_top = $this.attr('data-top') || $this.parent().offset().top;
+			if($this[0]){
+				if(winTop > _top){
+					$this.addClass('fixed')
+				}else{
+					$this.removeClass('fixed')
+				}
+			}
+			
+			
+		});
 
 		lazyLoad.init({
 		    offset: 100,

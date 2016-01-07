@@ -18,56 +18,46 @@
 
 <body>
     <script id="active-tpl" type="text/template">
-        {% for(var i=0,len=Products.length;i<len;i++){ %}
+        {% for(var i=0,len=Products.length,len = len%2?len-1:len;i<len;i++){ %}
           <div class="bf-item {%=(Products[i].ProductType == 1 ? 'J-open-C-Product':'J-open')%}" {%= Products[i].ProductType == 1 ? 'data-productId='+Products[i].ProductId+' data-logo='+Products[i].Logo+' data-seller='+Products[i].Seller+' data-sellerId='+Products[i].SellerId :'data-url='+(Products[i].PackageId ? 'http://evt.ymatou.com/activity_4694_capp?TC='+Products[i].PackageId : 'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId)%} onclick=";">
-              <div class="pro-wrapper">
-                <div class="pic bg__full img-hold" lazy-load-background="{%-: Products[i].PicUrl | convertImgUrl %}" ></div>
-                <div class="info">
-                    <div class="national-wrapper">
-                      {% if(!Products[i].PackageId){ %}  <span class="national-flag" lazy-load-background="{%=Products[i].CountryFlagUrl%}" ></span>{%=Products[i].CountryName%} {% } %}
+                  <div class="pro-wrapper">
+                    <div class="pic bg__full img-hold" lazy-load-background="{%-: Products[i].PicUrl | convertImgUrl %}" ></div>
+                    <div class="info">
+                        <div class="national-wrapper">
+                          {% if(!Products[i].PackageId){ %}  <span class="national-flag" lazy-load-background="{%=Products[i].CountryFlagUrl%}" ></span>{%=Products[i].CountryName%} {% } %}
+                        </div>
+                        <h4>{%=Products[i].Name%}</h4>
+                        <div>
+                            <del>市场价:{%=Products[i].MarketPrice%}</del>
+                        </div>
+                        <div class="price-wrapper2">
+                            <span>狂欢价</span>
+                            <span><strong>{%=Products[i].Price4Sale%}</strong>元</span>
+                        </div>
                     </div>
-                    <h4>{%=Products[i].Name%}</h4>
-                    <div>
-                        <del>市场价:{%=Products[i].MarketPrice%}</del>
-                    </div>
-                    <div class="price-wrapper2">
-                        <span>狂欢价</span>
-                        <span><strong>{%=Products[i].Price4Sale%}</strong>元</span>
-                    </div>
-                </div>
+                  </div>
               </div>
           </div>
-      </div>
         {% } %}
     </script>
-    <script id="int-point-tpl" type="text/template">
-        <div class="sf-area-hd"></div>
-        <div class="sf-area-bd">
-            <div class="special-title"><span></span>10点专场</div>
-            <div class="special-bd sf-swiper sf-swiper-intPoint">
-                <div class="swiper-wrapper">
-                    {% for(var i=0,len=Products.length;i<len;i++){ %}
-                        <div class="swiper-slide special-product-area {%=(Products[i].ProductType == 1 ? 'J-open-C-Product':'J-open')%}" {%= Products[i].ProductType == 1 ? 'data-productId='+Products[i].ProductId+' data-logo='+Products[i].Logo+' data-seller='+Products[i].Seller+' data-sellerId='+Products[i].SellerId :'data-url='+(Products[i].PackageId ? 'http://evt.ymatou.com/activity_4694_capp?TC='+Products[i].PackageId : 'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId)%} onclick=";">
-                            <div class="pic" lazy-load-background="{%-: Products[i].PicUrl | convertImgUrl %}" ></div>
-                            <div class="info">
-                                <h3>{%=Products[i].Name%}</h3>
-                                {% if(!Products[i].PackageId){ %} 
-                                <p class="country"><i class="flag" lazy-load-background="{%=Products[i].CountryFlagUrl%}"></i>{%=Products[i].CountryName%}</p>
-                                {% } %}
-                                <div class="price">
-                                    &yen;<strong>{%=Products[i].Price4Sale%}</strong><small>市场价<br/>&yen;{%=Products[i].MarketPrice%}</small>
-                                </div>
-                                <div>
-                                    <span class="stock">还剩{%=Products[i].ProductStock%}件</span> <span class="see-live">立即购买</span>
-                                </div>
-                            </div>
+    
+    <script id="buy-list-tpl" type="text/template">
+        <div class="sf-swiper-buyDetail sf-swiper">
+            <div class="sf-area-bd swiper-wrapper "><!--
+                {% for(var i=0,len=Products.length;i<len;i++){ %}
+                    --><div class="swiper-slide {%=(Products[i].ProductType == 1 ? 'J-open-C-Product':'J-open')%}" {%= Products[i].ProductType == 1 ? 'data-productId='+Products[i].ProductId+' data-logo='+Products[i].Logo+' data-seller='+Products[i].Seller+' data-sellerId='+Products[i].SellerId :'data-url='+(Products[i].PackageId ? 'http://evt.ymatou.com/activity_4694_capp?TC='+Products[i].PackageId : 'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId)%} onclick=";">
+                        <div class="pro-detail">
+                            <div class="pic img-hold" lazy-load-background="{%-: Products[i].PicUrl | convertImgUrl %}"></div>
+                            <h4>{%=Products[i].Name%}</h4>
+                            <div class="price">&yen;<strong>{%=Products[i].Price4Sale%}</strong></div>
                         </div>
-                    {% } %}
-                </div>                    
-                <div class="int-point-area-slide-triggers swiper-pagination"></div>
+                    </div><!--
+                {% } %}
+            --></div>
+            <div class="swiper-pagination-wrapper">
+              <div class="swiper-pagination"></div>  
             </div>
         </div>
-        
     </script>
     <section class="sf-container">
         <!--年货美食-->
@@ -76,134 +66,149 @@
             <div class="sf-goods-tab">
                 <ul class="sf-goods-tab-hd">
                     <li class="sf-goods-tab-hd-item selected">年货美食</li>
-                    <li class="sf-goods-tab-hd-item">美容护理</li>
-                    <li class="sf-goods-tab-hd-item">家居日用</li>
+                    <li class="sf-goods-tab-hd-item J-open" data-url="http://evt.ymatou.com/activity_4999_Mapp" onclick=";">美容护理</li>
+                    <li class="sf-goods-tab-hd-item J-open" data-url="http://evt.ymatou.com/activity_5000_Mapp" onclick=";">家居日用</li>
                 </ul>
             </div>
-            <div class="sf-goods-sub-tag">
-                <ul class="sf-goods-sub-tab-list sf-goods-sub-tab-item_3col">
-                    <li class="sf-goods-sub-tab-item selected">
-                        <div>糖果巧克力</div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            坚果蜜饯
-                        </div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            饼干零食
-                        </div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            美颜纤体
-                        </div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            保健养生
-                        </div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            年货礼盒
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <!--年货必买清单-->
-            <div class="sf-area buy-detail-area ">
-                <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf-tab01-list.jpg)"></div>
-                <div class="sf-swiper sf-swiper-buyDetail">
-                    <div class="sf-area-bd swiper-wrapper">
-                            <div class="buy-detail-list buy-detail-item_3col swiper-wrapper">
-                                <div class="buy-detail-item swiper-slide">
-                                    <div class="pro-detail">
-                                        <div class="pic" style="background-image:url(http://i4.tietuku.com/c6548a53d7ec838b.jpg)"></div>
-                                        <h4>是哪个阿萨德合法士大夫撒的</h4>
-                                        <div class="price">&yen;<strong>7777</strong></div>
-                                    </div>
-                                </div>
-                                <div class="buy-detail-item">
-                                    <div class="pro-detail">
-                                        <div class="pic" style="background-image:url(http://i4.tietuku.com/c6548a53d7ec838b.jpg)"></div>
-                                        <h4>是哪个阿萨德合法士大夫撒的</h4>
-                                        <div class="price">&yen;<strong>7777</strong></div>
-                                    </div>
-                                </div>
-                                <div class="buy-detail-item">
-                                    <div class="pro-detail">
-                                        <div class="pic" style="background-image:url(http://i4.tietuku.com/c6548a53d7ec838b.jpg)"></div>
-                                        <h4>是哪个阿萨德合法士大夫撒的</h4>
-                                        <div class="price">&yen;<strong>7777</strong></div>
-                                    </div>
-                                </div>
+            <div class="sf-goods-sub-tab-wrapper">
+                <div class="sf-goods-sub-tab J-fixed-nav">
+                    <ul class="sf-goods-sub-tab-list sf-goods-sub-tab-item_3col J-tab">
+                        <li class="sf-goods-sub-tab-item active" data-href="sf_01">
+                            <div>糖果巧克力</div>
+                        </li>
+                        <li class="sf-goods-sub-tab-item"  data-href="sf_02">
+                            <div>
+                                坚果蜜饯
                             </div>
-                    </div>
-                    <div class="swiper-pagination-wrapper">
-                      <div class="swiper-pagination">
-                          <li class="actived"></li>
-                          <li></li>
-                          <li></li>
-                      </div>  
-                    </div>
+                        </li>
+                        <li class="sf-goods-sub-tab-item"  data-href="sf_03">
+                            <div>
+                                饼干零食
+                            </div>
+                        </li>
+                        <li class="sf-goods-sub-tab-item"  data-href="sf_04">
+                            <div>
+                                美颜纤体
+                            </div>
+                        </li>
+                        <li class="sf-goods-sub-tab-item"  data-href="sf_05">
+                            <div>
+                                保健养生
+                            </div>
+                        </li>
+                        <li class="sf-goods-sub-tab-item"  data-href="sf_06">
+                            <div>
+                                年货礼盒
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                
+            </div>    
+            
+            <!--年货必买清单-->
+            <div class="sf-area buy-detail-area">
+                <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf-tab01-list.jpg)"></div>
+                <div class="sf-area-bd">
+                    <div class="J-module-Hold module-hold" data-module="buyList" data-arguments="4994,8666,buy-list-tpl"
+                         lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                </div>
             </div>
             <!--糖果巧克力-->
-            <div class="sf-area class-joint">
+            <div class="sf-area class-joint" id="sf_01">
                 <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf-tab01-list-01.jpg)"></div>
                 <div class="sf-area-bd">
-                    <!--组合商品-->
-                    <div class="goods-group-area">
-                        <ul class="goods-group-list">
-                            <li class="goods-group-item">
-                                <div class="pic" style="background-image:url(http://i4.tietuku.com/c6548a53d7ec838b.jpg)"></div>
-                                <div class="info">
-                                    <p class="country"><i class="flag" style="background-image:url(http://img.ymatou.com/app/flag/circle/American_Samoa.png)"></i>美国</p>
-                                    <h3>品名品名品名品名品名品名品名品名</h3>
-                                    <div>
-                                        <div class="options">
-                                            <div>
-                                                <input type="radio" name="disguise-radio-01" id="disguise-radio-01" checked>
-                                                <label class="options-radio" for="disguise-radio-01"><span class="disguise-radio"></span>1件: <span class="price">&yen;<strong>222</strong></span></label>
-                                            </div>
-                                            <div>
-                                                <input type="radio" name="disguise-radio-01" id="disguise-radio-02">
-                                                <label  class="options-radio" for="disguise-radio-02"><span class="disguise-radio"></span>1件: <span class="price">&yen;<strong>222</strong></span></label>
-                                            </div>
-                                        </div>
-                                        <button class="btn buy-now">立即购买</button>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
                     <!--两列商品模式-->
                     <div class="bf-list bf-item_2col">
-                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="16275,6108"
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8675"
                              lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                     </div>
                 </div>
             </div>
-            <!--糖果巧克力-->
-            <div class="sf-area class-joint">
+            <!--坚果蜜饯-->
+            <div class="sf-area class-joint" id="sf_02">
                 <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf-tab01-list-02.jpg)"></div>
                 <div class="sf-area-bd">
+                    <!--两列商品模式-->
+                    <div class="bf-list bf-item_2col">
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8676"
+                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                    </div>
+                </div>
+            </div>
+            <!--坚果蜜饯-->
+            <div class="sf-area class-joint" id="sf_03">
+                <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf-tab01-list-03.jpg)"></div>
+                <div class="sf-area-bd">
+                    <!--两列商品模式-->
+                    <div class="bf-list bf-item_2col">
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8677"
+                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                    </div>
+                </div>
+            </div>
+            <!--坚果蜜饯-->
+            <div class="sf-area class-joint"  id="sf_04">
+                <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf-tab01-list-04.jpg)"></div>
+                <div class="sf-area-bd">
+                    <!--两列商品模式-->
+                    <div class="bf-list bf-item_2col">
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8678"
+                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                    </div>
+                </div>
+            </div>
+            <!--坚果蜜饯-->
+            <div class="sf-area class-joint"  id="sf_05">
+                <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf-tab01-list-05.jpg)"></div>
+                <div class="sf-area-bd">
+                    <!--两列商品模式-->
+                    <div class="bf-list bf-item_2col">
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8679"
+                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                    </div>
+                </div>
+            </div>
+            <!--坚果蜜饯-->
+            <div class="sf-area class-joint"  id="sf_06">
+                <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf-tab01-list-06.jpg)"></div>
+                <div class="sf-area-bd">
+                    <!--两列商品模式-->
+                    <div class="bf-list bf-item_2col">
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8680"
+                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
     <script type="text/javascript" src="http://static.pk.ymatou.com/scripts/zepto,ejs-aee82b3102.js?v=1"></script>
     <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/swiper.3.1.2.js"></script>
     <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/fastclick.js"></script>
     <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/imgLazyLoad.js?v=4"></script>
-    <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
+    <script type="text/javascript" src="http://static.jyh.ymatou.com/commons/js/ymtapi.2015110601.js?wxAutoInit=1"></script>
     <!-- build:js /scripts/spring_festival/index.js -->
     <script src="/scripts/commons/common.js"></script>
     <script src="/scripts/spring_festival/index.js"></script>
     <!-- endbuild -->
+    <script>
+        var ua = window.navigator.useragent,
+            clsName='';
+        if(YmtApi.isIos){
+            clsName += ' ws-mac';
+        }else  if(YmtApi.isIphone){
+            clsName += ' ws-iphone';
+        }else if(YmtApi.isAndroid){
+            clsName += ' ws-android';
+        }                    
+        
+        if(YmtApi.isWechat){
+            clsName += ' ws-wechat';
+        }else if(YmtApi.isSaohuoApp){
+            clsName += ' ws-saohuo';
+        }
+        document.body.className += ' '+clsName;
+    </script>
 </body>
 
 </html>

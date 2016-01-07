@@ -433,7 +433,7 @@ var productData = {
             },
             {
                 "stock":"2",
-                "price":"198",
+                "price":"210",
                 "isGroup":true,
                 "id":"TC000000158"
             }
@@ -665,13 +665,13 @@ module.activityList = function(aid, pid , tplId) {
     }
 }
 
-module.intPoint = function(aid, pid , tplId) {
+//包装活动list列表 支持不同回到函数
+var moduleActivityList  = function(aid,pid,tplId,callback){
     var render = function(data) {
-        var html = ejs.render($( '#'+(tplId || 'active-tpl') ).html(),data);
-        console.log('[data-arguments="' + aid + ',' + pid +(tplId?','+tplId:'')+ '"]')
+        var html = ejs.render(document.getElementById(tplId || 'active-tpl').innerHTML,data);
         $('[data-arguments="' + aid + ',' + pid +(tplId?','+tplId:'')+ '"]').parent().html(html);
+        callback & callback();
         lazyLoad.check();
-        initSwiper('.sf-swiper-intPoint');
     }
 
     if (aid === '0') {
@@ -682,10 +682,34 @@ module.intPoint = function(aid, pid , tplId) {
                 render(data);
             } else {
                 //不存在数据则会删除父节点
-                $('[data-arguments="' + aid + ',' + pid + '"]').parent().remove();
+                $('[data-arguments="' + aid + ',' + pid +(tplId?','+tplId:'')+ '"]').parent().remove();
             }
         });
     }
+}
+
+
+module.intPoint = function(aid, pid , tplId) {
+    moduleActivityList(aid,pid,tplId,function(){
+        initSwiper('.sf-swiper-intPoint');
+    });
+}
+
+module.buyList = function(aid, pid , tplId) {
+    moduleActivityList(aid,pid,tplId,function(){
+        //initSwiper('.sf-swiper-buyDetail');
+    console.log($('.sf-swiper-buyDetail'))
+    var swiper = new Swiper('.sf-swiper-buyDetail', {
+        pagination: '.sf-swiper-buyDetail .swiper-pagination',
+        slidesPerView: 3,
+        paginationClickable: true,
+        spaceBetween: 5,
+        onSlideChangeStart: function () {
+            lazyLoad.check();
+        }
+    });
+    
+    });
 }
 
 function initSwiper(container){
@@ -693,9 +717,9 @@ function initSwiper(container){
         pagination: container+' .swiper-pagination',
         loop: false,
         autoplay: 7000,
-        // onSlideChangeStart: function () {
-        //     lazyLoad.check();
-        // }
+        onSlideChangeStart: function () {
+            lazyLoad.check();
+        }
     });
 }
 
