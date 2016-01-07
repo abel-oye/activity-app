@@ -81,6 +81,9 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
         &-tools{
             text-align: center;
             margin-top: $rem*20;
+            &:before{
+                content: "展开查看更多"
+            }
             .arrow{
                 display: inline-block;
                 margin-left:$rem*5;
@@ -93,6 +96,9 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
                 transition: transform .45s;
             }
             &.open{
+                &:before{
+                    content: "收起"
+                }
                 .arrow{
                     transform: rotate(-225deg);
 
@@ -181,8 +187,19 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
         .start-btn{
             width: $rem*230;
             height: $rem*238;
+<<<<<<< HEAD
             background: url(#{$imgPath}poker_start_btn.png) no-repeat;
             background-size:contain;
+=======
+            background: url(#{$imgPath}poker_start_btn2.png) no-repeat;
+            background-size:contain;
+            text-align:center;
+            font-size:$rem*60;
+            color:#f04528;
+            font-weight: bold;
+            padding: $rem*30;
+            line-height: 1.2;
+>>>>>>> ff22f3d725cc2f080786859e4395549b39128be8
         }
     }
 

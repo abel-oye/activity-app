@@ -378,20 +378,39 @@
 				console.log($(selector))
 				$(selector).toggleClass(toggleClass);
 			});
+		var scrollChackeStatus = false; 
 		//悬浮nav
 		$(window).on('scroll',function(){
 			var $this = $('.J-fixed-nav'),
-				winTop = $(window).scrollTop(),
-				_top = $this.attr('data-top') || $this.parent().offset().top;
+				winTop = $(window).scrollTop();
 			if($this[0]){
+				var _top = $this.attr('data-top') || $this.parent().offset().top;
 				if(winTop > _top){
 					$this.addClass('fixed')
 				}else{
 					$this.removeClass('fixed')
 				}
 			}
-			
-			
+
+			if (!scrollChackeStatus) {
+
+			     var top = document.documentElement.scrollTop || document.body.scrollTop,
+			         bottom = window.innerHeight / 2; //首屏
+
+			     if (top > bottom) {
+			         $('#bf-tab').addClass('show');
+			         $('.ymt-butler').addClass('show');
+
+			     }else {
+			         $('#bf-tab').removeClass('show');
+			         $('.ymt-butler').removeClass('show');
+			     }
+
+			     setTimeout(function () {
+			         scrollChackeStatus = false;
+			     }, 250);
+			 }
+				
 		});
 
 		lazyLoad.init({

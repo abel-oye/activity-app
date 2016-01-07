@@ -38,11 +38,11 @@
             </div>
             <div>
                 <button class="btn btn-outline J-close-dialog">去逛逛</button>
-                <button class="btn btn-primary J-close-dialog J-share J-add-lottery" 
-                        data-url="http://ymatou.com/?uid=${userid}"
-                        data-content=""
-                        data-pic=""
-                        data-title="">分享到朋友圈</button>
+               <button class="btn btn-primary J-close-dialog J-share J-add-lottery" 
+                        data-url="http://evt.ymatou.com/activity_4997_MApp?uid=${userid}"
+                        data-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
+                        data-pic="http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg"
+                        data-title="2016元随机送，这种事情会随便说！">分享到朋友圈</button>
             </div>
         <!--没中-->
          {% }else if(BCode == 101){ %}
@@ -58,10 +58,10 @@
              <div>
                  <button class="btn btn-outline J-close-dialog">去逛逛</button>
                  <button class="btn btn-primary J-close-dialog J-share J-add-lottery" 
-                         data-url="http://ymatou.com/?uid=${userid}"
-                         data-content=""
-                         data-pic=""
-                         data-title="">分享到朋友圈</button>
+                        data-url="http://evt.ymatou.com/activity_4997_MApp?uid=${userid}"
+                        data-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
+                        data-pic="http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg"
+                        data-title="2016元随机送，这种事情会随便说！">分享到朋友圈</button>
              </div>
         <!--系统错误-->
          {% }else if(BCode == 103){ %}
@@ -100,9 +100,9 @@
                 {% }else{ %}
                     <button class="btn btn-outline J-close-dialog">去逛逛</button>
                     <button class="btn btn-primary J-close-dialog J-share J-add-lottery" 
-                        data-url="http://ymatou.com/?uid=${userid}"
+                        data-url="http://evt.ymatou.com/activity_4997_MApp?uid=${userid}"
                         data-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
-                        data-pic=""
+                        data-pic="http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg"
                         data-title="2016元随机送，这种事情会随便说！">分享到朋友圈</button>
                 {% } %}
               
@@ -229,7 +229,9 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="start-btn J-start-poker" onclick=";"></div>
+                        <div class="start-btn J-start-poker" onclick=";">
+                            开始抽奖
+                        </div>
                     </div>
                     <div class="card">
                         <div class="card-item rollback" data-inx="4">
@@ -277,7 +279,8 @@
                 </div>
                 <div class="J-toggle-class poker-rule-tools" 
                     data-target=".poker-rule-more,.poker-rule-tools" 
-                    data-toggle-class="open">展开查看更多<i class="arrow"></i></div>
+                    data-toggle-class="open" 
+                    onclick=";"><i class="arrow"></i></div>
             </div>
         </div>
         <div class="poker-dialog-mask J-close-dialog" onclick=";"></div>
@@ -321,6 +324,9 @@
             </div>
         </div>
     </section>
+
+       <!--洋管家-->
+    <div class="ymt-butler bg__full" onclick=";"></div>
 
     <script type="text/javascript" src="http://static.pk.ymatou.com/scripts/zepto,ejs-aee82b3102.js?v=1"></script>
     <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/swiper.3.1.2.js"></script>
