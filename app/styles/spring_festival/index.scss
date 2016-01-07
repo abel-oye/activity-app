@@ -58,7 +58,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
 .sf-hd{
     height: $rem*457;
     background: url(#{$imgPath}sf_header.jpg) no-repeat;
-        background-size: contain; 
+        background-size: contain;
 }
 
 
@@ -123,7 +123,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
                 left: 0;
                 transform-style: preserve-3d;
                  transform-origin: 50% 50% 0;
-                
+
                 &.rollback{
                     //控制文字显示
                     .back{
@@ -181,11 +181,11 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
         .start-btn{
             width: $rem*230;
             height: $rem*238;
-            background: url(#{$imgPath}poker_start_btn.png) no-repeat;    
-            background-size:contain;       
+            background: url(#{$imgPath}poker_start_btn.png) no-repeat;
+            background-size:contain;
         }
     }
-    
+
     &-dialog{
         border:$rem*6 solid #c31c21;
         border-radius:$rem*6;
@@ -273,7 +273,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
     background:#f04528;
     .sf-area-hd{
         height: $rem*90;
-        background-image: url(#{$imgPath}poker_header.jpg); 
+        background-image: url(#{$imgPath}poker_header.jpg);
     }
 }
 //整点抢
@@ -282,7 +282,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
     position: relative;
     .sf-area-hd{
         height: $rem*100;
-        background-image: url(#{$imgPath}sf-hd-02.jpg); 
+        background-image: url(#{$imgPath}sf-hd-02.jpg);
         margin-bottom: $rem*26;
     }
     .sf-area-bd{
@@ -299,7 +299,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
             font-size:$rem*30;
             &:before{
                 content: '';
-                background: url(#{$imgPath}clock.png) no-repeat; 
+                background: url(#{$imgPath}clock.png) no-repeat;
                 @extends .bg__full;
                 background-repeat: no-repeat;
                 background-size: contain;
@@ -320,7 +320,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
             //         line-height: $rem*46;
             //         display: inline-block;
             //         margin-left: $rem*5;
-                    
+
             //         &:before{
             //             content: ' ';
             //             display: block;
@@ -332,29 +332,29 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
             //         }
             //         &:first-child{
             //             &:before{
-            //                border-right-color:#f04528; 
+            //                border-right-color:#f04528;
             //                margin-left:0;
             //             }
             //         }
             //         &:last-child{
             //             &:before{
-            //                border-left-color:#f04528; 
+            //                border-left-color:#f04528;
             //                margin-right:0;
             //             }
             //         }
             //         &.invalid{
             //             &:first-child{
             //                 &:before{
-            //                    border-right-color:#eacc64; 
+            //                    border-right-color:#eacc64;
             //                 }
             //             }
             //             &:last-child{
             //                 &:before{
-            //                    border-left-color:#eacc64; 
+            //                    border-left-color:#eacc64;
             //                 }
             //             }
             //         }
-                    
+
             //     }
             // }
         }
@@ -383,7 +383,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
                 }
             }
         }
-       
+
     }
 }
 
@@ -567,7 +567,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
                 }
             }
         }
-        
+
         .swiper-pagination{
             &-wrapper{
                 text-align: center;
@@ -585,7 +585,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
                margin-right:$rem*15;
                float: left;
                background:rgba(255,255,255,.4);
-              
+
                &.swiper-pagination-bullet-active{
                 background:#fff;
                }
@@ -732,7 +732,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
         height: 100%;
         z-index: 1;
         display: block;
-        display: flex;            
+        display: flex;
         transition-property: transform;
         box-sizing: content-box;
         //white-space: nowrap;
@@ -742,8 +742,8 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
             }
         }
     }
-   
-    .swiper-slide1{
+
+    .swiper-slide{
        display:inline-block;
        text-align: center;
        display: -webkit-box;

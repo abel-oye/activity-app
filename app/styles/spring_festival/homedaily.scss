@@ -19,8 +19,8 @@
 @import'../assets/_global_good.scss';
 @import '../assets/animation/poker.scss';
 
-$imgPath:'/images/spring_festival/';
-// $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
+// $imgPath:'/images/spring_festival/';
+$imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
 
 @include productList(#f04528,#f04528);
 
@@ -28,250 +28,9 @@ $imgPath:'/images/spring_festival/';
     overflow: hidden;
 }
 
-.sf-hd{
-    height: $rem*457;
-    background: url(#{$imgPath}sf_header.jpg) no-repeat;
-        background-size: contain;
-}
-
-
-.poker{
-    &-container{
-        position: relative;
-        background:#f04528;
-        overflow: hidden;
-    }
-    &-rule{
-        color:#fff;
-        padding:0 $rem*30;
-        font-size:$rem*20;
-    }
-
-    &-box{
-        position: relative;
-        @include clearfix();
-        padding:$rem*11;
-        margin-right: -$rem*14;
-        .card{
-            float: left;
-            position: relative;
-            margin:0 $rem*14 $rem*14 0;
-            padding-bottom: 27.5%;
-            width: $rem*230;
-            height: $rem*238;
-            &-item{
-                position: absolute;
-                z-index:3;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                bottom: 0;
-                left: 0;
-                transform-style: preserve-3d;
-                 transform-origin: 50% 50% 0;
-
-                &.rollback{
-                    //控制文字显示
-                    .back{
-                        text-indent:0;
-                    }
-                }
-                //未中奖
-                &.bg-left{
-                    .back{
-                        background-position: left center;
-                        text-indent:-$rem*9999;
-                    }
-                }
-                .face{
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    background-image: url(#{$imgPath}poker_back.png);
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    background-position: center;
-                    -webkit-backface-visibility: hidden;
-                    backface-visibility: hidden;
-                }
-                .back{
-                    position:absolute;
-                    width: 100%;
-                    height: 100%;
-                    background-image: url(#{$imgPath}poker_result.png);
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    background-position: right center;
-                    -webkit-transform: rotateY(180deg);
-                    transform: rotateY(180deg);
-                    -webkit-backface-visibility: hidden;
-                    backface-visibility: hidden;
-                    color:#fff;
-                    font-size:$rem*28;
-                    text-align: center;
-                    line-height: 1100%;
-                    text-indent:$rem*-9999;
-                    strong{
-                        font-size: $rem*56;
-                    }
-                }
-            }
-        }
-        .start-btn{
-            width: $rem*230;
-            height: $rem*238;
-            background: url(#{$imgPath}poker_start_btn.png) no-repeat;
-            background-size:contain;
-        }
-    }
-
-    &-dialog{
-        border:$rem*6 solid #c31c21;
-        border-radius:$rem*6;
-        background:#fff;
-        padding:$rem*30;
-        min-width: $rem*490;
-        position:fixed;
-        top:50%;
-        left:50%;
-        z-index:100;
-        display: none;
-        transform:translate(-50%,-50%);
-        &.open{
-            display: block;
-        }
-        &-hd{
-            position:relative;
-            .close-btn{
-                position:absolute;
-                height: $rem*50;
-                width: $rem*50;
-                background:#c31c21;
-                text-align: center;
-                line-height: $rem*50;
-                color:#fff;
-                font-size:$rem*22;
-                right:$rem*-50;
-                top:$rem*-50;
-                border-radius:50%;
-            }
-        }
-        &-bd{
-            text-align: center;
-            color:#c31c21;
-            font-size:$rem*30;
-        }
-        .content{
-            margin-bottom: $rem*50;
-            small{
-                font-size:$rem*18;
-                color: #666;
-                line-height: 1.5;
-                    display: block;
-            }
-        }
-        .btn{
-            border-radius:$rem*4;
-            font-size:$rem*28;
-            padding:$rem*10 $rem*24;
-        }
-        .btn-primary{
-            background:#c31c21;
-            color:#fff;
-        }
-        .btn-outline{
-            background:#fff;
-            color:#c31c21;
-            border:$rem*2 solid #c31c21;
-        }
-        .btn-w-full{
-            width: 100%;
-        }
-        &-mask{
-            &.open{
-                display: block;
-            }
-            display: none;
-            z-index:99;
-            position: fixed;
-            left:0;
-            right:0;
-            top:0;
-            bottom:0;
-            background:rgba(0,0,0,.6);
-        }
-    }
-}
-
 .sf-area-hd{
     background-size: contain;
     background-repeat:no-repeat;
-}
-
-//专场
-.special-product-area{
-    display: -webkit-box;
-    display: flex;
-    width: 100%;
-    padding:$rem*18;
-
-    .pic{
-        width: $rem*318;
-        height:$rem*291;
-        background-repeat:no-repeat;
-        background-size:contain;
-        margin-right: $rem*35;
-    }
-    .info{
-        flex:1;
-        h3{
-            font-size: $rem*25;
-            color:#333;
-        }
-        .country{
-            font-size: $rem*18;
-            color:#999;
-            margin-top: $rem*10;
-            .flag{
-                display: inline-block;
-                height:$rem*25;
-                width:$rem*25;
-                border-radius:50%;
-                background-repeat:no-repeat;
-                background-size:contain;
-                    vertical-align: middle;
-                    margin-right:$rem*5;
-            }
-        }
-        .price{
-            color:#f04528;
-            font-size: $rem*34;
-            strong{
-                font-size:$rem*60;
-            }
-            small{
-                font-size:$rem*18;
-                    position: absolute;
-                    margin-top: $rem*10;
-                    margin-left:$rem*10;
-            }
-        }
-        .stock{
-            border-radius:$rem*8;
-            border:$rem*2 solid #f04528;
-            color:#ff5247;
-            font-size:$rem*24;
-            padding:$rem*4 $rem*12;
-            margin-right:$rem*10;
-        }
-        .see-live{
-            padding:$rem*4 $rem*12;
-            background:#f04528;
-            color:#fff;
-            font-size:$rem*24;
-            border-radius:$rem*8;
-        }
-    }
 }
 
 .sf-goods{
@@ -289,8 +48,8 @@ $imgPath:'/images/spring_festival/';
 
         }
         &-hd{
-            border:$rem*8 solid #d72d10;
-            background:#d72d10;
+            border:$rem*8 solid #049f9f;
+            background:#049f9f;
             border-radius:$rem*20;
             @include clearfix();
             &-item{
@@ -298,17 +57,24 @@ $imgPath:'/images/spring_festival/';
                 height:$rem*88;
                 line-height:$rem*88;
                 color:#fff;
+                font-size: $rem*32;
+                font-weight: 700;
                 float: left;
                 width: 33.333333%;
                 text-align: center;
-                &.selected{
+                &.active{
                     background:#faf3c4;
-                    color:#f04528;
+                    color:#009797;
                 }
             }
         }
     }
     &-sub-tab-wrap {
+        position: relative;
+        width: 100%;
+        z-index: 999;
+    }
+    &-sub-tab-hold {
         width: 200%;
         height: $rem*100;
         background-color: #5bcbcb;
@@ -319,7 +85,8 @@ $imgPath:'/images/spring_festival/';
     &-sub-tab{
         width: 100%;
         height: $rem*90;
-        transform: translate(0, -100%);
+        position: absolute;
+        top: $rem*10;
         &-list{
             @include clearfix();
         }
@@ -339,72 +106,13 @@ $imgPath:'/images/spring_festival/';
                 color:#fff;
                 text-align: center;
                 font-style: italic;
+                padding: $rem*2 $rem*8;
             }
-            &.selected{
+            &.active{
                 &>div{
                     background:#faf3c4;
                     color:#049f9f;
                 }
-            }
-        }
-    }
-}
-
-//必买清单
-.buy-detail{
-    &-area{
-        padding:0 $rem*8;
-        border-bottom:$rem*5 solid #faf3c4;
-        .sf-area-hd{
-            height: $rem*122;
-        }
-        .pro-detail{
-            margin-top: $rem*15;
-            background:#fff;
-            border-radius:$rem*8;
-            padding:$rem*18 0;
-            font-size:$rem*25;
-            color:#2c2c2c;
-            .pic{
-                width:$rem*236;
-                height:$rem*236;
-                background-repeat:no-repeat;
-                background-size:contain;
-            }
-            h4{
-                padding:0 $rem*14;
-            }
-            .price{
-                text-align: center;
-                color:#ef3b3b;
-                strong{
-                    font-size:$rem*36;
-                }
-            }
-        }
-        .swiper-pagination{
-            &-wrapper{
-                text-align: center;
-            }
-            padding:$rem*10 $rem*60;
-            background:#d72d10;
-            border-radius:$rem*50;
-            margin-top: $rem*17;
-            display: inline-block;
-            overflow: hidden;
-            &>li{
-               height: $rem*16;
-               width:$rem*16;
-               border-radius:50%;
-               margin-right:$rem*30;
-               float: left;
-               background:rgba(255,255,255,.4);
-               &:last-child{
-                margin:0;
-               }
-               &.actived{
-                background:#fff;
-               }
             }
         }
     }
@@ -417,7 +125,7 @@ $imgPath:'/images/spring_festival/';
     .sf-area-hd{
         background-size:cover;
         background-repeat:no-repeat;
-        height: $rem*106;
+
         transform: translate(0, 1px);
     }
     .bf-list{
@@ -425,102 +133,10 @@ $imgPath:'/images/spring_festival/';
     }
 }
 
-//组合商品
-.goods-group{
-    &-area{
-        padding:0 $rem*10;
-    }
-    &-list{
-
-    }
-    &-item{
-        background:#fff;
-        margin-bottom: $rem*12;
-        padding:$rem*10 $rem*12;
-        display: flex;
-        .pic{
-            width: $rem*316;
-            height: $rem*316;
-            background-repeat:no-repeat;
-            background-size:contain;
-        }
-        .info{
-            flex:1;
-            h3{
-                font-size: $rem*25;
-                color:#333;
-            }
-            .country{
-                margin-top: $rem*40;
-                font-size: $rem*18;
-                color:#999;
-                margin-top: $rem*10;
-                .flag{
-                    display: inline-block;
-                    height:$rem*25;
-                    width:$rem*25;
-                    border-radius:50%;
-                    background-repeat:no-repeat;
-                    background-size:contain;
-                        vertical-align: middle;
-                        margin-right:$rem*5;
-                }
-            }
-            .options{
-                font-size:$rem*25;
-                color:#333;
-                line-height: 1;
-                float: left;
-                    margin-right: $rem*20;
-                input[type=radio]{
-                    display: none;
-                    &:checked{
-                        +label{
-                           &>.disguise-radio{
-                            border:0;
-                            background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAcCAMAAACnDzTfAAABEVBMVEUAAAD3p6b0Uk/1h4X2pKP0UE70SUb0VVL0UlD0VFDzW1n0ZGL0Y2D3oJ70eXf2nJz1m5z1h4b1U1DzS0j0TkrzSkf0Tkv0VVP0XVv1Xlv0VFH0Y2H0a2n0ZmP1bmz1dHLzZGH2dHLzb2z4hIL0e3n1eHf1d3bza2j4j430bmv1hYX1U1Dzqqr2f331f331bm30bmz5ioj4ioj0VFL1dHP0dHH2rq/3r670UU70Uk/0TEn0TkvzS0j////0SUb0R0T6yMf0U1D6xMPzXFr0WljzRUL/+vv6vbz2dXP0VFH8s7L5m5r4m5r3eHb0X131WFX95OT+5OP94uD93t76ysr8uLf/s7T3mpn3hIH0ZGP5UlD6vYv9AAAAOHRSTlMACOtUEen76ODSx8CPSCkoIg7d+vf26eLa2dXUx8bCuK2bmpKCfnBtbGpdUS2oqIKCf39RPz81NSHOh9QAAAGfSURBVCjPVZKHdsIwDEWdQKCMlpbuPdije8mySQiUVVb3+v8PqW0lpegkOie6ec+yZRZGpny2n81m90/LGTYfy8XUOgrOAcR6qrj8j1iR1BoCAAcFQa6lIlaIVioJyYlQlonKSoBKO8qNAz3mFTslgtWEACoTV4mLRFWjehLByEgYOGOyrvrIrwKENR6sJwFW8xa7T+JsLQo5mAJg8o5dxmAmMaZeu9dUX7ErdihDw0DptluNN1DCQ7YrwACyJdScCA5il8WN1cAX5ConrUar7YGKOLN1TY57fVd741SpFNL/28S8r+6LgoA/H43mQ4c6c9i2OQbx2X0eS4RHjWh52GYHqA3czrD71EeNPE594wHLxbSB73qj7us7qUgWy7HFBbMJX3rDBqloq2JhkUVPXNAxkN6o993xeTBH9yTKjJCO3kU9YholKpkaRGGDmI9SZUKwUbDMPUo7AKYhXSdLJx3cp6W0I6gaJHTSS4QUvNhEVFqSC9w8N4giGjmKe6g1Qrrxo0g0BAE93tuybXtr75jIXFiZm+ta7TZj/VV+AVhUfcJ6RbwQAAAAAElFTkSuQmCC) no-repeat ;
-                            background-size:contain;
-                           }
-                        }
-                    }
-                }
-                &-radio{
-                    &>.disguise-radio{
-                        transition: background 0.25s ease-in-out;
-                        display: inline-block;
-                        width: $rem*28;
-                        height: $rem*28;
-                        border-radius:50%;
-                        border:1px solid #f33633;
-                        vertical-align: text-bottom;
-                        margin-right:$rem*5;
-                    }
-                }
-            }
-            .price{
-                color:#f04528;
-                strong{
-                    font-size:$rem*58;
-                }
-            }
-            .btn.buy-now{
-                background:#f04528;
-                border-radius:$rem*4;
-                color:#fff;
-                height: $rem*99;
-                font-size:$rem*32;
-                width: $rem*99;
-                white-space: normal;
-                margin-top: $rem*10;
-            }
-        }
-    }
-}
-
 .sf-area {
     padding: 0 $rem*10;
-    .sf-area-bd {
-        padding: 0 $rem*40;
+    .sf-area-bd-wrap {
+        padding: 0 $rem*12;
         background-color: #5bcbcb;
     }
 
@@ -556,7 +172,6 @@ $imgPath:'/images/spring_festival/';
             .pic {
                 width: $rem*600;
                 height: $rem*600;
-                background-color: red;
             }
             .info {
                 margin-top: $rem*40;
@@ -578,7 +193,7 @@ $imgPath:'/images/spring_festival/';
                         max-width: $rem*200;
                         text-overflow: ellipsis;
                         overflow: hidden;
-                        white-space: no-wrap;
+                        white-space: nowrap;
                     }
                     .price {
                         font-size: $rem*40;
@@ -605,3 +220,104 @@ $imgPath:'/images/spring_festival/';
         }
     }
 }
+
+.sf-swiper{
+    overflow: hidden;
+    .swiper-wrapper{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        display: block;
+        display: flex;
+        transition-property: transform;
+        box-sizing: content-box;
+        //white-space: nowrap;
+        &_3col{
+            .swiper-slide{
+                flex-shrink: 3;
+            }
+        }
+    }
+
+    .swiper-slide{
+       display:inline-block;
+       text-align: center;
+       display: -webkit-box;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       flex-shrink: 0;
+       position: relative;
+    }
+
+}
+
+//必买清单
+.buy-detail{
+    &-area{
+        padding:0 $rem*8;
+        border-bottom:$rem*5 solid #faf3c4;
+        .sf-area-hd{
+            height: $rem*106;
+            background-position: center;
+        }
+        .pro-detail{
+            margin-top: $rem*15;
+            background:#fff;
+            border-radius:$rem*8;
+            padding:$rem*18 0;
+            font-size:$rem*25;
+            color:#2c2c2c;
+            overflow: hidden;
+            .pic{
+                width:$rem*236;
+                height:$rem*236;
+                background-repeat:no-repeat;
+                background-size:contain;
+            }
+            h4{
+                padding:0 $rem*14;
+                height: $rem*74;
+                white-space: normal;
+                @include textOverFlow(2);
+            }
+            .price{
+                text-align: center;
+                color:#ef3b3b;
+                strong{
+                    font-size:$rem*36;
+                }
+            }
+        }
+
+        .swiper-pagination{
+            &-wrapper{
+                text-align: center;
+            }
+            padding:$rem*10 $rem*60;
+            background:#d72d10;
+            border-radius:$rem*50;
+            margin-top: $rem*17;
+            display: inline-block;
+            overflow: hidden;
+            &>span{
+               height: $rem*16;
+               width:$rem*16;
+               border-radius:50%;
+               margin-right:$rem*15;
+               float: left;
+               background:rgba(255,255,255,.4);
+
+               &.swiper-pagination-bullet-active{
+                background:#fff;
+               }
+            }
+        }
+    }
+    &-item{
+        background:#f04528;
+    }
+}
+
+@include column('.buy-detail-',3,$rem*8);
