@@ -72,15 +72,16 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
     &-sub-tab-wrap {
         position: relative;
         width: 100%;
+        height: $rem*100;
         z-index: 999;
     }
     &-sub-tab-hold {
-        width: 200%;
+        width: 100%;
         height: $rem*100;
         background-color: #5bcbcb;
         border-bottom-left-radius: 50%;
         border-bottom-right-radius: 50%;
-        transform: translate(-25%, 0);
+        // transform: translate(-25%, 0);
     }
     &-sub-tab{
         width: 100%;
@@ -125,12 +126,23 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
     .sf-area-hd{
         background-size:cover;
         background-repeat:no-repeat;
-
         transform: translate(0, 1px);
     }
     .bf-list{
         padding:0 $rem*10;
     }
+}
+
+#evt-01 .sf-area-hd {
+    height: $rem*124;
+}
+
+#evt-02 .sf-area-hd {
+    height: $rem*114;
+}
+
+#evt-03 .sf-area-hd {
+    height: $rem*105;
 }
 
 .sf-area {
@@ -144,10 +156,17 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
 
 .sf-area-1 {
     background-color: #94efef;
+    .sf-area-bd {
+        background-color: #5bcbcb;
+    }
     .sf-area-ft {
+        width: 100%;
         height: $rem*83;
         background-image: url(#{$imgPath}/sf_tab03_list_ft01.jpg);
         transform: translate(0, -1px);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 }
 
@@ -158,9 +177,13 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
         background-color: #0ab2b2;
     }
     .sf-area-ft {
+        width: 100%;
         height: $rem*82;
         background-image: url(#{$imgPath}/sf_tab03_list_ft02.jpg);
         transform: translate(0, -1px);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 }
 
@@ -257,7 +280,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
 .buy-detail{
     &-area{
         padding:0 $rem*8;
-        border-bottom:$rem*5 solid #faf3c4;
+        margin-top: $rem*160;
         .sf-area-hd{
             height: $rem*106;
             background-position: center;
@@ -317,6 +340,15 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
     }
     &-item{
         background:#f04528;
+    }
+}
+
+.ws-android{
+    .swiper-wrapper{
+        white-space: nowrap;
+        .swiper-slide{
+            display: inline-block;
+        }
     }
 }
 

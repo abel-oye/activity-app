@@ -41,6 +41,9 @@
             font-size:$rem*22;
             color:#a3a3a3;
             margin-top:$rem*10;
+            .market-price {
+                height: $rem*32;
+            }
             &>h4{
                 color:#333;
                 height:$rem*66;

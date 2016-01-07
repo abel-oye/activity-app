@@ -308,12 +308,12 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
         z-index: 999;
     }
     &-sub-tab-hold {
-        width: 200%;
+        width: 100%;
         height: $rem*100;
         background-color: #f84168;
         border-bottom-left-radius: 50%;
         border-bottom-right-radius: 50%;
-        transform: translate(-25%, 0);
+        // transform: translate(-25%, 0);
     }
     &-sub-tab{
         width: 100%;
@@ -529,9 +529,13 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
 .sf-area-1 {
     background-color: #ffe6f6;
     .sf-area-ft {
+        width: 100%;
         height: $rem*83;
         background-image: url(#{$imgPath}/sf_tab02_list_ft01.jpg);
         transform: translate(0, -1px);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 }
 
@@ -542,9 +546,13 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
         background-color: #f76487;
     }
     .sf-area-ft {
+        width: 100%;
         height: $rem*82;
         background-image: url(#{$imgPath}/sf_tab02_list_ft02.jpg);
         transform: translate(0, -1px);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 }
 
