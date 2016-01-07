@@ -156,7 +156,7 @@
     <script id="mixture-product-tpl"  type="text/template">
         {% for(var i=0,len =products.length;i<len;i++){ %}
             <li class="goods-group-item">
-                <div class="pic" style="background-image:url(http://i4.tietuku.com/c6548a53d7ec838b.jpg)"></div>
+                <div class="pic" lazy-load-background="{%-: products[i].picUrl | convertImgUrl %}" style="background-image: url(http://staticontent.ymatou.com/images/activity/placeholder@300x300.png);"></div>
                 <div class="info">
                     <p class="country"><i class="flag" lazy-load-background="{%= products[i].countryFlagUrl%}"></i>{%- products[i].countryName %}</p>
                     <h3>{%- products[i].name %}</h3>
@@ -259,7 +259,6 @@
                 </div>
             </div>
             <div class="sf-area-ft poker-rule">
-                <div class="J-show" data-target=".poker-rule-more">规则</div>
                 <p>奖品：全站通用优惠券，2016元无门槛优惠券，coach包(价值2800）。</p>
                 <div class="poker-rule-more">
                     <p>. 活动期间，每人每天有1次机会，分享后可再获得1次机会</p>
@@ -269,6 +268,9 @@
                     <p>. 如在活动期间发现有违规行为，洋码头有权取消违规账号所得奖品</p>
                     <p>. 本活动最终解释权归洋码头所有</p>
                 </div>
+                <div class="J-toggle-class poker-rule-tools" 
+                    data-target=".poker-rule-more,.poker-rule-tools" 
+                    data-toggle-class="open">展开查看更多<i class="arrow"></i></div>
             </div>
         </div>
         <div class="poker-dialog-mask J-close-dialog" onclick=";"></div>

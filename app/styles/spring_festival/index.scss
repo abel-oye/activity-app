@@ -47,8 +47,29 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
         font-size:$rem*20;
         &-more{
             display: none;
-            .open{
+            &.open{
                 display: block;
+            }
+        }
+        &-tools{
+            text-align: center;
+            margin-top: $rem*20;
+            .arrow{
+                display: inline-block;
+                margin-left:$rem*5;
+                width: $rem*10;
+                height: $rem*10;
+                border-left:$rem*3 solid #fff;
+                border-bottom:$rem*3 solid #fff;
+                transform: rotate(-45deg);
+                transition-property: transform;
+                transition: transform .45s;
+            }
+            &.open{
+                .arrow{
+                    transform: rotate(-225deg);
+
+                }
             }
         }
     }

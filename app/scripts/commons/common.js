@@ -368,8 +368,12 @@
 				} else {
 					YmtApi.toLogin();
 				}
-			}).on('click','.J-show',function(){
-				$($(this).attr('data-target')).addClass('open');
+			}).on('click','.J-toggle-class',function(){
+				var $this = $(this),
+					selector = $this.attr('data-target'),
+					toggleClass = $this.attr('data-toggle-class');
+				console.log($(selector))
+				$(selector).toggleClass(toggleClass);
 			});
 
 		lazyLoad.init({
@@ -386,8 +390,6 @@
 		            //     sub_module_name: $this.attr('data-sub-module-name')
 		            // });
 		            // 
-		            console.log(module)
-
 		            moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
 		            $this.removeClass('J-module-Hold').addClass('module-load-end');
 		        }
