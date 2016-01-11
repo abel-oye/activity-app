@@ -17,23 +17,15 @@
 @import'../assets/common.scss';
 @import'../black_five/_proList.scss';
 @import'../assets/_global_good.scss';
-@import '../assets/animation/poker.scss';
 
-$imgPath:'/images/spring_festival/';
-// $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
+// $imgPath:'/images/spring_festival/';
+$imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
 
 @include productList(#f04528,#f04528);
 
 .sf-container{
     overflow: hidden;
 }
-
-.sf-hd{
-    height: $rem*457;
-    background: url(#{$imgPath}sf_header.jpg) no-repeat;
-        background-size: contain;
-}
-
 
 .poker{
     &-container{
@@ -208,119 +200,6 @@ $imgPath:'/images/spring_festival/';
     background-repeat:no-repeat;
 }
 
-.poker-area{
-    background:#f04528;
-    .sf-area-hd{
-        height: $rem*90;
-        background-image: url(#{$imgPath}poker_header.jpg);
-    }
-}
-//整点抢
-.int-point-area{
-    padding-bottom:$rem*34;
-    position: relative;
-    .sf-area-hd{
-        height: $rem*100;
-        background-image: url(#{$imgPath}sf-hd-02.jpg);
-        margin-bottom: $rem*26;
-    }
-    .sf-area-bd{
-        padding:0 $rem*10;
-    }
-    .special{
-        &-title{
-            background:#f3f877;
-            height: $rem*46;
-            margin-bottom:$rem*5;
-            position:relative;
-            padding-left:$rem*135;
-            color:#f04528;
-            font-size:$rem*30;
-            &:before{
-                content: '';
-                background: url(#{$imgPath}clock.png) no-repeat;
-                position:absolute;
-                width: $rem*117;
-                height:$rem*89;
-                left:0;
-                bottom:0;
-            }
-            .btn-switch{
-                background:#f04528;
-                height: $rem*46;
-                &>span{
-                    background:#f3f877;
-                    width: $rem*46;
-                    height: 100%;
-                    line-height: $rem*46;
-                    display: inline-block;
-                    margin-left: $rem*5;
-
-                    &:before{
-                        content: ' ';
-                        display: block;
-                        width: 0;
-                        height: 0;
-                        border:$rem*14 solid rgba(0,0,0,0);
-                        margin:0 auto;
-                        margin-top: $rem*9;
-                    }
-                    &:first-child{
-                        &:before{
-                           border-right-color:#f04528;
-                           margin-left:0;
-                        }
-                    }
-                    &:last-child{
-                        &:before{
-                           border-left-color:#f04528;
-                           margin-right:0;
-                        }
-                    }
-                    &.invalid{
-                        &:first-child{
-                            &:before{
-                               border-right-color:#eacc64;
-                            }
-                        }
-                        &:last-child{
-                            &:before{
-                               border-left-color:#eacc64;
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-        &-bd{
-            background: #fff;
-        }
-    }
-
-    .int-point-area-slide{
-        &-triggers{
-            position:absolute;
-            bottom:$rem*15;
-            left:0;
-            width:100%;
-            text-align: center;
-
-        }
-        &-pagination{
-            width: $rem*16;
-            height: $rem*16;
-            border-radius:50%;
-            background:#a0a0a0;
-            margin-right:$rem*30;
-            display: inline-block;
-            &.actived{
-                background: #f04528;
-            }
-        }
-    }
-}
-
 //专场
 .special-product-area{
     display: -webkit-box;
@@ -411,34 +290,41 @@ $imgPath:'/images/spring_festival/';
                 height:$rem*88;
                 line-height:$rem*88;
                 color:#fff;
+                font-size: $rem*32;
+                font-weight: 700;
                 float: left;
                 width: 33.333333%;
                 text-align: center;
-                &.selected{
+                &.active{
                     background:#faf3c4;
-                    color:#f04528;
+                    color:#d20032;
                 }
             }
         }
     }
     &-sub-tab-wrap {
-        width: 200%;
+        position: relative;
+        width: 100%;
+        z-index: 999;
+    }
+    &-sub-tab-hold {
+        width: 100%;
         height: $rem*100;
         background-color: #f84168;
         border-bottom-left-radius: 50%;
         border-bottom-right-radius: 50%;
-        transform: translate(-25%, 0);
+        // transform: translate(-25%, 0);
     }
     &-sub-tab{
         width: 100%;
         height: $rem*90;
-        transform: translate(0, -100%);
+        position: absolute;
+        top: $rem*10;
         &-list{
             @include clearfix();
         }
         &-item{
             float: left;
-            // padding: 0 $rem*20;
             width: 16.6%;
             text-align: center;
             border-right: 1px solid #fff;
@@ -449,11 +335,12 @@ $imgPath:'/images/spring_festival/';
             &>div{
                 display: inline-block;
                 font-size: $rem*24;
+                padding: $rem*2 $rem*8;
                 color:#fff;
                 text-align: center;
                 font-style: italic;
             }
-            &.selected{
+            &.active{
                 &>div{
                     background:#faf3c4;
                     color:#d20032;
@@ -642,9 +529,13 @@ $imgPath:'/images/spring_festival/';
 .sf-area-1 {
     background-color: #ffe6f6;
     .sf-area-ft {
+        width: 100%;
         height: $rem*83;
         background-image: url(#{$imgPath}/sf_tab02_list_ft01.jpg);
         transform: translate(0, -1px);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 }
 
@@ -655,21 +546,29 @@ $imgPath:'/images/spring_festival/';
         background-color: #f76487;
     }
     .sf-area-ft {
+        width: 100%;
         height: $rem*82;
         background-image: url(#{$imgPath}/sf_tab02_list_ft02.jpg);
         transform: translate(0, -1px);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 }
 
 .sf-list {
     .sf-item {
         padding: $rem*26;
+        margin-bottom: $rem*20;
         background-color: #fff;
+        border-radius: $rem*12;
+        &:last-child {
+            margin-bottom: 0;
+        }
         .pro-wrap {
             .pic {
                 width: $rem*600;
                 height: $rem*600;
-                background-color: red;
             }
             .info {
                 margin-top: $rem*40;
@@ -691,7 +590,7 @@ $imgPath:'/images/spring_festival/';
                         max-width: $rem*200;
                         text-overflow: ellipsis;
                         overflow: hidden;
-                        white-space: no-wrap;
+                        white-space: nowrap;
                     }
                     .price {
                         font-size: $rem*40;

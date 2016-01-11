@@ -133,10 +133,10 @@
 
         },
 
-        hotList: function(aid, pid, tplId) {
+        buyList: function(aid, pid, tplId) {
             var render = function(data) {
                 data.Products.length % 2 == 1 && data.Products.pop();
-                var html = ejs.render($('#' + (tplId || 'hot-tpl')).html(), data);
+                var html = ejs.render($('#' + (tplId || 'buy-list-tpl')).html(), data);
                 $('[data-arguments="' + aid + ',' + pid + (tplId ? ',' + tplId : '') + '"]').parent().html(html);
                 lazyLoad.check();
             }
@@ -147,12 +147,23 @@
                 getActivityJsonP(aid, pid, 50, function(data) {
                     if (data && data.Products) {
                         render(data);
+                        var swiper = new Swiper('.sf-swiper-buyDetail', {
+                            pagination: '.sf-swiper-buyDetail .swiper-pagination',
+                            slidesPerView: 3,
+                            paginationClickable: true,
+                            spaceBetween: 5,
+                            onSlideChangeStart: function () {
+                                lazyLoad.check();
+                            }
+                        });
                     } else {
                         //不存在数据则会删除父节点
                         $('[data-arguments="' + aid + ',' + pid + '"]').parent().remove();
                     }
                 });
             }
+
+
 
         }
     }

@@ -27,8 +27,10 @@
                       {% if(!Products[i].PackageId){ %}  <span class="national-flag" lazy-load-background="{%=Products[i].CountryFlagUrl%}" ></span>{%=Products[i].CountryName%} {% } %}
                     </div>
                     <h4>{%=Products[i].Name%}</h4>
-                    <div>
+                    <div class="market-price">
+                        {% if(Products[i].ProductType == 0){ %}
                         <del>市场价:{%=Products[i].MarketPrice%}</del>
+                        {% } %}
                     </div>
                     <div class="price-wrapper2">
                         <span>囤货价</span>
@@ -41,51 +43,78 @@
         {% } %}
     </script>
 
+    <script id="hot-tpl" type="text/template">
+        {% for(var i=0,len= Math.min(Products.length, 2);i<len;i++){ %}
+            <div class="sf-item  {%=(Products[i].ProductType == 1 ? 'J-open-C-Product':'J-open')%}" {%= Products[i].ProductType == 1 ? 'data-productId='+Products[i].ProductId+' data-logo='+Products[i].Logo+' data-seller='+Products[i].Seller+' data-sellerId='+Products[i].SellerId :'data-url='+(Products[i].PackageId ? 'http://evt.ymatou.com/activity_4694_capp?TC='+Products[i].PackageId : 'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId)%} onclick=";">
+                <div class="pro-wrap">
+                    <div class="pic bg__full" lazy-load-background="{%-: Products[i].PicUrl | convertImgUrl %}"></div>
+                    <div class="info">
+                        <div class="national-wrap">
+                            {% if(!Products[i].PackageId){ %}
+                            <span class="national-flag" lazy-load-background="{%=Products[i].CountryFlagUrl%}"></span>日本
+                            {% } %}
+                        </div>
+                        <div class="price-wrap">
+                            <div>
+                                <div class="desc">{%=Products[i].Name%}</div>
+                                <span class="price">&yen;{%=Products[i].Price4Sale%}</span>
+                                <del>&yen;{%=Products[i].MarketPrice%}</del>
+                            </div>
+                            <div class="purchase">立即抢购 ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% } %}
+    </script>
+
 
     <section class="sf-container">
-        <!--美容护理-->
         <div class="sf-goods">
             <div class="sf-goods-banner" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf-tab02.jpg)"></div>
             <div class="sf-goods-tab">
                 <ul class="sf-goods-tab-hd">
-                    <li class="sf-goods-tab-hd-item selected">年货美食</li>
-                    <li class="sf-goods-tab-hd-item">美容护理</li>
-                    <li class="sf-goods-tab-hd-item">家居日用</li>
+                    <li class="sf-goods-tab-hd-item J-open" data-url="http://evt.ymatou.com/activity_4998_capp" onclick=";">年货美食</li>
+                    <li class="sf-goods-tab-hd-item active">美容护理</li>
+                    <li class="sf-goods-tab-hd-item J-open" data-url="http://evt.ymatou.com/activity_5000_capp" onclick=";">家居日用</li>
                 </ul>
             </div>
-            <div class="sf-goods-sub-tab-wrap"></div>
-            <div class="sf-goods-sub-tab">
-                <ul class="sf-goods-sub-tab-list sf-goods-sub-tab-item_3col">
-                    <li class="sf-goods-sub-tab-item selected">
-                        <div>洗护</div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            姨妈巾
-                        </div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            护肤彩妆
-                        </div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            面膜
-                        </div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            特殊护理
-                        </div>
-                    </li>
-                    <li class="sf-goods-sub-tab-item">
-                        <div>
-                            避孕套
-                        </div>
-                    </li>
-                </ul>
+            <div class="sf-goods-sub-tab-wrap">
+                <div class="sf-goods-sub-tab-hold"></div>
+                <div class="sf-goods-sub-tab">
+                    <ul class="sf-goods-sub-tab-list J-tab" id="sf-sub-tab">
+                        <li class="sf-goods-sub-tab-item" data-href="evt-01" onclick=";">
+                            <div>洗护</div>
+                        </li>
+                        <li class="sf-goods-sub-tab-item" data-href="evt-02" onclick=";">
+                            <div>
+                                姨妈巾
+                            </div>
+                        </li>
+                        <li class="sf-goods-sub-tab-item" data-href="evt-03" onclick=";">
+                            <div>
+                                护肤彩妆
+                            </div>
+                        </li>
+                        <li class="sf-goods-sub-tab-item" data-href="evt-04" onclick=";">
+                            <div>
+                                面膜
+                            </div>
+                        </li>
+                        <li class="sf-goods-sub-tab-item" data-href="evt-05" onclick=";">
+                            <div>
+                                特殊护理
+                            </div>
+                        </li>
+                        <li class="sf-goods-sub-tab-item" data-href="evt-06" onclick=";">
+                            <div>
+                                避孕套
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
+
 
             <!--热销爆款-->
             <div class="sf-area sf-area-1 class-joint">
@@ -93,35 +122,23 @@
                 <div class="sf-area-bd">
                     <!-- 一列商品 -->
                     <div class="sf-list">
-                        <div class="sf-item">
-                            <div class="pro-wrap">
-                                <div class="pic"></div>
-                                <div class="info">
-                                    <div class="national-wrap">
-                                        <span class="national-flag" lazy-load-background="http://img.ymatou.com/app/flag/circle/America.png" ></span>日本
-                                    </div>
-                                    <div class="price-wrap">
-                                        <div>
-                                            <div class="desc">电吹风电吹风</div>
-                                            <span class="price">&yen;9999</span>
-                                            <del>&yen;999</del>
-                                        </div>
-                                        <div class="purchase">立即抢购 ></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="J-module-Hold module-hold" data-module="hotList" data-arguments="4994,8667"
+                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                     </div>
                 </div>
                 <div class="sf-area-ft"></div>
             </div>
             <!--洗护用品-->
-            <div class="sf-area sf-area-2 class-joint">
+            <div class="sf-area sf-area-2 class-joint J-bf-axie" id="evt-01">
                 <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf_tab02_list_01.jpg)"></div>
                 <div class="sf-area-bd">
                     <!--两列商品模式-->
                     <div class="bf-list bf-item_2col">
-                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="16275,6108"
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8688"
+                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                    </div>
+                    <div class="bf-list bf-item_2col">
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8693"
                              lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                     </div>
                 </div>
@@ -129,12 +146,16 @@
             </div>
 
             <!--姨妈巾-->
-            <div class="sf-area sf-area-1 class-joint">
+            <div class="sf-area sf-area-1 class-joint J-bf-axie" id="evt-02">
                 <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf_tab02_list_02.jpg)"></div>
                 <div class="sf-area-bd">
                     <!--两列商品模式-->
                     <div class="bf-list bf-item_2col">
-                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="16275,6108"
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8690"
+                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                    </div>
+                    <div class="bf-list bf-item_2col">
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8694"
                              lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                     </div>
                 </div>
@@ -142,12 +163,16 @@
             </div>
 
             <!--护肤彩妆-->
-            <div class="sf-area sf-area-2 class-joint">
+            <div class="sf-area sf-area-2 class-joint J-bf-axie" id="evt-03">
                 <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf_tab02_list_03.jpg)"></div>
                 <div class="sf-area-bd">
                     <!--两列商品模式-->
                     <div class="bf-list bf-item_2col">
-                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="16275,6108"
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8691"
+                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                    </div>
+                    <div class="bf-list bf-item_2col">
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8695"
                              lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                     </div>
                 </div>
@@ -155,12 +180,16 @@
             </div>
 
             <!--面膜-->
-            <div class="sf-area sf-area-1 class-joint">
+            <div class="sf-area sf-area-1 class-joint J-bf-axie" id="evt-04">
                 <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf_tab02_list_04.jpg)"></div>
                 <div class="sf-area-bd">
                     <!--两列商品模式-->
                     <div class="bf-list bf-item_2col">
-                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="16275,6108"
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8703"
+                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                    </div>
+                    <div class="bf-list bf-item_2col">
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8704"
                              lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                     </div>
                 </div>
@@ -168,12 +197,16 @@
             </div>
 
             <!--特殊护理-->
-            <div class="sf-area sf-area-1 class-joint">
+            <div class="sf-area sf-area-1 class-joint J-bf-axie" id="evt-05">
                 <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf_tab02_list_05.jpg)"></div>
                 <div class="sf-area-bd">
                     <!--两列商品模式-->
                     <div class="bf-list bf-item_2col">
-                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="16275,6108"
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8705"
+                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                    </div>
+                    <div class="bf-list bf-item_2col">
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8706"
                              lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                     </div>
                 </div>
@@ -181,17 +214,24 @@
             </div>
 
             <!--避孕套-->
-            <div class="sf-area sf-area-1 class-joint">
+            <div class="sf-area sf-area-1 class-joint J-bf-axie" id="evt-06">
                 <div class="sf-area-hd" style="background-image:url(http://staticontent.ymatou.com/images/activity/spring_festival/sf_tab02_list_06.jpg)"></div>
                 <div class="sf-area-bd">
                     <!--两列商品模式-->
                     <div class="bf-list bf-item_2col">
-                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="16275,6108"
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8692"
+                             lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                    </div>
+                    <div class="bf-list bf-item_2col">
+                        <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8696"
                              lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
                     </div>
                 </div>
                 <div class="sf-area-ft"></div>
             </div>
+
+             <!--洋管家-->
+            <div class="ymt-butler bg__full" onclick=";"></div>
         </div>
     </section>
     <script type="text/javascript" src="http://static.pk.ymatou.com/scripts/zepto,ejs-aee82b3102.js?v=1"></script>
@@ -200,7 +240,6 @@
     <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/imgLazyLoad.js?v=4"></script>
     <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
     <!-- build:js /scripts/spring_festival/beautify.js -->
-    <script src="/scripts/commons/common.js"></script>
     <script src="/scripts/spring_festival/beautify.js"></script>
     <!-- endbuild -->
 </body>
