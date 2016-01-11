@@ -90,7 +90,7 @@
                 }
             },
             error: function () {
-                showLog('系统挤爆了，请稍后再试!');
+                //showLog('系统挤爆了，请稍后再试!');
             }
         });
     };
@@ -225,13 +225,12 @@
 			}
 			
 		}
-
 		YmtApi.openShare({
 			shareTitle: title,
 			shareUrl: url,
 			sharePicUrl: pic,
 			shareContent: content,
-			showWeiboBtn: 1
+			showWeiboBtn: 0
 		});
 	}
 
@@ -348,7 +347,7 @@
 
 				$('.' + $this.attr('data-target')).removeClass('open').addClass('close');
 
-			}).on('click', 'J-share', share)
+			}).on('click', '.J-share', share)
 		.on('click', '.J-receive-pk',
 			/**
 			 * 领取大礼包
@@ -378,21 +377,22 @@
 				console.log($(selector))
 				$(selector).toggleClass(toggleClass);
 			});
-		var scrollChackeStatus = false; 
+		var scrollChackeStatus = false,
+			scrollTimer; 
 		//悬浮nav
 		$(window).on('scroll',function(){
 			var $this = $('.J-fixed-nav'),
 				winTop = $(window).scrollTop();
-			if($this[0]){
-				var _top = $this.attr('data-top') || $this.parent().offset().top;
-				if(winTop > _top){
-					$this.addClass('fixed')
-				}else{
-					$this.removeClass('fixed')
+			scrollTimer && (clearTimeout(scrollTimer),scrollTimer=null);
+			scrollTimer = setTimeout(function(){
+				if($this[0]){
+					var _top = $this.attr('data-top') || $this.parent().offset().top;
+					if(winTop > _top){
+						$this.addClass('fixed')
+					}else{
+						$this.removeClass('fixed')
+					}
 				}
-			}
-
-			if (!scrollChackeStatus) {
 
 			     var top = document.documentElement.scrollTop || document.body.scrollTop,
 			         bottom = window.innerHeight / 2; //首屏
@@ -406,10 +406,7 @@
 			         $('.ymt-butler').removeClass('show');
 			     }
 
-			     setTimeout(function () {
-			         scrollChackeStatus = false;
-			     }, 250);
-			 }
+			},50);		
 				
 		});
 
