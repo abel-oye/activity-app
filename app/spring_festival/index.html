@@ -38,7 +38,7 @@
             </div>
             <div>
                 <button class="btn btn-outline J-close-dialog">去逛逛</button>
-               <button class="btn btn-primary J-close-dialog J-share J-add-lottery" 
+               <button class="btn btn-primary J-close-dialog J-share J-add-lottery"
                         data-url="http://evt.ymatou.com/activity_4997_MApp?uid=${userid}"
                         data-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
                         data-pic="http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg"
@@ -53,11 +53,11 @@
                 今天的抽奖次数已用完,明天继续！
                 {% }else{ %}
                 分享后还能再抽一次哦！
-                {% } %}                 
+                {% } %}
              </div>
              <div>
                  <button class="btn btn-outline J-close-dialog">去逛逛</button>
-                 <button class="btn btn-primary J-close-dialog J-share J-add-lottery" 
+                 <button class="btn btn-primary J-close-dialog J-share J-add-lottery"
                         data-url="http://evt.ymatou.com/activity_4997_MApp?uid=${userid}"
                         data-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
                         data-pic="http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg"
@@ -99,13 +99,13 @@
                     <button class="btn btn-primary btn-w-full J-close-dialog">去逛逛</button>
                 {% }else{ %}
                     <button class="btn btn-outline J-close-dialog">去逛逛</button>
-                    <button class="btn btn-primary J-close-dialog J-share J-add-lottery" 
+                    <button class="btn btn-primary J-close-dialog J-share J-add-lottery"
                         data-url="http://evt.ymatou.com/activity_4997_MApp?uid=${userid}"
                         data-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
                         data-pic="http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg"
                         data-title="2016元随机送，这种事情会随便说！">分享到朋友圈</button>
                 {% } %}
-              
+
            </div>
          {% } %}
     </script>
@@ -120,10 +120,12 @@
                     </div>
                     <h4>{%=Products[i].Name%}</h4>
                     <div>
+                        {% if(Products[i].ProductType == 0){ %}
                         <del>市场价:{%=Products[i].MarketPrice%}</del>
+                        {% } %}
                     </div>
                     <div class="price-wrapper2">
-                        <span>狂欢价</span>
+                        <span>囤货价</span>
                         <span><strong>{%=Products[i].Price4Sale%}</strong>元</span>
                     </div>
                 </div>
@@ -135,7 +137,7 @@
     <script id="int-point-tpl" type="text/template">
         <div class="sf-area-hd"></div>
         <div class="sf-area-bd">
-            <div class="special-title"><span></span>10点专场</div>
+            <div class="special-title"><span></span></div>
             <div class="special-bd sf-swiper sf-swiper-intPoint">
                 <div class="swiper-wrapper"><!--
                     {% for(var i=0,len=Products.length;i<len;i++){ %}
@@ -143,7 +145,7 @@
                             <div class="pic" lazy-load-background="{%-: Products[i].PicUrl | convertImgUrl %}" ></div>
                             <div class="info">
                                 <h3>{%=Products[i].Name%}</h3>
-                                {% if(!Products[i].PackageId){ %} 
+                                {% if(!Products[i].PackageId){ %}
                                 <p class="country"><i class="flag" lazy-load-background="{%=Products[i].CountryFlagUrl%}"></i>{%=Products[i].CountryName%}</p>
                                 {% } %}
                                 <div class="price">
@@ -155,7 +157,7 @@
                             </div>
                         </div><!--
                     {% } %}
-                --></div>                    
+                --></div>
                 <div class="int-point-area-slide-triggers swiper-pagination"></div>
             </div>
         </div>
@@ -171,7 +173,7 @@
                         <div class="options">
                             {% for(var j=0,len2=products[i].catalogs.length;j<len2;j++){%}
                                 <div>
-                                    <input type="radio" name="disguise-radio-{%= i %}" 
+                                    <input type="radio" name="disguise-radio-{%= i %}"
                                         id="disguise-radio-{%= i %}-{%= j %}"
                                         data-is-group="{%=products[i].catalogs[j].isGroup %}"
                                         data-pid="{%=products[i].catalogs[j].id %}"
@@ -186,7 +188,7 @@
                 </div>
             </li>
         {% } %}
-       
+
     </script>
     <section class="sf-container">
         <header class="sf-hd"></header>
@@ -277,9 +279,9 @@
                     <p>. 如在活动期间发现有违规行为，洋码头有权取消违规账号所得奖品</p>
                     <p>. 本活动最终解释权归洋码头所有</p>
                 </div>
-                <div class="J-toggle-class poker-rule-tools" 
-                    data-target=".poker-rule-more,.poker-rule-tools" 
-                    data-toggle-class="open" 
+                <div class="J-toggle-class poker-rule-tools"
+                    data-target=".poker-rule-more,.poker-rule-tools"
+                    data-toggle-class="open"
                     onclick=";"><i class="arrow"></i></div>
             </div>
         </div>
@@ -289,7 +291,7 @@
                 <span class="close-btn J-close-dialog" onclick=";">X</span>
             </div>
             <div class="poker-dialog-bd">
-                
+
             </div>
         </div>
         <!--整点抢-->
@@ -299,13 +301,13 @@
         </div>
         <!--分类入口-->
         <div class="classify-entry">
-            <div class="classify-entry-item J-open" 
+            <div class="classify-entry-item J-open"
                 lazy-load-background="http://staticontent.ymatou.com/images/activity/spring_festival/food-entry.jpg"
                 data-url="http://evt.ymatou.com/activity_4998_Mapp" onclick=";"></div>
-            <div class="classify-entry-item J-open" 
+            <div class="classify-entry-item J-open"
                 lazy-load-background="http://staticontent.ymatou.com/images/activity/spring_festival/facial-entry.jpg"
                 data-url="http://evt.ymatou.com/activity_4999_Mapp" onclick=";"></div>
-            <div class="classify-entry-item J-open" 
+            <div class="classify-entry-item J-open"
                 lazy-load-background="http://staticontent.ymatou.com/images/activity/spring_festival/house-entry.jpg"
                 data-url="http://evt.ymatou.com/activity_5000_Mapp" onclick=";"></div>
         </div>
@@ -314,6 +316,15 @@
         <div class="sf-area stockists-area">
             <div class="sf-area-hd" lazy-load-background="http://staticontent.ymatou.com/images/activity/spring_festival/sf-title.jpg"></div>
             <div class="sf-area-bd">
+                <!-- 两列商品 -->
+                <div class="bf-list bf-item_2col">
+                    <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8804"
+                         lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                </div>
+                <div class="bf-list bf-item_2col">
+                    <div class="J-module-Hold module-hold" data-module="activityList" data-arguments="4994,8805"
+                         lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
+                </div>
                 <!--组合商品-->
                 <div class="goods-group-area">
                     <ul class="goods-group-list">
@@ -342,8 +353,8 @@
             clsName += ' ws-iphone';
         }else if(YmtApi.isAndroid){
             clsName += ' ws-android';
-        }                    
-        
+        }
+
         if(YmtApi.isWechat){
             clsName += ' ws-wechat';
         }else if(YmtApi.isSaohuoApp){

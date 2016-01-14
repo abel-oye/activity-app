@@ -301,9 +301,10 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
             }
             h4{
                 padding:0 $rem*14;
-                height: $rem*74;
-                white-space: normal;
-                @include textOverFlow(2);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+
             }
             .price{
                 text-align: center;
