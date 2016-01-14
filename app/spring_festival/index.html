@@ -37,12 +37,12 @@
                 {% } %}
             </div>
             <div>
-                <button class="btn btn-outline J-close-dialog">去逛逛</button>
+                <button class="btn btn-outline J-stroll" data-target="intPoint">去逛逛</button>
                <button class="btn btn-primary J-close-dialog J-share J-add-lottery"
-                        data-url="http://evt.ymatou.com/activity_4997_MApp?uid=${userid}"
-                        data-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
-                        data-pic="http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg"
-                        data-title="2016元随机送，这种事情会随便说！">分享到朋友圈</button>
+                        data-share-url="http://evt.ymatou.com/activity_4997_MApp?uid=${userid}"
+                       data-share-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
+                        data-share-pic="http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg"
+                        data-share-title="2016元随机送，这种事情会随便说！">分享到朋友圈</button>
             </div>
         <!--没中-->
          {% }else if(BCode == 101){ %}
@@ -56,12 +56,13 @@
                 {% } %}
              </div>
              <div>
-                 <button class="btn btn-outline J-close-dialog">去逛逛</button>
+
+                 <button class="btn btn-outline J-close-dialog J-stroll" data-target="intPoint">去逛逛</button>
                  <button class="btn btn-primary J-close-dialog J-share J-add-lottery"
-                        data-url="http://evt.ymatou.com/activity_4997_MApp?uid=${userid}"
-                        data-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
-                        data-pic="http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg"
-                        data-title="2016元随机送，这种事情会随便说！">分享到朋友圈</button>
+                        data-share-url="http://evt.ymatou.com/activity_4997_MApp?uid=${userid}"
+                       data-share-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
+                        data-share-pic="http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg"
+                        data-share-title="2016元随机送，这种事情会随便说！">分享到朋友圈</button>
              </div>
         <!--系统错误-->
          {% }else if(BCode == 103){ %}
@@ -96,21 +97,23 @@
             </div>
            <div>
                 {%if(HasUseCount > 1 && BCode !==102){%}
-                    <button class="btn btn-primary btn-w-full J-close-dialog">去逛逛</button>
+                    <button class="btn btn-primary btn-w-full J-close-dialog J-stroll" data-target="intPoint">去逛逛</button>
                 {% }else{ %}
-                    <button class="btn btn-outline J-close-dialog">去逛逛</button>
+
+                    <button class="btn btn-outline J-close-dialog J-stroll" data-target="intPoint">去逛逛</button>
                     <button class="btn btn-primary J-close-dialog J-share J-add-lottery"
-                        data-url="http://evt.ymatou.com/activity_4997_MApp?uid=${userid}"
-                        data-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
-                        data-pic="http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg"
-                        data-title="2016元随机送，这种事情会随便说！">分享到朋友圈</button>
+                        data-share-url="http://evt.ymatou.com/activity_4997_MApp?uid=${userid}"
+                        data-share-content="洋码头囤洋年货，2016元无门槛现金优惠券、COACH杀手包随机送，过年必须奢侈一把，不来就只能呵呵了！"
+                        data-share-pic="http://p5.img.ymatou.com/upload/staticcontent/d57da4ead5524b72a594823886ad1860.jpg"
+                        data-share-title="2016元随机送，这种事情会随便说！"
+                        onclick=";">分享到朋友圈</button>
                 {% } %}
 
            </div>
          {% } %}
     </script>
     <script id="active-tpl" type="text/template">
-        {% for(var i=0,len=Products.length;i<len;i++){ %}
+        {% for(var i=0,len=Products.length%2 ? Products.length-1 : Products.length;i<len;i++){ %}
           <div class="bf-item {%=(Products[i].ProductType == 1 ? 'J-open-C-Product':'J-open')%}" {%= Products[i].ProductType == 1 ? 'data-productId='+Products[i].ProductId+' data-logo='+Products[i].Logo+' data-seller='+Products[i].Seller+' data-sellerId='+Products[i].SellerId :'data-url='+(Products[i].PackageId ? 'http://evt.ymatou.com/activity_4694_capp?TC='+Products[i].PackageId : 'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId)%} onclick=";">
               <div class="pro-wrapper">
                 <div class="pic bg__full img-hold" lazy-load-background="{%-: Products[i].PicUrl | convertImgUrl %}" ></div>
@@ -140,7 +143,7 @@
             <div class="special-title"><span></span></div>
             <div class="special-bd sf-swiper sf-swiper-intPoint">
                 <div class="swiper-wrapper"><!--
-                    {% for(var i=0,len=Products.length;i<len;i++){ %}
+                    {% for(var i=0,len=Math.min(Products.length,10);i<len;i++){ %}
                         --><div class="swiper-slide special-product-area {%=(Products[i].ProductType == 1 ? 'J-open-C-Product':'J-open')%}" {%= Products[i].ProductType == 1 ? 'data-productId='+Products[i].ProductId+' data-logo='+Products[i].Logo+' data-seller='+Products[i].Seller+' data-sellerId='+Products[i].SellerId :'data-url='+(Products[i].PackageId ? 'http://evt.ymatou.com/activity_4694_capp?TC='+Products[i].PackageId : 'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId)%} onclick=";">
                             <div class="pic" lazy-load-background="{%-: Products[i].PicUrl | convertImgUrl %}" ></div>
                             <div class="info">
@@ -295,7 +298,7 @@
             </div>
         </div>
         <!--整点抢-->
-        <div class="sf-area int-point-area">
+        <div class="sf-area int-point-area" id="intPoint">
             <div class="J-module-Hold module-hold" data-module="intPoint" data-arguments="4994,8665,int-point-tpl"
                  lazy-load-background="http://staticontent.ymatou.com/images/activity/placeholder@300x300.png"></div>
         </div>

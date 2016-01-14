@@ -1,3 +1,4 @@
+
 ;(function(){
 //
 //初始化ejs
@@ -28,7 +29,8 @@ Poker.prototype = {
         this.drawNum = 0;
 
         this.cardItems = this.$container.find('.card-item');
-
+        this.startIng = true;
+        this.pokerClick = true;
         this.bind();
 
     },
@@ -36,31 +38,36 @@ Poker.prototype = {
         var that = this;
         //$(document).on('click','.card-item',function(){
         this.cardItems.on('click', function() {
-            if (!that.startIng || that.endNum < 8) {
+            if (!that.pokerClick || that.endNum < 8) {
                 return;
             }
-
-            that.$container.find('.start-btn').text('再来一发');
-            that.startIng = false;
+            that.pokerClick = false;
             if (that.drawNum++ < that.opts.maxDraw) {
                 that.opts.clickFn && that.opts.clickFn.call(that, this);
             }
         });
     },
     start: function() {
+        if(!this.startIng){
+            return;
+        }
         this.drawNum = 0;
         this.endNum = 0;
+        this.startIng = false;
         this.cardItems
             .removeClass('rollback')
             .removeClass('bg-left')
             .addClass('rolling');
+        this.$container.find('.start-btn')
+                    .text('翻开看看')
+                    .addClass('invalid');
         setTimeout(this.shuffle.bind(this), 1E3);
     },
     shuffle: function() {
         var className,
             that = this,
             inx;
-        this.startIng = true;
+        
         this.cardItems.each(function(i) {
             inx = i > 4 ? i + 2 : i == 4 ? 6 : i + 1
             className = 'shuffle' + inx;
@@ -69,7 +76,8 @@ Poker.prototype = {
                 .one('webkitAnimationEnd animationend', function() {
                     var $this = $(this);
                     $this.removeClass($this.attr('data-clsName'))
-                        .removeClass('rolling');
+                        .removeClass('rolling')
+                        .off('webkitAnimationEnd animationend');
                     that.endNum++;
                 });
         });
@@ -79,8 +87,18 @@ Poker.prototype = {
     }
 }
 
+var hasUseCount,
+    isShare = false;
 
+var renderDialog = function(data){
+    console.log(data)
+    //渲染
+    var html = ejs.render($('#poker-dialog-tpl').html(), data);
+    $('.poker-dialog-bd').html(html);
+    $('.poker-dialog,.poker-dialog-mask').addClass('open');
+}
 
+//初始化
 var _poker = new Poker({
     clickFn: function(elem) {
         var that = this;
@@ -88,12 +106,6 @@ var _poker = new Poker({
         var search = YmtApi.utils.getUrlObj(),
             deviceId = search.DeviceId || search.DeviceToken || '0000000';
 
-        var renderDialog = function(data){
-            //渲染
-            var html = ejs.render($('#poker-dialog-tpl').html(), data);
-            $('.poker-dialog-bd').html(html);
-            $('.poker-dialog,.poker-dialog-mask').addClass('open');
-        }
 
         jsonpGetData(YmtApi.utils.addAuth('http://jsapi.pk.ymatou.com/api/Christmas/Flop?Deviceid=' + deviceId ),{
             success: function(data) {
@@ -123,22 +135,31 @@ var _poker = new Poker({
                     changePrizes(!i ? $elem : that.cardItems.eq(_inx), _data)
                     _inx = _inx >= 7 ? 0 : _inx + 1;
                 }
+                hasUseCount = data.HasUseCount;
 
-                $elem.addClass('rollback').one('webkitAnimationEnd animationend',function(){
-                     
+                var startBtnTxt = '再来一发';
+                if(data.HasUseCount > 1){
+                    startBtnTxt = '明天再来';
+                }
+                that.$container.find('.start-btn')
+                    .text(startBtnTxt)
+                    .addClass('invalid');
+
+                $elem.addClass('rollback').one('webkitAnimationEnd animationend',function(e){
+                    //@TODO 这里需要手动解绑
+                     $elem.off('webkitAnimationEnd animationend');
+
                      that.showdown();
 
                      setTimeout(function(){
                         renderDialog(data);
-                     }, 16E2);
+                        //that.startIng = true;
+                     }, 16E2);                     
                 });
-
-                //setTimeout(that.showdown.bind(that), 15E2);
                 
             },
             error:function(data){
                 console.log(data)
-
             }
         })
     }
@@ -155,11 +176,29 @@ var shareRecord = function () {
 
 $('body').on('click', '.J-start-poker', function() {
     if(YmtApi.utils.hasLogin()){
+        if(hasUseCount==1 && !isShare){
+            renderDialog({
+                BCode:102,
+                HasUseCount:1
+            })
+            return;
+        }
         _poker.start();
     }else{
         YmtApi.toLogin()
     }
 }).on('click', '.J-close-dialog', function() {
+    var $startBtn = _poker.$container.find('.start-btn');
+    if( $startBtn.text() !== '明天再来'){
+         _poker.pokerClick = true;
+        _poker.startIng = true;
+       $startBtn.removeClass('invalid')
+    }
+
+    if($(this).hasClass('J-share')){
+        isShare = true;
+    }
+
     $('.poker-dialog,.poker-dialog-mask').removeClass('open');
 }).on('click','.J-add-lottery',shareRecord).
 on('click','.J-mixture-buyNow',function(){
@@ -179,6 +218,8 @@ on('click','.J-mixture-buyNow',function(){
     })
 
     console.log(radio)
+}).on('click','.J-stroll',function(){
+    window.location.hash = $(this).attr('data-target');
 });
 
 
@@ -194,15 +235,15 @@ var productData = {
         "catalogs":[
             {
                 "stock":"1",
-                "price":"139",
+                "price":"119",
                 "isGroup":false,
-                "id":"79380a65-6dda-4124-af8e-f9c959a78fa1"
+                "id":"de96f4f8-e003-4608-844d-468cec49119c"
             },
             {
                 "stock":"2",
                 "price":"229",
                 "isGroup":true,
-                "id":"TC000000269"
+                "id":"TC000000281"
             }
         ]
     },
@@ -223,26 +264,6 @@ var productData = {
                 "price":"59",
                 "isGroup":true,
                 "id":"TC000000252"
-            }
-        ]
-    },
-    {
-        "name":"LOTTE/乐天56%巧克力86g罐装",
-        "countryFlagUrl":"http://img.ymatou.com/app/flag/circle/Korea.png",
-        "countryName":"韩国",
-        "picUrl":"http://pm5.img.ymatou.com/G02/upload/product/small/M03/0F/D0/CgvUBVaDfs6AXiQ2AAR4-BoCpvM672_s.jpg",
-        "catalogs":[
-            {
-                "stock":"1",
-                "price":"35",
-                "isGroup":false,
-                "id":"711a71f8-6263-4d17-9d3c-a3c59ffcf193"
-            },
-            {
-                "stock":"4",
-                "price":"59",
-                "isGroup":true,
-                "id":"TC000000249"
             }
         ]
     },
@@ -301,48 +322,8 @@ var productData = {
             {
                 "stock":"5",
                 "price":"348",
-                "isGroup":false,
-                "id":"8f01839a-2c08-4040-92a5-ca476481d8bd"
-            }
-        ]
-    },
-    {
-        "name":"Tom's Farm蜂蜜黄油杏仁1袋/250克",
-        "countryFlagUrl":"http://img.ymatou.com/app/flag/circle/Korea.png",
-        "countryName":"韩国",
-        "picUrl":"http://pm5.img.ymatou.com/G02/upload/product/small/M09/CE/29/CgvUBFY8TzeAWlHeAASuydfx7bM907_s.jpg",
-        "catalogs":[
-            {
-                "stock":"1",
-                "price":"52",
-                "isGroup":false,
-                "id":"2b3b8d54-ba2a-40e2-9be6-d5e2f260d1b5"
-            },
-            {
-                "stock":"2",
-                "price":"75",
                 "isGroup":true,
-                "id":"TC000000235"
-            }
-        ]
-    },
-    {
-        "name":"好丽友MARKET O 巧克力布朗尼蛋糕零食80克",
-        "countryFlagUrl":"http://img.ymatou.com/app/flag/circle/Korea.png",
-        "countryName":"韩国",
-        "picUrl":"http://pm4.img.ymatou.com/G02/upload/product/small/M08/0D/46/CgvUBVZARcWAFXWhAAaSp9DAoYM597_s.jpg",
-        "catalogs":[
-            {
-                "stock":"1",
-                "price":"35",
-                "isGroup":false,
-                "id":"558860d2-8fa9-412a-8a59-86ba279eebc0"
-            },
-            {
-                "stock":"4",
-                "price":"69",
-                "isGroup":true,
-                "id":"TC000000150"
+                "id":"TC000000284"
             }
         ]
     },
@@ -467,26 +448,6 @@ var productData = {
         ]
     },
     {
-        "name":"好丽友Market O非油炸有机奶酪烤薯片60g",
-        "countryFlagUrl":"http://img.ymatou.com/app/flag/circle/Korea.png",
-        "countryName":"韩国",
-        "picUrl":"http://pm2.img.ymatou.com/G02/upload/product/small/M03/0D/E6/CgvUBVZASuWAe74YAAdbuCuQ7EQ915_s.jpg",
-        "catalogs":[
-            {
-                "stock":"1",
-                "price":"35",
-                "isGroup":false,
-                "id":"3cbc2102-f323-403a-825f-bd5919ec42e3"
-            },
-            {
-                "stock":"4",
-                "price":"59",
-                "isGroup":true,
-                "id":"TC000000153"
-            }
-        ]
-    },
-    {
         "name":"好丽友布朗尼巧克力夹心蛋糕香草味 80g",
         "countryFlagUrl":"http://img.ymatou.com/app/flag/circle/Korea.png",
         "countryName":"韩国",
@@ -587,26 +548,6 @@ var productData = {
         ]
     },
     {
-        "name":"VEGE FRU Smoothie Diet奶昔酵素代餐粉300g（猕猴桃味）",
-        "countryFlagUrl":"http://img.ymatou.com/app/flag/circle/Japan.png",
-        "countryName":"日本",
-        "picUrl":"http://p6.img.ymatou.com/G02/upload/product/small/M03/95/64/CgvUA1X2Qs-AN4c_AAG-P6Grvsg475_s.jpg",
-        "catalogs":[
-            {
-                "stock":"1",
-                "price":"145",
-                "isGroup":false,
-                "id":"5b96b8de-b018-4dc3-82df-9eca1169b666"
-            },
-            {
-                "stock":"3",
-                "price":"339",
-                "isGroup":false,
-                "id":"5b96b8de-b018-4dc3-82df-9eca1169b666"
-            }
-        ]
-    },
-    {
         "name":"善存Centrum成人多种复合维生素425粒",
         "countryFlagUrl":"http://img.ymatou.com/app/flag/circle/America.png",
         "countryName":"美国",
@@ -653,7 +594,6 @@ var productData = {
 module.activityList = function(aid, pid , tplId) {
     var render = function(data) {
         var html = ejs.render($( '#'+(tplId || 'active-tpl') ).html(),data);
-        console.log('[data-arguments="' + aid + ',' + pid +(tplId?','+tplId:'')+ '"]')
         $('[data-arguments="' + aid + ',' + pid +(tplId?','+tplId:'')+ '"]').parent().html(html);
         lazyLoad.check();
     }
@@ -695,6 +635,39 @@ var moduleActivityList  = function(aid,pid,tplId,callback){
     }
 }
 
+var checkAxis = function () {
+    // if (stopCheck) {
+    //     return;
+    // }
+    var $axle = $('.J-bf-axie'),
+        doc = document.documentElement,
+        view = {
+            l: (window.pageXOffset || doc.scrollLeft),
+            t: 0,
+            b: window.innerHeight,
+            r: (window.innerWidth || doc.clientWidth)
+        } //视口位置
+
+    $axle.each(function (index, el) {
+        var box = el.getBoundingClientRect();
+        if ((box.top >= view.t && box.top < view.b || box.bottom >= view.t && box.bottom < view.b 
+            || box.bottom > view.b && box.top < view.t) && box.left >= view.l && box.left < view.r) {
+            $('#bf-tab li').removeClass('active')
+                .filter('[data-href="' + el.id + '"]')
+                .addClass('active');
+            //checkCoordinate();
+            return false;
+        }
+    });
+}
+
+var timer;
+
+$(window).on('scroll',function(){
+    timer && (clearTimeout(timer),timer=null);
+    timer = setTimeout(checkAxis,50)
+})
+
 
 module.intPoint = function(aid, pid , tplId) {
     moduleActivityList(aid,pid,tplId,function(){
@@ -705,7 +678,6 @@ module.intPoint = function(aid, pid , tplId) {
 module.buyList = function(aid, pid , tplId) {
     moduleActivityList(aid,pid,tplId,function(){
         //initSwiper('.sf-swiper-buyDetail');
-    console.log($('.sf-swiper-buyDetail'))
     var swiper = new Swiper('.sf-swiper-buyDetail', {
         pagination: '.sf-swiper-buyDetail .swiper-pagination',
         slidesPerView: 3,

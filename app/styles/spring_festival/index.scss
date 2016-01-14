@@ -193,8 +193,11 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
             font-size:$rem*60;
             color:#f04528;
             font-weight: bold;
-            padding: $rem*30;
+            padding: $rem*40 $rem*30;
             line-height: 1.2;
+            &.invalid{
+                filter: grayscale(1);
+            }
         }
     }
 
@@ -567,9 +570,9 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
             }
             h4{
                 padding:0 $rem*14;
-                height: $rem*74;
-                white-space: normal;
-                @include textOverFlow(2);
+                height: $rem*37;
+                overflow: hidden;
+                text-overflow:ellipsis
             }
             .price{
                 text-align: center;
@@ -676,9 +679,9 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
             .options{
                 font-size:$rem*25;
                 color:#333;
-                line-height: 1;
+                line-height: 1.2;
                 float: left;
-                    margin-right: $rem*20;
+                margin-right: $rem*20;
                 input[type=radio]{
                     display: none;
                     &:checked{
@@ -721,7 +724,7 @@ $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
                 font-size:$rem*32;
                 width: $rem*99;
                 white-space: normal;
-                margin-top: $rem*10;
+                margin-top: $rem*20;
             }
         }
     }

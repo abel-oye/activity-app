@@ -23,26 +23,30 @@
         width:100%;
         min-height:35.53125rem;
         height:100%;
-       
         background-size:content;
+        background:#f04528;
     }
     .info{
         position:absolute;
-        top:5.3125rem;
-        left:50%;
-        transform: translate(-50%,0);
+        top:1.5625rem;
+        left:1.5625rem;
         text-align:center;
+        height:4.3125rem;
+        line-height:4.3125rem;
     }
     .info .pic{
-        width:3.875rem;
-        height:3.875rem;
+        width:4.3125rem;
+        height:100%;
         border-radius:50%;
+        border:5px solid #fff;
         background-size:contain;
         margin-bottom:0.6875rem;
+        float:left;
     }
-    .info h3{
-        color:#ffebaf;
+    .info span{
         font-size:0.9375rem;
+        color:#fff;
+        margin-left:0.625rem;
     }
     </style>
 </head>
@@ -53,7 +57,7 @@
     </a>         
     <script type="text/javascript" src="/scripts/commons/zepto,ejs.js"></script>
    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?006"></script>
-   <script type="text/javascript" src="http://static.jyh.ymatou.com/js/ymtApi.2015110601.js?wxAutoInit=1"></script>
+   <script type="text/javascript" src="http://static.jyh.ymatou.com/commons/js/ymtapi.2015110601.js?wxAutoInit=1"></script>
    <script type="text/javascript" src="/scripts/commons/swiper.3.1.2.js"></script>
     <script>
        YmtApi.isWechat && YmtApi.initWechat({
@@ -78,7 +82,7 @@
                     var html = [
                         '<div class="info">',
                             '<div class="pic" style="background-image:url('+ (data.Avatar || 'http://staticontent.ymatou.com/images/activity/christmas/portrait.png') +')"></div>',
-                            '<h3>'+data.NickName+'</h3>',
+                            '<span>'+data.NickName+'</span>',
                         '</div>'
                     ]
                     $('.bg').append(html.join(''));
