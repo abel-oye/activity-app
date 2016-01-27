@@ -1,0 +1,394 @@
+@charset'UTF-8';
+
+/**
+ * 春节
+ * @Author zhangzongzheng
+ * @email zhangzongzheng@ymatou.com
+ * @Date 2016/01/04
+ */
+
+@import'../_components/variables.scss';
+@import'../_components/_mixin.scss';
+@import'../_components/reset.scss';
+@import'../_components/column.scss';
+@import'../assets/ymtUI.scss';
+@import'../assets/ymt_components.scss';
+@import'../assets/common.scss';
+@import'../black_five/_proList.scss';
+@import'../assets/_global_good.scss';
+$imgPath:'/images/spring_festival/';
+// $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
+$rem: 1rem/32;
+.ios-bartools {
+    height: $rem*150;
+    &-wrapper {
+        background: rgba(255, 255, 255, 0.92);
+        height: $rem*150;
+        z-index: 9999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        border-bottom: $rem*2 solid rgba(0, 0, 0, .5);
+        padding-top: $rem*70;
+        h2 {
+            font-size: $rem*38;
+            text-align: center;
+            color: #333;
+            font-weight: bold;
+        }
+    }
+}
+
+.banner {
+    height: $rem*516;
+    background-image: url(#{$imgPath}nc_banner.jpg);
+    @extend .bg__full;
+}
+
+.single-dog-wrap {
+    height: $rem*186;
+    padding-top: $rem*10;
+    background-color: #dd360d;
+    .single-dog {
+        width: $rem*696;
+        height: $rem*175;
+        margin: 0 auto;
+        background-image: url(#{$imgPath}nc_dog.png);
+        @extend .bg__full;
+    }
+}
+
+//砍价团
+.bf-group {
+    background-color: #f53a00;
+    position: relative;
+    width: 100%;
+    padding: $rem*10 0 $rem*20;
+    overflow: hidden;
+    box-sizing: border-box;
+    &-list {
+        white-space: nowrap;
+    }
+    &-item {
+        display: inline-block;
+    }
+    .bf-area-hd {
+        background-image:url(#{$imgPath}nc_kjt_head.png);
+        width: 100%;
+        height: $rem*135;
+        @extend .bg__full;
+    }
+    &-pro {
+        width: 100%;
+        height: $rem*416;
+        position: relative;
+    }
+    &-count {
+        font-size: $rem*24;
+        color: #fff;
+        padding: $rem*4 $rem*22;
+        background: #c33;
+        position: absolute;
+        left: $rem*40;
+        bottom: $rem*25;
+        border-radius: $rem*50;
+    }
+    //砍价团分页
+    &-pagination {
+        position: absolute;
+        bottom: $rem*40;
+        left: 0;
+        text-align: center;
+        width: 100%;
+        .swiper-pagination-bullet {
+            width: $rem*15;
+            height: $rem*15;
+            border-radius: 50%;
+            background: #ffa8a3;
+            margin-right: $rem*15;
+            display: inline-block;
+        }
+        .swiper-pagination-bullet-active {
+            background: #ff5247;
+        }
+    }
+    .bf-area-bd {
+        margin: 0 $rem*10;
+        background:#fff;
+        height:$rem*416;
+        overflow:hidden;
+    }
+}
+
+//秒杀
+.bf-seckill{
+    font-size: 0;
+    &-wrapper{
+        background-color:#f53a00;
+        padding-bottom:$rem*40;
+        .bf-area-hd{
+            background-image:url(#{$imgPath}/nc_ms_head.png);
+            height:$rem*125;
+            span{
+                position: absolute;
+                bottom:$rem*12;
+                right:$rem*15;
+            }
+            i{
+                background-color:#fff;
+                border-radius:50%;
+                display:inline-block;
+                width:$rem*20;
+                height:$rem*20;
+                line-height:$rem*20;
+                text-align:center;
+                margin-left:$rem*3;
+                color:#cf2541;
+                font-size:$rem*25;
+            }
+        }
+        .bf-area-bd{
+            //padding:0 $rem*10;
+            height:$rem*390;
+            overflow:hidden;
+            position: relative;
+        }
+        .before-mask{
+            position:absolute;
+            height:100%;
+            width:100%;
+            z-index:2;
+            top:0;
+            left:0;
+            color:#fff;
+            padding-top:$rem*130;
+            font-size:$rem*40;
+            text-align:center;
+            background:rgba(0,0,0,.5);
+            display:none;
+        }
+        &.before{
+            .before-mask{
+                display:block;
+            }
+        }
+    }
+
+    &-list{
+        height:100%;
+        white-space: nowrap;
+        width:100%;
+    }
+    &-item{
+        display:inline-block;
+        height:100%;
+        position:relative;
+        background-color: #fff;
+        padding: $rem*45 $rem*45 $rem*30 $rem*45;
+
+        .item-pic {
+            width: $rem*250;
+            height: $rem*250;
+            background-color: red;
+            float: left;
+        }
+
+        .item-info {
+            width: 100%;
+            padding-left: $rem*270;
+            .item-name {
+                font-size: $rem*25;
+                font-weight: bold;
+                color: #333333;
+                margin-bottom: $rem*12;
+                @include textOverFlow();
+            }
+            .country-flag {
+                width: $rem*30;
+                height: $rem*30;
+                margin-right: $rem*8;
+                background-color: red;
+                border-radius: 50%;
+                // vertical-align: middle;
+            }
+            .country-name {
+                font-size: $rem*20;
+                color: #b0b0b0;
+            }
+            .item-price {
+                color: #f04528;
+                font-size: $rem*34;
+                strong {
+                    font-size: $rem*50;
+                    font-weight: 900;
+                }
+            }
+            .stock {
+                font-size: $rem*24;
+                color: #ff5247;
+                padding: $rem*2 $rem*12;
+                border: 2px dashed #f04528;
+                border-radius: $rem*10;
+                margin-right: $rem*10;
+            }
+            .buy {
+                font-size: $rem*24;
+                color: #fff;
+                padding: $rem*4 $rem*12;
+                border-radius: $rem*10;
+                background-color: #f53a00;
+            }
+        }
+    }
+
+    &-pro{
+        height:100%;
+    }
+
+    //秒杀分页
+    &-pagination {
+        position: absolute;
+        bottom: $rem*40;
+        left: 0;
+        text-align: center;
+        width: 100%;
+        .swiper-pagination-bullet {
+            width: $rem*16;
+            height: $rem*16;
+            border-radius: 50%;
+            background-color: #a0a0a0;
+            margin-right: $rem*15;
+            display: inline-block;
+        }
+        .swiper-pagination-bullet-active {
+            background-color: #f04528;
+        }
+    }
+}
+
+
+
+// 店铺
+@for $i from 1 through 3 {
+    .seller-list-title0#{$i} {
+        background-image: url(#{$imgPath}nc_shop_title0#{$i}.jpg);
+    }
+}
+.seller-list-wrap {
+    padding-bottom: $rem*20;
+    background-color: #f53a00;
+    .seller-list-hd {
+        height: $rem*93;
+        @extend .bg__full;
+        background-size: cover;
+    }
+    .seller-list-bd {
+        background-color: #d6d6d6;
+    }
+    .seller-item {
+        margin-bottom: $rem*16;
+        background-color: #fff;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    .seller-info-wrap {
+        padding: $rem*16 $rem*26;
+        border-bottom: 1px solid #e0e0e0;
+        position: relative;
+        .seller-avatar {
+            width: $rem*84;
+            height: $rem*84;
+            background-color: red;
+            border-radius: 50%;
+            margin-right: $rem*5;
+        }
+        .seller-info {
+            display: inline-block;
+        }
+        .seller-name {
+            font-size: $rem*30;
+            color: #191919;
+        }
+        .seller-other {
+            line-height: 1;
+        }
+        .country-flag {
+            width: $rem*32;
+            height: $rem*32;
+            background-color: red;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+        .country-name {
+            font-size: $rem*24;
+        }
+        .fans {
+            font-size: $rem*24;
+            padding-left: $rem*12;
+            border-left: 1px solid #cdcdcd;
+        }
+        .follow-btn {
+            position: absolute;
+            padding: $rem*8 $rem*10 $rem*8 $rem*60;
+            right: $rem*26;
+            bottom: $rem*16;
+            background-color: #f53a00;
+            background-image: url(#{$imgPath}nc_btn_bg.png);
+            background-size: 80%;
+            background-repeat: no-repeat;
+            background-position: -$rem*25 -$rem*6;
+            color: #fff;
+            border-radius: $rem*8;
+            border-left: 1px solid #f53a00;
+            font-size: $rem*26;
+        }
+    }
+    .seller-intro {
+        padding: 0 $rem*30;
+        margin: $rem*30 0 $rem*20;
+        font-size: $rem*26;
+        color: #2b2b2b;
+        @include textOverFlow(2);
+    }
+    .seller-goods-list {
+        margin: 0 $rem*12;
+        padding-bottom: $rem*24;
+        @include clearfix();
+
+        .goods-item-wrap {
+            width: 33.3%;
+            float: left;
+            &:first-child {
+                padding-right: $rem*8;
+            }
+            &:last-child {
+                padding-left: $rem*8
+            }
+            &:nth-child(2) {
+                padding: 0 $rem*4;
+            }
+        }
+        .goods-item {
+            height: $rem*235;
+            border: 1px solid #e9c3b8;
+            background-color: red;
+            position: relative;
+            .price {
+                width: 100%;
+                height: $rem*46;
+                line-height: $rem*46;
+                text-align: center;
+                font-size: $rem*24;
+                position: absolute;
+                bottom: 0;
+                color: #fff;
+                background-color: rgba(0,0,0,0.6);
+                em {
+                    font-size: $rem*30;
+                }
+            }
+        }
+    }
+}

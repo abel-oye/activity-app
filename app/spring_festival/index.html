@@ -143,7 +143,7 @@
             <div class="special-title"><span></span></div>
             <div class="special-bd sf-swiper sf-swiper-intPoint">
                 <div class="swiper-wrapper"><!--
-                    {% for(var i=0,len=Math.min(Products.length,10);i<len;i++){ %}
+                    {% for(var i=0,len=Products.length;i<len;i++){ %}
                         --><div class="swiper-slide special-product-area {%=(Products[i].ProductType == 1 ? 'J-open-C-Product':'J-open')%}" {%= Products[i].ProductType == 1 ? 'data-productId='+Products[i].ProductId+' data-logo='+Products[i].Logo+' data-seller='+Products[i].Seller+' data-sellerId='+Products[i].SellerId :'data-url='+(Products[i].PackageId ? 'http://evt.ymatou.com/activity_4694_capp?TC='+Products[i].PackageId : 'http://item.app.ymatou.com/forYmatouApp/product/pid?pid='+Products[i].ProductId)%} onclick=";">
                             <div class="pic" lazy-load-background="{%-: Products[i].PicUrl | convertImgUrl %}" ></div>
                             <div class="info">
@@ -152,7 +152,7 @@
                                 <p class="country"><i class="flag" lazy-load-background="{%=Products[i].CountryFlagUrl%}"></i>{%=Products[i].CountryName%}</p>
                                 {% } %}
                                 <div class="price">
-                                    &yen;<strong>{%=Products[i].Price4Sale%}</strong>{% if(Products[i].MarketPrice>1){ %}<small>市场价<br/>&yen;{%=Products[i].MarketPrice%}</small>{%}%}
+                                    &yen;<strong>{%=Products[i].Price4Sale%}</strong>{% if(parseInt(Products[i].MarketPrice)>parseInt(Products[i].Price4Sale)){ %}<small>市场价<br/>&yen;{%=Products[i].MarketPrice%}</small>{%}%}
                                 </div>
                                 <div>
                                     <span class="stock">还剩{%=Products[i].ProductStock%}件</span> <span class="see-live">立即购买</span>
