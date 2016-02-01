@@ -4,8 +4,10 @@
  * @date 2016/01/20
  */
 
-;(function() {
-    //
+;
+(function() {
+
+    FastClick.attach(document.body);
     //初始化ejs
     ejs.open = '{%';
     ejs.close = '%}';
@@ -21,10 +23,6 @@
         var num = ((+price || 0).toFixed(2) + '').split('.');
         return '<em>' + num[0] + '</em>' + (num[1] ? '.' + num[1] : '');
     };
-
-    ejs.filters.convertImgUrl = function(str) {
-        return str.replace(/\/original\//, '/small/').replace(/_o/, '_s').replace(/_ls/, '_lb');
-    }
 
     /**
      * 显示日志
@@ -101,180 +99,385 @@
     var module = {
         //砍价团
         groupList: function() {
-            jsonpGetData(YmtApi.utils.addParam('http://api.appactivity.ymatou.com/api/BargainGroup/Tuan/TopicJoinList?sign=828', {
-
-            }), {
+            jsonpGetData('http://jsapi.tuan.ymatou.com/api/Tuan/GetGroupTuanList', {
                 success: function(data, code) {
-                    if (data) {
-                        //var html = ejs.render($('#group-tpl').html(), data);
-                        //$('.bf-group-list').html(html);
-                    }
-                },
-                error: function(err) {
-                    //@TODO fuck 砍价团的接口格式不一致
-                    if (err && err.RetCode == 200) {
-                        var html = ejs.render($('#group-tpl').html(), err.RetData);
+                    if (data && data.TuanList) {
+                        var html = ejs.render($('#group-tpl').html(), data);
                         $('#bf_01 .bf-area-bd').html(html);
 
                         new Swiper('#bf_01 .bf-area-bd', {
                             pagination: '.bf-group-pagination',
                             loop: true,
-                            autoplay: 3000,
+                            // autoplay: 3000,
                             onSlideChangeEnd: function() {
                                 lazyLoad.check();
                             }
                         });
                     }
                 }
-            });
+            })
+        },
+
+        //整点抢购
+        msList: function() {
+            jsonpGetData('http://jsapi.bf.ymatou.com/api/Spring/GetSecSkillProduct', {
+                success: function(data) {
+                    if (data && data.SecSkillProductList) {
+                        var html = ejs.render($('#seckill-tpl').html(), data);
+                        $('#ms-list .bf-area-bd').html(html);
+
+                        new Swiper('#ms-list .bf-area-bd', {
+                            pagination: '.bf-seckill-pagination',
+                            loop: true,
+                            autoplay: 3000,
+                            onSlideChangeStart: function() {
+                                lazyLoad.check();
+                            }
+                        });
+                    }
+                }
+            })
         },
 
         sellerList: function() {
             jsonpGetData('http://jsapi.bf.ymatou.com/api/Spring/GetNewYearActivity', {
-                success: function (data) {
+                success: function(data) {
                     if (data && data.PagePartList) {
-                        var tpl = $('#seller-item-tpl').html();
+                        var tpl1 = $('#seller-item-tpl1').html();
+                        var tpl2 = $('#seller-item-tpl2').html();
                         for (var i = 0, len = data.PagePartList.length; i < len; i++) {
-                            switch(data.PagePartList[i].PagePartName) {
+                            switch (data.PagePartList[i].PagePartName) {
                                 case "店铺满减进行中":
-                                $('#seller-list-01').html(ejs.render(tpl, data.PagePartList[0]));
-                                break;
+                                    $('#seller-list-01').html(ejs.render(tpl1, data.PagePartList[0]));
+                                    break;
 
                                 case "店铺优惠券发放中":
-                                $('#seller-list-02').html(ejs.render(tpl, data.PagePartList[1]));
-                                break;
+                                    $('#seller-list-02').html(ejs.render(tpl2, data.PagePartList[1]));
+                                    break;
 
                                 case "店铺买就送":
-                                $('#seller-list-03').html(ejs.render(tpl, data.PagePartList[2]));
-                                break;
+                                    $('#seller-list-03').html(ejs.render(tpl1, data.PagePartList[2]));
+                                    break;
                             }
                         }
+                    } else {
+                        console.log(res.Msg);
                     }
                 }
             })
         }
     };
 
-    var scrollChackeStatus = false, //scroll 检查频率控制
-        // $subTab = $('.sf-goods-sub-tab-wrap'),
-        // subTabTop = $subTab.offset().top; //二级导航距离页面顶部距离
+    $(document).on('click', '.seller-info-wrap, .seller-intro', function() {
+        var $sellerItem = $(this).parent('.seller-item');
+        var flag = $sellerItem.attr('data-flag'),
+            sellerLogo = $sellerItem.attr('data-Logo'),
+            sellerName = $sellerItem.attr('data-Seller'),
+            sellerId = $sellerItem.attr('data-SellerId'),
+            activityContent = $sellerItem.attr('data-ActivityContent'),
+            activityId = $sellerItem.attr('data-ActivityId'),
+            activityName = $sellerItem.attr('data-ActivityName'),
+            activityStatusText = $sellerItem.attr('data-ActivityStatusText'),
+            endTime = $sellerItem.attr('data-EndTime'),
+            shopAddress = $sellerItem.attr('data-ShopAddress'),
+            startTime = $sellerItem.attr('data-StartTime');
 
-        //tab切换公共脚本
+        var url = YmtApi.utils.addParam('/forBuyerApp/liveDetail', {
+            param: JSON.stringify({
+                SellerModel: {
+                    Flag: flag,
+                    Logo: sellerLogo,
+                    Seller: sellerName,
+                    SellerId: sellerId,
+                },
+                ActivityModel: {
+                    ActivityContent: activityContent,
+                    ActivityId: activityId,
+                    ActivityName: activityName,
+                    ActivityStatusText: activityStatusText,
+                    EndTime: endTime,
+                    ShopAddress: shopAddress,
+                    StartTime: startTime
+                }
 
-
-        stopCheck = false;
-
-    function checkAxis() {
-        if (stopCheck) {
-            return;
-        }
-        var $axle = $('.J-bf-axie'),
-            doc = document.documentElement,
-            view = {
-                l: (window.pageXOffset || doc.scrollLeft),
-                t: 0,
-                b: window.innerHeight,
-                r: (window.innerWidth || doc.clientWidth)
-            } //视口位置
-
-        $axle.each(function(index, el) {
-            var box = el.getBoundingClientRect();
-            if ((box.top >= view.t && box.top < view.b || box.bottom >= view.t && box.bottom < view.b || box.bottom > view.b && box.top < view.t) && box.left >= view.l && box.left < view.r) {
-                $('#sf-sub-tab li').removeClass('active').filter('[data-href="' + el.id + '"]').addClass('active');
-                return false;
-            }
+            })
         });
-    }
+        window.YmtApi.open({
+            url: url,
+            title: '直播详情'
+        });
+    }).on('click', '.J-close-dialog', function() {
+        $('.packet-dialog, #packet-mask').removeClass('show');
+    }).on('click', '#packet-wrap', function() {
+        if (YmtApi.utils.hasLogin()) {
+            $('#packet-wrap').hide();
+            $('#packet-rain').show();
+            var bfield = new Battlefield({
+                container: '#packet-rain',
+                speed: 1,
+                battleRow: 5,
+                maxBattle: 8,
+                distance: 40,
+                battleCell: 2,
+                callback: function(that) {
+                    lottery(function(data) {
+                        that.stopState = true;
+                        that.container.children().remove();
+                        renderDialog(data);
+                    }, that.clickType)
+                }
+            });
+        } else {
+            YmtApi.toLogin();
+        }
 
-
-    //秒杀
-    new Swiper('.bf-seckill-wrapper .bf-area-bd', {
-        pagination: '.bf-group-pagination',
-        loop: true,
-        autoplay: 7000,
-        // onSlideChangeStart: function () {
-        //     lazyLoad.check();
-        // }
+    }).on('click','.J-packet-share',function(){
+        YmtApi.openShare({
+            shareTitle: '没赶上这场红包雨，感觉错过了好几百万',
+            shareUrl: 'http://evt.ymatou.com/activity_4984_mapp?uid='+YmtApi.utils.getAuthInfo().UserId,
+            sharePicUrl: 'http://staticontent.ymatou.com/images/activity/new_year/20151231161642.jpg',
+            shareContent: '洋码头疯了！不来是真疯了！能用红包解决的问题，我们尽量少用言语。',
+            showWeiboBtn: 0
+        });
     });
 
-    $(document).on('click', '.seller-info-wrap', function() {
-        var $sellerItem = $(this).parent('.seller-item');
-        var flag = $sellerItem.attr('data-flag'),
-            sellerLogo = $sellerItem.attr('data-Logo'),
-            sellerName = $sellerItem.attr('data-Seller'),
-            sellerId = $sellerItem.attr('data-SellerId'),
-            activityContent = $sellerItem.attr('data-ActivityContent'),
-            activityId = $sellerItem.attr('data-ActivityId'),
-            activityName = $sellerItem.attr('data-ActivityName'),
-            activityStatusText = $sellerItem.attr('data-ActivityStatusText'),
-            endTime = $sellerItem.attr('data-EndTime'),
-            shopAddress = $sellerItem.attr('data-ShopAddress'),
-            startTime = $sellerItem.attr('data-StartTime');
-
-        var url = YmtApi.utils.addParam('/forBuyerApp/liveDetail', {
-            param: JSON.stringify({
-                SellerModel: {
-                    Flag: flag,
-                    Logo: sellerLogo,
-                    Seller: sellerName,
-                    SellerId: sellerId,
-                },
-                ActivityModel: {
-                    ActivityContent: activityContent,
-                    ActivityId: activityId,
-                    ActivityName: activityName,
-                    ActivityStatusText: activityStatusText,
-                    EndTime: endTime,
-                    ShopAddress: shopAddress,
-                    StartTime: startTime
-                }
-
-            })
-        });
-        window.YmtApi.open({
-            url: url,
-            title: '直播详情'
-        });
-    }).on('click', '.seller-intro', function() {
-        var $sellerItem = $(this).parent('.seller-item');
-        var flag = $sellerItem.attr('data-flag'),
-            sellerLogo = $sellerItem.attr('data-Logo'),
-            sellerName = $sellerItem.attr('data-Seller'),
-            sellerId = $sellerItem.attr('data-SellerId'),
-            activityContent = $sellerItem.attr('data-ActivityContent'),
-            activityId = $sellerItem.attr('data-ActivityId'),
-            activityName = $sellerItem.attr('data-ActivityName'),
-            activityStatusText = $sellerItem.attr('data-ActivityStatusText'),
-            endTime = $sellerItem.attr('data-EndTime'),
-            shopAddress = $sellerItem.attr('data-ShopAddress'),
-            startTime = $sellerItem.attr('data-StartTime');
-
-        var url = YmtApi.utils.addParam('/forBuyerApp/liveDetail', {
-            param: JSON.stringify({
-                SellerModel: {
-                    Flag: flag,
-                    Logo: sellerLogo,
-                    Seller: sellerName,
-                    SellerId: sellerId,
-                },
-                ActivityModel: {
-                    ActivityContent: activityContent,
-                    ActivityId: activityId,
-                    ActivityName: activityName,
-                    ActivityStatusText: activityStatusText,
-                    EndTime: endTime,
-                    ShopAddress: shopAddress,
-                    StartTime: startTime
-                }
-
-            })
-        });
-        window.YmtApi.open({
-            url: url,
-            title: '直播详情'
-        });
+    //元宝跳出来之后上下弹跳
+    $('.packet-wrap .btn').on('webkitAnimationEnd', function() {
+        $(this).removeClass('jumpout').addClass('bounce');
     })
 
+    //获得随机数据
+    var getRandom = function(size) {
+        return Math.floor(Math.random() * size)
+    }
+
+    //选择角度
+    var ROTATE_LIST = [-30, -53.2, -40, -55, -57];
+    //选择货币
+    var currencyList = ['red', 'dollar', 'pound', 'euro', 'krw', 'yen'];
+
+    /**
+     * opts {object}
+     *   container //容器
+     *   speed 速度
+     *   battleRow 并行的子弹行数
+     *   distance 距离
+     *   battleCell
+     */
+    function Battlefield(opts) {
+        this.opts = opts;
+
+        this.runBattles = 0; //正在运行的子弹数
+        this.container = $(opts.container);
+        this.rowMap = {};
+        this.init();
+    }
+
+    Battlefield.prototype = {
+        init: function() {
+            var that = this;
+
+            this.clickNum = 0;
+            this.shot();
+
+            var opts = this.opts,
+                len = Math.min(window.innerWidth / 45 / 2, 8);
+
+            // var loopNum = 1;
+            that.battleNum = 1;
+            this.winNum = [1, 2, 3, 4, 5][getRandom(5)];
+            var down = function() {
+                if (that.stopState) {
+                    return;
+                }
+                // that.battleNum = that.battleNum > len ? 1 : that.battleNum;
+                that.shot();
+                setTimeout(down, 6E2);
+            }
+
+            var countdownTime = 15;
+            var countdown = function(){
+                if(that.stopState || that.stopCountDown){
+                    return;
+                }
+                --countdownTime;
+                if(!countdownTime){
+                    that.stopState = true;
+                    that.container.children().remove();
+                    renderDialog({
+                        BCode:101
+                    })
+                    return;
+                }
+
+                setTimeout(countdown,1000);
+            }
+
+            down();
+            countdown();
+            this.bind();
+        },
+        bind: function() {
+            var that = this;
+            $('body').on('click', '.packet', function() {
+                $(this).addClass('bg-right');
+                that.runBattles--;
+                if (that.clickNum++ == that.winNum) {
+                    that.stopCountDown = true;
+                    that.clickType = $(this).hasClass('red-packet') ? 1 : 0;
+                    that.opts.callback && that.opts.callback(that);
+                }
+            });
+        },
+        /**
+         * 装弹
+         *
+         */
+        shot: function(runBattles) {
+            if (this.stopState) {
+                return;
+            }
+            runBattles = this.runBattles || this.battleNum;
+            var that = this,
+                opts = this.opts,
+                getRotate = function() {
+                    return ROTATE_LIST[getRandom(5)]
+                };
+            //当前小于最大显示数才追加子弹
+            if (this.runBattles <= opts.battleRow) {
+                this.runBattles++;
+
+
+                runBattles = runBattles || this.runBattles;
+
+                this.rowMap[runBattles] = Math.min(this.rowMap[runBattles] + 1 || 1, opts.battleCell);
+
+                this.currency = currencyList[getRandom(6)];
+                var $next = $('<span class="' + this.currency + '-packet packet" data-bulletrow="' + runBattles + '" data-speed="2" onclick=";"></span>'),
+                    speed = 2,
+                    left = Math.max((getRandom(5) - 1) * 150, 0);
+                    // left = ((runBattles - 1) * window.innerWidth / 3 + 28 * (window.innerWidth / 375));
+
+                $next.css({
+                    top: '150px',
+                    left: left + 'px',
+                    transition: 'transform ' + speed + 's linear',
+                    '-moz-transition': '-moz-transform ' + speed + 's linear',
+                    '-webkit-transition': '-webkit-transform ' + speed + 's linear'
+                }).on('webkitTransitionEnd transitionend', function() {
+                    var $this = $(this);
+                    $this.remove();
+                    that.runBattles--;
+                });
+
+                this.flight();
+
+                //opts.bulletList.push(next);
+                this.container.append($next);
+
+                this.battleNum++;
+            }
+        },
+        /**
+         * 让子弹飞
+         */
+        flight: function() {
+            //是否暂停
+            if (this.pauseStatus) {
+                return;
+            }
+            var that = this,
+                opts = this.opts;
+            this.container.find('.packet').each(function() {
+                var $this = $(this),
+                    height = window.innerHeight + 200;
+
+                $this.css({
+                    //left: left
+                    'transform': 'translate(0,' + height + 'px)',
+                    '-moz-transform': 'translate(0,' + height + 'px)',
+                    '-webkit-transform': 'translate(0,' + height + 'px)'
+                });
+
+            });
+        },
+        //暂停子弹飞
+        pause: function() {
+            this.pauseStatus = true;
+        },
+        //切换暂停状态
+        swithPause: function() {
+            this.pauseStatus = !this.pauseStatus;
+        }
+    };
+
+    var search = YmtApi.utils.getUrlObj(),
+        accessToken = search.AccessToken,
+        deviceId = search.DeviceId || search.DeviceToken || '0000000';
+
+    var lottery = function(cb, clickType) {
+            jsonpGetData('http://jsapi.pk.ymatou.com/api/RedRain/WinRedRain?DeviceId=' + deviceId + '&AccessToken=' + accessToken + '&ClickType=' + clickType, {
+                success: function(data) {
+                    if (data) {
+                        cb && cb(data);
+                    }
+                }
+            });
+        },
+        renderDialog = function(data) {
+            var html = [];
+            if (data.ResultType === 1) {
+                html.push('<h3>哈尼，你已经中过奖了</h3>');
+                html.push('<div><button class="btn comfirm-btn J-close-dialog">知道啦</button></div>');
+            } else if (data.ResultType === 3) {
+                if (data.CurrentResult) {
+                    winType = data.CurrentResult.WinningType;
+                    if (winType == 0) {
+                        html.push('<h3>我脚踏七彩跟斗云先来告诉你个好消息<br/>您中了一个神秘现金礼包（全球货币哦）<br/>洋码头会在2月14日按照您的默认收货地址陆续发快递哦~<br/>默认地址的请去：我-设置-我的收货地址 更改</h3>');
+                        html.push('<div><button class="btn J-close-dialog J-packet-share">欢天喜地去分享</button></div>');
+                    } else if (winType == 1) {
+                        html.push('<h3>恭喜你抽中了6元优惠券</h3>');
+                        html.push('<div><button class="btn J-close-dialog J-packet-share">欢天喜地去分享</button></div>');
+                    } else if (winType == 2) {
+                        html.push('<h3>恭喜你抽中了10元优惠券</h3>');
+                        html.push('<div><button class="btn J-close-dialog J-packet-share">欢天喜地去分享</button></div>');
+                    } else if (winType == 3) {
+                        html.push('<h3>恭喜你抽中了16元优惠券</h3>');
+                        html.push('<div><button class="btn J-close-dialog J-packet-share">欢天喜地去分享</button></div>');
+                    } else if (winType == 4) {
+                        html.push('<h3>恭喜你抽中了20元优惠券</h3>');
+                        html.push('<div><button class="btn J-close-dialog J-packet-share">欢天喜地去分享</button></div>');
+                    } else if (winType == 5) {
+                        html.push('<h3>恭喜你抽中了26元优惠券</h3>');
+                        html.push('<div><button class="btn J-close-dialog J-packet-share">欢天喜地去分享</button></div>');
+                    }
+                }
+            } else {
+                html.push('<h3>武林高手<br/>竟然躲过了所有的红包袭击<br>一个都没有拿到</h3>');
+                html.push('<div><button class="btn comfirm-btn J-close-dialog">知道啦</button></div>');
+            }
+            $('.packet-dialog').addClass('show').find('.packet-dialog-bd').html(html.join(''));
+        };
+
+    var isRain = function () {
+        jsonpGetData('http://jsapi.pk.ymatou.com/api/RedRain/GetRedRainStatus', {
+            success: function(data) {
+                data.IsStart = true;
+                if (data && data.IsStart) {
+                    jsonpGetData('http://jsapi.pk.ymatou.com/api/RedRain/IsCanRain?DeviceId=' + deviceId + '&AccessToken=' + accessToken, {
+                        success: function(data) {
+                            data.IsCanRain = true;
+                            if (data && data.IsCanRain) {
+                                $('#packet-mask').addClass('show');
+                            }
+                        }
+                    })
+                }
+            }
+        })
+    }
+
+    isRain();
 
     lazyLoad.init({
         offset: 100,
@@ -285,11 +488,6 @@
                 var moduleName = $this.attr('data-module'),
                     args = ($this.attr('data-arguments') || '').split(',');
 
-                // (window['_dc_'] || function () {})('exec', 'load_more_fn', {
-                //     module_name: 'activity_4864_capp',
-                //     sub_module_name: $this.attr('data-sub-module-name')
-                // });
-                //
                 console.log(module)
 
                 moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);

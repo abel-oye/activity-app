@@ -173,7 +173,7 @@
 
     var $msPro = $('.bf-seckill-item');
     var nowTime = new Date().getTime();
-    
+
     while(msTime[0] && msProducts.length > 1){
         if (msTime[0] && msProducts[0]) {
             if (nowTime - msTime[0] > 0) {
@@ -196,7 +196,7 @@
                 msTime.shift();
             }
         }
-    }  
+    }
 
 
     //倒计时
@@ -220,9 +220,9 @@
                 hasLottery();
             }
             $('#count-down-wrap').hide();
-           
+
         }
-       
+
     }
 
     getRTime();
@@ -608,7 +608,7 @@
          *   speed 速度
          *   battleRow 并行的子弹行数
          *   distance 距离
-         *   battleCell 
+         *   battleCell
          */
         function Battlefield(opts) {
             this.opts = opts;
@@ -634,7 +634,7 @@
                 // }
                 //
                 var loopNum = 1;
-                that.battleNum = 1; 
+                that.battleNum = 1;
                 this.winNum = [6,7,8,9,10][getRandom(5)];
                 var down = function(){
                     if(that.stopState){
@@ -642,8 +642,8 @@
                     }
                     that.battleNum = that.battleNum > len ? 1 : that.battleNum;
                     that.shot();
-                    setTimeout(down,6E2);   
-                }    
+                    setTimeout(down,6E2);
+                }
 
                 var countdownTime = 15;
                 var countdown = function(){
@@ -659,14 +659,14 @@
                         })
                         return;
                     }
-                    
+
                     setTimeout(countdown,1000);
-                }     
-                
+                }
+
                 down();
-                countdown();   
+                countdown();
                 //this.flight();
-                
+
                 this.bind();
 
             },
@@ -768,7 +768,7 @@
                     }*/
 
 
-                    /*else if(left < $(window).width()/opts.battleCell 
+                    /*else if(left < $(window).width()/opts.battleCell
                         && that.rowMap[dataBulletrow] < opts.battleCell){
                         that.runBattles--;
                         that.shot(dataBulletrow);
@@ -823,7 +823,7 @@
             }else{
                 $('.packet').addClass('show');
             }
-            
+
         }
 
         $(document).on('click','.J-close-dialog',function(){

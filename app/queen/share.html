@@ -11,19 +11,55 @@
     <script data-js-path="redraw.js">
      !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
     </script>
-    <!-- build:css /styles/queen/wap.css-->
-    <link rel="stylesheet" type="text/css" href="/styles/queen/wap.css">
+    <!-- build:css /styles/queen/share.css-->
+    <link rel="stylesheet" type="text/css" href="/styles/queen/share.css">
     <!-- endbuild-->
 </head>
 
 <body>
 
-    <div class="wap-page">
-        <div class="wap-title">
-            <span class="avatar"></span>
-            <span class="wish">伦家就是好想要这个~~</span>
+    <div class="share-page">
+        <div class="banner">
+            <div class="wave-line">
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+            </div>
         </div>
-
+        <div class="care-hd">
+            <div class="baby"></div>
+            <div class="title">
+                <span class="main">宝宝的期待的温暖</span>
+            </div>
+            <a class="rule" href="#rule">活动规则</a>
+        </div>
         <div class="care-wrap">
             <div class="pro-wrap">
                 <div class="pro-img"></div>
@@ -34,24 +70,13 @@
             </div>
             <div class="care-hd">
                 <div class="hd-dashed">
-                    <div class="main-title">已收到1111个拥抱</div>
+                    <div class="main-title">宝宝委屈，但宝宝不说</div>
                 </div>
             </div>
             <div class="sub-title">“集齐10个拥抱就有机会赢取免单”</div>
-            <div class="care-list">
-                <div class="care-item">
-                    <span class="avatar"></span>
-                    <div class="info">
-                        <div class="name">帅气的小刺猬</div>
-                        <div class="time">2016-01-01 00:00:00</div>
-                    </div>
-                    <span class="care">拥抱了你</span>
-                </div>
-            </div>
-
+            <div class="care-person"></div>
         </div>
-
-        <div class="rule-wrapper">
+        <div class="rule-wrapper" id="rule" name="#rule">
             <h5 class="title">活动说明</h5>
             <ul>
                 <li>1. 活动期间（2.7-2.14）转发分享集齐10位以上的好友拥抱，就有机会获得最高2016元的返现红包，共抽取16位幸运哈尼。</li>
@@ -61,14 +86,6 @@
                 <li>5. 2月16日洋管家将通过站内信联系中奖用户。</li>
             </ul>
         </div>
-
-        <div class="wap-free">
-            <div class="free-line">
-                <div class="free-text">我也要免单</div>
-            </div>
-        </div>
-
-        <div class="wap-ft"></div>
     </div>
 
     <!--洋管家-->
