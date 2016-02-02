@@ -18,6 +18,31 @@
 
 <body>
 
+    <script type="text/template" id="wish-list-tpl">
+        {% for(var i = 0, len = WishList.length; i < len; i++){ %}
+        <li class="pro-wrap" data-keyword={%= WishList[i].Keyword %}>
+            <div class="pro-img img-hold js-open-search" onclick=";" lazy-load-background="{%= WishList[i].ProductPicUrl %}"></div>
+            <div class="pro-info">
+                <span class="pro-name js-open-search" onclick=";">{%= WishList[i].ProductName %}</span>
+                {% if (WishList[i].IsAdd == true && WishList[i].LikeCount > 0) { %}
+                <span class="like-collect">已收到{%= WishList[i].LikeCount %}个拥抱</span>
+                {% } %}
+                {% if (WishList[i].IsAdd == true && WishList[i].LikeCount == 0) { %}
+                <span class="like-collect">还没有人点赞哦</span>
+                {% } %}
+                {% if (WishList[i].IsAdd == false) { %}
+                <span class="like-collect"></span>
+                {% } %}
+                {% if (WishList[i].IsAdd == true) { %}
+                <div class="btn js-beg-care" onclick=";" data-wishProductId={%= WishList[i].WishProductId %}>去看看</div>
+                {% }else{ %}
+                <div class="btn js-beg-care" onclick=";" data-wishProductId={%= WishList[i].WishProductId %}>求拥抱</div>
+                {% } %}
+            </div>
+        </li>
+        {% } %}
+    </script>
+
     <div class="queen-page">
         <div class="banner">
             <div class="wave-line">
@@ -62,24 +87,7 @@
                 </div>
                 <a class="rule" href="#rule">活动规则</a>
             </div>
-            <ul class="pro-list">
-                <li class="pro-wrap">
-                    <div class="pro-img"></div>
-                    <div class="pro-info">
-                        <span class="pro-name">商品名称商品名称商品名称商品名称商品名称商品名称商品名称</span>
-                        <span class="like-collect">已收到11个拥抱</span>
-                        <div class="btn">去看看</div>
-                    </div>
-                </li>
-                <li class="pro-wrap">
-                    <div class="pro-img"></div>
-                    <div class="pro-info">
-                        <span class="pro-name">商品名称商品名称商品名称商品名称商品名称商品名称商品名称</span>
-                        <span class="like-collect"></span>
-                        <div class="btn">求拥抱</div>
-                    </div>
-                </li>
-            </ul>
+            <ul class="pro-list" id="wish-list"></ul>
         </div>
         <div class="rule-wrapper" id="rule" name="#rule">
             <h5 class="title">活动说明</h5>
@@ -101,9 +109,8 @@
     <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/fastclick.js"></script>
     <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/imgLazyLoad.js?v=4"></script>
     <script type="text/javascript" src="http://static.jyh.ymatou.com/commons/js/ymtapi.2015110601.js?wxAutoInit=1"></script>
-    <!-- build:js /scripts/spring_festival/share.js -->
-    <script src="/scripts/commons/common.js"></script>
-    <script src="/scripts/spring_festival/share.js"></script>
+    <!-- build:js /scripts/queen/index.js -->
+    <script src="/scripts/queen/index.js"></script>
     <!-- endbuild -->
 </body>
 </html>

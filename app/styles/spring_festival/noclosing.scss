@@ -16,8 +16,8 @@
 @import'../assets/common.scss';
 @import'../black_five/_proList.scss';
 @import'../assets/_global_good.scss';
-$imgPath:'/images/spring_festival/';
-// $imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
+// $imgPath:'/images/spring_festival/';
+$imgPath:'http://staticontent.ymatou.com/images/activity/spring_festival/';
 $rem: 1rem/32;
 .ios-bartools {
     height: $rem*150;
@@ -361,7 +361,7 @@ $rem: 1rem/32;
 // 店铺
 @for $i from 1 through 3 {
     .seller-list-title0#{$i} {
-        background-image: url(#{$imgPath}nc_shop_title0#{$i}.jpg);
+        background-image: url(#{$imgPath}nc_shop_title#{$i}.jpg);
     }
 }
 
@@ -369,9 +369,13 @@ $rem: 1rem/32;
     padding-bottom: $rem*20;
     background-color: #f53a00;
     .seller-list-hd {
-        height: $rem*93;
+        height: $rem*90;
         @extend .bg__full;
         background-size: cover;
+        color: #fdf9bd;
+        font-size: $rem*50;
+        font-weight: 700;
+        text-align: center;
     }
     .seller-list-bd {
         background-color: #d6d6d6;
@@ -701,6 +705,11 @@ $rem: 1rem/32;
     &-bd{
         h3{
             font-size:$rem*28;
+            font-weight: bold;
+            color:#e22c50;
+        }
+        h4 {
+            font-size:$rem*24;
             font-weight: bold;
             color:#e22c50;
         }

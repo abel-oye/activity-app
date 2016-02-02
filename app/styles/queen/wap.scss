@@ -14,12 +14,16 @@
 @import'../assets/ymt_components.scss';
 @import'../assets/common.scss';
 
-$imgPath:'/images/queen/';
-// $imgPath:'http://staticontent.ymatou.com/images/activity/queen/';
+// $imgPath:'/images/queen/';
+$imgPath:'http://staticontent.ymatou.com/images/activity/queen/';
 $rem: 1rem/32;
 
 .wap-page {
     background-color: #f23047;
+}
+
+#wish-detail {
+    padding-bottom: $rem*50;
 }
 
 .wap-title {
@@ -32,7 +36,6 @@ $rem: 1rem/32;
         width: $rem*150;
         height: $rem*150;
         border-radius: 50%;
-        background: white;
         @extend .bg__full;
     }
     .wish {
@@ -72,7 +75,7 @@ $rem: 1rem/32;
         height: $rem*200;
         border-radius: $rem*10;
         float: left;
-        background: white;
+        @extend .bg__full;
     }
 
     .pro-info {
@@ -94,7 +97,7 @@ $rem: 1rem/32;
             color: #fff152;
         }
 
-        .btn {
+        .share-btn {
             width: $rem*174;
             height: $rem*40;
             line-height: $rem*40;
@@ -106,6 +109,12 @@ $rem: 1rem/32;
             text-align: center;
             border-radius: 2rem/3rem;
             box-shadow: 0 3px 0 3px #ff9c00;
+
+            &.has-care {
+                background-color: #C7C6B9;
+                box-shadow: none;
+                color: #000;
+            }
         }
     }
 
@@ -153,8 +162,8 @@ $rem: 1rem/32;
             width: $rem*80;
             height: $rem*80;
             border-radius: 50%;
-            background: white;
             vertical-align: bottom;
+            @extend .bg__full;
         }
 
         .info {
@@ -202,7 +211,7 @@ $rem: 1rem/32;
 
 .rule-wrapper {
     width: $rem*650;
-    margin: $rem*50 auto;
+    margin: 0 auto;
     color: #fff152;
     background-color: #d80b45;
     padding: 0 $rem*20 $rem*30;
@@ -239,6 +248,21 @@ $rem: 1rem/32;
         color: #fff152;
         padding: 0 $rem*25;
         background-color: #f23047;
+    }
+
+    .download {
+        display: block;
+        font-size: $rem*36;
+        font-weight: bold;
+        color: #c70545;
+        background-color: #fff152;
+        width: $rem*282;
+        height: $rem*70;
+        line-height: $rem*70;
+        margin: $rem*50 auto 0;
+        text-align: center;
+        border-radius: $rem*10;
+        box-shadow: 0 6px 0 0 #ff9c00;
     }
 }
 

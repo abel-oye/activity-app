@@ -27,23 +27,21 @@
     /**
      * 显示日志
      */
-    var toastStatus = true;
+    // var toastStatus = true;
     var showLog = function(msg, callback) {
-        if (toastStatus) {
-            toastStatus = false;
-            var errElm = $('.ymtui-toast');
-            if (!errElm[0]) {
-                errElm = $('<div class="ymtui-toast"></div>')
-                    .appendTo('body');
-            }
-            errElm.html(msg).addClass('show');
-
-            setTimeout(function() {
-                errElm.removeClass('show');
-                toastStatus = true;
-                callback && callback();
-            }, 2400);
+        // toastStatus = false;
+        var errElm = $('.ymtui-toast');
+        if (!errElm[0]) {
+            errElm = $('<div class="ymtui-toast"></div>')
+                .appendTo('body');
         }
+        errElm.html(msg).addClass('show');
+
+        setTimeout(function() {
+            errElm.removeClass('show');
+            // toastStatus = true;
+            callback && callback();
+        }, 2400);
     };
 
     /**
@@ -54,14 +52,6 @@
      * @return {[type]}            [description]
      */
     var jsonpGetData = function(url, callback, callbackName) {
-        /*if(fnName){
-            if(!(typeof window[fnName] === 'function')){
-                window[fnName] = function(data){
-                    callback && callback(data);
-                    delete window[fnName];
-                }
-            }
-        }*/
         var cbFn = {};
 
         if (typeof callback === 'function') {
@@ -73,6 +63,8 @@
         }
 
         cbFn.error = cbFn.error || function(res) {
+            var idx = res.Msg.indexOf(':');
+            if (idx !== -1)  res.Msg = res.Msg.slice(idx + 1);
             showLog(res.Msg);
         }
 
@@ -96,23 +88,55 @@
         });
     };
 
+    /**
+     * 数字转汉字
+     * 只支持0到5
+     */
+    var numToChinese = function(num) {
+        switch (num) {
+            case 0:
+                return '零';
+                break;
+            case 1:
+                return '一';
+                break;
+            case 2:
+                return '二';
+                break;
+            case 3:
+                return '三';
+                break;
+            case 4:
+                return '四';
+                break;
+            case 5:
+                return '五';
+                break;
+        }
+    }
+
     var module = {
         //砍价团
         groupList: function() {
             jsonpGetData('http://jsapi.tuan.ymatou.com/api/Tuan/GetGroupTuanList', {
                 success: function(data, code) {
-                    if (data && data.TuanList) {
+                    if (data && data.TuanList[0]) {
+                        for (var i = 0, len = data.TuanList.length; i < len; i++) {
+                            data.TuanList[i].GroupMemberCount = numToChinese(data.TuanList[i].GroupMemberCount);
+                        }
                         var html = ejs.render($('#group-tpl').html(), data);
                         $('#bf_01 .bf-area-bd').html(html);
 
                         new Swiper('#bf_01 .bf-area-bd', {
                             pagination: '.bf-group-pagination',
                             loop: true,
-                            // autoplay: 3000,
+                            autoplay: 3000,
                             onSlideChangeEnd: function() {
                                 lazyLoad.check();
                             }
                         });
+                    } else {
+                        $('.bf-group').hide();
                     }
                 }
             })
@@ -142,33 +166,76 @@
         sellerList: function() {
             jsonpGetData('http://jsapi.bf.ymatou.com/api/Spring/GetNewYearActivity', {
                 success: function(data) {
-                    if (data && data.PagePartList) {
-                        var tpl1 = $('#seller-item-tpl1').html();
-                        var tpl2 = $('#seller-item-tpl2').html();
-                        for (var i = 0, len = data.PagePartList.length; i < len; i++) {
-                            switch (data.PagePartList[i].PagePartName) {
-                                case "店铺满减进行中":
-                                    $('#seller-list-01').html(ejs.render(tpl1, data.PagePartList[0]));
-                                    break;
-
-                                case "店铺优惠券发放中":
-                                    $('#seller-list-02').html(ejs.render(tpl2, data.PagePartList[1]));
-                                    break;
-
-                                case "店铺买就送":
-                                    $('#seller-list-03').html(ejs.render(tpl1, data.PagePartList[2]));
-                                    break;
-                            }
-                        }
-                    } else {
-                        console.log(res.Msg);
+                    if (data && data.PagePartList[0]) {
+                        var html = ejs.render($('#shop-tpl').html(), data);
+                        $('#shop-activity').html(html);
                     }
                 }
             })
         }
     };
 
-    $(document).on('click', '.seller-info-wrap, .seller-intro', function() {
+    //获取是否领取优惠券状态
+    var getCouponStatus = function(couponIds) {
+        jsonpGetData(YmtApi.utils.addParam('http://jsapi.bf.ymatou.com/api/FridayMore/BroughtCouponList', {
+            AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
+            CouponIds: couponIds
+        }), {
+            success: function(data) {
+                if (data.BroughtCouponList && data.BroughtCouponList[0]) {
+                    var couponStatusList = data.BroughtCouponList;
+                    var couponNode = $('[data-couponid]');
+                    for (var i = 0, len = couponNode.length; i < len; i++) {
+                        for (var j = 0, len = couponStatusList.length; j < len; j++) {
+                            if (couponNode.eq(i).attr('data-couponid') == couponStatusList[j].CouponId) {
+                                var couponid = couponNode.eq(i).attr('data-couponid');
+                                // couponNode.eq(i).removeAttr('data-couponid');
+                                couponStatusList[i].HasBrought && couponNode.eq(i).text('已领取');
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    };
+
+    var getCoupon = function(event) {
+        var $target = $(event.target);
+        $target.attr('getstatus', 'false');
+        setTimeout(function() {
+            $target.attr('getstatus', 'true');
+        }, 1000);
+        var authInfo = YmtApi.utils.getAuthInfo();
+        if (authInfo.UserId && authInfo.AccessToken) {
+            var queryString = YmtApi.utils.getUrlObj(),
+                deviceId = queryString.DeviceId || queryString.DeviceToken || '0000000',
+                couponId = $target.attr('data-couponid');
+            jsonpGetData(YmtApi.utils.addParam('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon', {
+                DeviceCode: deviceId,
+                PackageId: couponId,
+                BuyerUserId: authInfo.UserId,
+                AccessToken: authInfo.AccessToken
+            }), {
+                success: function(res) {
+                    $target.attr('getstatus', 'true');
+                    if (res.Data) {
+                        $target.removeClass('get-coupon').text('已领取').addClass('hasget');
+                    }
+                }
+            });
+        } else {
+            YmtApi.toLogin();
+        }
+    };
+
+    var auth = YmtApi.utils.getAuthInfo(),
+        accessToken = auth.AccessToken,
+        deviceId = auth.DeviceId || auth.DeviceToken || '0000000';
+
+    $(document).on('click', '.js-open-live', function(event) {
+        if ($(event.target).hasClass('follow-btn')) {
+            return false;
+        }
         var $sellerItem = $(this).parent('.seller-item');
         var flag = $sellerItem.attr('data-flag'),
             sellerLogo = $sellerItem.attr('data-Logo'),
@@ -210,36 +277,89 @@
         $('.packet-dialog, #packet-mask').removeClass('show');
     }).on('click', '#packet-wrap', function() {
         if (YmtApi.utils.hasLogin()) {
-            $('#packet-wrap').hide();
-            $('#packet-rain').show();
-            var bfield = new Battlefield({
-                container: '#packet-rain',
-                speed: 1,
-                battleRow: 5,
-                maxBattle: 8,
-                distance: 40,
-                battleCell: 2,
-                callback: function(that) {
-                    lottery(function(data) {
-                        that.stopState = true;
-                        that.container.children().remove();
-                        renderDialog(data);
-                    }, that.clickType)
+            //登录之后需要重新获取登录态
+            var auth = YmtApi.utils.getAuthInfo(),
+                accessToken = auth.AccessToken,
+                deviceId = auth.DeviceId || auth.DeviceToken || '0000000';
+            jsonpGetData('http://jsapi.pk.ymatou.com/api/RedRain/IsCanRain?DeviceId=' + deviceId + '&AccessToken=' + accessToken, {
+                success: function(data) {
+                    if (data && data.IsCanRain) {
+                        $('#packet-wrap').hide();
+                        $('#packet-rain').show();
+                        var bfield = new Battlefield({
+                            container: '#packet-rain',
+                            speed: 1,
+                            battleRow: 5,
+                            maxBattle: 8,
+                            distance: 40,
+                            battleCell: 2,
+                            callback: function(that) {
+                                lottery(function(data) {
+                                    // data.ResultType = 3;
+                                    // data.CurrentResult = {WinningType: 0};
+                                    that.stopState = true;
+                                    that.container.children().remove();
+                                    renderDialog(data);
+                                }, that.clickType)
+                            }
+                        });
+                    } else {
+                        $('#packet-mask').hide();
+                    }
                 }
-            });
+            })
         } else {
             YmtApi.toLogin();
         }
 
-    }).on('click','.J-packet-share',function(){
+    }).on('click', '.J-packet-share', function() {
         YmtApi.openShare({
             shareTitle: '没赶上这场红包雨，感觉错过了好几百万',
-            shareUrl: 'http://evt.ymatou.com/activity_4984_mapp?uid='+YmtApi.utils.getAuthInfo().UserId,
-            sharePicUrl: 'http://staticontent.ymatou.com/images/activity/new_year/20151231161642.jpg',
-            shareContent: '洋码头疯了！不来是真疯了！能用红包解决的问题，我们尽量少用言语。',
+            shareUrl: 'http://evt.ymatou.com/activity_18482_mapp?uid=' + YmtApi.utils.getAuthInfo().UserId,
+            sharePicUrl: 'http://staticontent.ymatou.com/images/activity/spring_festival/share_icon.png',
+            shareContent: '疯了！洋码头疯了！一场猛烈的红包雨正在袭击，不来是真疯了！能用红包解决的问题，我们尽量少用言语。',
             showWeiboBtn: 0
         });
-    });
+    }).on('click', '.js-open-group', function() {
+        var topicId = $(this).attr('data-topicId'),
+            tuanId = $(this).attr('data-tuanId');
+        YmtApi.open({
+            url: 'http://tuan.ymatou.com/detail.html?topicId=' + topicId + '&tuanId=' + tuanId,
+            isNew: true
+        })
+    }).on('click', '.js-getcoupon', function(event) {
+        getCoupon(event);
+    }).on('click', '.J-open-C-Product', function() {
+        var url = "",
+            $this = $(this),
+            productId = $this.attr('data-productId'),
+            sellerId = $this.attr('data-sellerId'),
+            logo = $this.attr('data-logo'),
+            seller = $this.attr('data-seller');
+
+        //判断是否扫货app 跳转相应的页面
+        if (YmtApi.isSaohuoApp) {
+            url = YmtApi.utils.addParam('/forBuyerApp/productDetail', {
+                param: JSON.stringify({
+                    SellerModel: {
+                        Logo: logo,
+                        Seller: seller,
+                        SellerId: sellerId
+
+                    },
+                    ProductModel: {
+                        ProductId: productId
+                    }
+                })
+            });
+        } else {
+            url = 'http://sq.ymatou.com/product/' + productId;
+        }
+        YmtApi.open({
+            title: '全球好货',
+            url: url
+        });
+    })
 
     //元宝跳出来之后上下弹跳
     $('.packet-wrap .btn').on('webkitAnimationEnd', function() {
@@ -251,10 +371,8 @@
         return Math.floor(Math.random() * size)
     }
 
-    //选择角度
-    var ROTATE_LIST = [-30, -53.2, -40, -55, -57];
-    //选择货币
-    var currencyList = ['red', 'dollar', 'pound', 'euro', 'krw', 'yen'];
+    //货币种类
+    var currencyList = ['red', 'red', 'red', 'dollar', 'pound', 'euro', 'krw', 'yen'];
 
     /**
      * opts {object}
@@ -285,7 +403,7 @@
 
             // var loopNum = 1;
             that.battleNum = 1;
-            this.winNum = [1, 2, 3, 4, 5][getRandom(5)];
+            this.winNum = [6, 7, 8, 9][getRandom(4)];
             var down = function() {
                 if (that.stopState) {
                     return;
@@ -296,21 +414,21 @@
             }
 
             var countdownTime = 15;
-            var countdown = function(){
-                if(that.stopState || that.stopCountDown){
+            var countdown = function() {
+                if (that.stopState || that.stopCountDown) {
                     return;
                 }
                 --countdownTime;
-                if(!countdownTime){
+                if (!countdownTime) {
                     that.stopState = true;
                     that.container.children().remove();
                     renderDialog({
-                        BCode:101
+                        BCode: 101
                     })
                     return;
                 }
 
-                setTimeout(countdown,1000);
+                setTimeout(countdown, 1000);
             }
 
             down();
@@ -339,10 +457,7 @@
             }
             runBattles = this.runBattles || this.battleNum;
             var that = this,
-                opts = this.opts,
-                getRotate = function() {
-                    return ROTATE_LIST[getRandom(5)]
-                };
+                opts = this.opts;
             //当前小于最大显示数才追加子弹
             if (this.runBattles <= opts.battleRow) {
                 this.runBattles++;
@@ -356,7 +471,7 @@
                 var $next = $('<span class="' + this.currency + '-packet packet" data-bulletrow="' + runBattles + '" data-speed="2" onclick=";"></span>'),
                     speed = 2,
                     left = Math.max((getRandom(5) - 1) * 150, 0);
-                    // left = ((runBattles - 1) * window.innerWidth / 3 + 28 * (window.innerWidth / 375));
+                // left = ((runBattles - 1) * window.innerWidth / 3 + 28 * (window.innerWidth / 375));
 
                 $next.css({
                     top: '150px',
@@ -411,11 +526,12 @@
         }
     };
 
-    var search = YmtApi.utils.getUrlObj(),
-        accessToken = search.AccessToken,
-        deviceId = search.DeviceId || search.DeviceToken || '0000000';
+
 
     var lottery = function(cb, clickType) {
+            var auth = YmtApi.utils.getAuthInfo(),
+                accessToken = auth.AccessToken,
+                deviceId = auth.DeviceId || auth.DeviceToken || '0000000';
             jsonpGetData('http://jsapi.pk.ymatou.com/api/RedRain/WinRedRain?DeviceId=' + deviceId + '&AccessToken=' + accessToken + '&ClickType=' + clickType, {
                 success: function(data) {
                     if (data) {
@@ -427,51 +543,45 @@
         renderDialog = function(data) {
             var html = [];
             if (data.ResultType === 1) {
-                html.push('<h3>哈尼，你已经中过奖了</h3>');
+                html.push('<h3>猴赛雷，你都中过一次啦~<br/>把机会让给其他人吧<br/>（每个用户每个设备只能中一次哦~）</h3>');
                 html.push('<div><button class="btn comfirm-btn J-close-dialog">知道啦</button></div>');
             } else if (data.ResultType === 3) {
                 if (data.CurrentResult) {
                     winType = data.CurrentResult.WinningType;
                     if (winType == 0) {
-                        html.push('<h3>我脚踏七彩跟斗云先来告诉你个好消息<br/>您中了一个神秘现金礼包（全球货币哦）<br/>洋码头会在2月14日按照您的默认收货地址陆续发快递哦~<br/>默认地址的请去：我-设置-我的收货地址 更改</h3>');
-                        html.push('<div><button class="btn J-close-dialog J-packet-share">欢天喜地去分享</button></div>');
+                        html.push('<h3>我脚踏七彩跟斗云先来告诉你个好消息<br/>你中了一个神秘现金礼包<br/>我们会在节后统一安排发货</h3><h4>地址请去：我-设置-我的收货地址</h4>');
+                        html.push('<div><button class="btn J-close-dialog J-packet-share" onclick=";">欢天喜地去分享</button></div>');
                     } else if (winType == 1) {
-                        html.push('<h3>恭喜你抽中了6元优惠券</h3>');
-                        html.push('<div><button class="btn J-close-dialog J-packet-share">欢天喜地去分享</button></div>');
+                        html.push('<h3>我脚踏七彩跟斗云带着优惠券来找你啦！<br/>恭喜你抽中了6元优惠券！</h3>');
+                        html.push('<div><button class="btn J-close-dialog J-packet-share" onclick=";">欢天喜地去分享</button></div>');
                     } else if (winType == 2) {
-                        html.push('<h3>恭喜你抽中了10元优惠券</h3>');
-                        html.push('<div><button class="btn J-close-dialog J-packet-share">欢天喜地去分享</button></div>');
+                        html.push('<h3>我脚踏七彩跟斗云带着优惠券来找你啦！<br/>恭喜你抽中了10元优惠券！</h3>');
+                        html.push('<div><button class="btn J-close-dialog J-packet-share" onclick=";">欢天喜地去分享</button></div>');
                     } else if (winType == 3) {
-                        html.push('<h3>恭喜你抽中了16元优惠券</h3>');
-                        html.push('<div><button class="btn J-close-dialog J-packet-share">欢天喜地去分享</button></div>');
+                        html.push('<h3>我脚踏七彩跟斗云带着优惠券来找你啦！<br/>恭喜你抽中了16元优惠券！</h3>');
+                        html.push('<div><button class="btn J-close-dialog J-packet-share" onclick=";">欢天喜地去分享</button></div>');
                     } else if (winType == 4) {
-                        html.push('<h3>恭喜你抽中了20元优惠券</h3>');
-                        html.push('<div><button class="btn J-close-dialog J-packet-share">欢天喜地去分享</button></div>');
+                        html.push('<h3>我脚踏七彩跟斗云带着优惠券来找你啦！<br/>恭喜你抽中了20元优惠券！</h3>');
+                        html.push('<div><button class="btn J-close-dialog J-packet-share" onclick=";">欢天喜地去分享</button></div>');
                     } else if (winType == 5) {
-                        html.push('<h3>恭喜你抽中了26元优惠券</h3>');
-                        html.push('<div><button class="btn J-close-dialog J-packet-share">欢天喜地去分享</button></div>');
+                        html.push('<h3>我脚踏七彩跟斗云带着优惠券来找你啦！<br/>恭喜你抽中了26元优惠券！</h3>');
+                        html.push('<div><button class="btn J-close-dialog J-packet-share" onclick=";">欢天喜地去分享</button></div>');
                     }
                 }
             } else {
-                html.push('<h3>武林高手<br/>竟然躲过了所有的红包袭击<br>一个都没有拿到</h3>');
-                html.push('<div><button class="btn comfirm-btn J-close-dialog">知道啦</button></div>');
+                html.push('<h3>宝宝太可怜了<br/>什么都没抢到~~（>.<)~~</h3>');
+                html.push('<div><button class="btn comfirm-btn J-close-dialog" onclick=";">知道啦</button></div>');
             }
             $('.packet-dialog').addClass('show').find('.packet-dialog-bd').html(html.join(''));
         };
 
-    var isRain = function () {
+    var isRain = function() {
         jsonpGetData('http://jsapi.pk.ymatou.com/api/RedRain/GetRedRainStatus', {
             success: function(data) {
-                data.IsStart = true;
+                // data.IsStart = false;
                 if (data && data.IsStart) {
-                    jsonpGetData('http://jsapi.pk.ymatou.com/api/RedRain/IsCanRain?DeviceId=' + deviceId + '&AccessToken=' + accessToken, {
-                        success: function(data) {
-                            data.IsCanRain = true;
-                            if (data && data.IsCanRain) {
-                                $('#packet-mask').addClass('show');
-                            }
-                        }
-                    })
+                    $('#packet-mask').addClass('show');
+
                 }
             }
         })

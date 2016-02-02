@@ -12,7 +12,7 @@
      !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
     </script>
     <!-- build:css /styles/spring_festival/noclosing.css-->
-    <link rel="stylesheet" type="text/css" href="/styles/spring_festival/noclosing.css?v=4">
+    <link rel="stylesheet" type="text/css" href="/styles/spring_festival/noclosing.css">
     <!-- endbuild-->
 </head>
 
@@ -28,16 +28,17 @@
     <!--砍价团-->
     <script id="group-tpl" type="text/template">
      <div class="bf-group-list swiper-wrapper">
-            {% for(var i=0,len=TuanList.length;i<len;i++){ %}
-            <div class="bf-group-item swiper-slide">
+            {% for(var i=0,len=Math.min(TuanList.length, 10);i<len;i++){ %}
+            {% if (TuanList[i].Status !== 2 && TuanList[i].Status !== 3){ %}
+            <div class="bf-group-item swiper-slide js-open-group" onclick=";" data-topicId={%= TuanList[i].TopicId %} data-tuanId={%= TuanList[i].TuanId %}>
                 <div class="item-info">
                     <div class="country">
                         <img class="flag" src="{%= TuanList[i].SellerFlag %}" />
                         <span class="name">{%= TuanList[i].SellerCountryName %}</span>
                     </div>
-                    <div class="pro-name">{%= TuanList[i].ProductName %}沙发上发生的发生</div>
+                    <div class="pro-name">{%= TuanList[i].ProductName %}</div>
                     <div class="group-price">
-                        <span class="circle"><span class="text">四</span></span>
+                        <span class="circle"><span class="text">{%= TuanList[i].GroupMemberCount %}</span></span>
                         <span class="circle"><span class="text">人</span></span>
                         <span class="circle"><span class="text">成</span></span>
                         <span class="circle"><span class="text">团</span></span>
@@ -54,10 +55,13 @@
                 <div class="item-pic img-hold" lazy-load-background="{%= TuanList[i].ProductPicUrl %}"></div>
             </div>
             {% } %}
+            {% } %}
      </div>
     <div class="bf-group-pagination">
         {% for(var i=0,len=TuanList.length;i<len;i++){ %}
+            {% if (TuanList[i].Status !== 2 && TuanList[i].Status !== 3){ %}
             <span class="swiper-pagination-bullet "></span>
+            {% } %}
         {% } %}
      </div>
     </script>
@@ -66,7 +70,7 @@
     <script id="seckill-tpl" type="text/template">
         <div class="bf-seckill-list swiper-wrapper ">
           {% for (var i = 0, len = SecSkillProductList.length; i < len; i++){ %}
-          <div class="bf-seckill-item swiper-slide J-open-C-Product" data-productId={%= SecSkillProductList[i].ProductId %} data-sellerId={%= SecSkillProductList[i].SellerId %} data-logo={%= SecSkillProductList[i].SellerLogo %} data-seller={%= SecSkillProductList[i].Seller %}>
+          <div class="bf-seckill-item swiper-slide J-open-C-Product" onclick=";" data-productId={%= SecSkillProductList[i].ProductId %} data-sellerId={%= SecSkillProductList[i].SellerId %} data-logo={%= SecSkillProductList[i].SellerLogo %} data-seller={%= SecSkillProductList[i].Seller %}>
               <div class="item-pic img-hold" lazy-load-background="{%= SecSkillProductList[i].PicUrl %}"></div>
               <div class="item-info">
                   <div class="item-name">{%= SecSkillProductList[i].Name %}</div>
@@ -91,56 +95,37 @@
     </script>
 
 
-    <script id="seller-item-tpl1" type="text/template">
-        {% for(var i = 0, len = BuyerList.length; i < len; i++){ %}
-        <div class="seller-item" data-sellerId={%= BuyerList[i].SellerId %} data-logo={%= BuyerList[i].SellerLogo %} data-seller={%= BuyerList[i].Seller%} data-flag={%= BuyerList[i].Flag %} data-ActivityContent={%= BuyerList[i].ActivityContent %} data-ActivityId={%= BuyerList[i].ActivityId %} data-ActivityName={%= BuyerList[i].ActivityName %} data-ActivityStatusText={%= BuyerList[i].ActivityState %} data-EndTime={%= BuyerList[i].EndTime %} data-ShopAddress={%= BuyerList[i].ShopAddress %} data-StartTime={%= BuyerList[i].StartTime %}>
-            <div class="seller-info-wrap" onclick=";">
-                <img class="seller-avatar" src={%= BuyerList[i].SellerLogo %}>
-                <div class="seller-info">
-                    <div class="seller-name">{%= BuyerList[i].Seller %}</div>
-                    <div class="seller-other">
-                        <img class="country-flag" src="{%= BuyerList[i].Flag %}">
-                        <span class="country-name">{%= BuyerList[i].Country %}</span>
-                        <span class="fans">粉丝:{%= BuyerList[i].FollowUserNum %}</span>
+    <!-- 店铺活动 -->
+    <script type="text/template" id="shop-tpl">
+        {% for (var j = 0, len1 = PagePartList.length; j < len1; j++ ){ %}
+        <div class="seller-list-wrap">
+            <div class="seller-list-hd seller-list-title01">{%= PagePartList[j].PagePartName %}</div>
+            <div class="seller-list-bd" id="seller-list-01">
+                {% for(var i = 0, len2 = PagePartList[j].BuyerList.length; i < len2; i++){ %}
+                <div class="seller-item" data-sellerId={%= PagePartList[j].BuyerList[i].SellerId %} data-logo={%= PagePartList[j].BuyerList[i].SellerLogo %} data-seller={%= PagePartList[j].BuyerList[i].Seller%} data-flag={%= PagePartList[j].BuyerList[i].Flag %} data-ActivityContent={%= PagePartList[j].BuyerList[i].ActivityContent %} data-ActivityId={%= PagePartList[j].BuyerList[i].ActivityId %} data-ActivityName={%= PagePartList[j].BuyerList[i].ActivityName %} data-ActivityStatusText={%= PagePartList[j].BuyerList[i].ActivityState %} data-EndTime={%= PagePartList[j].BuyerList[i].EndTime %} data-ShopAddress={%= PagePartList[j].BuyerList[i].ShopAddress %} data-StartTime={%= PagePartList[j].BuyerList[i].StartTime %}>
+                    <div class="seller-info-wrap js-open-live" onclick=";">
+                        <img class="seller-avatar" src={%= PagePartList[j].BuyerList[i].SellerLogo %}>
+                        <div class="seller-info">
+                            <div class="seller-name">{%= PagePartList[j].BuyerList[i].Seller %}</div>
+                            <div class="seller-other">
+                                <img class="country-flag" src="{%= PagePartList[j].BuyerList[i].Flag %}">
+                                <span class="country-name">{%= PagePartList[j].BuyerList[i].Country %}</span>
+                                <span class="fans">粉丝:{%= PagePartList[j].BuyerList[i].FollowUserNum %}</span>
+                            </div>
+                            {% if (PagePartList[j].PagePartName == '店铺优惠券发放中'){ %}
+                            <div class="follow-btn js-getcoupon" data-couponid={%= PagePartList[j].BuyerList[i].CouponId %} onclick=";">领取优惠券</div>
+                            {% } %}
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="seller-intro" onclick=";">{%= BuyerList[i].ActivityInfo %}</div>
-            <div class="seller-goods-list">
-                {% for (var j = 0, len1=Math.min(BuyerList[i].ProductList.length, 3); j < len1; j++) { %}
-                <div class="goods-item-wrap">
-                    <div class="goods-item  img-hold J-open-C-Product" lazy-load-background="{%= BuyerList[i].ProductList[j].PicUrl %}" data-productId={%= BuyerList[i].ProductList[j].ProductId %} data-sellerId={%= BuyerList[i].SellerId %} data-logo={%= BuyerList[i].SellerLogo %} data-seller={%= BuyerList[i].Seller%}>
-                        <span class="price">&yen;&nbsp;{%-: BuyerList[i].ProductList[j].Price | pirceRegion %}</span>
-                    </div>
-                </div>
-                {% } %}
-            </div>
-        </div>
-        {% } %}
-    </script>
-
-    <!-- 领取优惠券 -->
-    <script id="seller-item-tpl2" type="text/template">
-        {% for(var i = 0, len = BuyerList.length; i < len; i++){ %}
-        <div class="seller-item" data-sellerId={%= BuyerList[i].SellerId %} data-logo={%= BuyerList[i].SellerLogo %} data-seller={%= BuyerList[i].Seller%} data-flag={%= BuyerList[i].Flag %} data-ActivityContent={%= BuyerList[i].ActivityContent %} data-ActivityId={%= BuyerList[i].ActivityId %} data-ActivityName={%= BuyerList[i].ActivityName %} data-ActivityStatusText={%= BuyerList[i].ActivityState %} data-EndTime={%= BuyerList[i].EndTime %} data-ShopAddress={%= BuyerList[i].ShopAddress %} data-StartTime={%= BuyerList[i].StartTime %}>
-            <div class="seller-info-wrap" onclick=";">
-                <img class="seller-avatar" src={%= BuyerList[i].SellerLogo %}>
-                <div class="seller-info">
-                    <div class="seller-name">{%= BuyerList[i].Seller %}</div>
-                    <div class="seller-other">
-                        <img class="country-flag" src="{%= BuyerList[i].Flag %}">
-                        <span class="country-name">{%= BuyerList[i].Country %}</span>
-                        <span class="fans">粉丝:{%= BuyerList[i].FollowUserNum %}</span>
-                    </div>
-                    <div class="follow-btn">领取优惠券</div>
-                </div>
-            </div>
-            <div class="seller-intro" onclick=";">{%= BuyerList[i].ActivityInfo %}</div>
-            <div class="seller-goods-list">
-                {% for (var j = 0, len1=Math.min(BuyerList[i].ProductList.length, 3); j < len1; j++) { %}
-                <div class="goods-item-wrap">
-                    <div class="goods-item  img-hold J-open-C-Product" lazy-load-background="{%= BuyerList[i].ProductList[j].PicUrl %}" data-productId={%= BuyerList[i].ProductList[j].ProductId %} data-sellerId={%= BuyerList[i].SellerId %} data-logo={%= BuyerList[i].SellerLogo %} data-seller={%= BuyerList[i].Seller%}>
-                        <span class="price">&yen;&nbsp;{%-: BuyerList[i].ProductList[j].Price | pirceRegion %}</span>
+                    <div class="seller-intro js-open-live" onclick=";">{%= PagePartList[j].BuyerList[i].ActivityInfo %}</div>
+                    <div class="seller-goods-list">
+                        {% for (var k = 0, len3=Math.min(PagePartList[j].BuyerList[i].ProductList.length, 3); k < len3; k++) { %}
+                        <div class="goods-item-wrap">
+                            <div class="goods-item img-hold J-open-C-Product" onclick=";" lazy-load-background="{%= PagePartList[j].BuyerList[i].ProductList[k].PicUrl %}" data-productId={%= PagePartList[j].BuyerList[i].ProductList[k].ProductId %} data-sellerId={%= PagePartList[j].BuyerList[i].SellerId %} data-logo={%= PagePartList[j].BuyerList[i].SellerLogo %} data-seller={%= PagePartList[j].BuyerList[i].Seller%}>
+                                <span class="price">&yen;&nbsp;{%-: PagePartList[j].BuyerList[i].ProductList[k].Price | pirceRegion %}</span>
+                            </div>
+                        </div>
+                        {% } %}
                     </div>
                 </div>
                 {% } %}
@@ -159,7 +144,7 @@
         <div class="bf-group" id="bf_01" sub_module_name="kanjiatuan">
           <div class="bf-area-hd J-open"></div>
           <div class="bf-area-bd">
-            <div class="J-module-Hold" data-module="groupList" data-sub-module-name="kanjia"
+            <div class="J-module-Hold" data-module="groupList"
                       lazy-load-background="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="></div>
           </div>
         </div>
@@ -173,23 +158,7 @@
               </div>
         </div>
 
-        <!-- 店铺满减进行中 -->
-        <div class="seller-list-wrap">
-            <div class="seller-list-hd seller-list-title01"></div>
-            <div class="seller-list-bd" id="seller-list-01"></div>
-        </div>
-
-        <!-- 店铺优惠券发放中 -->
-        <div class="seller-list-wrap">
-            <div class="seller-list-hd seller-list-title02"></div>
-            <div class="seller-list-bd" id="seller-list-02"></div>
-        </div>
-
-        <!-- 店铺买就送 -->
-        <div class="seller-list-wrap">
-            <div class="seller-list-hd seller-list-title03"></div>
-            <div class="seller-list-bd" id="seller-list-03"></div>
-        </div>
+        <div class="shop-activity" id="shop-activity"></div>
 
     </div>
 
@@ -199,7 +168,7 @@
             <div class="packet-cover"></div>
             <div class="packet-bd">
                 <h1 class="title">我是猴子派来发红包的<br/>手快有，手慢无哦</h1>
-                <div class="btn jumpout">REDAY<br/>GO</div>
+                <div class="btn jumpout">READY<br/>GO</div>
                 <div class="monkey"></div>
             </div>
         </div>
@@ -235,8 +204,7 @@
     <script type="text/javascript" src="http://static.jyh.ymatou.com/commons/js/ymtapi.2015110601.js?wxAutoInit=1"></script>
 
     <!-- build:js /scripts/spring_festival/noclosing.js -->
-    <script src="/scripts/commons/common.js"></script>
-    <script src="/scripts/spring_festival/noclosing.js?v=26"></script>
+    <script src="/scripts/spring_festival/noclosing.js"></script>
     <!-- endbuild -->
 </body>
 

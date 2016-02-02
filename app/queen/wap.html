@@ -18,38 +18,54 @@
 
 <body>
 
-    <div class="wap-page">
+    <script type="text/template" id="wishDetail-tpl">
         <div class="wap-title">
-            <span class="avatar"></span>
+            <span class="avatar" style="background-image: url({%= WishDetail.LogoUrl %})"></span>
             <span class="wish">伦家就是好想要这个~~</span>
         </div>
-
         <div class="care-wrap">
             <div class="pro-wrap">
-                <div class="pro-img"></div>
+                <div class="pro-img img-hold" lazy-load-background="{%= WishDetail.ProductPicUrl %}"></div>
                 <div class="pro-info">
-                    <span class="pro-name">商品名称商品名称商品名称商品名称商品名称商品名称商品名称</span>
-                    <div class="watch-btn btn">凑热闹</div>
+                    <span class="pro-name">{%= WishDetail.ProductName %}</span>
+                    {% if (!WishDetail.HasLiked){ %}
+                    <div class="share-btn js-share" onclick=";">抱抱她</div>
+                    {% }else{ %}
+                    <div class="share-btn has-care">已关爱</div>
+                    {% } %}
                 </div>
             </div>
             <div class="care-hd">
                 <div class="hd-dashed">
-                    <div class="main-title">已收到1111个拥抱</div>
+                    {% if (WishDetail.LikesList){ %}
+                    <div class="main-title">已收到{%= WishDetail.LikesList.length %}个拥抱</div>
+                    {% }else{ %}
+                    <div class="main-title">宝宝委屈，但宝宝不说</div>
+                    {% } %}
                 </div>
             </div>
             <div class="sub-title">“集齐10个拥抱就有机会赢取免单”</div>
             <div class="care-list">
+                {% if (WishDetail.LikesList){ %}
+                {% for(var i = 0, len = WishDetail.LikesList.length; i < len; i++){ %}
                 <div class="care-item">
-                    <span class="avatar"></span>
+                    <span class="avatar" lazy-load-background="{%= WishDetail.LikesList[i].LogoUrl %}"></span>
                     <div class="info">
-                        <div class="name">帅气的小刺猬</div>
-                        <div class="time">2016-01-01 00:00:00</div>
+                        <div class="name">{%= WishDetail.LikesList[i].UserName %}</div>
+                        <div class="time">{%= WishDetail.LikesList[i].CreateDate %}</div>
                     </div>
                     <span class="care">拥抱了你</span>
                 </div>
+                {% } %}
+                {% }else{ %}
+                <div class="sad-face"></div>
+                {% } %}
             </div>
-
         </div>
+    </script>
+
+    <div class="wap-page">
+        <div id="wish-detail"></div>
 
         <div class="rule-wrapper">
             <h5 class="title">活动说明</h5>
@@ -66,6 +82,7 @@
             <div class="free-line">
                 <div class="free-text">我也要免单</div>
             </div>
+            <a class="download" href="http://download.app.ymatou.com/index.aspx?from=inapp25">下载洋码头APP</a>
         </div>
 
         <div class="wap-ft"></div>
@@ -74,14 +91,13 @@
     <!--洋管家-->
     <div class="ymt-butler bg__full" onclick=";"></div>
 
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?006"></script>
     <script type="text/javascript" src="http://static.pk.ymatou.com/scripts/zepto,ejs-aee82b3102.js?v=1"></script>
-    <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/swiper.3.1.2.js"></script>
     <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/fastclick.js"></script>
     <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/imgLazyLoad.js?v=4"></script>
     <script type="text/javascript" src="http://static.jyh.ymatou.com/commons/js/ymtapi.2015110601.js?wxAutoInit=1"></script>
-    <!-- build:js /scripts/spring_festival/share.js -->
-    <script src="/scripts/commons/common.js"></script>
-    <script src="/scripts/spring_festival/share.js"></script>
+    <!-- build:js /scripts/queen/wap.js -->
+    <script src="/scripts/queen/wap.js"></script>
     <!-- endbuild -->
 </body>
 </html>
