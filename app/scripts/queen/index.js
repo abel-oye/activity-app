@@ -63,7 +63,7 @@ $(function() {
         if (YmtApi.utils.hasLogin()) {
             var wishProductId = $(this).attr('data-wishProductId');
             YmtApi.open({
-                url: 'http://evt.ymatou.com/activity_18488_mapp?wishProductId=' + wishProductId,
+                url: 'http://evt.ymatou.com/activity_5131_mapp?wishProductId=' + wishProductId,
                 isNew: true
             });
         } else {

@@ -65,9 +65,9 @@ $(function() {
     var addWish = function (accessToken, wishProductId) {
         Utils.reqJsonp('http://jsapi.pk.ymatou.com/api/Wish/AddWish', function (res) {
             if (res.Code == 200) {
-                YmtApi.openShare({
+                window.YmtApi.openShare({
                     shareTitle: 'Go！Go！Dance Go!',
-                    shareUrl: 'http://evt.ymatou.com/activity_18489_mapp?wishId=' + res.Data.WishId,
+                    shareUrl: 'http://evt.ymatou.com/activity_5132_mapp?wishId=' + res.Data.WishId,
                     sharePicUrl: 'http://staticontent.ymatou.com/images/activity/queen/wish_icon.jpg',
                     shareContent: 'Dance Go!别难过，活动期间洋码头每天抽取10位用户获得价值2016元的免单机会，让你在这个特殊的日子，不在寂寞，不在空虚，不再冷！',
                     showWeiboBtn: 0

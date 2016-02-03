@@ -113,7 +113,9 @@
                 return '五';
                 break;
         }
-    }
+    };
+
+
 
     var module = {
         //砍价团
@@ -169,10 +171,26 @@
                     if (data && data.PagePartList[0]) {
                         var html = ejs.render($('#shop-tpl').html(), data);
                         $('#shop-activity').html(html);
+                        var couponIds = [];
+                        var elem = $('[data-couponid]');
+                        for (var i = 0, len = elem.length; i < len; i++) {
+                            couponIds.push(elem.eq(i).attr('data-couponid'));
+                        }
+                        getCouponStatus(couponIds);
                     }
                 }
             })
         }
+    };
+
+    //获得随机数据
+    var getRandom = function(size) {
+        return Math.floor(Math.random() * size)
+    };
+
+    //生成一个7位随机的deviceId
+    var getDeviceId = function () {
+        return (Math.floor(Math.random() * (9999999 - 1000000) + 1000000)).toString();
     };
 
     //获取是否领取优惠券状态
@@ -199,6 +217,10 @@
         })
     };
 
+    var auth = YmtApi.utils.getAuthInfo(),
+        accessToken = auth.AccessToken,
+        deviceId = auth.DeviceId || auth.DeviceToken || getDeviceId();
+
     var getCoupon = function(event) {
         var $target = $(event.target);
         $target.attr('getstatus', 'false');
@@ -207,9 +229,9 @@
         }, 1000);
         var authInfo = YmtApi.utils.getAuthInfo();
         if (authInfo.UserId && authInfo.AccessToken) {
-            var queryString = YmtApi.utils.getUrlObj(),
-                deviceId = queryString.DeviceId || queryString.DeviceToken || '0000000',
-                couponId = $target.attr('data-couponid');
+            // var queryString = YmtApi.utils.getUrlObj(),
+            //     deviceId = queryString.DeviceId || queryString.DeviceToken || getDeviceId(),
+            var couponId = $target.attr('data-couponid');
             jsonpGetData(YmtApi.utils.addParam('http://ja.m.ymatou.com/api/Coupon/UserBatchReceiveCoupon', {
                 DeviceCode: deviceId,
                 PackageId: couponId,
@@ -227,10 +249,6 @@
             YmtApi.toLogin();
         }
     };
-
-    var auth = YmtApi.utils.getAuthInfo(),
-        accessToken = auth.AccessToken,
-        deviceId = auth.DeviceId || auth.DeviceToken || '0000000';
 
     $(document).on('click', '.js-open-live', function(event) {
         if ($(event.target).hasClass('follow-btn')) {
@@ -280,23 +298,21 @@
             //登录之后需要重新获取登录态
             var auth = YmtApi.utils.getAuthInfo(),
                 accessToken = auth.AccessToken,
-                deviceId = auth.DeviceId || auth.DeviceToken || '0000000';
+                deviceId = auth.DeviceId || auth.DeviceToken || getDeviceId();
             jsonpGetData('http://jsapi.pk.ymatou.com/api/RedRain/IsCanRain?DeviceId=' + deviceId + '&AccessToken=' + accessToken, {
                 success: function(data) {
+                    // data.IsCanRain = true;
                     if (data && data.IsCanRain) {
                         $('#packet-wrap').hide();
                         $('#packet-rain').show();
                         var bfield = new Battlefield({
                             container: '#packet-rain',
                             speed: 1,
-                            battleRow: 5,
-                            maxBattle: 8,
+                            battleRow: 8,
                             distance: 40,
                             battleCell: 2,
                             callback: function(that) {
                                 lottery(function(data) {
-                                    // data.ResultType = 3;
-                                    // data.CurrentResult = {WinningType: 0};
                                     that.stopState = true;
                                     that.container.children().remove();
                                     renderDialog(data);
@@ -315,7 +331,7 @@
     }).on('click', '.J-packet-share', function() {
         YmtApi.openShare({
             shareTitle: '没赶上这场红包雨，感觉错过了好几百万',
-            shareUrl: 'http://evt.ymatou.com/activity_18482_mapp?uid=' + YmtApi.utils.getAuthInfo().UserId,
+            shareUrl: 'http://evt.ymatou.com/activity_5133_mapp?uid=' + YmtApi.utils.getAuthInfo().UserId,
             sharePicUrl: 'http://staticontent.ymatou.com/images/activity/spring_festival/share_icon.png',
             shareContent: '疯了！洋码头疯了！一场猛烈的红包雨正在袭击，不来是真疯了！能用红包解决的问题，我们尽量少用言语。',
             showWeiboBtn: 0
@@ -366,10 +382,7 @@
         $(this).removeClass('jumpout').addClass('bounce');
     })
 
-    //获得随机数据
-    var getRandom = function(size) {
-        return Math.floor(Math.random() * size)
-    }
+
 
     //货币种类
     var currencyList = ['red', 'red', 'red', 'dollar', 'pound', 'euro', 'krw', 'yen'];
@@ -408,7 +421,7 @@
                 if (that.stopState) {
                     return;
                 }
-                // that.battleNum = that.battleNum > len ? 1 : that.battleNum;
+                that.battleNum = that.battleNum > opts.battleRow ? 1 : that.battleNum;
                 that.shot();
                 setTimeout(down, 6E2);
             }
@@ -423,7 +436,7 @@
                     that.stopState = true;
                     that.container.children().remove();
                     renderDialog({
-                        BCode: 101
+                        ResultType: 4
                     })
                     return;
                 }
@@ -447,31 +460,29 @@
                 }
             });
         },
-        /**
-         * 装弹
-         *
-         */
+        // 装弹
         shot: function(runBattles) {
             if (this.stopState) {
                 return;
             }
-            runBattles = this.runBattles || this.battleNum;
+            // runBattles = this.runBattles || this.battleNum;
+            this.runBattles = this.battleNum;
             var that = this,
                 opts = this.opts;
             //当前小于最大显示数才追加子弹
             if (this.runBattles <= opts.battleRow) {
-                this.runBattles++;
+                // this.runBattles++;
 
+                // runBattles = runBattles || this.runBattles;
 
-                runBattles = runBattles || this.runBattles;
-
-                this.rowMap[runBattles] = Math.min(this.rowMap[runBattles] + 1 || 1, opts.battleCell);
+                // this.rowMap[runBattles] = Math.min(this.rowMap[runBattles] + 1 || 1, opts.battleCell);
 
                 this.currency = currencyList[getRandom(6)];
                 var $next = $('<span class="' + this.currency + '-packet packet" data-bulletrow="' + runBattles + '" data-speed="2" onclick=";"></span>'),
                     speed = 2,
-                    left = Math.max((getRandom(5) - 1) * 150, 0);
-                // left = ((runBattles - 1) * window.innerWidth / 3 + 28 * (window.innerWidth / 375));
+                    left = Math.max((getRandom(5) - 1) * 140, 0);
+
+                console.log(left);
 
                 $next.css({
                     top: '150px',
@@ -482,12 +493,11 @@
                 }).on('webkitTransitionEnd transitionend', function() {
                     var $this = $(this);
                     $this.remove();
-                    that.runBattles--;
+                    // that.runBattles--;
                 });
 
                 this.flight();
 
-                //opts.bulletList.push(next);
                 this.container.append($next);
 
                 this.battleNum++;
@@ -531,7 +541,7 @@
     var lottery = function(cb, clickType) {
             var auth = YmtApi.utils.getAuthInfo(),
                 accessToken = auth.AccessToken,
-                deviceId = auth.DeviceId || auth.DeviceToken || '0000000';
+                deviceId = auth.DeviceId || auth.DeviceToken || getDeviceId();
             jsonpGetData('http://jsapi.pk.ymatou.com/api/RedRain/WinRedRain?DeviceId=' + deviceId + '&AccessToken=' + accessToken + '&ClickType=' + clickType, {
                 success: function(data) {
                     if (data) {
@@ -578,7 +588,7 @@
     var isRain = function() {
         jsonpGetData('http://jsapi.pk.ymatou.com/api/RedRain/GetRedRainStatus', {
             success: function(data) {
-                // data.IsStart = false;
+                // data.IsStart = true;
                 if (data && data.IsStart) {
                     $('#packet-mask').addClass('show');
 

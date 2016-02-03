@@ -36,38 +36,58 @@ $(function() {
         }
     });
 
+
+
     var search = YmtApi.utils.getUrlObj(),
-        wishId = search.wishId,
-        unionId = search.unionId || '';
+        wishId = search.wishId;
 
     //微信获取心愿详情
-    var wishDetail = function (wishId, unionId) {
-        Utils.reqJsonp('http://jsapi.pk.ymatou.com/api/Wish/GetWishDetailByWX', function(res) {
-            if (res.Data && res.Data.WishDetail) {
-                var tpl = $('#wishDetail-tpl').html();
-                var html = ejs.render(tpl, res.Data);
-                $('#wish-detail').html(html);
-            }
-        }, {
-            wishId: wishId,
-            unionId: unionId
-        });
+    var wishDetail = function (wishId) {
+        if (search.unionId) {
+            Utils.reqJsonp('http://jsapi.pk.ymatou.com/api/Wish/GetWishDetailByWX', function(res) {
+                if (res.Data && res.Data.WishDetail) {
+                    var tpl = $('#wishDetail-tpl').html();
+                    var html = ejs.render(tpl, res.Data);
+                    $('#wish-detail').html(html);
+                }
+            }, {
+                wishId: wishId,
+                unionId: search.unionId
+            });
+        } else {
+            var redirectUrl = encodeURIComponent(window.location.href),
+                callbackUrl = encodeURIComponent('http://jsapi.pk.ymatou.com/api/Wish/GetWishDetailByWX?wishId=' + wishId);
+            window.location.href = 'http://login.ymatou.com/AuthorizeAndGetWeChatCodeForGetUnionId?redirectUrl=' + redirectUrl + '&callBackUrl=' + callbackUrl ;
+        }
     }
 
     //微信加入心愿单
     var addWish = function () {
-        var redirectUrl = encodeURIComponent(window.location.href),
+        /*var redirectUrl = encodeURIComponent(window.location.href),
             callbackUrl = encodeURIComponent('http://jsapi.pk.ymatou.com/api/Wish/AddLikes?wishId=' + wishId);
-        window.location.href = 'http://login.ymatou.com/AuthorizeAndGetWeChatCodeForGetUnionId?redirectUrl=' + redirectUrl + '&callBackUrl=' + callbackUrl ;
+        window.location.href = 'http://login.ymatou.com/AuthorizeAndGetWeChatCodeForGetUnionId?redirectUrl=' + redirectUrl + '&callBackUrl=' + callbackUrl ;*/
+        Utils.reqJsonp('http://jsapi.pk.ymatou.com/api/Wish/AddLikes', function (res) {
+            if (res.Data && res.Data.HasSuccess) {
+                $('.share-btn').text('已关爱').removeClass('js-share').addClass('has-care')
+            }
+        }, {
+            wishId: wishId,
+            logoUrl: logoUrl,
+            nickName: nickName,
+            unionId: unionId
+        })
     }
 
     $(document).on('click', '.js-share', function() {
-        if (!$(this).hasClass('has-care')) {
-            addWish();
-            $(this).addClass('has-care');
-        }
+        var search = YmtApi.utils.getUrlObj(),
+            wishId = search.wishId;
+            logoUrl = search.logoUrl,
+            nickName = search.nickName,
+            unionId = search.unionId;
+        addWish();
+        window.location.reload();
     });
 
-    wishDetail(wishId, unionId);
     lazyLoad.init();
+    wishDetail(wishId);
 });

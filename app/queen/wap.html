@@ -51,7 +51,7 @@
                 <div class="care-item">
                     <span class="avatar" lazy-load-background="{%= WishDetail.LikesList[i].LogoUrl %}"></span>
                     <div class="info">
-                        <div class="name">{%= WishDetail.LikesList[i].UserName %}</div>
+                        <div class="name">{%= decodeURIComponent(WishDetail.LikesList[i].UserName) %}</div>
                         <div class="time">{%= WishDetail.LikesList[i].CreateDate %}</div>
                     </div>
                     <span class="care">拥抱了你</span>
