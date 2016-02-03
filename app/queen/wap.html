@@ -49,9 +49,13 @@
                 {% if (WishDetail.LikesList){ %}
                 {% for(var i = 0, len = WishDetail.LikesList.length; i < len; i++){ %}
                 <div class="care-item">
+                    {% if (WishDetail.LikesList[i].LogoUrl){ %}
                     <span class="avatar" lazy-load-background="{%= WishDetail.LikesList[i].LogoUrl %}"></span>
+                    {% }else{ %}
+                    <span class="avatar" lazy-load-background="http://staticontent.ymatou.com/images/activity/queen/logoPic.jpg"></span>
+                    {% } %}
                     <div class="info">
-                        <div class="name">{%= decodeURIComponent(WishDetail.LikesList[i].UserName) %}</div>
+                        <div class="name">{%= WishDetail.LikesList[i].UserName %}</div>
                         <div class="time">{%= WishDetail.LikesList[i].CreateDate %}</div>
                     </div>
                     <span class="care">拥抱了你</span>
@@ -95,7 +99,7 @@
     <script type="text/javascript" src="http://static.pk.ymatou.com/scripts/zepto,ejs-aee82b3102.js?v=1"></script>
     <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/fastclick.js"></script>
     <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/imgLazyLoad.js?v=4"></script>
-    <script type="text/javascript" src="http://static.jyh.ymatou.com/commons/js/ymtapi.2015110601.js?wxAutoInit=1"></script>
+    <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
     <!-- build:js /scripts/queen/wap.js -->
     <script src="/scripts/queen/wap.js"></script>
     <!-- endbuild -->

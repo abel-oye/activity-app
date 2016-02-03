@@ -48,9 +48,14 @@ $(function() {
         wishProductId = search.wishProductId;
 
     //获取心愿详情
-    var wishDetail = function (accessToken, wishProductId) {
+    var wishDetail = function(accessToken, wishProductId) {
         Utils.reqJsonp('http://jsapi.pk.ymatou.com/api/Wish/GetWishDetail', function(res) {
             if (res.Data && res.Data.WishDetail) {
+                if (res.Data.WishDetail.LikesList) {
+                    for (var i = 0, len = res.Data.WishDetail.LikesList.length; i < len; i++) {
+                        res.Data.WishDetail.LikesList[i].UserName = decodeURIComponent(res.Data.WishDetail.LikesList[i].UserName);
+                    }
+                }
                 var tpl = $('#wishDetail-tpl').html();
                 var html = ejs.render(tpl, res.Data);
                 $('#wish-detail').html(html);
@@ -62,10 +67,11 @@ $(function() {
     }
 
     //加入心愿单
-    var addWish = function (accessToken, wishProductId) {
-        Utils.reqJsonp('http://jsapi.pk.ymatou.com/api/Wish/AddWish', function (res) {
+    var addWish = function(accessToken, wishProductId) {
+        Utils.reqJsonp('http://jsapi.pk.ymatou.com/api/Wish/AddWish', function(res) {
             if (res.Code == 200) {
-                window.YmtApi.openShare({
+                // alert(5)
+                YmtApi.openShare({
                     shareTitle: 'Go！Go！Dance Go!',
                     shareUrl: 'http://evt.ymatou.com/activity_5132_mapp?wishId=' + res.Data.WishId,
                     sharePicUrl: 'http://staticontent.ymatou.com/images/activity/queen/wish_icon.jpg',

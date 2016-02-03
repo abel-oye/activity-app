@@ -190,31 +190,37 @@
 
     //生成一个7位随机的deviceId
     var getDeviceId = function () {
-        return (Math.floor(Math.random() * (9999999 - 1000000) + 1000000)).toString();
+        function S4() {
+              return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+           }
+           return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
     };
 
     //获取是否领取优惠券状态
     var getCouponStatus = function(couponIds) {
-        jsonpGetData(YmtApi.utils.addParam('http://jsapi.bf.ymatou.com/api/FridayMore/BroughtCouponList', {
-            AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
-            CouponIds: couponIds
-        }), {
-            success: function(data) {
-                if (data.BroughtCouponList && data.BroughtCouponList[0]) {
-                    var couponStatusList = data.BroughtCouponList;
-                    var couponNode = $('[data-couponid]');
-                    for (var i = 0, len = couponNode.length; i < len; i++) {
-                        for (var j = 0, len = couponStatusList.length; j < len; j++) {
-                            if (couponNode.eq(i).attr('data-couponid') == couponStatusList[j].CouponId) {
-                                var couponid = couponNode.eq(i).attr('data-couponid');
-                                // couponNode.eq(i).removeAttr('data-couponid');
-                                couponStatusList[i].HasBrought && couponNode.eq(i).text('已领取');
+        if (YmtApi.utils.getAuthInfo().AccessToken && YmtApi.utils.getAuthInfo().AccessToken !== 'nil') {
+            jsonpGetData(YmtApi.utils.addParam('http://jsapi.bf.ymatou.com/api/FridayMore/BroughtCouponList', {
+                AccessToken: YmtApi.utils.getAuthInfo().AccessToken,
+                CouponIds: couponIds
+            }), {
+                success: function(data) {
+                    if (data.BroughtCouponList && data.BroughtCouponList[0]) {
+                        var couponStatusList = data.BroughtCouponList;
+                        var couponNode = $('[data-couponid]');
+                        for (var i = 0, len = couponNode.length; i < len; i++) {
+                            for (var j = 0, len = couponStatusList.length; j < len; j++) {
+                                if (couponNode.eq(i).attr('data-couponid') == couponStatusList[j].CouponId) {
+                                    var couponid = couponNode.eq(i).attr('data-couponid');
+                                    // couponNode.eq(i).removeAttr('data-couponid');
+                                    couponStatusList[i].HasBrought && couponNode.eq(i).text('已领取');
+                                }
                             }
                         }
                     }
                 }
-            }
-        })
+            })
+        }
+
     };
 
     var auth = YmtApi.utils.getAuthInfo(),
@@ -480,12 +486,15 @@
                 this.currency = currencyList[getRandom(6)];
                 var $next = $('<span class="' + this.currency + '-packet packet" data-bulletrow="' + runBattles + '" data-speed="2" onclick=";"></span>'),
                     speed = 2,
-                    left = Math.max((getRandom(5) - 1) * 140, 0);
+                    fontSize = parseInt(document.documentElement.style.fontSize),
+                    width = window.innerWidth,
+                    // left = Math.max((getRandom(4)) * 140, 0)/fontSize;
+                    left = [0, width/4, width/2, width/4*3][getRandom(4)];
 
-                console.log(left);
+                console.log(window.devicePixelRatio + ',' + window.innerWidth + ',' + left*fontSize);
 
                 $next.css({
-                    top: '150px',
+                    top: 1/32*277 + 'rem',
                     left: left + 'px',
                     transition: 'transform ' + speed + 's linear',
                     '-moz-transition': '-moz-transform ' + speed + 's linear',
@@ -607,8 +616,6 @@
             if ($this.hasClass('J-module-Hold')) {
                 var moduleName = $this.attr('data-module'),
                     args = ($this.attr('data-arguments') || '').split(',');
-
-                console.log(module)
 
                 moduleName && isFuntion(module[moduleName]) && module[moduleName].apply(module, args);
                 $this.removeClass('J-module-Hold').addClass('module-load-end');
