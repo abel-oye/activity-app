@@ -69,9 +69,7 @@ _gulp2['default'].task('html', ['styles'], function () {
         searchPath: ['.tmp', 'app', '.']
     });
 
-    return _gulp2['default'].src(['app/{,*/}*.html', '!app/{' + excludeFile + '}/*.html']).pipe(assets).pipe($.rev()).pipe($['if']('*.js', $.uglify())).pipe($['if']('*.css', $.minifyCss({
-        compatibility: '*'
-    }))).pipe(assets.restore()).pipe($.useref()).pipe($.revReplace()).pipe($['if']('*.html', $.minifyHtml({
+    return _gulp2['default'].src(['app/{,*/}*.html', '!app/{' + excludeFile + '}/*.html']).pipe(assets).pipe($.rev()).pipe(assets.restore()).pipe($.useref()).pipe($.revReplace()).pipe($['if']('*.html', $.minifyHtml({
         conditionals: true,
         loose: true
     }))).pipe(_gulp2['default'].dest('dist'));
