@@ -1,0 +1,274 @@
+@charset'UTF-8';
+
+/**
+ * 女王大人驾到
+ * @Author zhangzongzheng
+ * @email zhangzongzheng@ymatou.com
+ * @Date 2016/01/23
+ */
+
+@import'../_components/variables.scss';
+@import'../_components/_mixin.scss';
+@import'../_components/reset.scss';
+@import'../assets/ymtUI.scss';
+@import'../assets/ymt_components.scss';
+@import'../assets/common.scss';
+
+// $imgPath:'/images/queen/';
+$imgPath:'http://staticontent.ymatou.com/images/activity/queen/';
+$rem: 1rem/32;
+
+.wap-page {
+    background-color: #f23047;
+}
+
+#wish-detail {
+    padding-bottom: $rem*50;
+}
+
+.wap-title {
+    padding: $rem*40 $rem*50;
+    position: relative;
+    @extend .bg__full;
+    @include clearfix();
+    .avatar {
+        float: left;
+        width: $rem*150;
+        height: $rem*150;
+        border-radius: 50%;
+        @extend .bg__full;
+    }
+    .wish {
+        float: left;
+        width: $rem*466;
+        height: $rem*137;
+        margin-left: $rem*30;
+        padding: $rem*35 0 0 $rem*45;
+        background-image: url(#{$imgPath}wish_bg.png);
+        @extend .bg__full;
+        font-size: $rem*34;
+        color: #c80e45;
+        // position: absolute;
+        // left: $rem*250;
+        // top: $rem*90;
+    }
+
+}
+
+.care-wrap {
+    width: $rem*696;
+    margin: auto;
+    padding: $rem*30 $rem*30 0;
+    border-bottom: 0;
+    border-radius: $rem*20;
+    box-shadow: 0 2px 2px 0 #f75f6a;
+    background-color: #d80b45;
+    position: relative;
+
+    .pro-wrap {
+        margin-bottom: $rem*60;
+        @include clearfix();
+    }
+
+    .pro-img {
+        width: $rem*200;
+        height: $rem*200;
+        border-radius: $rem*10;
+        float: left;
+        @extend .bg__full;
+    }
+
+    .pro-info {
+        width: 100%;
+        padding-left: $rem*220;
+
+        .pro-name {
+            font-size: $rem*28;
+            color: #fff;
+            height: $rem*78;
+            margin-bottom: $rem*30;
+            @include textOverFlow(2);
+        }
+
+        .like-collect {
+            display: block;
+            height: $rem*30;
+            font-size: $rem*22;
+            color: #fff152;
+        }
+
+        .share-btn {
+            width: $rem*174;
+            height: $rem*40;
+            line-height: $rem*40;
+            margin-top: $rem*70;
+            font-size: $rem*28;
+            font-weight: 900;
+            color: #c70545;
+            background-color: #fff152;
+            text-align: center;
+            border-radius: 2rem/3rem;
+            box-shadow: 0 3px 0 3px #ff9c00;
+
+            &.has-care {
+                background-color: #C7C6B9;
+                box-shadow: none;
+                color: #000;
+            }
+        }
+    }
+
+    .care-hd {
+        width: $rem*616;
+        height: $rem*40;
+        margin: $rem*20 auto 0;
+        text-align: center;
+        .hd-dashed {
+            width: 100%;
+            height: $rem*20;
+            border-bottom: 1px dashed #000;
+            .main-title {
+                display: inline-block;
+                height: $rem*40;
+                transform: translateY(-25%);
+                padding: 0 $rem*24;
+                color: #fff;
+                font-size: $rem*28;
+                background-color: #d80b45;
+            }
+            .sub-title {
+                font-size: $rem*20;
+                color: #fff152;
+            }
+        }
+    }
+
+    .sub-title {
+        font-size: $rem*20;
+        color: #fff152;
+        text-align: center;
+    }
+
+    .care-item {
+        position: relative;
+        padding-bottom: $rem*14;
+        margin-top: $rem*14;
+        border-bottom: 1px solid #a9033a;
+        &:last-child {
+            border: 0;
+        }
+        .avatar {
+            display: inline-block;
+            width: $rem*80;
+            height: $rem*80;
+            border-radius: 50%;
+            vertical-align: bottom;
+            @extend .bg__full;
+        }
+
+        .info {
+            display: inline-block;
+            .name {
+                font-size: $rem*24;
+                color: #fff;
+            }
+            .time {
+                font-size: $rem*20;
+                color: #fff;
+            }
+        }
+
+        .care {
+            font-size: $rem*24;
+            color: #fff;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+
+    .care-info-wrap {
+        background-color: #dc4ca4;
+        padding: $rem*30 $rem*42 $rem*38;
+        position: absolute;
+        bottom: 0;
+        left: -$rem*8;
+        width: $rem*696;
+        border-bottom-left-radius: 2rem 2rem;
+        border-bottom-right-radius: 2rem 2rem;
+
+        .care-intro {
+            font-size: $rem*24;
+            color: #fff;
+            @include textOverFlow(3);
+            strong {
+                font-weight: bold;
+            }
+        }
+    }
+
+}
+
+.rule-wrapper {
+    width: $rem*650;
+    margin: 0 auto;
+    color: #fff152;
+    background-color: #d80b45;
+    padding: 0 $rem*20 $rem*30;
+    border-radius: $rem*20;
+    box-shadow: 0 2px 2px 0 #f75f6a;
+
+    h5 {
+        font-size: $rem*28;
+        text-align: center;
+        padding: $rem*26 0;
+    }
+
+    ul {
+        font-size: $rem*24;
+    }
+}
+
+
+.wap-free {
+    width: $rem*690;
+    height: $rem*50;
+    margin: $rem*35 auto 0;
+    text-align: center;
+    position: relative;
+
+    .free-line {
+        height: $rem*25;
+        border-bottom: 1px solid #fff152;
+    }
+
+    .free-text {
+        display: inline-block;
+        font-size: $rem*36;
+        color: #fff152;
+        padding: 0 $rem*25;
+        background-color: #f23047;
+    }
+
+    .download {
+        display: block;
+        font-size: $rem*36;
+        font-weight: bold;
+        color: #c70545;
+        background-color: #fff152;
+        width: $rem*282;
+        height: $rem*70;
+        line-height: $rem*70;
+        margin: $rem*50 auto 0;
+        text-align: center;
+        border-radius: $rem*10;
+        box-shadow: 0 6px 0 0 #ff9c00;
+    }
+}
+
+.wap-ft {
+    height: $rem*234;
+    margin-top: $rem*110;
+    background-image: url(#{$imgPath}wap_ft_bg.jpg);
+    @extend .bg__full;
+}

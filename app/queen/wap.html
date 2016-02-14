@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticontent.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
+    <script data-js-path="redraw.js">
+     !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
+    </script>
+    <!-- build:css /styles/queen/wap.css-->
+    <link rel="stylesheet" type="text/css" href="/styles/queen/wap.css">
+    <!-- endbuild-->
+</head>
+
+<body>
+
+    <script type="text/template" id="wishDetail-tpl">
+        <div class="wap-title">
+            <span class="avatar" style="background-image: url({%= WishDetail.LogoUrl %})"></span>
+            <span class="wish">伦家就是好想要这个~~</span>
+        </div>
+        <div class="care-wrap">
+            <div class="pro-wrap">
+                <div class="pro-img img-hold" lazy-load-background="{%= WishDetail.ProductPicUrl %}"></div>
+                <div class="pro-info">
+                    <span class="pro-name">{%= WishDetail.ProductName %}</span>
+                    {% if (!WishDetail.HasLiked){ %}
+                    <div class="share-btn js-share" onclick=";">抱抱她</div>
+                    {% }else{ %}
+                    <div class="share-btn has-care">已关爱</div>
+                    {% } %}
+                </div>
+            </div>
+            <div class="care-hd">
+                <div class="hd-dashed">
+                    {% if (WishDetail.LikesList){ %}
+                    <div class="main-title">已收到{%= WishDetail.LikesList.length %}个拥抱</div>
+                    {% }else{ %}
+                    <div class="main-title">宝宝委屈，但宝宝不说</div>
+                    {% } %}
+                </div>
+            </div>
+            <div class="sub-title">“集齐10个拥抱就有机会赢取免单”</div>
+            <div class="care-list">
+                {% if (WishDetail.LikesList){ %}
+                {% for(var i = 0, len = WishDetail.LikesList.length; i < len; i++){ %}
+                <div class="care-item">
+                    {% if (WishDetail.LikesList[i].LogoUrl){ %}
+                    <span class="avatar" lazy-load-background="{%= WishDetail.LikesList[i].LogoUrl %}"></span>
+                    {% }else{ %}
+                    <span class="avatar" lazy-load-background="http://staticontent.ymatou.com/images/activity/queen/logoPic.jpg"></span>
+                    {% } %}
+                    <div class="info">
+                        <div class="name">{%= WishDetail.LikesList[i].UserName %}</div>
+                        <div class="time">{%= WishDetail.LikesList[i].CreateDate %}</div>
+                    </div>
+                    <span class="care">拥抱了你</span>
+                </div>
+                {% } %}
+                {% }else{ %}
+                <div class="sad-face"></div>
+                {% } %}
+            </div>
+        </div>
+    </script>
+
+    <div class="wap-page">
+        <div id="wish-detail"></div>
+
+        <div class="rule-wrapper">
+            <h5 class="title">活动说明</h5>
+            <ul>
+                <li>1. 活动期间（2.7-2.14）转发分享集齐10位以上的好友拥抱，就有机会获得最高2016元的返现红包，共抽取16位幸运哈尼。</li>
+                <li>2. 还将在参加分享求拥抱的哈尼中每天抽出5个活动期间内的支付订单，将获得整笔订单免单机会。</li>
+                <li>3. 幸运哈尼以及幸运订单将于2月15日18点随机抽取，幸运订单在抽奖时必须是待收货状态。</li>
+                <li>4. 以上奖品都不可置换现金哦！！</li>
+                <li>5. 2月16日洋管家将通过站内信联系中奖用户。</li>
+            </ul>
+        </div>
+
+        <div class="wap-free">
+            <div class="free-line">
+                <div class="free-text">我也要免单</div>
+            </div>
+            <a class="download" href="http://download.app.ymatou.com/index.aspx?from=inapp25">下载洋码头APP</a>
+        </div>
+
+        <div class="wap-ft"></div>
+    </div>
+
+    <!--洋管家-->
+    <div class="ymt-butler bg__full" onclick=";"></div>
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?006"></script>
+    <script type="text/javascript" src="http://static.pk.ymatou.com/scripts/zepto,ejs-aee82b3102.js?v=1"></script>
+    <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/fastclick.js"></script>
+    <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/imgLazyLoad.js?v=4"></script>
+    <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
+    <!-- build:js /scripts/queen/wap.js -->
+    <script src="/scripts/queen/wap.js"></script>
+    <!-- endbuild -->
+</body>
+</html>

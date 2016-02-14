@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="dns-prefetch" href="//static.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticontent.matouapp.ymatou.com">
+    <link rel="dns-prefetch" href="//staticwap.ymatou.com">
+    <link rel="shortcut icon" type="image/x-icon" href="http://staticontent.ymatou.com/ymtapp/matouapp.ico" />
+    <script data-js-path="redraw.js">
+     !(function(relWinth,relFontSize){var ua=navigator.userAgent,isIos=/iphone|ipad|ipod/i.test(ua),isMobile=/Mobile/i.test(ua);var meta=document.querySelector("[name=viewport]")||(function(){var _meta=document.createElement("meta");_meta.name="viewport"})(),content=meta.content||"",matchScale=content.match(/initial\-scale=([\d\.]+)/),matchWidth=content.match(/width=([\d\.]+)/),dpr=isIos?window.devicePixelRatio?Math.min(window.devicePixelRatio,3):1:1,docEl=document.documentElement,maxWidth=dpr*(docEl.dataset.mw||750),scale=1/dpr,tid;relWinth=relWinth||320;relFontSize=relFontSize||16;if(meta){if(matchScale){content=content.replace(/initial\-scale=([\d\.]+)/,"initial-scale="+scale).replace(/minimum\-scale=([\d\.]+)/,"minimum-scale="+scale).replace(/maximum\-scale=([\d\.]+)/,"maximum-scale="+scale)}else{content+=",initial-scale="+scale}meta.content=content}else{meta=doc.createElement("meta");meta.name="viewport";meta.content=content;docEl.firstElementChild.appendChild(meta)}var redraw=function(){var width=docEl.getBoundingClientRect().width;var fz=Math.min(width,maxWidth)/relWinth*relFontSize;docEl.style.fontSize=fz+"px"};if(isMobile){window.addEventListener("resize",function(){clearTimeout(tid);tid=setTimeout(redraw,300)},false);redraw()}else{docEl.style.fontSize="16px"}})(375,16);
+    </script>
+    <!-- build:css /styles/queen/index.css-->
+    <link rel="stylesheet" type="text/css" href="/styles/queen/index.css">
+    <!-- endbuild-->
+</head>
+
+<body>
+
+    <script type="text/template" id="wish-list-tpl">
+        {% for(var i = 0, len = WishList.length; i < len; i++){ %}
+        <li class="pro-wrap" data-keyword={%= WishList[i].Keyword %}>
+            <div class="pro-img img-hold js-open-search" onclick=";" lazy-load-background="{%= WishList[i].ProductPicUrl %}"></div>
+            <div class="pro-info">
+                <span class="pro-name js-open-search" onclick=";">{%= WishList[i].ProductName %}</span>
+                {% if (WishList[i].IsAdd == true && WishList[i].LikeCount > 0) { %}
+                <span class="like-collect">已收到{%= WishList[i].LikeCount %}个拥抱</span>
+                {% } %}
+                {% if (WishList[i].IsAdd == true && WishList[i].LikeCount == 0) { %}
+                <span class="like-collect">还没收到拥抱呢</span>
+                {% } %}
+                {% if (WishList[i].IsAdd == false) { %}
+                <span class="like-collect"></span>
+                {% } %}
+                {% if (WishList[i].IsAdd == true) { %}
+                <div class="btn js-beg-care" onclick=";" data-wishProductId={%= WishList[i].WishProductId %}>去看看</div>
+                {% }else{ %}
+                <div class="btn js-beg-care" onclick=";" data-wishProductId={%= WishList[i].WishProductId %}>求拥抱</div>
+                {% } %}
+            </div>
+        </li>
+        {% } %}
+    </script>
+
+    <div class="queen-page">
+        <div class="banner">
+            <div class="wave-line">
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+            </div>
+        </div>
+        <div class="pro-list-wrap">
+            <div class="pro-list-title">
+                <div class="baby"></div>
+                <div class="title">
+                    <span class="main">宝宝的期待的温暖</span>
+                    <span class="sub">集齐10个拥抱就有机会赢取免单</span>
+                </div>
+                <a class="rule" href="#rule">活动规则</a>
+            </div>
+            <ul class="pro-list" id="wish-list"></ul>
+        </div>
+        <div class="rule-wrapper" id="rule" name="#rule">
+            <h5 class="title">活动说明</h5>
+            <ul>
+                <li>1. 活动期间（2.7-2.14）转发分享集齐10位以上的好友拥抱，就有机会获得最高2016元的返现红包，共抽取16位幸运哈尼。</li>
+                <li>2. 还将在参加分享求拥抱的哈尼中每天抽出5个活动期间内的支付订单，将获得整笔订单免单机会。</li>
+                <li>3. 幸运哈尼以及幸运订单将于2月15日18点随机抽取，幸运订单在抽奖时必须是待收货状态。</li>
+                <li>4. 以上奖品都不可置换现金哦！！</li>
+                <li>5. 2月16日洋管家将通过站内信联系中奖用户。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!--洋管家-->
+    <div class="ymt-butler bg__full" onclick=";"></div>
+
+    <script type="text/javascript" src="http://static.pk.ymatou.com/scripts/zepto,ejs-aee82b3102.js?v=1"></script>
+    <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/fastclick.js"></script>
+    <script type="text/javascript" src="http://staticontent.ymatou.com/js/black_five/imgLazyLoad.js?v=4"></script>
+    <script type="text/javascript" src="http://static.matouapp.ymatou.com/js/ymtApi.2015101901.js?wxAutoInit=1"></script>
+    <!-- build:js /scripts/queen/index.js -->
+    <script src="/scripts/queen/index.js"></script>
+    <!-- endbuild -->
+</body>
+</html>

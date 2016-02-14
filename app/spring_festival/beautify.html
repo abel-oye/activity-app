@@ -51,7 +51,7 @@
                     <div class="info">
                         <div class="national-wrap">
                             {% if(!Products[i].PackageId){ %}
-                            <span class="national-flag" lazy-load-background="{%=Products[i].CountryFlagUrl%}"></span>日本
+                            <span class="national-flag" lazy-load-background="{%=Products[i].CountryFlagUrl%}"></span>{%=Products[i].CountryName%}
                             {% } %}
                         </div>
                         <div class="price-wrap">

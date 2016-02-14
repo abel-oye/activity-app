@@ -1,0 +1,243 @@
+@charset'UTF-8';
+
+/**
+ * 女王大人驾到
+ * @Author zhangzongzheng
+ * @email zhangzongzheng@ymatou.com
+ * @Date 2016/01/23
+ */
+
+@import'../_components/variables.scss';
+@import'../_components/_mixin.scss';
+@import'../_components/reset.scss';
+@import'../assets/ymtUI.scss';
+@import'../assets/ymt_components.scss';
+@import'../assets/common.scss';
+
+// $imgPath:'/images/queen/';
+$imgPath:'http://staticontent.ymatou.com/images/activity/queen/';
+$rem: 1rem/32;
+
+.share-page {
+    background-color: #f23047;
+    padding-bottom: $rem*125;
+}
+
+.banner {
+    height: $rem*754;
+    background-image: url(#{$imgPath}index_banner.jpg);
+    @extend .bg__full;
+    position: relative;
+    .wave-line {
+        width: 100%;
+        height: $rem*12;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        .circle {
+            display: block;
+            float: left;
+            width: $rem*25;
+            height: $rem*25;
+            border-radius: 50%;
+            background-color: #f23047;
+        }
+    }
+}
+
+.care-hd {
+    width: $rem*650;
+    margin: $rem*30 auto 0;
+    @include clearfix();
+    position: relative;
+    .baby {
+        width: $rem*94;
+        height: $rem*110;
+        float: left;
+        background-image: url(#{$imgPath}rabbit.png);
+        @extend .bg__full;
+    }
+    .title {
+        float: left;
+        .main {
+            display: block;
+            font-size: $rem*44;
+            color: #fff;
+        }
+        .sub {
+            display: block;
+            font-size: $rem*20;
+            color: #fff152;
+        }
+    }
+    .rule {
+        font-size: $rem*28;
+        color: #fff;
+        padding: $rem*2 $rem*15;
+        border: 2px solid #fff;
+        border-radius: 1rem/1rem;
+        position: absolute;
+        right: 0;
+        top: $rem*10;
+        text-align: center;
+    }
+}
+
+.care-wrap {
+    width: $rem*650;
+    margin: auto;
+    padding: $rem*30;
+    border-bottom: 0;
+    border-radius: $rem*20;
+    box-shadow: 0 2px 2px 0 #f75f6a;
+    background-color: #d80b45;
+    position: relative;
+
+    .pro-wrap {
+        margin-bottom: $rem*60;
+
+        @include clearfix();
+    }
+
+    .pro-img {
+        width: $rem*200;
+        height: $rem*200;
+        border-radius: $rem*10;
+        float: left;
+        @extend .bg__full;
+    }
+
+    .pro-info {
+        width: 100%;
+        padding-left: $rem*220;
+
+        .pro-name {
+            font-size: $rem*28;
+            color: #fff;
+            height: $rem*78;
+            margin-bottom: $rem*30;
+            @include textOverFlow(2);
+        }
+
+        .like-collect {
+            display: block;
+            height: $rem*30;
+            font-size: $rem*22;
+            color: #fff152;
+        }
+
+        .share-btn {
+            width: $rem*174;
+            height: $rem*40;
+            line-height: $rem*40;
+            margin-top: $rem*70;
+            font-size: $rem*28;
+            font-weight: 900;
+            color: #c70545;
+            background-color: #fff152;
+            text-align: center;
+            border-radius: 2rem/3rem;
+            box-shadow: 0 3px 0 0 #ff9c00;
+        }
+    }
+
+    .care-hd {
+        width: $rem*616;
+        height: $rem*40;
+        margin: $rem*20 auto 0;
+        text-align: center;
+        .hd-dashed {
+            width: 100%;
+            height: $rem*20;
+            border-bottom: 1px dashed #000;
+            .main-title {
+                display: inline-block;
+                height: $rem*40;
+                transform: translateY(-25%);
+                padding: 0 $rem*24;
+                color: #fff;
+                font-size: $rem*28;
+                background-color: #d80b45;
+            }
+            .sub-title {
+                font-size: $rem*20;
+                color: #fff152;
+            }
+        }
+    }
+
+    .sub-title {
+        font-size: $rem*20;
+        color: #fff152;
+        text-align: center;
+    }
+
+    .care-item {
+        position: relative;
+        padding-bottom: $rem*14;
+        margin-top: $rem*14;
+        border-bottom: 1px solid #a9033a;
+        &:last-child {
+            border: 0;
+        }
+        .avatar {
+            display: inline-block;
+            width: $rem*80;
+            height: $rem*80;
+            border-radius: 50%;
+            vertical-align: bottom;
+            @extend .bg__full;
+        }
+
+        .info {
+            display: inline-block;
+            .name {
+                font-size: $rem*24;
+                color: #fff;
+            }
+            .time {
+                font-size: $rem*20;
+                color: #fff;
+            }
+        }
+
+        .care {
+            font-size: $rem*24;
+            color: #fff;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+
+    .sad-face {
+        width: $rem*240;
+        height: $rem*240;
+        margin: $rem*30 auto 0;
+        background-color: #fa4e63;
+        border-radius: 50%;
+        background-image: url(#{$imgPath}sad_face.png);
+        @extend .bg__full;
+    }
+
+}
+
+.rule-wrapper {
+    width: $rem*650;
+    margin: $rem*50 auto;
+    color: #fff152;
+    background-color: #d80b45;
+    padding: 0 $rem*20 $rem*30;
+    border-radius: $rem*20;
+    box-shadow: 0 2px 2px 0 #f75f6a;
+
+    h5 {
+        font-size: $rem*28;
+        text-align: center;
+        padding: $rem*26 0;
+    }
+
+    ul {
+        font-size: $rem*24;
+    }
+}
